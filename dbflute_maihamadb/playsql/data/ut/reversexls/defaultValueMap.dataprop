@@ -1,0 +1,7 @@
+map:{
+    ; REGISTER_DATETIME = sysdate
+    ; REGISTER_USER     = R:-2,ReplaceSchema
+    ; UPDATE_DATETIME   = sysdate
+    ; UPDATE_USER       = R:-2,ReplaceSchema
+    ; VERSION_NO        = 0
+}

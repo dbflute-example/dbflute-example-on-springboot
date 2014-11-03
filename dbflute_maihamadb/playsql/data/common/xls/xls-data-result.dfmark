@@ -1,0 +1,15 @@
+
+* * * * * * * * * *
+*                 *
+* Xls Data Result *
+*                 *
+* * * * * * * * * *
+data-directory: playsql/data/common/xls
+
+[10-master.xls]
+  MEMBER_STATUS (3)
+  REGION (4)
+  SERVICE_RANK (5)
+  WITHDRAWAL_REASON (4)
+  PRODUCT_CATEGORY (5)
+  PRODUCT_STATUS (3)

@@ -1,0 +1,52 @@
+/*
+ * Copyright 2014-2014 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+package org.docksidestage.springboot.app.application;
+
+import org.dbflute.svflute.web.servlet.filter.RequestLoggingFilter;
+import org.docksidestage.springboot.app.Landmark;
+import org.docksidestage.springboot.dbflute.allcommon.DBFluteBeansJavaConfig;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+/**
+ * @author jflute
+ */
+@Configuration
+@EnableWebMvc
+@EnableAutoConfiguration
+@ComponentScan(basePackageClasses = Landmark.class)
+@Import(DBFluteBeansJavaConfig.class)
+public class ExampleApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ExampleApplication.class, args);
+    }
+
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        RequestLoggingFilter loggingFilter = new RequestLoggingFilter();
+        registrationBean.setFilter(loggingFilter);
+        registrationBean.setOrder(1);
+        return registrationBean;
+    }
+}

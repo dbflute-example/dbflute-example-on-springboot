@@ -1,0 +1,119 @@
+# /---------------------------------------------------------------------------
+# classificationDefinitionMap: (NotRequired - Default map:{})
+#
+# The definition of classification.
+#
+# Specification:
+# map: {
+#     [classification-name] = list:{
+#         ; map:{
+#             ; topComment=[comment]; codeType=[String(default) or Number or Boolean]}
+#             ; undefinedHandlingType=[EXCEPTION or LOGGING(default) or ALLOWED]
+#             ; isUseDocumentOnly=[true or false(default)]
+#             ; isSuppressAutoDeploy=[true or false(default)]
+#             ; groupingMap = map:{
+#                 ; [group-name] = map:{
+#                     ; groupComment=[comment]
+#                     ; elementList=list:{[the list of classification element's name]}
+#                 }
+#             }
+#         }
+#         # classification elements for implicit classification
+#         ; map:{
+#             ; code=[code]; name=[name]; alias=[alias]; comment=[comment]
+#             ; sisterCode=[code or code-list]; subItemMap=map:{[free-map]}
+#         }
+#         # settings for table classification
+#         ; map:{
+#             ; table=[table-name]
+#             ; code=[column-name for code]; name=[column-name for name]
+#             ; alias=[column-name for alias]; comment=[column-name for comment]}
+#             ; where=[condition for select]; orderBy=[column-name for ordering]
+#             ; exceptCodeList=[the list of except code]
+#         }
+#     }
+# }
+#
+# *The line that starts with '#' means comment-out.
+#
+map:{
+    # ====================================================================================
+    #                                                                               Common
+    #                                                                               ======
+    ; Flg = list:{
+        ; map:{topComment=flag, true or false; codeType=Number; undefinedHandlingType=EXCEPTION}
+        ; map:{code=1; name=True ; alias=Yes  ; comment=means valid; sisterCode=true}
+        ; map:{code=0; name=False; alias=No; comment=means invalid; sisterCode=false}
+    }
+
+    # ====================================================================================
+    #                                                                               Member
+    #                                                                               ======
+    ; MemberStatus = list:{
+        ; map:{
+        	; topComment=入会から退会までの会員のステータスを示す ; codeType=String
+        	; groupingMap = map:{
+                ; serviceAvailable = map:{
+                    ; groupComment = members that can use service (loginable)
+                    ; elementList = list:{Formalized;Provisional}
+                }
+                ; shortOfFormalized = map:{
+                    ; groupComment = members not formalized yet
+                    ; elementList = list:{Provisional}
+                }
+        	}
+        }
+        ; map:{
+            ; table=MEMBER_STATUS
+            ; code=MEMBER_STATUS_CODE; name=MEMBER_STATUS_NAME
+            ; comment=DESCRIPTION; orderBy=DISPLAY_ORDER
+        }
+    }
+    ; ServiceRank = list:{
+        ; map:{topComment=会員が受けられるサービスのランクを示す; codeType=Number}
+        ; map:{
+            ; table=SERVICE_RANK
+            ; code=SERVICE_RANK_CODE; name=SERVICE_RANK_NAME
+            ; comment=DESCRIPTION; orderBy=DISPLAY_ORDER
+        }
+    }
+    ; Region = list:{
+        ; map:{topComment=主に会員の住んでいる地域を示す; codeType=Number}
+        ; map:{
+            ; table=REGION
+            ; code=REGION_ID; name=REGION_NAME
+            ; orderBy=REGION_ID
+        }
+    }
+    ; WithdrawalReason = list:{
+        ; map:{topComment=会員の退会理由。なのでちょっとねがてぃぶ; codeType=String}
+        ; map:{
+            ; table=WITHDRAWAL_REASON
+            ; code=WITHDRAWAL_REASON_CODE; name=WITHDRAWAL_REASON_CODE
+            ; comment=WITHDRAWAL_REASON_TEXT; orderBy=DISPLAY_ORDER
+        }
+    }
+
+    # ====================================================================================
+    #                                                                              Product
+    #                                                                              =======
+    ; ProductCategory = list:{
+        ; map:{topComment=商品のカテゴリ。階層構造である; codeType=String}
+        ; map:{
+            ; table=$sql:
+ PRODUCT_CATEGORY loc left outer join PRODUCT_CATEGORY rel on loc.PARENT_CATEGORY_CODE = rel.PRODUCT_CATEGORY_CODE
+            ; code=$sql: loc.PRODUCT_CATEGORY_CODE
+            ; name=$sql: loc.PRODUCT_CATEGORY_NAME
+            ; comment=$sql: concat('of ', rel.PRODUCT_CATEGORY_NAME)
+            ; orderBy=loc.PARENT_CATEGORY_CODE is not null, loc.PARENT_CATEGORY_CODE
+        }
+    }
+    ; ProductStatus = list:{
+        ; map:{topComment=商品ステータス。あんまり面白みのないステータス; codeType=String}
+        ; map:{
+            ; table=PRODUCT_STATUS
+            ; code=PRODUCT_STATUS_CODE; name=PRODUCT_STATUS_NAME
+        }
+    }
+}
+# ----------------/

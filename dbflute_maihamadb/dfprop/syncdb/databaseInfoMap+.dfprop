@@ -1,0 +1,7 @@
+map:{
+    ; url = jdbc:mysql://localhost:3306/maihamasyncdb
+	; schema =
+	# use root user to execute dumped DDL (it might need super privilege)
+    ; user = root
+    ; password = df:dfprop/system-password.txt|
+}

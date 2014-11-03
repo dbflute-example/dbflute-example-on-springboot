@@ -1,0 +1,21 @@
+map:{
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o repsEnvType: (NotRequired - Default inherits or 'ut')
+    #  The environment type of ReplaceSchema.
+    #   e.g. if ut, data files in './playsql/data/ut/...' are loaded
+    #  If DBFlute environment type is specified, inherits it as default.
+    #
+    ; repsEnvType = syncdb
+    # - - - - - - - - - -/
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o playSqlDirectory: (NotRequired - Default 'playsql' relative to DBFlute client)
+    #  This property is relative path to (main) PlaySql directory,
+    #  You should not use this property easily.
+    #
+    ; playSqlDirectory = playsql/syncdb
+    # - - - - - - - - - -/
+
+    # it does not need to arrange in syncdb
+    ; arrangeBeforeRepsMap = map:{}
+}

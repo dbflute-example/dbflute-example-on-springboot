@@ -1,0 +1,129 @@
+map:{
+    # ==========================================================================
+    #                                                                    Maihama
+    #                                                                    =======
+    ; MaihamaEnvGen = map:{
+        ; resourceMap = map:{
+            ; baseDir = ../src/main
+            ; resourceType = PROP
+            ; resourceFile = $$baseDir$$/resources/maihama_env.properties
+        }
+        ; outputMap = map:{
+            ; templateFile = SystemConfig.vm
+            ; outputDirectory = $$baseDir$$/java
+            ; package = org.dbflute.maihama.projectfw.core.direction
+            ; className = MaihamaEnv
+        }
+        ; tableMap = map:{
+            ; exceptKeyList = list:{}
+            ; groupingKeyMap = map:{}
+            ; extendsPropRequest = null
+            ; superClassPackage = org.dbflute.saflute.core.direction
+            ; superClassSimpleName = ObjectiveConfig
+        }
+    }
+    ; MaihamaConfigGen = map:{
+        ; resourceMap = map:{
+            ; baseDir = ../src/main
+            ; resourceType = PROP
+            ; resourceFile = $$baseDir$$/resources/maihama_config.properties
+        }
+        ; outputMap = map:{
+            ; templateFile = SystemConfig.vm
+            ; outputDirectory = $$baseDir$$/java
+            ; package = org.dbflute.maihama.projectfw.core.direction
+            ; className = MaihamaConfig
+        }
+        ; tableMap = map:{
+            ; exceptKeyList = list:{}
+            ; groupingKeyMap = map:{}
+            ; extendsPropRequest = MaihamaEnvGen
+            ; isCheckImplicitOverride = true
+            ; interfacePackage = org.dbflute.maihama.projectfw.core.direction
+            ; interfaceSimpleName = MaihamaEnv
+            ; superClassPackage = org.dbflute.maihama.projectfw.core.direction
+            ; superClassSimpleName = MaihamaEnv.SimpleImpl
+        }
+    }
+    ; MaihamaMessageGen = map:{
+        ; resourceMap = map:{
+            ; baseDir = ../src/main
+            ; resourceType = PROP
+            ; resourceFile = $$baseDir$$/resources/maihama_message_ja.properties
+        }
+        ; outputMap = map:{
+            ; templateFile = UserMessages.vm
+            ; outputDirectory = $$baseDir$$/java
+            ; package = org.dbflute.maihama.projectfw.web.action
+            ; className = MaihamaMessages
+        }
+        ; tableMap = map:{
+            ; groupingKeyMap = map:{ label = prefix:labels. }
+        }
+    }
+
+    # ==========================================================================
+    #                                                                   Dockside
+    #                                                                   ========
+    ; DocksideConfigGen = map:{
+        ; resourceMap = map:{
+            ; baseDir = ../../maihama-dockside/src/main
+            ; resourceType = PROP
+            ; resourceFile = $$baseDir$$/resources/dockside_config.properties
+        }
+        ; outputMap = map:{
+            ; templateFile = SystemConfig.vm	
+            ; outputDirectory = $$baseDir$$/java
+            ; package = org.dbflute.maihama.domainfw.direction
+            ; className = DocksideConfig
+        }
+        ; tableMap = map:{
+            ; exceptKeyList = list:{}
+            ; groupingKeyMap = map:{}
+            ; extendsPropRequest = MaihamaConfigGen
+            ; isCheckImplicitOverride = true
+            ; interfacePackage = org.dbflute.maihama.projectfw.core.direction
+            ; interfaceSimpleName = MaihamaConfig
+            ; superClassPackage = org.dbflute.maihama.projectfw.core.direction
+            ; superClassSimpleName = MaihamaConfig.SimpleImpl
+        }
+    }
+    ; DocksideMessageGen = map:{
+        ; resourceMap = map:{
+            ; baseDir = ../../maihama-dockside/src/main
+            ; resourceType = PROP
+            ; resourceFile = $$baseDir$$/resources/dockside_message_ja.properties
+        }
+        ; outputMap = map:{
+            ; templateFile = UserMessages.vm
+            ; outputDirectory = $$baseDir$$/java
+            ; package = org.dbflute.maihama.domainfw.action
+            ; className = DocksideMessages
+        }
+        ; tableMap = map:{
+            ; extendsPropRequest = MaihamaMessageGen
+            ; isCheckImplicitOverride = true
+            ; groupingKeyMap = map:{ label = prefix:labels. }
+            ; superClassPackage = org.dbflute.maihama.projectfw.web.action
+            ; superClassSimpleName = MaihamaMessages
+        }
+    }
+    ; DocksideJspPathGen = map:{
+        ; resourceMap = map:{
+            ; baseDir = ../../maihama-dockside/src/main
+            ; resourceType = FILE_PATH
+        }
+        ; outputMap = map:{
+            ; templateFile = JspPath.vm
+            ; outputDirectory = $$baseDir$$/java
+            ; package = org.dbflute.maihama.domainfw.action
+            ; className = DocksideJspPath
+        }
+        ; tableMap = map:{
+            ; targetDir = $$baseDir$$/webapp/WEB-INF/view
+            ; targetExt = .jsp
+            ; targetKeyword = 
+            ; exceptPathList = list:{ contain:/view/common/ }
+        }
+    }
+}

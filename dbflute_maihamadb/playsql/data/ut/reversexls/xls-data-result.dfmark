@@ -1,0 +1,19 @@
+
+* * * * * * * * * *
+*                 *
+* Xls Data Result *
+*                 *
+* * * * * * * * * *
+data-directory: playsql/data/ut/reversexls
+
+[cyclic-data-01-MEMBER-plus.xls]
+  MEMBER (20)
+  MEMBER_ADDRESS (20)
+  MEMBER_FOLLOWING (111)
+  MEMBER_LOGIN (56)
+  MEMBER_SECURITY (20)
+  MEMBER_SERVICE (20)
+  MEMBER_WITHDRAWAL (4)
+  PRODUCT (20)
+  PURCHASE (70)
+  PURCHASE_PAYMENT (100)

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<form action="#" th:action="@{/member/add}" th:object="${memberForm}" method="POST">
+	<!-- show error per 'p' tag -->
+	<div th:if="${#fields.hasErrors('*')}">
+	    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+	</div>
+	<!-- line separator -->
+	<p th:if="${#fields.hasErrors('all')}" th:errors="*{all}">Incorrect date</p>
+
+	名<input type="text" name="memberName" th:value="*{memberName}" /><br/>
+	名<input type="text" name="birthdate" th:value="*{birthdate}" /><br/>
+	<input type="submit" value="部署を追加する" />
+</form>
+</body>
+</html>
