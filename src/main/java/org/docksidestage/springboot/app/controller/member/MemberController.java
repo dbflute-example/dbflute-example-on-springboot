@@ -29,6 +29,7 @@ public class MemberController extends ExampleBaseController {
     @RequestMapping("")
     public String index(MemberForm memberForm, Model model) throws ParseException, NamingException {
         // TODO jflute example: springboot example making now 
+        // ControllerClassNameHandlerMapping
         int count = memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });

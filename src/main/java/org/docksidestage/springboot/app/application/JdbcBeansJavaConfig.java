@@ -38,8 +38,8 @@ public class JdbcBeansJavaConfig {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(com.mysql.jdbc.Driver.class.getName());
         ds.setUrl("jdbc:mysql://localhost:3306/maihamadb");
-        ds.setUsername("maihamauser");
-        ds.setPassword("maihamaword");
+        ds.setUsername("maihamadb");
+        ds.setPassword("maihamadb");
         ds.setMaxActive(20);
         return ds;
     }

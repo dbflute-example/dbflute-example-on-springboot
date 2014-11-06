@@ -18,8 +18,8 @@ map:{
 	; driver		= com.mysql.jdbc.Driver
 	; url			= jdbc:mysql://localhost:3306/maihamadb
 	; schema		= 
-	; user			= maihamauser
-	; password		= maihamaword
+	; user			= maihamadb
+	; password		= maihamadb
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o propertiesMap: (NotRequired - Default map:{})
