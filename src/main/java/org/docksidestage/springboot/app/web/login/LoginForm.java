@@ -1,4 +1,4 @@
-package org.docksidestage.springboot.app.controller.login;
+package org.docksidestage.springboot.app.web.login;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;

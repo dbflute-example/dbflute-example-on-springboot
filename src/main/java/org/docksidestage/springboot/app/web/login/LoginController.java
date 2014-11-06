@@ -1,10 +1,10 @@
-package org.docksidestage.springboot.app.controller.login;
+package org.docksidestage.springboot.app.web.login;
 
 import javax.naming.NamingException;
 import javax.validation.Valid;
 
 import org.docksidestage.springboot.app.base.ExampleBaseController;
-import org.docksidestage.springboot.app.controller.member.MemberController;
+import org.docksidestage.springboot.app.web.member.MemberController;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

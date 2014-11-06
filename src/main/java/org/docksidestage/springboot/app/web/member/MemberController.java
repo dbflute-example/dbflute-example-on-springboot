@@ -1,4 +1,4 @@
-package org.docksidestage.springboot.app.controller.member;
+package org.docksidestage.springboot.app.web.member;
 
 import javax.naming.NamingException;
 import javax.validation.Valid;
