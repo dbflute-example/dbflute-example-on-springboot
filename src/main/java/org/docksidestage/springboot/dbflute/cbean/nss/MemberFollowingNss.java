@@ -26,7 +26,7 @@ public class MemberFollowingNss {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected MemberFollowingCQ _query;
+    protected final MemberFollowingCQ _query;
     public MemberFollowingNss(MemberFollowingCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 

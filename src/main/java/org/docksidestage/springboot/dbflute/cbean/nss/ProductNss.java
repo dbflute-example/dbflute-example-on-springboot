@@ -26,7 +26,7 @@ public class ProductNss {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected ProductCQ _query;
+    protected final ProductCQ _query;
     public ProductNss(ProductCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 

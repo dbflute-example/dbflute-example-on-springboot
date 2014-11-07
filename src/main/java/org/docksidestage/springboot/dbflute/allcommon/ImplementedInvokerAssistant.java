@@ -269,11 +269,11 @@ public class ImplementedInvokerAssistant implements InvokerAssistant {
     //                               First OutsideSql Option
     //                               -----------------------
     /** {@inheritDoc} */
-    public OutsideSqlOption assistFirstOutsideSqlOption() {
-        return prepareFirstOutsideSqlOption();
+    public OutsideSqlOption assistFirstOutsideSqlOption(String tableDbName) {
+        return prepareFirstOutsideSqlOption(tableDbName);
     }
 
-    protected OutsideSqlOption prepareFirstOutsideSqlOption() {
+    protected OutsideSqlOption prepareFirstOutsideSqlOption(String tableDbName) {
         return null; // no instance (lazy-loaded) as default
     }
 

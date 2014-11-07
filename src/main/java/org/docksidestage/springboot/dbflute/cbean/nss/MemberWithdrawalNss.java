@@ -26,7 +26,7 @@ public class MemberWithdrawalNss {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected MemberWithdrawalCQ _query;
+    protected final MemberWithdrawalCQ _query;
     public MemberWithdrawalNss(MemberWithdrawalCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 

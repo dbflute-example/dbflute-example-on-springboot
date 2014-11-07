@@ -15,9 +15,8 @@
  */
 package org.docksidestage.springboot.app.application;
 
-import org.dbflute.svflute.web.servlet.filter.RequestLoggingFilter;
-import org.docksidestage.springboot.app.Landmark;
 import org.docksidestage.springboot.dbflute.allcommon.DBFluteBeansJavaConfig;
+import org.docksidestage.springboot.dbflute.svflute.RequestLoggingFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
@@ -33,16 +32,16 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebMvc
 @EnableAutoConfiguration
-@ComponentScan(basePackageClasses = Landmark.class)
+@ComponentScan("org.docksidestage.springboot.app")
 @Import(DBFluteBeansJavaConfig.class)
-public class ExampleApplication {
+public class ExampleApplication { // #dbflute: import JavaConfig of DBFlute
 
     public static void main(String[] args) {
         SpringApplication.run(ExampleApplication.class, args);
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
+    public FilterRegistrationBean filterRegistrationBean() { // for logging
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         RequestLoggingFilter loggingFilter = new RequestLoggingFilter();
         registrationBean.setFilter(loggingFilter);
