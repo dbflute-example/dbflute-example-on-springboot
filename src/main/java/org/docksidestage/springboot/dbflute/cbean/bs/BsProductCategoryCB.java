@@ -36,7 +36,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.*;
 import org.docksidestage.springboot.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of product_category.
+ * The base condition-bean of PRODUCT_CATEGORY.
  * @author DBFlute(AutoGenerator)
  */
 public class BsProductCategoryCB extends AbstractConditionBean {
@@ -88,7 +88,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
     //                                                                          Table Name
     //                                                                          ==========
     public String getTableDbName() {
-        return "product_category";
+        return "PRODUCT_CATEGORY";
     }
 
     // ===================================================================================
@@ -96,7 +96,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param productCategoryCode (商品カテゴリコード): PK, NotNull, CHAR(3). (NotNull)
+     * @param productCategoryCode : PK, NotNull, CHAR(3). (NotNull)
      * @return this. (NotNull)
      */
     public ProductCategoryCB acceptPK(String productCategoryCode) {
@@ -260,7 +260,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * (商品カテゴリ)product_category by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
+     * PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
      * <pre>
      * <span style="color: #0000C0">productCategoryBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_ProductCategorySelf()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -329,17 +329,17 @@ public class BsProductCategoryCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
+         * PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductCategoryCode() { return doColumn("PRODUCT_CATEGORY_CODE"); }
         /**
-         * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
+         * PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductCategoryName() { return doColumn("PRODUCT_CATEGORY_NAME"); }
         /**
-         * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to product_category}
+         * PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnParentCategoryCode() { return doColumn("PARENT_CATEGORY_CODE"); }
@@ -354,10 +354,10 @@ public class BsProductCategoryCB extends AbstractConditionBean {
             }
         }
         @Override
-        protected String getTableDbName() { return "product_category"; }
+        protected String getTableDbName() { return "PRODUCT_CATEGORY"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (商品カテゴリ)product_category by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
+         * PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public ProductCategoryCB.HpSpecification specifyProductCategorySelf() {
@@ -377,8 +377,8 @@ public class BsProductCategoryCB extends AbstractConditionBean {
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from product where ...) as FOO_MAX} <br>
-         * (商品)product by PRODUCT_CATEGORY_CODE, named 'productList'.
+         * {select max(FOO) from PRODUCT where ...) as FOO_MAX} <br>
+         * PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(productCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     productCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -394,8 +394,8 @@ public class BsProductCategoryCB extends AbstractConditionBean {
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from product_category where ...) as FOO_MAX} <br>
-         * (商品カテゴリ)product_category by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
+         * {select max(FOO) from PRODUCT_CATEGORY where ...) as FOO_MAX} <br>
+         * PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(categoryCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     categoryCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -514,13 +514,6 @@ public class BsProductCategoryCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<ProductCategoryCB> andCBLambda) {
         xorSQAP((ProductCategoryCB)this, andCBLambda);
-    }
-
-    // ===================================================================================
-    //                                                                       Cursor Select
-    //                                                                       =============
-    public void customizeCursorSelect(SVOptionCall<CursorSelectOption> opLambda) {
-        doAcceptCursorSelectOption(opLambda);
     }
 
     // ===================================================================================

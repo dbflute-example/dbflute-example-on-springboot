@@ -31,7 +31,7 @@ import org.docksidestage.springboot.dbflute.cbean.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The abstract condition-query of purchase_payment.
+ * The abstract condition-query of PURCHASE_PAYMENT.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery {
@@ -55,7 +55,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     //                                                                          Table Name
     //                                                                          ==========
     public String getTableDbName() {
-        return "purchase_payment";
+        return "PURCHASE_PAYMENT";
     }
 
     // ===================================================================================
@@ -63,7 +63,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param purchasePaymentId The value of purchasePaymentId as equal. (NullAllowed: if null, no condition)
      */
     public void setPurchasePaymentId_Equal(Long purchasePaymentId) {
@@ -76,7 +76,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param purchasePaymentId The value of purchasePaymentId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setPurchasePaymentId_NotEqual(Long purchasePaymentId) {
@@ -89,7 +89,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param purchasePaymentId The value of purchasePaymentId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setPurchasePaymentId_GreaterThan(Long purchasePaymentId) {
@@ -98,7 +98,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param purchasePaymentId The value of purchasePaymentId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setPurchasePaymentId_LessThan(Long purchasePaymentId) {
@@ -107,7 +107,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param purchasePaymentId The value of purchasePaymentId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setPurchasePaymentId_GreaterEqual(Long purchasePaymentId) {
@@ -116,7 +116,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param purchasePaymentId The value of purchasePaymentId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setPurchasePaymentId_LessEqual(Long purchasePaymentId) {
@@ -127,7 +127,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param minNumber The min number of purchasePaymentId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of purchasePaymentId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -140,7 +140,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param minNumber The min number of purchasePaymentId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of purchasePaymentId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -151,7 +151,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param purchasePaymentIdList The collection of purchasePaymentId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setPurchasePaymentId_InScope(Collection<Long> purchasePaymentIdList) {
@@ -164,7 +164,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param purchasePaymentIdList The collection of purchasePaymentId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setPurchasePaymentId_NotInScope(Collection<Long> purchasePaymentIdList) {
@@ -177,13 +177,13 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      */
     public void setPurchasePaymentId_IsNull() { regPurchasePaymentId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      */
     public void setPurchasePaymentId_IsNotNull() { regPurchasePaymentId(CK_ISNN, DOBJ); }
 
@@ -192,7 +192,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param purchaseId The value of purchaseId as equal. (NullAllowed: if null, no condition)
      */
     public void setPurchaseId_Equal(Long purchaseId) {
@@ -205,7 +205,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param purchaseId The value of purchaseId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setPurchaseId_NotEqual(Long purchaseId) {
@@ -218,7 +218,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param purchaseId The value of purchaseId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setPurchaseId_GreaterThan(Long purchaseId) {
@@ -227,7 +227,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param purchaseId The value of purchaseId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setPurchaseId_LessThan(Long purchaseId) {
@@ -236,7 +236,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param purchaseId The value of purchaseId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setPurchaseId_GreaterEqual(Long purchaseId) {
@@ -245,7 +245,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param purchaseId The value of purchaseId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setPurchaseId_LessEqual(Long purchaseId) {
@@ -256,7 +256,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param minNumber The min number of purchaseId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of purchaseId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -269,7 +269,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param minNumber The min number of purchaseId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of purchaseId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -280,7 +280,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param purchaseIdList The collection of purchaseId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setPurchaseId_InScope(Collection<Long> purchaseIdList) {
@@ -293,7 +293,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @param purchaseIdList The collection of purchaseId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setPurchaseId_NotInScope(Collection<Long> purchaseIdList) {
@@ -309,7 +309,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param paymentAmount The value of paymentAmount as equal. (NullAllowed: if null, no condition)
      */
     public void setPaymentAmount_Equal(java.math.BigDecimal paymentAmount) {
@@ -322,7 +322,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param paymentAmount The value of paymentAmount as notEqual. (NullAllowed: if null, no condition)
      */
     public void setPaymentAmount_NotEqual(java.math.BigDecimal paymentAmount) {
@@ -335,7 +335,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param paymentAmount The value of paymentAmount as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setPaymentAmount_GreaterThan(java.math.BigDecimal paymentAmount) {
@@ -344,7 +344,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param paymentAmount The value of paymentAmount as lessThan. (NullAllowed: if null, no condition)
      */
     public void setPaymentAmount_LessThan(java.math.BigDecimal paymentAmount) {
@@ -353,7 +353,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param paymentAmount The value of paymentAmount as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setPaymentAmount_GreaterEqual(java.math.BigDecimal paymentAmount) {
@@ -362,7 +362,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param paymentAmount The value of paymentAmount as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setPaymentAmount_LessEqual(java.math.BigDecimal paymentAmount) {
@@ -373,7 +373,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param minNumber The min number of paymentAmount. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of paymentAmount. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -386,7 +386,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param minNumber The min number of paymentAmount. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of paymentAmount. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -397,7 +397,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param paymentAmountList The collection of paymentAmount as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setPaymentAmount_InScope(Collection<java.math.BigDecimal> paymentAmountList) {
@@ -410,7 +410,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @param paymentAmountList The collection of paymentAmount as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setPaymentAmount_NotInScope(Collection<java.math.BigDecimal> paymentAmountList) {
@@ -426,7 +426,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)}
+     * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as equal. (NullAllowed: if null, no condition)
      */
     public void setPaymentDatetime_Equal(java.time.LocalDateTime paymentDatetime) {
@@ -435,7 +435,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)}
+     * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setPaymentDatetime_GreaterThan(java.time.LocalDateTime paymentDatetime) {
@@ -444,7 +444,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)}
+     * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as lessThan. (NullAllowed: if null, no condition)
      */
     public void setPaymentDatetime_LessThan(java.time.LocalDateTime paymentDatetime) {
@@ -453,7 +453,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)}
+     * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setPaymentDatetime_GreaterEqual(java.time.LocalDateTime paymentDatetime) {
@@ -462,7 +462,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)}
+     * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * @param paymentDatetime The value of paymentDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setPaymentDatetime_LessEqual(java.time.LocalDateTime paymentDatetime) {
@@ -472,7 +472,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)}
+     * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * <pre>e.g. setPaymentDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of paymentDatetime. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of paymentDatetime. (NullAllowed: if null, no to-condition)
@@ -485,7 +485,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)}
+     * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
      * <pre>e.g. setPaymentDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of paymentDatetime. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of paymentDatetime. (NullAllowed: if null, no to-condition)
@@ -501,7 +501,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
      * @param paymentMethodCode The value of paymentMethodCode as equal. (NullAllowed: if null (or empty), no condition)
      */
     public void setPaymentMethodCode_Equal(String paymentMethodCode) {
@@ -514,7 +514,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
      * @param paymentMethodCode The value of paymentMethodCode as notEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setPaymentMethodCode_NotEqual(String paymentMethodCode) {
@@ -527,7 +527,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
      * @param paymentMethodCodeList The collection of paymentMethodCode as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setPaymentMethodCode_InScope(Collection<String> paymentMethodCodeList) {
@@ -540,7 +540,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
      * @param paymentMethodCodeList The collection of paymentMethodCode as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setPaymentMethodCode_NotInScope(Collection<String> paymentMethodCodeList) {
@@ -553,7 +553,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
      * <pre>e.g. setPaymentMethodCode_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param paymentMethodCode The value of paymentMethodCode as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -564,7 +564,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
      * <pre>e.g. setPaymentMethodCode_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param paymentMethodCode The value of paymentMethodCode as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -576,7 +576,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
      * @param paymentMethodCode The value of paymentMethodCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
@@ -587,7 +587,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
      * @param paymentMethodCode The value of paymentMethodCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
@@ -600,7 +600,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as equal. (NullAllowed: if null, no condition)
      */
     public void setRegisterDatetime_Equal(java.time.LocalDateTime registerDatetime) {
@@ -610,7 +610,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * <pre>e.g. setRegisterDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
@@ -623,7 +623,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * <pre>e.g. setRegisterDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
@@ -639,7 +639,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)}
+     * REGISTER_USER: {NotNull, VARCHAR(200)}
      * @param registerUser The value of registerUser as equal. (NullAllowed: if null (or empty), no condition)
      */
     public void setRegisterUser_Equal(String registerUser) {
@@ -655,7 +655,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as equal. (NullAllowed: if null, no condition)
      */
     public void setUpdateDatetime_Equal(java.time.LocalDateTime updateDatetime) {
@@ -665,7 +665,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * <pre>e.g. setUpdateDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
@@ -678,7 +678,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * <pre>e.g. setUpdateDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
@@ -694,7 +694,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)}
+     * UPDATE_USER: {NotNull, VARCHAR(200)}
      * @param updateUser The value of updateUser as equal. (NullAllowed: if null (or empty), no condition)
      */
     public void setUpdateUser_Equal(String updateUser) {

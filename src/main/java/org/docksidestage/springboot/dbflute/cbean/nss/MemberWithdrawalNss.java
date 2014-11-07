@@ -18,7 +18,7 @@ package org.docksidestage.springboot.dbflute.cbean.nss;
 import org.docksidestage.springboot.dbflute.cbean.cq.MemberWithdrawalCQ;
 
 /**
- * The nest select set-upper of member_withdrawal.
+ * The nest select set-upper of MEMBER_WITHDRAWAL.
  * @author DBFlute(AutoGenerator)
  */
 public class MemberWithdrawalNss {
@@ -35,7 +35,7 @@ public class MemberWithdrawalNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * (会員)member by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMember() {
@@ -44,7 +44,7 @@ public class MemberWithdrawalNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * (退会理由)withdrawal_reason by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
+     * WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
      */
     public void withWithdrawalReason() {
         _query.xdoNss(() -> _query.queryWithdrawalReason());

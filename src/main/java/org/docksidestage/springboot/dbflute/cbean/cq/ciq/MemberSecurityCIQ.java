@@ -27,7 +27,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.bs.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of member_security.
+ * The condition-query for in-line of MEMBER_SECURITY.
  * @author DBFlute(AutoGenerator)
  */
 public class MemberSecurityCIQ extends AbstractBsMemberSecurityCQ {

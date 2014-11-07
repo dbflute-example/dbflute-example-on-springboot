@@ -36,7 +36,7 @@ import org.docksidestage.springboot.dbflute.cbean.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The base condition-bean of member_status.
+ * The base condition-bean of MEMBER_STATUS.
  * @author DBFlute(AutoGenerator)
  */
 public class BsMemberStatusCB extends AbstractConditionBean {
@@ -88,7 +88,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
     //                                                                          Table Name
     //                                                                          ==========
     public String getTableDbName() {
-        return "member_status";
+        return "MEMBER_STATUS";
     }
 
     // ===================================================================================
@@ -96,7 +96,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param memberStatusCode (会員ステータスコード): PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
+     * @param memberStatusCode : PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
      * @return this. (NotNull)
      */
     public MemberStatusCB acceptPK(CDef.MemberStatus memberStatusCode) {
@@ -108,7 +108,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param displayOrder (表示順): UQ, NotNull, INT(10). (NotNull)
+     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
      * @return this. (NotNull)
      */
     public MemberStatusCB acceptUniqueOf(Integer displayOrder) {
@@ -311,22 +311,22 @@ public class BsMemberStatusCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+         * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberStatusCode() { return doColumn("MEMBER_STATUS_CODE"); }
         /**
-         * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+         * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberStatusName() { return doColumn("MEMBER_STATUS_NAME"); }
         /**
-         * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+         * DESCRIPTION: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnDescription() { return doColumn("DESCRIPTION"); }
         /**
-         * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
+         * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnDisplayOrder() { return doColumn("DISPLAY_ORDER"); }
@@ -337,11 +337,11 @@ public class BsMemberStatusCB extends AbstractConditionBean {
             columnMemberStatusCode(); // PK
         }
         @Override
-        protected String getTableDbName() { return "member_status"; }
+        protected String getTableDbName() { return "MEMBER_STATUS"; }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from member where ...) as FOO_MAX} <br>
-         * (会員)member by MEMBER_STATUS_CODE, named 'memberList'.
+         * {select max(FOO) from MEMBER where ...) as FOO_MAX} <br>
+         * MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(memberCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     memberCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -357,8 +357,8 @@ public class BsMemberStatusCB extends AbstractConditionBean {
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from member_login where ...) as FOO_MAX} <br>
-         * (会員ログイン)member_login by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
+         * {select max(FOO) from MEMBER_LOGIN where ...) as FOO_MAX} <br>
+         * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(loginCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     loginCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -477,13 +477,6 @@ public class BsMemberStatusCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<MemberStatusCB> andCBLambda) {
         xorSQAP((MemberStatusCB)this, andCBLambda);
-    }
-
-    // ===================================================================================
-    //                                                                       Cursor Select
-    //                                                                       =============
-    public void customizeCursorSelect(SVOptionCall<CursorSelectOption> opLambda) {
-        doAcceptCursorSelectOption(opLambda);
     }
 
     // ===================================================================================

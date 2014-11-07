@@ -245,6 +245,22 @@ public class DBFluteBeansJavaConfig {
     }
     protected ServiceRankBhv newServiceRankBhv() { return new ServiceRankBhv(); }
 
+    @Bean(name={"summaryProductBhv"})
+    public SummaryProductBhv createSummaryProductBhv() {
+        SummaryProductBhv bhv = newSummaryProductBhv();
+        bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
+        return bhv;
+    }
+    protected SummaryProductBhv newSummaryProductBhv() { return new SummaryProductBhv(); }
+
+    @Bean(name={"summaryWithdrawalBhv"})
+    public SummaryWithdrawalBhv createSummaryWithdrawalBhv() {
+        SummaryWithdrawalBhv bhv = newSummaryWithdrawalBhv();
+        bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
+        return bhv;
+    }
+    protected SummaryWithdrawalBhv newSummaryWithdrawalBhv() { return new SummaryWithdrawalBhv(); }
+
     @Bean(name={"withdrawalReasonBhv"})
     public WithdrawalReasonBhv createWithdrawalReasonBhv() {
         WithdrawalReasonBhv bhv = newWithdrawalReasonBhv();

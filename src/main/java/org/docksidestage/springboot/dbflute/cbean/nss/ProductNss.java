@@ -18,7 +18,7 @@ package org.docksidestage.springboot.dbflute.cbean.nss;
 import org.docksidestage.springboot.dbflute.cbean.cq.ProductCQ;
 
 /**
- * The nest select set-upper of product.
+ * The nest select set-upper of PRODUCT.
  * @author DBFlute(AutoGenerator)
  */
 public class ProductNss {
@@ -35,7 +35,7 @@ public class ProductNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * (商品カテゴリ)product_category by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
+     * PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public ProductCategoryNss withProductCategory() {
@@ -44,7 +44,7 @@ public class ProductNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * (商品ステータス)product_status by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      */
     public void withProductStatus() {
         _query.xdoNss(() -> _query.queryProductStatus());

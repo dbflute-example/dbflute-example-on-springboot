@@ -36,7 +36,7 @@ import org.docksidestage.springboot.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.springboot.dbflute.cbean.*;
 
 /**
- * The behavior of (会員ステータス)MEMBER_STATUS as TABLE. <br>
+ * The behavior of MEMBER_STATUS as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_STATUS_CODE
@@ -57,7 +57,7 @@ import org.docksidestage.springboot.dbflute.cbean.*;
  *     
  *
  * [referrer table]
- *     member, member_login
+ *     MEMBER, MEMBER_LOGIN
  *
  * [foreign property]
  *     
@@ -171,7 +171,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberStatusCode (会員ステータスコード): PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
+     * @param memberStatusCode : PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -200,7 +200,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
 
     /**
      * Select the entity by the unique-key value.
-     * @param displayOrder (表示順): UQ, NotNull, INT(10). (NotNull)
+     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -400,7 +400,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
 
     /**
      * Load referrer of memberList by the set-upper of referrer. <br>
-     * (会員)member by MEMBER_STATUS_CODE, named 'memberList'.
+     * MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * <pre>
      * <span style="color: #0000C0">memberStatusBhv</span>.<span style="color: #CC4747">loadMember</span>(<span style="color: #553000">memberStatusList</span>, <span style="color: #553000">memberCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberCB</span>.setupSelect...
@@ -431,7 +431,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
 
     /**
      * Load referrer of memberList by the set-upper of referrer. <br>
-     * (会員)member by MEMBER_STATUS_CODE, named 'memberList'.
+     * MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * <pre>
      * <span style="color: #0000C0">memberStatusBhv</span>.<span style="color: #CC4747">loadMember</span>(<span style="color: #553000">memberStatus</span>, <span style="color: #553000">memberCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberCB</span>.setupSelect...
@@ -464,7 +464,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
 
     /**
      * Load referrer of memberLoginList by the set-upper of referrer. <br>
-     * (会員ログイン)member_login by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
+     * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * <pre>
      * <span style="color: #0000C0">memberStatusBhv</span>.<span style="color: #CC4747">loadMemberLogin</span>(<span style="color: #553000">memberStatusList</span>, <span style="color: #553000">loginCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">loginCB</span>.setupSelect...
@@ -495,7 +495,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
 
     /**
      * Load referrer of memberLoginList by the set-upper of referrer. <br>
-     * (会員ログイン)member_login by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
+     * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * <pre>
      * <span style="color: #0000C0">memberStatusBhv</span>.<span style="color: #CC4747">loadMemberLogin</span>(<span style="color: #553000">memberStatus</span>, <span style="color: #553000">loginCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">loginCB</span>.setupSelect...

@@ -22,7 +22,7 @@ import org.docksidestage.springboot.dbflute.exbhv.*;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員サービス)MEMBER_SERVICE as TABLE. <br>
+ * The referrer loader of MEMBER_SERVICE as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_SERVICE_ID
@@ -40,7 +40,7 @@ import org.docksidestage.springboot.dbflute.exentity.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     member, service_rank
+ *     MEMBER, SERVICE_RANK
  *
  * [referrer table]
  *     

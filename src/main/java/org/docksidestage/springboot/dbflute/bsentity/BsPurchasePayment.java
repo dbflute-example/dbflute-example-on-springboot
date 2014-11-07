@@ -28,9 +28,7 @@ import org.docksidestage.springboot.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The entity of (購入支払)PURCHASE_PAYMENT as TABLE. <br>
- * 購入に対する支払。<br>
- * 分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。
+ * The entity of PURCHASE_PAYMENT as TABLE. <br>
  * <pre>
  * [primary-key]
  *     PURCHASE_PAYMENT_ID
@@ -48,7 +46,7 @@ import org.docksidestage.springboot.dbflute.exentity.*;
  *     
  * 
  * [foreign table]
- *     purchase
+ *     PURCHASE
  * 
  * [referrer table]
  *     
@@ -94,31 +92,31 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} */
+    /** PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} */
     protected Long _purchasePaymentId;
 
-    /** (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase} */
+    /** PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} */
     protected Long _purchaseId;
 
-    /** (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} */
+    /** PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} */
     protected java.math.BigDecimal _paymentAmount;
 
-    /** (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)} */
+    /** PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} */
     protected java.time.LocalDateTime _paymentDatetime;
 
-    /** (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} */
+    /** PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} */
     protected String _paymentMethodCode;
 
-    /** (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)} */
+    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     protected java.time.LocalDateTime _registerDatetime;
 
-    /** (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)} */
+    /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
-    /** (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)} */
+    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     protected java.time.LocalDateTime _updateDatetime;
 
-    /** (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)} */
+    /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
 
     // ===================================================================================
@@ -126,7 +124,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     //                                                                          ==========
     /** {@inheritDoc} */
     public String getTableDbName() {
-        return "purchase_payment";
+        return "PURCHASE_PAYMENT";
     }
 
     /** {@inheritDoc} */
@@ -154,11 +152,11 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** (購入)purchase by my PURCHASE_ID, named 'purchase'. */
+    /** PURCHASE by my PURCHASE_ID, named 'purchase'. */
     protected OptionalEntity<Purchase> _purchase;
 
     /**
-     * [get] (購入)purchase by my PURCHASE_ID, named 'purchase'. <br>
+     * [get] PURCHASE by my PURCHASE_ID, named 'purchase'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'purchase'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -168,7 +166,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (購入)purchase by my PURCHASE_ID, named 'purchase'.
+     * [set] PURCHASE by my PURCHASE_ID, named 'purchase'.
      * @param purchase The entity of foreign property 'purchase'. (NullAllowed)
      */
     public void setPurchase(OptionalEntity<Purchase> purchase) {
@@ -254,8 +252,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
-     * 連番
+     * [get] PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'PURCHASE_PAYMENT_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchasePaymentId() {
@@ -264,8 +261,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
-     * 連番
+     * [set] PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @param purchasePaymentId The value of the column 'PURCHASE_PAYMENT_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPurchasePaymentId(Long purchasePaymentId) {
@@ -274,8 +270,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase} <br>
-     * 支払い対象の購入へのID
+     * [get] PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} <br>
      * @return The value of the column 'PURCHASE_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchaseId() {
@@ -284,8 +279,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase} <br>
-     * 支払い対象の購入へのID
+     * [set] PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} <br>
      * @param purchaseId The value of the column 'PURCHASE_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPurchaseId(Long purchaseId) {
@@ -294,8 +288,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
-     * 支払った金額。さて、小数点なのはなぜでしょう？
+     * [get] PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
      * @return The value of the column 'PAYMENT_AMOUNT'. (basically NotNull if selected: for the constraint)
      */
     public java.math.BigDecimal getPaymentAmount() {
@@ -304,8 +297,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
-     * 支払った金額。さて、小数点なのはなぜでしょう？
+     * [set] PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
      * @param paymentAmount The value of the column 'PAYMENT_AMOUNT'. (basically NotNull if update: for the constraint)
      */
     public void setPaymentAmount(java.math.BigDecimal paymentAmount) {
@@ -314,8 +306,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)} <br>
-     * 支払ったときの日時
+     * [get] PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'PAYMENT_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getPaymentDatetime() {
@@ -324,8 +315,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)} <br>
-     * 支払ったときの日時
+     * [set] PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} <br>
      * @param paymentDatetime The value of the column 'PAYMENT_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setPaymentDatetime(java.time.LocalDateTime paymentDatetime) {
@@ -334,8 +324,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
-     * 手渡しや銀行振込など
+     * [get] PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
      * @return The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getPaymentMethodCode() {
@@ -344,8 +333,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
-     * 手渡しや銀行振込など
+     * [set] PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
      * @param paymentMethodCode The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setPaymentMethodCode(String paymentMethodCode) {
@@ -354,8 +342,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)} <br>
-     * レコードが登録された日時
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getRegisterDatetime() {
@@ -364,8 +351,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)} <br>
-     * レコードが登録された日時
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
@@ -374,8 +360,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを登録したユーザー
+     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
@@ -384,8 +369,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを登録したユーザー
+     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @param registerUser The value of the column 'REGISTER_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterUser(String registerUser) {
@@ -394,8 +378,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)} <br>
-     * レコードが(最後に)更新された日時
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getUpdateDatetime() {
@@ -404,8 +387,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)} <br>
-     * レコードが(最後に)更新された日時
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
@@ -414,8 +396,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを(最後に)更新したユーザー
+     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
@@ -424,8 +405,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを(最後に)更新したユーザー
+     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @param updateUser The value of the column 'UPDATE_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateUser(String updateUser) {

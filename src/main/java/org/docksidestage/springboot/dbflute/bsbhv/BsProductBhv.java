@@ -35,7 +35,7 @@ import org.docksidestage.springboot.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.springboot.dbflute.cbean.*;
 
 /**
- * The behavior of (商品)PRODUCT as TABLE. <br>
+ * The behavior of PRODUCT as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_ID
@@ -53,10 +53,10 @@ import org.docksidestage.springboot.dbflute.cbean.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     product_category, product_status
+ *     PRODUCT_CATEGORY, PRODUCT_STATUS
  *
  * [referrer table]
- *     purchase
+ *     PURCHASE
  *
  * [foreign property]
  *     productCategory, productStatus
@@ -170,7 +170,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Select the entity by the primary-key value.
-     * @param productId (商品ID): PK, ID, NotNull, INT(10). (NotNull)
+     * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -199,7 +199,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Select the entity by the unique-key value.
-     * @param productHandleCode (商品ハンドルコード): UQ, NotNull, VARCHAR(100). (NotNull)
+     * @param productHandleCode : UQ, NotNull, VARCHAR(100). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -399,7 +399,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * (購入)purchase by PRODUCT_ID, named 'purchaseList'.
+     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">productList</span>, <span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">purchaseCB</span>.setupSelect...
@@ -430,7 +430,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * (購入)purchase by PRODUCT_ID, named 'purchaseList'.
+     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">product</span>, <span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">purchaseCB</span>.setupSelect...

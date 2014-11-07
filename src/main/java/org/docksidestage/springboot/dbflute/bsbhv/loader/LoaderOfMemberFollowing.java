@@ -22,7 +22,7 @@ import org.docksidestage.springboot.dbflute.exbhv.*;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員フォローイング)MEMBER_FOLLOWING as TABLE. <br>
+ * The referrer loader of MEMBER_FOLLOWING as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_FOLLOWING_ID
@@ -40,7 +40,7 @@ import org.docksidestage.springboot.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     member
+ *     MEMBER
  *
  * [referrer table]
  *     

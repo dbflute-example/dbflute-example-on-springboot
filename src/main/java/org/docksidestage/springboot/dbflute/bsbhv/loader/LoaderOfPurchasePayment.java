@@ -22,7 +22,7 @@ import org.docksidestage.springboot.dbflute.exbhv.*;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The referrer loader of (購入支払)PURCHASE_PAYMENT as TABLE. <br>
+ * The referrer loader of PURCHASE_PAYMENT as TABLE. <br>
  * <pre>
  * [primary key]
  *     PURCHASE_PAYMENT_ID
@@ -40,7 +40,7 @@ import org.docksidestage.springboot.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     purchase
+ *     PURCHASE
  *
  * [referrer table]
  *     

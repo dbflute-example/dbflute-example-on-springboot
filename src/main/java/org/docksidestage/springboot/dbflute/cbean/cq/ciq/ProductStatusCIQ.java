@@ -27,7 +27,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.bs.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of product_status.
+ * The condition-query for in-line of PRODUCT_STATUS.
  * @author DBFlute(AutoGenerator)
  */
 public class ProductStatusCIQ extends AbstractBsProductStatusCQ {

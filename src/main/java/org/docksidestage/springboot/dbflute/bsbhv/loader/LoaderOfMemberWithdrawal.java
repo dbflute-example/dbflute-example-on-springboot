@@ -22,13 +22,13 @@ import org.docksidestage.springboot.dbflute.exbhv.*;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員退会情報)MEMBER_WITHDRAWAL as TABLE. <br>
+ * The referrer loader of MEMBER_WITHDRAWAL as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_ID
  *
  * [column]
- *     MEMBER_ID, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER
+ *     MEMBER_ID, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
  *
  * [sequence]
  *     
@@ -37,10 +37,10 @@ import org.docksidestage.springboot.dbflute.exentity.*;
  *     
  *
  * [version-no]
- *     
+ *     VERSION_NO
  *
  * [foreign table]
- *     member, withdrawal_reason
+ *     MEMBER, WITHDRAWAL_REASON
  *
  * [referrer table]
  *     
