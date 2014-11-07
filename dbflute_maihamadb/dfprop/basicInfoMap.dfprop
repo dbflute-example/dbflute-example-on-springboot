@@ -35,7 +35,7 @@ map:{
     #    mysql, postgresql, oracle, db2, mssql,
     #    h2, derby, (sqlite, firebird, msaccess)
     # 
-    ; database = mysql
+    ; database = h2
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

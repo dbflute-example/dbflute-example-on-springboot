@@ -26,7 +26,7 @@ public class ProductCategoryNss {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected ProductCategoryCQ _query;
+    protected final ProductCategoryCQ _query;
     public ProductCategoryNss(ProductCategoryCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 

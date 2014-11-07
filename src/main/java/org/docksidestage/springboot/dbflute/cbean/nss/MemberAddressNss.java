@@ -26,7 +26,7 @@ public class MemberAddressNss {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected MemberAddressCQ _query;
+    protected final MemberAddressCQ _query;
     public MemberAddressNss(MemberAddressCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 

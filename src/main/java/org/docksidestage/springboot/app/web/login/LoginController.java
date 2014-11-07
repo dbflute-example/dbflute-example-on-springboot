@@ -3,8 +3,6 @@ package org.docksidestage.springboot.app.web.login;
 import javax.naming.NamingException;
 import javax.validation.Valid;
 
-import org.docksidestage.springboot.app.base.ExampleBaseController;
-import org.docksidestage.springboot.app.web.member.MemberController;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/login")
-public class LoginController extends ExampleBaseController {
+public class LoginController {
 
     @RequestMapping("")
     public String index(LoginForm loginForm, Model model) throws ParseException, NamingException {
@@ -25,13 +23,12 @@ public class LoginController extends ExampleBaseController {
     }
 
     @RequestMapping("/doLogin")
-    public String doLogin(@Valid LoginForm loginForm, BindingResult result, Model model) throws ParseException,
-            NamingException {
+    public String doLogin(@Valid LoginForm loginForm, BindingResult result, Model model) throws ParseException, NamingException {
         if (result.hasErrors()) {
-            return render(path_Login_LoginHtml);
+            return "login.html";
         }
-        // TODO jflute no login check for now
+        // TODO jflute example: SpringBoot no login check for now
         // return "redirect:/member/3/"
-        return redirect(MemberController.class);
+        return "redirect:/member/";
     }
 }

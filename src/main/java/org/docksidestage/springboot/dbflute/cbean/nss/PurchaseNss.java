@@ -26,7 +26,7 @@ public class PurchaseNss {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected PurchaseCQ _query;
+    protected final PurchaseCQ _query;
     public PurchaseNss(PurchaseCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 

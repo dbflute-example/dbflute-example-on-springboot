@@ -8,12 +8,26 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class MemberForm {
 
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     @NotEmpty
     @Length(max = 8)
     private String memberName;
     @NotEmpty
     private String birthdate;
 
+    // ===================================================================================
+    //                                                                      Basic Override
+    //                                                                      ==============
+    @Override
+    public String toString() {
+        return "{" + memberName + ", " + birthdate + "}";
+    }
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
     public String getMemberName() {
         return memberName;
     }

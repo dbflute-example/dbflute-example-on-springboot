@@ -38,10 +38,6 @@ import org.dbflute.jdbc.StatementConfig;
 import org.dbflute.jdbc.ValueType;
 import org.dbflute.outsidesql.factory.OutsideSqlExecutorFactory;
 import org.dbflute.s2dao.valuetype.TnValueTypes;
-import org.dbflute.s2dao.valuetype.plugin.OracleAgent;
-import org.dbflute.s2dao.valuetype.plugin.OracleDateType;
-import org.dbflute.s2dao.valuetype.plugin.OracleArrayType;
-import org.dbflute.s2dao.valuetype.plugin.OracleStructType;
 import org.dbflute.system.QLog;
 import org.dbflute.system.XLog;
 import org.dbflute.twowaysql.DisplaySqlBuilder;
@@ -128,14 +124,6 @@ public class DBFluteConfig {
     private DBFluteConfig() { // adjusts default settings
         _physicalConnectionDigger = new ImplementedPhysicalConnectionDigger();
         _sqlExceptionDigger = new ImplementedSQLExceptionDigger();
-
-        if (isCurrentDBDef(DBDef.Oracle)) {
-            // date formatting has two points:
-            //   o the DATE type of Oracle has seconds  
-            //   o it uses a date literal of Oracle
-            _logDatePattern = "timestamp $df:{yyyy-MM-dd HH:mm:ss}";
-            _logTimestampPattern = "timestamp $df:{" + DisplaySqlBuilder.DEFAULT_TIMESTAMP_FORMAT + "}";
-        }
     }
 
     // ===================================================================================
@@ -798,83 +786,12 @@ public class DBFluteConfig {
     }
 
     // -----------------------------------------------------
-    //                                                Oracle
-    //                                                ------
-    public static class ImplementedOracleAgent implements OracleAgent {
-
-        public Object toOracleDate(Timestamp timestamp) {
-            throw new UnsupportedOperationException("This method is only for Oracle.");
-        }
-
-        public Object toOracleArray(Connection conn, String arrayTypeName, Object arrayValue) throws SQLException {
-            throw new UnsupportedOperationException("This method is only for Oracle.");
-        }
-
-        public Object toStandardArray(Object oracleArray) throws SQLException {
-            throw new UnsupportedOperationException("This method is only for Oracle.");
-        }
-
-        public boolean isOracleArray(Object obj) {
-            throw new UnsupportedOperationException("This method is only for Oracle.");
-        }
-
-        public Object toOracleStruct(Connection conn, String structTypeName, Object[] attrs) throws SQLException {
-            throw new UnsupportedOperationException("This method is only for Oracle.");
-        }
-
-        public Object[] toStandardStructAttributes(Object oracleStruct) throws SQLException {
-            throw new UnsupportedOperationException("This method is only for Oracle.");
-        }
-
-        public boolean isOracleStruct(Object obj) {
-            throw new UnsupportedOperationException("This method is only for Oracle.");
-        }
-
-        public PhysicalConnectionDigger getPhysicalConnectionDigger() {
-            return DBFluteConfig.getInstance().getPhysicalConnectionDigger();
-        }
-    }
-
-    public static class ImplementedOracleDateType extends OracleDateType {
-
-        @Override
-        protected OracleAgent createOracleAgent() {
-            return new ImplementedOracleAgent();
-        }
-    }
-
-    public static class ImplementedOracleArrayType extends OracleArrayType {
-
-        public ImplementedOracleArrayType(String arrayTypeName, Class<?> elementType) {
-            super(arrayTypeName, elementType);
-        }
-
-        @Override
-        protected OracleAgent createOracleAgent() {
-            return new ImplementedOracleAgent();
-        }
-    }
-
-    public static class ImplementedOracleStructType extends OracleStructType {
-
-        public ImplementedOracleStructType(String structTypeName, Class<?> entityType) {
-            super(structTypeName, entityType);
-        }
-
-        @Override
-        protected OracleAgent createOracleAgent() {
-            return new ImplementedOracleAgent();
-        }
-    }
-
-    // -----------------------------------------------------
     //                                   Physical Connection
     //                                   -------------------
     public static class ImplementedPhysicalConnectionDigger implements PhysicalConnectionDigger {
 
         public Connection digUp(Connection conn) throws SQLException {
             Connection digged = unwrap(conn);
-            digged = resolveS2DBCP(digged);
             digged = resolveCommonsDBCP(digged);
             return digged;
         }
@@ -883,10 +800,6 @@ public class DBFluteConfig {
             if (conn instanceof NotClosingConnectionWrapper) {
                 return ((NotClosingConnectionWrapper)conn).getActualConnection();
             }
-            return conn;
-        }
-
-        protected Connection resolveS2DBCP(Connection conn) {
             return conn;
         }
 
@@ -913,18 +826,10 @@ public class DBFluteConfig {
     public static class ImplementedSQLExceptionDigger implements SQLExceptionDigger {
 
         public SQLException digUp(Throwable cause) {
-            SQLException found = resolveS2DBCP(cause);
-            if (found != null) {
-                return found;
+            SQLException defaultFound = resolveDefault(cause);
+            if (defaultFound != null) {
+                return defaultFound;
             }
-            found = resolveDefault(cause);
-            if (found != null) {
-                return found;
-            }
-            return null;
-        }
-
-        protected SQLException resolveS2DBCP(Throwable cause) {
             return null;
         }
 
@@ -936,4 +841,13 @@ public class DBFluteConfig {
             return null;
         }
     }
+
+    // ===================================================================================
+    //                                                                       Very Internal
+    //                                                                       =============
+    // very internal (for suppressing warn about 'Not Use Import')
+    protected String xTms() { return Timestamp.class.getName(); }
+    protected String xDSc() { return DataSource.class.getName(); }
+    protected String xSQLEx() { return SQLException.class.getName(); }
+    protected String xDSqB() { return DisplaySqlBuilder.class.getName(); }
 }

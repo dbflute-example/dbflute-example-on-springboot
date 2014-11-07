@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.svflute.web.controller.interceptor;
+package org.docksidestage.springboot.dbflute.svflute;
 
 import java.lang.reflect.Method;
 
@@ -36,11 +36,9 @@ public class GodHandableControllerInterceptor extends HandlerInterceptorAdapter 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
-
         if (LOG.isDebugEnabled()) {
-            LOG.debug("#flow ...Beginning #action " + buildActionDisp(handlerMethod));
+            LOG.debug("#flow ...Beginning #controller " + buildActionDisp(handlerMethod));
         }
-
         return super.preHandle(request, response, handler);
     }
 
@@ -48,13 +46,12 @@ public class GodHandableControllerInterceptor extends HandlerInterceptorAdapter 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
             throws Exception {
         super.postHandle(request, response, handler, modelAndView);
-        final HandlerMethod handlerMethod = (HandlerMethod) handler;
         if (LOG.isDebugEnabled()) {
             LOG.debug(modelAndView);
-            LOG.debug(modelAndView.getModel());
-            LOG.debug(modelAndView.getModelMap());
-            final String failureMark = "XXXXX"; //meta.hasFailureCause() ? " with failure" : "";
-            LOG.debug("#flow ...Calling back #finally" + failureMark + " for " + buildActionName(handlerMethod));
+            //final HandlerMethod handlerMethod = (HandlerMethod) handler;
+            // TODO jflute example: SpringBoot, finally logging;
+            //final String failureMark = "";
+            //LOG.debug("#flow ...Calling back #finally" + failureMark + " for " + buildActionName(handlerMethod));
         }
     }
 

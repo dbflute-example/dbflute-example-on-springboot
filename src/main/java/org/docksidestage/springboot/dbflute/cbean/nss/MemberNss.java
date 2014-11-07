@@ -26,7 +26,7 @@ public class MemberNss {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected MemberCQ _query;
+    protected final MemberCQ _query;
     public MemberNss(MemberCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 
