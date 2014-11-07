@@ -457,10 +457,10 @@ public interface CDef extends Classification {
      * 商品のカテゴリ。階層構造である
      */
     public enum ProductCategory implements CDef {
-        /** 音楽 */
+        /** 音楽: of  */
         音楽("MSC", "音楽", EMPTY_SISTERS)
         ,
-        /** 食品 */
+        /** 食品: of  */
         食品("FOD", "食品", EMPTY_SISTERS)
         ,
         /** ハーブ: of 食品 */

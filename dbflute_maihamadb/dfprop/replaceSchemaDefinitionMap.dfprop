@@ -122,14 +122,14 @@ map:{
     #       when using password file but not found it and also default password?
     #       (NotRequired - Default false)
     #
-    ; additionalUserMap = map:{
-        ; system = map:{
-            ; url = jdbc:mysql://localhost:3306
-            #; schema = ...
-            ; user = root
-            ; password = df:dfprop/system-password.txt|
-        }
-    }
+    #; additionalUserMap = map:{
+    #    ; system = map:{
+    #        ; url = jdbc:mysql://localhost:3306
+    #        #; schema = ...
+    #        ; user = root
+    #        ; password = df:dfprop/system-password.txt|
+    #    }
+    #}
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -36,7 +36,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.*;
 import org.docksidestage.springboot.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of member_address.
+ * The base condition-bean of MEMBER_ADDRESS.
  * @author DBFlute(AutoGenerator)
  */
 public class BsMemberAddressCB extends AbstractConditionBean {
@@ -88,7 +88,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
     //                                                                          Table Name
     //                                                                          ==========
     public String getTableDbName() {
-        return "member_address";
+        return "MEMBER_ADDRESS";
     }
 
     // ===================================================================================
@@ -96,7 +96,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param memberAddressId (会員住所ID): PK, ID, NotNull, INT(10). (NotNull)
+     * @param memberAddressId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return this. (NotNull)
      */
     public MemberAddressCB acceptPK(Integer memberAddressId) {
@@ -108,8 +108,8 @@ public class BsMemberAddressCB extends AbstractConditionBean {
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param memberId (会員ID): UQ+, NotNull, INT(10), FK to member. (NotNull)
-     * @param validBeginDate (有効開始日): +UQ, NotNull, DATE(10). (NotNull)
+     * @param memberId : UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param validBeginDate : +UQ, NotNull, DATE(8). (NotNull)
      * @return this. (NotNull)
      */
     public MemberAddressCB acceptUniqueOf(Integer memberId, java.time.LocalDate validBeginDate) {
@@ -273,7 +273,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * (会員)member by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * <pre>
      * <span style="color: #0000C0">memberAddressBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -297,7 +297,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
 
     /**
      * Set up relation columns to select clause. <br>
-     * (地域)region by my REGION_ID, named 'region'.
+     * REGION by my REGION_ID, named 'region'.
      * <pre>
      * <span style="color: #0000C0">memberAddressBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Region()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -363,57 +363,57 @@ public class BsMemberAddressCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INT(10)}
+         * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberAddressId() { return doColumn("MEMBER_ADDRESS_ID"); }
         /**
-         * (会員ID)MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+         * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
+         * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnValidBeginDate() { return doColumn("VALID_BEGIN_DATE"); }
         /**
-         * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
+         * VALID_END_DATE: {NotNull, DATE(8)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnValidEndDate() { return doColumn("VALID_END_DATE"); }
         /**
-         * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+         * ADDRESS: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnAddress() { return doColumn("ADDRESS"); }
         /**
-         * (地域ID)REGION_ID: {IX, NotNull, INT(10), FK to region, classification=Region}
+         * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegionId() { return doColumn("REGION_ID"); }
         /**
-         * (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)}
+         * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterDatetime() { return doColumn("REGISTER_DATETIME"); }
         /**
-         * (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)}
+         * REGISTER_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterUser() { return doColumn("REGISTER_USER"); }
         /**
-         * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
+         * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateDatetime() { return doColumn("UPDATE_DATETIME"); }
         /**
-         * (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)}
+         * UPDATE_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateUser() { return doColumn("UPDATE_USER"); }
         /**
-         * (バージョン番号)VERSION_NO: {NotNull, BIGINT(19)}
+         * VERSION_NO: {NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnVersionNo() { return doColumn("VERSION_NO"); }
@@ -432,10 +432,10 @@ public class BsMemberAddressCB extends AbstractConditionBean {
             }
         }
         @Override
-        protected String getTableDbName() { return "member_address"; }
+        protected String getTableDbName() { return "MEMBER_ADDRESS"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (会員)member by my MEMBER_ID, named 'member'.
+         * MEMBER by my MEMBER_ID, named 'member'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public MemberCB.HpSpecification specifyMember() {
@@ -455,7 +455,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
         }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (地域)region by my REGION_ID, named 'region'.
+         * REGION by my REGION_ID, named 'region'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public RegionCB.HpSpecification specifyRegion() {
@@ -578,13 +578,6 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<MemberAddressCB> andCBLambda) {
         xorSQAP((MemberAddressCB)this, andCBLambda);
-    }
-
-    // ===================================================================================
-    //                                                                       Cursor Select
-    //                                                                       =============
-    public void customizeCursorSelect(SVOptionCall<CursorSelectOption> opLambda) {
-        doAcceptCursorSelectOption(opLambda);
     }
 
     // ===================================================================================

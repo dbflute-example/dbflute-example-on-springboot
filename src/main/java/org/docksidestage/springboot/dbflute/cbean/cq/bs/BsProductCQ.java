@@ -28,7 +28,7 @@ import org.docksidestage.springboot.dbflute.cbean.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The base condition-query of product.
+ * The base condition-query of PRODUCT.
  * @author DBFlute(AutoGenerator)
  */
 public class BsProductCQ extends AbstractBsProductCQ {
@@ -50,7 +50,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
     //                                                                 ===================
     /**
      * Prepare InlineView query. <br>
-     * {select ... from ... left outer join (select * from product) where FOO = [value] ...}
+     * {select ... from ... left outer join (select * from PRODUCT) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
      * </pre>
@@ -73,7 +73,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /**
      * Prepare OnClause query. <br>
-     * {select ... from ... left outer join product on ... and FOO = [value] ...}
+     * {select ... from ... left outer join PRODUCT on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
      * </pre>
@@ -110,14 +110,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (商品ID)PRODUCT_ID: {PK, ID, NotNull, INT(10)}
+     * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductId_Asc() { regOBA("PRODUCT_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (商品ID)PRODUCT_ID: {PK, ID, NotNull, INT(10)}
+     * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductId_Desc() { regOBD("PRODUCT_ID"); return this; }
@@ -130,14 +130,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
+     * PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductName_Asc() { regOBA("PRODUCT_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
+     * PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductName_Desc() { regOBD("PRODUCT_NAME"); return this; }
@@ -150,14 +150,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
+     * PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductHandleCode_Asc() { regOBA("PRODUCT_HANDLE_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
+     * PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductHandleCode_Desc() { regOBD("PRODUCT_HANDLE_CODE"); return this; }
@@ -170,14 +170,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to product_category}
+     * PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductCategoryCode_Asc() { regOBA("PRODUCT_CATEGORY_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to product_category}
+     * PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductCategoryCode_Desc() { regOBD("PRODUCT_CATEGORY_CODE"); return this; }
@@ -190,14 +190,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (商品ステータスコード)PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to product_status, classification=ProductStatus}
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductStatusCode_Asc() { regOBA("PRODUCT_STATUS_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (商品ステータスコード)PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to product_status, classification=ProductStatus}
+     * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductStatusCode_Desc() { regOBD("PRODUCT_STATUS_CODE"); return this; }
@@ -210,14 +210,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (定価)REGULAR_PRICE: {NotNull, INT(10)}
+     * REGULAR_PRICE: {NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_RegularPrice_Asc() { regOBA("REGULAR_PRICE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (定価)REGULAR_PRICE: {NotNull, INT(10)}
+     * REGULAR_PRICE: {NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_RegularPrice_Desc() { regOBD("REGULAR_PRICE"); return this; }
@@ -230,14 +230,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_RegisterDatetime_Asc() { regOBA("REGISTER_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_RegisterDatetime_Desc() { regOBD("REGISTER_DATETIME"); return this; }
@@ -250,14 +250,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)}
+     * REGISTER_USER: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_RegisterUser_Asc() { regOBA("REGISTER_USER"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)}
+     * REGISTER_USER: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_RegisterUser_Desc() { regOBD("REGISTER_USER"); return this; }
@@ -270,14 +270,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_UpdateDatetime_Asc() { regOBA("UPDATE_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_UpdateDatetime_Desc() { regOBD("UPDATE_DATETIME"); return this; }
@@ -290,14 +290,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)}
+     * UPDATE_USER: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_UpdateUser_Asc() { regOBA("UPDATE_USER"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)}
+     * UPDATE_USER: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_UpdateUser_Desc() { regOBD("UPDATE_USER"); return this; }
@@ -310,14 +310,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * (バージョン番号)VERSION_NO: {NotNull, BIGINT(19)}
+     * VERSION_NO: {NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_VersionNo_Asc() { regOBA("VERSION_NO"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (バージョン番号)VERSION_NO: {NotNull, BIGINT(19)}
+     * VERSION_NO: {NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_VersionNo_Desc() { regOBD("VERSION_NO"); return this; }
@@ -376,7 +376,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * (商品カテゴリ)product_category by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
+     * PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
      * @return The instance of condition-query. (NotNull)
      */
     public ProductCategoryCQ queryProductCategory() {
@@ -388,7 +388,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
         return xgetQueRlMap(prop);
     }
     protected ProductCategoryCQ xcreateQueryProductCategory() {
-        String nrp = xresolveNRP("product", "productCategory"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        String nrp = xresolveNRP("PRODUCT", "productCategory"); String jan = xresolveJAN(nrp, xgetNNLvl());
         return xinitRelCQ(new ProductCategoryCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "productCategory", nrp);
     }
     protected void xsetupOuterJoinProductCategory() { xregOutJo("productCategory"); }
@@ -396,7 +396,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /**
      * Get the condition-query for relation table. <br>
-     * (商品ステータス)product_status by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @return The instance of condition-query. (NotNull)
      */
     public ProductStatusCQ queryProductStatus() {
@@ -408,7 +408,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
         return xgetQueRlMap(prop);
     }
     protected ProductStatusCQ xcreateQueryProductStatus() {
-        String nrp = xresolveNRP("product", "productStatus"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        String nrp = xresolveNRP("PRODUCT", "productStatus"); String jan = xresolveJAN(nrp, xgetNNLvl());
         return xinitRelCQ(new ProductStatusCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "productStatus", nrp);
     }
     protected void xsetupOuterJoinProductStatus() { xregOutJo("productStatus"); }

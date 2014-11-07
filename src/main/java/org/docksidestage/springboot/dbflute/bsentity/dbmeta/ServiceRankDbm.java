@@ -28,7 +28,7 @@ import org.docksidestage.springboot.dbflute.allcommon.*;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The DB meta of service_rank. (Singleton)
+ * The DB meta of SERVICE_RANK. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
 public class ServiceRankDbm extends AbstractDBMeta {
@@ -83,53 +83,51 @@ public class ServiceRankDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "service_rank";
+    protected final String _tableDbName = "SERVICE_RANK";
     protected final String _tablePropertyName = "serviceRank";
     protected final TableSqlName _tableSqlName = new TableSqlName("SERVICE_RANK", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
-    protected final String _tableAlias = "サービスランク";
-    public String getTableAlias() { return _tableAlias; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, "サービスランクコード", String.class, "serviceRankCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "memberServiceList", CDef.DefMeta.ServiceRank);
-    protected final ColumnInfo _columnServiceRankName = cci("SERVICE_RANK_NAME", "SERVICE_RANK_NAME", null, "サービスランク名称", String.class, "serviceRankName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnServicePointIncidence = cci("SERVICE_POINT_INCIDENCE", "SERVICE_POINT_INCIDENCE", null, "サービスポイント発生率", java.math.BigDecimal.class, "servicePointIncidence", null, false, false, true, "DECIMAL", 5, 3, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnNewAcceptableFlg = cci("NEW_ACCEPTABLE_FLG", "NEW_ACCEPTABLE_FLG", null, "新規受け入れ可能フラグ", Integer.class, "newAcceptableFlg", null, false, false, true, "INT", 10, 0, null, false, null, null, null, null, CDef.DefMeta.Flg);
-    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, "説明", String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", Integer.class, "displayOrder", null, false, false, true, "INT", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, null, String.class, "serviceRankCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "memberServiceList", CDef.DefMeta.ServiceRank);
+    protected final ColumnInfo _columnServiceRankName = cci("SERVICE_RANK_NAME", "SERVICE_RANK_NAME", null, null, String.class, "serviceRankName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnServicePointIncidence = cci("SERVICE_POINT_INCIDENCE", "SERVICE_POINT_INCIDENCE", null, null, java.math.BigDecimal.class, "servicePointIncidence", null, false, false, true, "DECIMAL", 5, 3, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnNewAcceptableFlg = cci("NEW_ACCEPTABLE_FLG", "NEW_ACCEPTABLE_FLG", null, null, Integer.class, "newAcceptableFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, CDef.DefMeta.Flg);
+    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, null, String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, null, Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
 
     /**
-     * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
+     * SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnServiceRankCode() { return _columnServiceRankCode; }
     /**
-     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
+     * SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnServiceRankName() { return _columnServiceRankName; }
     /**
-     * (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
+     * SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnServicePointIncidence() { return _columnServicePointIncidence; }
     /**
-     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INT(10), classification=Flg}
+     * NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnNewAcceptableFlg() { return _columnNewAcceptableFlg; }
     /**
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnDescription() { return _columnDescription; }
     /**
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnDisplayOrder() { return _columnDisplayOrder; }
@@ -170,7 +168,7 @@ public class ServiceRankDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     /**
-     * (会員サービス)member_service by SERVICE_RANK_CODE, named 'memberServiceList'.
+     * MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * @return The information object of referrer property. (NotNull)
      */
     public ReferrerInfo referrerMemberServiceList() {

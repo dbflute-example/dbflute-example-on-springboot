@@ -31,7 +31,7 @@ import org.docksidestage.springboot.dbflute.cbean.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The abstract condition-query of member_following.
+ * The abstract condition-query of MEMBER_FOLLOWING.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery {
@@ -55,7 +55,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
     //                                                                          Table Name
     //                                                                          ==========
     public String getTableDbName() {
-        return "member_following";
+        return "MEMBER_FOLLOWING";
     }
 
     // ===================================================================================
@@ -63,7 +63,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param memberFollowingId The value of memberFollowingId as equal. (NullAllowed: if null, no condition)
      */
     public void setMemberFollowingId_Equal(Long memberFollowingId) {
@@ -76,7 +76,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param memberFollowingId The value of memberFollowingId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setMemberFollowingId_NotEqual(Long memberFollowingId) {
@@ -89,7 +89,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param memberFollowingId The value of memberFollowingId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setMemberFollowingId_GreaterThan(Long memberFollowingId) {
@@ -98,7 +98,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param memberFollowingId The value of memberFollowingId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setMemberFollowingId_LessThan(Long memberFollowingId) {
@@ -107,7 +107,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param memberFollowingId The value of memberFollowingId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setMemberFollowingId_GreaterEqual(Long memberFollowingId) {
@@ -116,7 +116,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param memberFollowingId The value of memberFollowingId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setMemberFollowingId_LessEqual(Long memberFollowingId) {
@@ -127,7 +127,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param minNumber The min number of memberFollowingId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of memberFollowingId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -140,7 +140,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param minNumber The min number of memberFollowingId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of memberFollowingId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -151,7 +151,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param memberFollowingIdList The collection of memberFollowingId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setMemberFollowingId_InScope(Collection<Long> memberFollowingIdList) {
@@ -164,7 +164,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param memberFollowingIdList The collection of memberFollowingId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setMemberFollowingId_NotInScope(Collection<Long> memberFollowingIdList) {
@@ -177,13 +177,13 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      */
     public void setMemberFollowingId_IsNull() { regMemberFollowingId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      */
     public void setMemberFollowingId_IsNotNull() { regMemberFollowingId(CK_ISNN, DOBJ); }
 
@@ -192,7 +192,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param myMemberId The value of myMemberId as equal. (NullAllowed: if null, no condition)
      */
     public void setMyMemberId_Equal(Integer myMemberId) {
@@ -205,7 +205,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param myMemberId The value of myMemberId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setMyMemberId_NotEqual(Integer myMemberId) {
@@ -218,7 +218,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param myMemberId The value of myMemberId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setMyMemberId_GreaterThan(Integer myMemberId) {
@@ -227,7 +227,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param myMemberId The value of myMemberId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setMyMemberId_LessThan(Integer myMemberId) {
@@ -236,7 +236,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param myMemberId The value of myMemberId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setMyMemberId_GreaterEqual(Integer myMemberId) {
@@ -245,7 +245,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param myMemberId The value of myMemberId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setMyMemberId_LessEqual(Integer myMemberId) {
@@ -256,7 +256,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param minNumber The min number of myMemberId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of myMemberId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -269,7 +269,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param minNumber The min number of myMemberId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of myMemberId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -280,7 +280,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param myMemberIdList The collection of myMemberId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setMyMemberId_InScope(Collection<Integer> myMemberIdList) {
@@ -293,7 +293,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param myMemberIdList The collection of myMemberId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setMyMemberId_NotInScope(Collection<Integer> myMemberIdList) {
@@ -309,7 +309,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param yourMemberId The value of yourMemberId as equal. (NullAllowed: if null, no condition)
      */
     public void setYourMemberId_Equal(Integer yourMemberId) {
@@ -322,7 +322,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param yourMemberId The value of yourMemberId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setYourMemberId_NotEqual(Integer yourMemberId) {
@@ -335,7 +335,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param yourMemberId The value of yourMemberId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setYourMemberId_GreaterThan(Integer yourMemberId) {
@@ -344,7 +344,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param yourMemberId The value of yourMemberId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setYourMemberId_LessThan(Integer yourMemberId) {
@@ -353,7 +353,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param yourMemberId The value of yourMemberId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setYourMemberId_GreaterEqual(Integer yourMemberId) {
@@ -362,7 +362,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param yourMemberId The value of yourMemberId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setYourMemberId_LessEqual(Integer yourMemberId) {
@@ -373,7 +373,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param minNumber The min number of yourMemberId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of yourMemberId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -386,7 +386,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param minNumber The min number of yourMemberId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of yourMemberId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -397,7 +397,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param yourMemberIdList The collection of yourMemberId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setYourMemberId_InScope(Collection<Integer> yourMemberIdList) {
@@ -410,7 +410,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
+     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @param yourMemberIdList The collection of yourMemberId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setYourMemberId_NotInScope(Collection<Integer> yourMemberIdList) {
@@ -426,7 +426,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, DATETIME(19)}
+     * FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as equal. (NullAllowed: if null, no condition)
      */
     public void setFollowDatetime_Equal(java.time.LocalDateTime followDatetime) {
@@ -435,7 +435,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, DATETIME(19)}
+     * FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setFollowDatetime_GreaterThan(java.time.LocalDateTime followDatetime) {
@@ -444,7 +444,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, DATETIME(19)}
+     * FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as lessThan. (NullAllowed: if null, no condition)
      */
     public void setFollowDatetime_LessThan(java.time.LocalDateTime followDatetime) {
@@ -453,7 +453,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, DATETIME(19)}
+     * FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setFollowDatetime_GreaterEqual(java.time.LocalDateTime followDatetime) {
@@ -462,7 +462,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, DATETIME(19)}
+     * FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setFollowDatetime_LessEqual(java.time.LocalDateTime followDatetime) {
@@ -472,7 +472,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, DATETIME(19)}
+     * FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * <pre>e.g. setFollowDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of followDatetime. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of followDatetime. (NullAllowed: if null, no to-condition)
@@ -485,7 +485,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, DATETIME(19)}
+     * FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * <pre>e.g. setFollowDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of followDatetime. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of followDatetime. (NullAllowed: if null, no to-condition)

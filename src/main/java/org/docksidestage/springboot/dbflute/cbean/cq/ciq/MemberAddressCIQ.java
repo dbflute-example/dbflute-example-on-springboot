@@ -27,7 +27,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.bs.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of member_address.
+ * The condition-query for in-line of MEMBER_ADDRESS.
  * @author DBFlute(AutoGenerator)
  */
 public class MemberAddressCIQ extends AbstractBsMemberAddressCQ {

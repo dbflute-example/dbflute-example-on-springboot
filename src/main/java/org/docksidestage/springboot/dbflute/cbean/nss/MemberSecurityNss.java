@@ -18,7 +18,7 @@ package org.docksidestage.springboot.dbflute.cbean.nss;
 import org.docksidestage.springboot.dbflute.cbean.cq.MemberSecurityCQ;
 
 /**
- * The nest select set-upper of member_security.
+ * The nest select set-upper of MEMBER_SECURITY.
  * @author DBFlute(AutoGenerator)
  */
 public class MemberSecurityNss {
@@ -35,7 +35,7 @@ public class MemberSecurityNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * (会員)member by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMember() {

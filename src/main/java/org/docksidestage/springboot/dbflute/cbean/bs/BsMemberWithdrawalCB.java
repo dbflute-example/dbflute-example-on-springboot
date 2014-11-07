@@ -36,7 +36,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.*;
 import org.docksidestage.springboot.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of member_withdrawal.
+ * The base condition-bean of MEMBER_WITHDRAWAL.
  * @author DBFlute(AutoGenerator)
  */
 public class BsMemberWithdrawalCB extends AbstractConditionBean {
@@ -88,7 +88,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
     //                                                                          Table Name
     //                                                                          ==========
     public String getTableDbName() {
-        return "member_withdrawal";
+        return "MEMBER_WITHDRAWAL";
     }
 
     // ===================================================================================
@@ -96,7 +96,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param memberId (メンバーID): PK, NotNull, INT(10), FK to member. (NotNull)
+     * @param memberId : PK, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return this. (NotNull)
      */
     public MemberWithdrawalCB acceptPK(Integer memberId) {
@@ -260,7 +260,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * (会員)member by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * <pre>
      * <span style="color: #0000C0">memberWithdrawalBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -281,7 +281,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
 
     /**
      * Set up relation columns to select clause. <br>
-     * (退会理由)withdrawal_reason by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
+     * WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
      * <pre>
      * <span style="color: #0000C0">memberWithdrawalBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_WithdrawalReason()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -347,45 +347,50 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * (メンバーID)MEMBER_ID: {PK, NotNull, INT(10), FK to member}
+         * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to withdrawal_reason, classification=WithdrawalReason}
+         * WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnWithdrawalReasonCode() { return doColumn("WITHDRAWAL_REASON_CODE"); }
         /**
-         * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {TEXT(65535)}
+         * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnWithdrawalReasonInputText() { return doColumn("WITHDRAWAL_REASON_INPUT_TEXT"); }
         /**
-         * (退会日時)WITHDRAWAL_DATETIME: {NotNull, DATETIME(19)}
+         * WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnWithdrawalDatetime() { return doColumn("WITHDRAWAL_DATETIME"); }
         /**
-         * (登録日付時間)REGISTER_DATETIME: {NotNull, DATETIME(19)}
+         * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterDatetime() { return doColumn("REGISTER_DATETIME"); }
         /**
-         * (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)}
+         * REGISTER_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterUser() { return doColumn("REGISTER_USER"); }
         /**
-         * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
+         * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateDatetime() { return doColumn("UPDATE_DATETIME"); }
         /**
-         * (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)}
+         * UPDATE_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateUser() { return doColumn("UPDATE_USER"); }
+        /**
+         * VERSION_NO: {NotNull, BIGINT(19)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnVersionNo() { return doColumn("VERSION_NO"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
@@ -397,10 +402,10 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
             }
         }
         @Override
-        protected String getTableDbName() { return "member_withdrawal"; }
+        protected String getTableDbName() { return "MEMBER_WITHDRAWAL"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (会員)member by my MEMBER_ID, named 'member'.
+         * MEMBER by my MEMBER_ID, named 'member'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public MemberCB.HpSpecification specifyMember() {
@@ -420,7 +425,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
         }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (退会理由)withdrawal_reason by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
+         * WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public WithdrawalReasonCB.HpSpecification specifyWithdrawalReason() {
@@ -543,13 +548,6 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<MemberWithdrawalCB> andCBLambda) {
         xorSQAP((MemberWithdrawalCB)this, andCBLambda);
-    }
-
-    // ===================================================================================
-    //                                                                       Cursor Select
-    //                                                                       =============
-    public void customizeCursorSelect(SVOptionCall<CursorSelectOption> opLambda) {
-        doAcceptCursorSelectOption(opLambda);
     }
 
     // ===================================================================================

@@ -18,7 +18,7 @@ package org.docksidestage.springboot.dbflute.cbean.nss;
 import org.docksidestage.springboot.dbflute.cbean.cq.PurchaseCQ;
 
 /**
- * The nest select set-upper of purchase.
+ * The nest select set-upper of PURCHASE.
  * @author DBFlute(AutoGenerator)
  */
 public class PurchaseNss {
@@ -35,7 +35,7 @@ public class PurchaseNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * (会員)member by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMember() {
@@ -44,7 +44,7 @@ public class PurchaseNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * (商品)product by my PRODUCT_ID, named 'product'.
+     * PRODUCT by my PRODUCT_ID, named 'product'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public ProductNss withProduct() {

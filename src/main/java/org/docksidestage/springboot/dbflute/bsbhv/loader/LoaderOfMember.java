@@ -24,7 +24,7 @@ import org.docksidestage.springboot.dbflute.exentity.*;
 import org.docksidestage.springboot.dbflute.cbean.*;
 
 /**
- * The referrer loader of (会員)MEMBER as TABLE. <br>
+ * The referrer loader of MEMBER as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_ID
@@ -42,10 +42,10 @@ import org.docksidestage.springboot.dbflute.cbean.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     member_status, MEMBER_ADDRESS(AsValid), MEMBER_LOGIN(AsLatest), member_security(AsOne), member_service(AsOne), member_withdrawal(AsOne)
+ *     MEMBER_STATUS, MEMBER_ADDRESS(AsValid), MEMBER_LOGIN(AsLatest), MEMBER_SECURITY(AsOne), MEMBER_SERVICE(AsOne), MEMBER_WITHDRAWAL(AsOne)
  *
  * [referrer table]
- *     member_address, member_following, member_login, purchase, member_security, member_service, member_withdrawal
+ *     MEMBER_ADDRESS, MEMBER_FOLLOWING, MEMBER_LOGIN, PURCHASE, MEMBER_SECURITY, MEMBER_SERVICE, MEMBER_WITHDRAWAL
  *
  * [foreign property]
  *     memberStatus, memberAddressAsValid, memberLoginAsLatest, memberSecurityAsOne, memberServiceAsOne, memberWithdrawalAsOne
@@ -80,7 +80,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of memberAddressList by the set-upper of referrer. <br>
-     * (会員住所情報)member_address by MEMBER_ID, named 'memberAddressList'.
+     * MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadMemberAddress</span>(<span style="color: #553000">addressCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -114,7 +114,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of memberFollowingByMyMemberIdList by the set-upper of referrer. <br>
-     * (会員フォローイング)member_following by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
+     * MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadMemberFollowingByMyMemberId</span>(<span style="color: #553000">followingCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -148,7 +148,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of memberFollowingByYourMemberIdList by the set-upper of referrer. <br>
-     * (会員フォローイング)member_following by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
+     * MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadMemberFollowingByYourMemberId</span>(<span style="color: #553000">followingCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -182,7 +182,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of memberLoginList by the set-upper of referrer. <br>
-     * (会員ログイン)member_login by MEMBER_ID, named 'memberLoginList'.
+     * MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadMemberLogin</span>(<span style="color: #553000">loginCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -216,7 +216,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * (購入)purchase by MEMBER_ID, named 'purchaseList'.
+     * PURCHASE by MEMBER_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

@@ -36,7 +36,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.*;
 import org.docksidestage.springboot.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of member_service.
+ * The base condition-bean of MEMBER_SERVICE.
  * @author DBFlute(AutoGenerator)
  */
 public class BsMemberServiceCB extends AbstractConditionBean {
@@ -88,7 +88,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
     //                                                                          Table Name
     //                                                                          ==========
     public String getTableDbName() {
-        return "member_service";
+        return "MEMBER_SERVICE";
     }
 
     // ===================================================================================
@@ -96,7 +96,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param memberServiceId (会員サービスID): PK, ID, NotNull, INT(10). (NotNull)
+     * @param memberServiceId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return this. (NotNull)
      */
     public MemberServiceCB acceptPK(Integer memberServiceId) {
@@ -108,7 +108,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param memberId (会員ID): UQ, NotNull, INT(10), FK to member. (NotNull)
+     * @param memberId : UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return this. (NotNull)
      */
     public MemberServiceCB acceptUniqueOf(Integer memberId) {
@@ -272,7 +272,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * (会員)member by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * <pre>
      * <span style="color: #0000C0">memberServiceBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -296,7 +296,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
 
     /**
      * Set up relation columns to select clause. <br>
-     * (サービスランク)service_rank by my SERVICE_RANK_CODE, named 'serviceRank'.
+     * SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * <pre>
      * <span style="color: #0000C0">memberServiceBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_ServiceRank()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -362,47 +362,47 @@ public class BsMemberServiceCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INT(10)}
+         * MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberServiceId() { return doColumn("MEMBER_SERVICE_ID"); }
         /**
-         * (会員ID)MEMBER_ID: {UQ, NotNull, INT(10), FK to member}
+         * MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INT(10)}
+         * SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnServicePointCount() { return doColumn("SERVICE_POINT_COUNT"); }
         /**
-         * (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to service_rank, classification=ServiceRank}
+         * SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnServiceRankCode() { return doColumn("SERVICE_RANK_CODE"); }
         /**
-         * (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)}
+         * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterDatetime() { return doColumn("REGISTER_DATETIME"); }
         /**
-         * (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)}
+         * REGISTER_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterUser() { return doColumn("REGISTER_USER"); }
         /**
-         * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
+         * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateDatetime() { return doColumn("UPDATE_DATETIME"); }
         /**
-         * (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)}
+         * UPDATE_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateUser() { return doColumn("UPDATE_USER"); }
         /**
-         * (バージョン番号)VERSION_NO: {NotNull, BIGINT(19)}
+         * VERSION_NO: {NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnVersionNo() { return doColumn("VERSION_NO"); }
@@ -421,10 +421,10 @@ public class BsMemberServiceCB extends AbstractConditionBean {
             }
         }
         @Override
-        protected String getTableDbName() { return "member_service"; }
+        protected String getTableDbName() { return "MEMBER_SERVICE"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (会員)member by my MEMBER_ID, named 'member'.
+         * MEMBER by my MEMBER_ID, named 'member'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public MemberCB.HpSpecification specifyMember() {
@@ -444,7 +444,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
         }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (サービスランク)service_rank by my SERVICE_RANK_CODE, named 'serviceRank'.
+         * SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public ServiceRankCB.HpSpecification specifyServiceRank() {
@@ -567,13 +567,6 @@ public class BsMemberServiceCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<MemberServiceCB> andCBLambda) {
         xorSQAP((MemberServiceCB)this, andCBLambda);
-    }
-
-    // ===================================================================================
-    //                                                                       Cursor Select
-    //                                                                       =============
-    public void customizeCursorSelect(SVOptionCall<CursorSelectOption> opLambda) {
-        doAcceptCursorSelectOption(opLambda);
     }
 
     // ===================================================================================

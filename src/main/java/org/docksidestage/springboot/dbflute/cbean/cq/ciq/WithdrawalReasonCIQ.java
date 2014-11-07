@@ -27,7 +27,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.bs.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of withdrawal_reason.
+ * The condition-query for in-line of WITHDRAWAL_REASON.
  * @author DBFlute(AutoGenerator)
  */
 public class WithdrawalReasonCIQ extends AbstractBsWithdrawalReasonCQ {

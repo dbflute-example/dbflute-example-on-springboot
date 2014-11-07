@@ -35,7 +35,7 @@ import org.docksidestage.springboot.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.springboot.dbflute.cbean.*;
 
 /**
- * The behavior of (会員サービス)MEMBER_SERVICE as TABLE. <br>
+ * The behavior of MEMBER_SERVICE as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_SERVICE_ID
@@ -53,7 +53,7 @@ import org.docksidestage.springboot.dbflute.cbean.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     member, service_rank
+ *     MEMBER, SERVICE_RANK
  *
  * [referrer table]
  *     
@@ -170,7 +170,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberServiceId (会員サービスID): PK, ID, NotNull, INT(10). (NotNull)
+     * @param memberServiceId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -199,7 +199,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
 
     /**
      * Select the entity by the unique-key value.
-     * @param memberId (会員ID): UQ, NotNull, INT(10), FK to member. (NotNull)
+     * @param memberId : UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.

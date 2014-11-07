@@ -24,7 +24,7 @@ import org.docksidestage.springboot.dbflute.exentity.*;
 import org.docksidestage.springboot.dbflute.cbean.*;
 
 /**
- * The referrer loader of (商品カテゴリ)PRODUCT_CATEGORY as TABLE. <br>
+ * The referrer loader of PRODUCT_CATEGORY as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_CATEGORY_CODE
@@ -42,10 +42,10 @@ import org.docksidestage.springboot.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     product_category
+ *     PRODUCT_CATEGORY
  *
  * [referrer table]
- *     product, product_category
+ *     PRODUCT, PRODUCT_CATEGORY
  *
  * [foreign property]
  *     productCategorySelf
@@ -80,7 +80,7 @@ public class LoaderOfProductCategory {
 
     /**
      * Load referrer of productList by the set-upper of referrer. <br>
-     * (商品)product by PRODUCT_CATEGORY_CODE, named 'productList'.
+     * PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
      * <pre>
      * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productCategoryList</span>, <span style="color: #553000">categoryLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">categoryLoader</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -114,7 +114,7 @@ public class LoaderOfProductCategory {
 
     /**
      * Load referrer of productCategorySelfList by the set-upper of referrer. <br>
-     * (商品カテゴリ)product_category by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
+     * PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
      * <pre>
      * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productCategoryList</span>, <span style="color: #553000">categoryLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">categoryLoader</span>.<span style="color: #CC4747">loadProductCategorySelf</span>(<span style="color: #553000">categoryCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

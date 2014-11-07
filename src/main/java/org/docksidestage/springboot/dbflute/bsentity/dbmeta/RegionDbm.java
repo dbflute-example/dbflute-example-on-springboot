@@ -28,7 +28,7 @@ import org.docksidestage.springboot.dbflute.allcommon.*;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The DB meta of region. (Singleton)
+ * The DB meta of REGION. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
 public class RegionDbm extends AbstractDBMeta {
@@ -71,29 +71,27 @@ public class RegionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "region";
+    protected final String _tableDbName = "REGION";
     protected final String _tablePropertyName = "region";
     protected final TableSqlName _tableSqlName = new TableSqlName("REGION", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
-    protected final String _tableAlias = "地域";
-    public String getTableAlias() { return _tableAlias; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, "地域ID", Integer.class, "regionId", null, true, false, true, "INT", 10, 0, null, false, null, null, null, "memberAddressList", CDef.DefMeta.Region);
-    protected final ColumnInfo _columnRegionName = cci("REGION_NAME", "REGION_NAME", null, "地域名称", String.class, "regionName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, null, Integer.class, "regionId", null, true, false, true, "INTEGER", 10, 0, null, false, null, null, null, "memberAddressList", CDef.DefMeta.Region);
+    protected final ColumnInfo _columnRegionName = cci("REGION_NAME", "REGION_NAME", null, null, String.class, "regionName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
 
     /**
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region}
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnRegionId() { return _columnRegionId; }
     /**
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
+     * REGION_NAME: {NotNull, VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnRegionName() { return _columnRegionName; }
@@ -130,7 +128,7 @@ public class RegionDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     /**
-     * (会員住所情報)member_address by REGION_ID, named 'memberAddressList'.
+     * MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * @return The information object of referrer property. (NotNull)
      */
     public ReferrerInfo referrerMemberAddressList() {

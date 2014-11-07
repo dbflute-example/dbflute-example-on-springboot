@@ -24,7 +24,7 @@ import org.docksidestage.springboot.dbflute.exentity.*;
 import org.docksidestage.springboot.dbflute.cbean.*;
 
 /**
- * The referrer loader of (商品)PRODUCT as TABLE. <br>
+ * The referrer loader of PRODUCT as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_ID
@@ -42,10 +42,10 @@ import org.docksidestage.springboot.dbflute.cbean.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     product_category, product_status
+ *     PRODUCT_CATEGORY, PRODUCT_STATUS
  *
  * [referrer table]
- *     purchase
+ *     PURCHASE
  *
  * [foreign property]
  *     productCategory, productStatus
@@ -80,7 +80,7 @@ public class LoaderOfProduct {
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * (購入)purchase by PRODUCT_ID, named 'purchaseList'.
+     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productList</span>, <span style="color: #553000">productLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">productLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

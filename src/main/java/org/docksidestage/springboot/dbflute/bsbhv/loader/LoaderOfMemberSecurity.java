@@ -22,7 +22,7 @@ import org.docksidestage.springboot.dbflute.exbhv.*;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員セキュリティ)MEMBER_SECURITY as TABLE. <br>
+ * The referrer loader of MEMBER_SECURITY as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_ID
@@ -40,7 +40,7 @@ import org.docksidestage.springboot.dbflute.exentity.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     member
+ *     MEMBER
  *
  * [referrer table]
  *     

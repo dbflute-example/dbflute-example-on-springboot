@@ -27,7 +27,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.bs.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of purchase.
+ * The condition-query for in-line of PURCHASE.
  * @author DBFlute(AutoGenerator)
  */
 public class PurchaseCIQ extends AbstractBsPurchaseCQ {

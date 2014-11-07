@@ -29,7 +29,7 @@ import org.docksidestage.springboot.dbflute.allcommon.*;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The DB meta of member_login. (Singleton)
+ * The DB meta of MEMBER_LOGIN. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
 public class MemberLoginDbm extends AbstractDBMeta {
@@ -96,47 +96,45 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "member_login";
+    protected final String _tableDbName = "MEMBER_LOGIN";
     protected final String _tablePropertyName = "memberLogin";
     protected final TableSqlName _tableSqlName = new TableSqlName("MEMBER_LOGIN", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
-    protected final String _tableAlias = "会員ログイン";
-    public String getTableAlias() { return _tableAlias; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INT", 10, 0, null, false, null, null, "member", null, null);
-    protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", java.time.LocalDateTime.class, "loginDatetime", null, false, false, true, "DATETIME", 19, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, "モバイルログインフラグ", Integer.class, "mobileLoginFlg", null, false, false, true, "INT", 10, 0, null, false, null, null, null, null, CDef.DefMeta.Flg);
-    protected final ColumnInfo _columnLoginMemberStatusCode = cci("LOGIN_MEMBER_STATUS_CODE", "LOGIN_MEMBER_STATUS_CODE", null, "ログイン会員ステータスコード", String.class, "loginMemberStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "memberStatus", null, CDef.DefMeta.MemberStatus);
+    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, null, Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0B79787B_E9D1_48DA_9C11_BF85491E07C1", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, null, Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
+    protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, null, java.time.LocalDateTime.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, null, Integer.class, "mobileLoginFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, CDef.DefMeta.Flg);
+    protected final ColumnInfo _columnLoginMemberStatusCode = cci("LOGIN_MEMBER_STATUS_CODE", "LOGIN_MEMBER_STATUS_CODE", null, null, String.class, "loginMemberStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "memberStatus", null, CDef.DefMeta.MemberStatus);
 
     /**
-     * (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMemberLoginId() { return _columnMemberLoginId; }
     /**
-     * (会員ID)MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMemberId() { return _columnMemberId; }
     /**
-     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, DATETIME(19)}
+     * LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLoginDatetime() { return _columnLoginDatetime; }
     /**
-     * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INT(10), classification=Flg}
+     * MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMobileLoginFlg() { return _columnMobileLoginFlg; }
     /**
-     * (ログイン会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to member_status, classification=MemberStatus}
+     * LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLoginMemberStatusCode() { return _columnLoginMemberStatusCode; }
@@ -172,7 +170,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
-     * (会員ステータス)member_status by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
+     * MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
      * @return The information object of foreign property. (NotNull)
      */
     public ForeignInfo foreignMemberStatus() {
@@ -180,7 +178,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
         return cfi("FK_MEMBER_LOGIN_MEMBER_STATUS", "memberStatus", this, MemberStatusDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "memberLoginList");
     }
     /**
-     * (会員)member by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * @return The information object of foreign property. (NotNull)
      */
     public ForeignInfo foreignMember() {

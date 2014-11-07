@@ -31,7 +31,7 @@ import org.docksidestage.springboot.dbflute.cbean.*;
 import org.docksidestage.springboot.dbflute.cbean.cq.*;
 
 /**
- * The abstract condition-query of region.
+ * The abstract condition-query of REGION.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
@@ -55,7 +55,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     //                                                                          Table Name
     //                                                                          ==========
     public String getTableDbName() {
-        return "region";
+        return "REGION";
     }
 
     // ===================================================================================
@@ -63,7 +63,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region}
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      * @param regionId The value of regionId as equal. (NullAllowed: if null, no condition)
      */
     protected void setRegionId_Equal(Integer regionId) {
@@ -72,7 +72,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). As Region. And NullIgnored, OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * 主に会員の住んでいる地域を示す
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
      */
@@ -118,7 +118,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region}
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      * @param regionId The value of regionId as notEqual. (NullAllowed: if null, no condition)
      */
     protected void setRegionId_NotEqual(Integer regionId) {
@@ -127,7 +127,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). As Region. And NullIgnored, OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * 主に会員の住んでいる地域を示す
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
      */
@@ -173,7 +173,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region}
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      * @param regionIdList The collection of regionId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setRegionId_InScope(Collection<Integer> regionIdList) {
@@ -182,7 +182,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. As Region. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * 主に会員の住んでいる地域を示す
      * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
      */
@@ -196,7 +196,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region}
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      * @param regionIdList The collection of regionId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setRegionId_NotInScope(Collection<Integer> regionIdList) {
@@ -205,7 +205,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. As Region. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * 主に会員の住んでいる地域を示す
      * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
      */
@@ -219,8 +219,8 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * Set up ExistsReferrer (correlated sub-query). <br>
-     * {exists (select REGION_ID from member_address where ...)} <br>
-     * (会員住所情報)member_address by REGION_ID, named 'memberAddressAsOne'.
+     * {exists (select REGION_ID from MEMBER_ADDRESS where ...)} <br>
+     * MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">existsMemberAddress</span>(addressCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     addressCB.query().set...
@@ -238,8 +238,8 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
-     * {not exists (select REGION_ID from member_address where ...)} <br>
-     * (会員住所情報)member_address by REGION_ID, named 'memberAddressAsOne'.
+     * {not exists (select REGION_ID from MEMBER_ADDRESS where ...)} <br>
+     * MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">notExistsMemberAddress</span>(addressCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     addressCB.query().set...
@@ -265,8 +265,8 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
-     * {FOO &lt;= (select max(BAR) from member_address where ...)} <br>
-     * (会員住所情報)member_address by REGION_ID, named 'memberAddressAsOne'.
+     * {FOO &lt;= (select max(BAR) from MEMBER_ADDRESS where ...)} <br>
+     * MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">derivedMemberAddress()</span>.<span style="color: #CC4747">max</span>(addressCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     addressCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -292,13 +292,13 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region}
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      */
     public void setRegionId_IsNull() { regRegionId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region}
+     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      */
     public void setRegionId_IsNotNull() { regRegionId(CK_ISNN, DOBJ); }
 
@@ -307,7 +307,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
+     * REGION_NAME: {NotNull, VARCHAR(50)}
      * @param regionName The value of regionName as equal. (NullAllowed: if null (or empty), no condition)
      */
     public void setRegionName_Equal(String regionName) {
@@ -320,7 +320,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br>
+     * REGION_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setRegionName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param regionName The value of regionName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -331,7 +331,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br>
+     * REGION_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setRegionName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param regionName The value of regionName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -343,7 +343,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
+     * REGION_NAME: {NotNull, VARCHAR(50)}
      * @param regionName The value of regionName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
@@ -354,7 +354,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
+     * REGION_NAME: {NotNull, VARCHAR(50)}
      * @param regionName The value of regionName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */

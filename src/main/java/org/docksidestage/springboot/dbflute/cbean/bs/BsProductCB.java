@@ -36,7 +36,7 @@ import org.docksidestage.springboot.dbflute.cbean.cq.*;
 import org.docksidestage.springboot.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of product.
+ * The base condition-bean of PRODUCT.
  * @author DBFlute(AutoGenerator)
  */
 public class BsProductCB extends AbstractConditionBean {
@@ -88,7 +88,7 @@ public class BsProductCB extends AbstractConditionBean {
     //                                                                          Table Name
     //                                                                          ==========
     public String getTableDbName() {
-        return "product";
+        return "PRODUCT";
     }
 
     // ===================================================================================
@@ -96,7 +96,7 @@ public class BsProductCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param productId (商品ID): PK, ID, NotNull, INT(10). (NotNull)
+     * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return this. (NotNull)
      */
     public ProductCB acceptPK(Integer productId) {
@@ -108,7 +108,7 @@ public class BsProductCB extends AbstractConditionBean {
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param productHandleCode (商品ハンドルコード): UQ, NotNull, VARCHAR(100). (NotNull)
+     * @param productHandleCode : UQ, NotNull, VARCHAR(100). (NotNull)
      * @return this. (NotNull)
      */
     public ProductCB acceptUniqueOf(String productHandleCode) {
@@ -272,7 +272,7 @@ public class BsProductCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * (商品カテゴリ)product_category by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
+     * PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_ProductCategory()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -296,7 +296,7 @@ public class BsProductCB extends AbstractConditionBean {
 
     /**
      * Set up relation columns to select clause. <br>
-     * (商品ステータス)product_status by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_ProductStatus()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -362,57 +362,57 @@ public class BsProductCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * (商品ID)PRODUCT_ID: {PK, ID, NotNull, INT(10)}
+         * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductId() { return doColumn("PRODUCT_ID"); }
         /**
-         * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
+         * PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductName() { return doColumn("PRODUCT_NAME"); }
         /**
-         * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
+         * PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductHandleCode() { return doColumn("PRODUCT_HANDLE_CODE"); }
         /**
-         * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to product_category}
+         * PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductCategoryCode() { return doColumn("PRODUCT_CATEGORY_CODE"); }
         /**
-         * (商品ステータスコード)PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to product_status, classification=ProductStatus}
+         * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductStatusCode() { return doColumn("PRODUCT_STATUS_CODE"); }
         /**
-         * (定価)REGULAR_PRICE: {NotNull, INT(10)}
+         * REGULAR_PRICE: {NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegularPrice() { return doColumn("REGULAR_PRICE"); }
         /**
-         * (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)}
+         * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterDatetime() { return doColumn("REGISTER_DATETIME"); }
         /**
-         * (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)}
+         * REGISTER_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterUser() { return doColumn("REGISTER_USER"); }
         /**
-         * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
+         * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateDatetime() { return doColumn("UPDATE_DATETIME"); }
         /**
-         * (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)}
+         * UPDATE_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateUser() { return doColumn("UPDATE_USER"); }
         /**
-         * (バージョン番号)VERSION_NO: {NotNull, BIGINT(19)}
+         * VERSION_NO: {NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnVersionNo() { return doColumn("VERSION_NO"); }
@@ -431,10 +431,10 @@ public class BsProductCB extends AbstractConditionBean {
             }
         }
         @Override
-        protected String getTableDbName() { return "product"; }
+        protected String getTableDbName() { return "PRODUCT"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (商品カテゴリ)product_category by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
+         * PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public ProductCategoryCB.HpSpecification specifyProductCategory() {
@@ -454,7 +454,7 @@ public class BsProductCB extends AbstractConditionBean {
         }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (商品ステータス)product_status by my PRODUCT_STATUS_CODE, named 'productStatus'.
+         * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public ProductStatusCB.HpSpecification specifyProductStatus() {
@@ -474,8 +474,8 @@ public class BsProductCB extends AbstractConditionBean {
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from purchase where ...) as FOO_MAX} <br>
-         * (購入)purchase by PRODUCT_ID, named 'purchaseList'.
+         * {select max(FOO) from PURCHASE where ...) as FOO_MAX} <br>
+         * PURCHASE by PRODUCT_ID, named 'purchaseList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(purchaseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     purchaseCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -594,13 +594,6 @@ public class BsProductCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<ProductCB> andCBLambda) {
         xorSQAP((ProductCB)this, andCBLambda);
-    }
-
-    // ===================================================================================
-    //                                                                       Cursor Select
-    //                                                                       =============
-    public void customizeCursorSelect(SVOptionCall<CursorSelectOption> opLambda) {
-        doAcceptCursorSelectOption(opLambda);
     }
 
     // ===================================================================================

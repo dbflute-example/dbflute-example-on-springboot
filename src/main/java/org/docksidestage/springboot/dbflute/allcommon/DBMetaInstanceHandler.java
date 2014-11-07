@@ -46,22 +46,24 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
     protected static final Map<String, String> _tableDbNameClassNameMap;
     static {
         final Map<String, String> tmpMap = newHashMap();
-        tmpMap.put("member", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberDbm");
-        tmpMap.put("member_address", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberAddressDbm");
-        tmpMap.put("member_following", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberFollowingDbm");
-        tmpMap.put("member_login", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberLoginDbm");
-        tmpMap.put("member_security", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberSecurityDbm");
-        tmpMap.put("member_service", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberServiceDbm");
-        tmpMap.put("member_status", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberStatusDbm");
-        tmpMap.put("member_withdrawal", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberWithdrawalDbm");
-        tmpMap.put("product", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.ProductDbm");
-        tmpMap.put("product_category", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.ProductCategoryDbm");
-        tmpMap.put("product_status", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.ProductStatusDbm");
-        tmpMap.put("purchase", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.PurchaseDbm");
-        tmpMap.put("purchase_payment", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.PurchasePaymentDbm");
-        tmpMap.put("region", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.RegionDbm");
-        tmpMap.put("service_rank", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.ServiceRankDbm");
-        tmpMap.put("withdrawal_reason", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.WithdrawalReasonDbm");
+        tmpMap.put("MEMBER", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberDbm");
+        tmpMap.put("MEMBER_ADDRESS", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberAddressDbm");
+        tmpMap.put("MEMBER_FOLLOWING", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberFollowingDbm");
+        tmpMap.put("MEMBER_LOGIN", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberLoginDbm");
+        tmpMap.put("MEMBER_SECURITY", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberSecurityDbm");
+        tmpMap.put("MEMBER_SERVICE", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberServiceDbm");
+        tmpMap.put("MEMBER_STATUS", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberStatusDbm");
+        tmpMap.put("MEMBER_WITHDRAWAL", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.MemberWithdrawalDbm");
+        tmpMap.put("PRODUCT", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.ProductDbm");
+        tmpMap.put("PRODUCT_CATEGORY", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.ProductCategoryDbm");
+        tmpMap.put("PRODUCT_STATUS", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.ProductStatusDbm");
+        tmpMap.put("PURCHASE", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.PurchaseDbm");
+        tmpMap.put("PURCHASE_PAYMENT", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.PurchasePaymentDbm");
+        tmpMap.put("REGION", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.RegionDbm");
+        tmpMap.put("SERVICE_RANK", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.ServiceRankDbm");
+        tmpMap.put("SUMMARY_PRODUCT", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.SummaryProductDbm");
+        tmpMap.put("SUMMARY_WITHDRAWAL", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.SummaryWithdrawalDbm");
+        tmpMap.put("WITHDRAWAL_REASON", "org.docksidestage.springboot.dbflute.bsentity.dbmeta.WithdrawalReasonDbm");
         _tableDbNameClassNameMap = Collections.unmodifiableMap(tmpMap);
     }
 

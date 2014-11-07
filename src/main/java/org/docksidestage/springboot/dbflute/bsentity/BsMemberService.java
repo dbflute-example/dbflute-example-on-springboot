@@ -29,9 +29,7 @@ import org.docksidestage.springboot.dbflute.allcommon.CDef;
 import org.docksidestage.springboot.dbflute.exentity.*;
 
 /**
- * The entity of (会員サービス)MEMBER_SERVICE as TABLE. <br>
- * 会員のサービス情報（ポイントサービスなど）。<br>
- * テストケースのために、あえて統一性を崩してユニーク制約経由の one-to-one を表現している。
+ * The entity of MEMBER_SERVICE as TABLE. <br>
  * <pre>
  * [primary-key]
  *     MEMBER_SERVICE_ID
@@ -49,7 +47,7 @@ import org.docksidestage.springboot.dbflute.exentity.*;
  *     VERSION_NO
  * 
  * [foreign table]
- *     member, service_rank
+ *     MEMBER, SERVICE_RANK
  * 
  * [referrer table]
  *     
@@ -95,31 +93,31 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INT(10)} */
+    /** MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} */
     protected Integer _memberServiceId;
 
-    /** (会員ID)MEMBER_ID: {UQ, NotNull, INT(10), FK to member} */
+    /** MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _memberId;
 
-    /** (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INT(10)} */
+    /** SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} */
     protected Integer _servicePointCount;
 
-    /** (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to service_rank, classification=ServiceRank} */
+    /** SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} */
     protected String _serviceRankCode;
 
-    /** (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)} */
+    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     protected java.time.LocalDateTime _registerDatetime;
 
-    /** (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)} */
+    /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
-    /** (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)} */
+    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
     protected java.time.LocalDateTime _updateDatetime;
 
-    /** (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)} */
+    /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
 
-    /** (バージョン番号)VERSION_NO: {NotNull, BIGINT(19)} */
+    /** VERSION_NO: {NotNull, BIGINT(19)} */
     protected Long _versionNo;
 
     // ===================================================================================
@@ -127,7 +125,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     //                                                                          ==========
     /** {@inheritDoc} */
     public String getTableDbName() {
-        return "member_service";
+        return "MEMBER_SERVICE";
     }
 
     /** {@inheritDoc} */
@@ -155,7 +153,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     /**
      * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
-     * @param memberId (会員ID): UQ, NotNull, INT(10), FK to member. (NotNull)
+     * @param memberId : UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      */
     public void uniqueBy(Integer memberId) {
         __uniqueDrivenProperties.clear();
@@ -168,7 +166,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     //                                                             =======================
     /**
      * Get the value of serviceRankCode as the classification of ServiceRank. <br>
-     * (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to service_rank, classification=ServiceRank} <br>
+     * SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
      * 会員が受けられるサービスのランクを示す
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -179,7 +177,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
 
     /**
      * Set the value of serviceRankCode as the classification of ServiceRank. <br>
-     * (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to service_rank, classification=ServiceRank} <br>
+     * SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
      * 会員が受けられるサービスのランクを示す
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -291,11 +289,11 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** (会員)member by my MEMBER_ID, named 'member'. */
+    /** MEMBER by my MEMBER_ID, named 'member'. */
     protected OptionalEntity<Member> _member;
 
     /**
-     * [get] (会員)member by my MEMBER_ID, named 'member'. <br>
+     * [get] MEMBER by my MEMBER_ID, named 'member'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'member'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -305,18 +303,18 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (会員)member by my MEMBER_ID, named 'member'.
+     * [set] MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(OptionalEntity<Member> member) {
         _member = member;
     }
 
-    /** (サービスランク)service_rank by my SERVICE_RANK_CODE, named 'serviceRank'. */
+    /** SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. */
     protected OptionalEntity<ServiceRank> _serviceRank;
 
     /**
-     * [get] (サービスランク)service_rank by my SERVICE_RANK_CODE, named 'serviceRank'. <br>
+     * [get] SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'serviceRank'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -326,7 +324,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (サービスランク)service_rank by my SERVICE_RANK_CODE, named 'serviceRank'.
+     * [set] SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * @param serviceRank The entity of foreign property 'serviceRank'. (NullAllowed)
      */
     public void setServiceRank(OptionalEntity<ServiceRank> serviceRank) {
@@ -416,8 +414,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INT(10)} <br>
-     * 独立した主キーとなるが、実質的に会員IDとは one-to-one である。
+     * [get] MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'MEMBER_SERVICE_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberServiceId() {
@@ -426,8 +423,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INT(10)} <br>
-     * 独立した主キーとなるが、実質的に会員IDとは one-to-one である。
+     * [set] MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br>
      * @param memberServiceId The value of the column 'MEMBER_SERVICE_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberServiceId(Integer memberServiceId) {
@@ -436,8 +432,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {UQ, NotNull, INT(10), FK to member} <br>
-     * 会員を参照するID。ユニークなので、会員とは one-to-one の関係に。
+     * [get] MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
@@ -446,8 +441,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {UQ, NotNull, INT(10), FK to member} <br>
-     * 会員を参照するID。ユニークなので、会員とは one-to-one の関係に。
+     * [set] MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -456,8 +450,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INT(10)} <br>
-     * 購入したら増えて使ったら減る。
+     * [get] SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'SERVICE_POINT_COUNT'. (basically NotNull if selected: for the constraint)
      */
     public Integer getServicePointCount() {
@@ -466,8 +459,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INT(10)} <br>
-     * 購入したら増えて使ったら減る。
+     * [set] SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br>
      * @param servicePointCount The value of the column 'SERVICE_POINT_COUNT'. (basically NotNull if update: for the constraint)
      */
     public void setServicePointCount(Integer servicePointCount) {
@@ -476,8 +468,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to service_rank, classification=ServiceRank} <br>
-     * どんなランクがあるのかドキドキですね。
+     * [get] SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
      * @return The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getServiceRankCode() {
@@ -486,8 +477,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to service_rank, classification=ServiceRank} <br>
-     * どんなランクがあるのかドキドキですね。
+     * [set] SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
      * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
      */
     protected void setServiceRankCode(String serviceRankCode) {
@@ -497,8 +487,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)} <br>
-     * レコードが登録された日時
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getRegisterDatetime() {
@@ -507,8 +496,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)} <br>
-     * レコードが登録された日時
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
@@ -517,8 +505,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを登録したユーザー
+     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
@@ -527,8 +514,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを登録したユーザー
+     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * @param registerUser The value of the column 'REGISTER_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterUser(String registerUser) {
@@ -537,8 +523,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)} <br>
-     * レコードが(最後に)更新された日時
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getUpdateDatetime() {
@@ -547,8 +532,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)} <br>
-     * レコードが(最後に)更新された日時
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
@@ -557,8 +541,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを(最後に)更新したユーザー
+     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
@@ -567,8 +550,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを(最後に)更新したユーザー
+     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * @param updateUser The value of the column 'UPDATE_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateUser(String updateUser) {
@@ -577,8 +559,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] (バージョン番号)VERSION_NO: {NotNull, BIGINT(19)} <br>
-     * 排他制御用、更新されるごとにインクリメントされる
+     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
@@ -587,8 +568,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (バージョン番号)VERSION_NO: {NotNull, BIGINT(19)} <br>
-     * 排他制御用、更新されるごとにインクリメントされる
+     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br>
      * @param versionNo The value of the column 'VERSION_NO'. (basically NotNull if update: for the constraint)
      */
     public void setVersionNo(Long versionNo) {
