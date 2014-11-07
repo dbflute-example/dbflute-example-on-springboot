@@ -28,11 +28,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/member")
 public class MemberController {
 
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
     private static final Logger LOG = LoggerFactory.getLogger(MemberController.class);
 
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     @Autowired
     private MemberBhv memberBhv; // #dbflute: you can use DBFlute behaviors like this
 
+    // ===================================================================================
+    //                                                                              Entry
+    //                                                                             =======
     @RequestMapping("")
     public String index(Model model, MemberForm memberForm) throws ParseException, NamingException {
         // TODO jflute example: SpringBoot example making now 
@@ -43,6 +52,9 @@ public class MemberController {
         return "index";
     }
 
+    // ===================================================================================
+    //                                                                           Show List
+    //                                                                           =========
     @RequestMapping("/list")
     public String list(Model model, @Valid MemberSearchForm memberSearchForm, BindingResult result) throws ParseException, NamingException {
         // TODO jflute example: SpringBoot transaction
@@ -52,7 +64,7 @@ public class MemberController {
         return "member/member_list";
     }
 
-    protected PagingResultBean<Member> selectMemberPage(MemberSearchForm memberSearchForm) {
+    protected PagingResultBean<Member> selectMemberPage(MemberSearchForm memberSearchForm) { // #dbflute: you can select like this
         return memberBhv.selectPage(cb -> {
             cb.ignoreNullOrEmptyQuery();
             cb.setupSelect_MemberStatus();
@@ -84,9 +96,9 @@ public class MemberController {
         });
     }
 
-    protected List<MemberSearchResultBean> convertToResultBeans(PagingResultBean<Member> page) {
-        List<MemberSearchResultBean> beanList = page.stream().map(member -> {
-            MemberSearchResultBean bean = new MemberSearchResultBean();
+    protected List<MemberSearchRowBean> convertToResultBeans(PagingResultBean<Member> page) {
+        List<MemberSearchRowBean> beanList = page.stream().map(member -> {
+            MemberSearchRowBean bean = new MemberSearchRowBean();
             bean.setMemberId(member.getMemberId());
             bean.memberName = member.getMemberName();
             member.getMemberStatus().alwaysPresent(status -> {
@@ -101,6 +113,9 @@ public class MemberController {
         return beanList;
     }
 
+    // ===================================================================================
+    //                                                                          Add Member
+    //                                                                          ==========
     @RequestMapping("/add")
     public String add(Model model, @Valid MemberForm memberForm, BindingResult result) throws ParseException, NamingException {
         throw new RuntimeException("not implemented yet");

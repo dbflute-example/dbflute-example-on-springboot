@@ -18,7 +18,7 @@ package org.docksidestage.springboot.app.web.member;
 /**
  * @author jflute
  */
-public class MemberSearchResultBean {
+public class MemberSearchRowBean {
 
     private Integer memberId;
     public String memberName;
