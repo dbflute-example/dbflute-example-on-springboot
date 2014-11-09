@@ -18,7 +18,6 @@ package org.docksidestage.springboot.dbflute.allcommon;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
@@ -39,22 +38,27 @@ public class DBFluteBeansJavaConfig {
     //                                                                           Attribute
     //                                                                           =========
     // *according to dependency order
-    @Autowired
-    protected ApplicationContext _container;
+    // and all injections use 'Resource' annotation to keep the order
+    // probably 'Resource' is processed before 'Autowired'
+    // besides, 'Resource' finds by name (specified or field name) first
+    // but secondly finds by type (only once so not case with small performance)
+    @Resource
+    protected ApplicationContext _xcontainer;
 
+    // injections are on name basic here for multiple DB
     @Resource(name="dataSource")
     protected DataSource dataSource;
 
-    @Autowired
+    @Resource(name="invokerAssistant")
     protected InvokerAssistant invokerAssistant;
 
-    @Autowired
+    @Resource(name="behaviorCommandInvoker")
     protected BehaviorCommandInvoker behaviorCommandInvoker;
 
-    @Autowired
+    @Resource(name="behaviorSelector")
     protected BehaviorSelector behaviorSelector;
 
-    @Autowired
+    @Resource(name="commonColumnAutoSetupper")
     protected CommonColumnAutoSetupper commonColumnAutoSetupper;
 
     // ===================================================================================
@@ -90,7 +94,7 @@ public class DBFluteBeansJavaConfig {
     @Bean(name="behaviorSelector")
     public ImplementedBehaviorSelector createImplementedBehaviorSelector() {
         ImplementedBehaviorSelector selector = newImplementedBehaviorSelector();
-        selector.setContainer(_container);
+        selector.setContainer(_xcontainer);
         return selector;
     }
 
@@ -110,7 +114,7 @@ public class DBFluteBeansJavaConfig {
     // ===================================================================================
     //                                                                            Behavior
     //                                                                            ========
-    @Bean(name={"memberBhv"})
+    @Bean(name="memberBhv")
     public MemberBhv createMemberBhv() {
         MemberBhv bhv = newMemberBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -119,7 +123,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberBhv newMemberBhv() { return new MemberBhv(); }
 
-    @Bean(name={"memberAddressBhv"})
+    @Bean(name="memberAddressBhv")
     public MemberAddressBhv createMemberAddressBhv() {
         MemberAddressBhv bhv = newMemberAddressBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -128,7 +132,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberAddressBhv newMemberAddressBhv() { return new MemberAddressBhv(); }
 
-    @Bean(name={"memberFollowingBhv"})
+    @Bean(name="memberFollowingBhv")
     public MemberFollowingBhv createMemberFollowingBhv() {
         MemberFollowingBhv bhv = newMemberFollowingBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -137,7 +141,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberFollowingBhv newMemberFollowingBhv() { return new MemberFollowingBhv(); }
 
-    @Bean(name={"memberLoginBhv"})
+    @Bean(name="memberLoginBhv")
     public MemberLoginBhv createMemberLoginBhv() {
         MemberLoginBhv bhv = newMemberLoginBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -146,7 +150,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberLoginBhv newMemberLoginBhv() { return new MemberLoginBhv(); }
 
-    @Bean(name={"memberSecurityBhv"})
+    @Bean(name="memberSecurityBhv")
     public MemberSecurityBhv createMemberSecurityBhv() {
         MemberSecurityBhv bhv = newMemberSecurityBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -155,7 +159,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberSecurityBhv newMemberSecurityBhv() { return new MemberSecurityBhv(); }
 
-    @Bean(name={"memberServiceBhv"})
+    @Bean(name="memberServiceBhv")
     public MemberServiceBhv createMemberServiceBhv() {
         MemberServiceBhv bhv = newMemberServiceBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -164,7 +168,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberServiceBhv newMemberServiceBhv() { return new MemberServiceBhv(); }
 
-    @Bean(name={"memberStatusBhv"})
+    @Bean(name="memberStatusBhv")
     public MemberStatusBhv createMemberStatusBhv() {
         MemberStatusBhv bhv = newMemberStatusBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -173,7 +177,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberStatusBhv newMemberStatusBhv() { return new MemberStatusBhv(); }
 
-    @Bean(name={"memberWithdrawalBhv"})
+    @Bean(name="memberWithdrawalBhv")
     public MemberWithdrawalBhv createMemberWithdrawalBhv() {
         MemberWithdrawalBhv bhv = newMemberWithdrawalBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -182,7 +186,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberWithdrawalBhv newMemberWithdrawalBhv() { return new MemberWithdrawalBhv(); }
 
-    @Bean(name={"productBhv"})
+    @Bean(name="productBhv")
     public ProductBhv createProductBhv() {
         ProductBhv bhv = newProductBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -191,7 +195,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected ProductBhv newProductBhv() { return new ProductBhv(); }
 
-    @Bean(name={"productCategoryBhv"})
+    @Bean(name="productCategoryBhv")
     public ProductCategoryBhv createProductCategoryBhv() {
         ProductCategoryBhv bhv = newProductCategoryBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -200,7 +204,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected ProductCategoryBhv newProductCategoryBhv() { return new ProductCategoryBhv(); }
 
-    @Bean(name={"productStatusBhv"})
+    @Bean(name="productStatusBhv")
     public ProductStatusBhv createProductStatusBhv() {
         ProductStatusBhv bhv = newProductStatusBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -209,7 +213,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected ProductStatusBhv newProductStatusBhv() { return new ProductStatusBhv(); }
 
-    @Bean(name={"purchaseBhv"})
+    @Bean(name="purchaseBhv")
     public PurchaseBhv createPurchaseBhv() {
         PurchaseBhv bhv = newPurchaseBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -218,7 +222,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected PurchaseBhv newPurchaseBhv() { return new PurchaseBhv(); }
 
-    @Bean(name={"purchasePaymentBhv"})
+    @Bean(name="purchasePaymentBhv")
     public PurchasePaymentBhv createPurchasePaymentBhv() {
         PurchasePaymentBhv bhv = newPurchasePaymentBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -227,7 +231,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected PurchasePaymentBhv newPurchasePaymentBhv() { return new PurchasePaymentBhv(); }
 
-    @Bean(name={"regionBhv"})
+    @Bean(name="regionBhv")
     public RegionBhv createRegionBhv() {
         RegionBhv bhv = newRegionBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -236,7 +240,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected RegionBhv newRegionBhv() { return new RegionBhv(); }
 
-    @Bean(name={"serviceRankBhv"})
+    @Bean(name="serviceRankBhv")
     public ServiceRankBhv createServiceRankBhv() {
         ServiceRankBhv bhv = newServiceRankBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -245,7 +249,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected ServiceRankBhv newServiceRankBhv() { return new ServiceRankBhv(); }
 
-    @Bean(name={"summaryProductBhv"})
+    @Bean(name="summaryProductBhv")
     public SummaryProductBhv createSummaryProductBhv() {
         SummaryProductBhv bhv = newSummaryProductBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -253,7 +257,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected SummaryProductBhv newSummaryProductBhv() { return new SummaryProductBhv(); }
 
-    @Bean(name={"summaryWithdrawalBhv"})
+    @Bean(name="summaryWithdrawalBhv")
     public SummaryWithdrawalBhv createSummaryWithdrawalBhv() {
         SummaryWithdrawalBhv bhv = newSummaryWithdrawalBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
@@ -261,7 +265,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected SummaryWithdrawalBhv newSummaryWithdrawalBhv() { return new SummaryWithdrawalBhv(); }
 
-    @Bean(name={"withdrawalReasonBhv"})
+    @Bean(name="withdrawalReasonBhv")
     public WithdrawalReasonBhv createWithdrawalReasonBhv() {
         WithdrawalReasonBhv bhv = newWithdrawalReasonBhv();
         bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
