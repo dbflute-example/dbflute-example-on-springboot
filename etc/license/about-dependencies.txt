@@ -1,0 +1,6 @@
+Basically libraries of this application are resolved by Maven.
+But several libraries may be contained in the project local repository or others.
+Then, the licenses of the libraries are in this directory.
+
+While, libraries that DBFlute Engine depends on and their licenses
+are in the engine directory 'mydbflute'.
