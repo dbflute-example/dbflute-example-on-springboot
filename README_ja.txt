@@ -21,8 +21,9 @@ SVFlute の ServletFilter と Interceptor を入れています。
 Eclipseであれば、M2Eが入っていれば clone するだけでコンパイルが走るはずです。
 IntelliJ IDEAであれば、pom.xmlから Maven を有効にしてください。
 
-データベースは、H2 Database を組み込みで利用しますので準備は不要です。
-(src/main/resources/database配下)
+データベースは、H2 Database を組み込みで利用します。
+cloneした後、一回だけ ReplaceSchema タスクを実行してスキーマを作成してください。
+DBFluteクライアント(dbflute_maihamadb)配下の manage.bat(sh) を叩き、replace-schema (0) を選択して実行。
 
 # ----------------------------------------------------------
 #                                           Boot Application
@@ -33,6 +34,8 @@ org.docksidestage.springboot.app.application.ExampleApplication
 ブラウザで以下のURLにアクセス：
 
 http://localhost:8080/member/
+
+Eclipseであれば、ExampleApplicationクラスで右クリック Run As - Java Application
 
 # ----------------------------------------------------------
 #                                          Package Structure

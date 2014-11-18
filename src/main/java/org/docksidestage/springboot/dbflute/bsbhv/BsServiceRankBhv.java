@@ -76,10 +76,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     /*df:endQueryPath*/
 
     // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public ServiceRankDbm getDBMeta() { return ServiceRankDbm.getInstance(); }
+    public ServiceRankDbm asDBMeta() { return ServiceRankDbm.getInstance(); }
+    /** {@inheritDoc} */
+    public String asTableDbName() { return "SERVICE_RANK"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -321,7 +323,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     //                                                                            ========
     @Override
     protected Number doReadNextVal() {
-        String msg = "This table is NOT related to sequence: " + getTableDbName();
+        String msg = "This table is NOT related to sequence: " + asTableDbName();
         throw new UnsupportedOperationException(msg);
     }
 

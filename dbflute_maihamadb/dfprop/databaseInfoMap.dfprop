@@ -16,7 +16,7 @@
 #
 map:{
     ; driver   = org.h2.Driver
-    ; url      = jdbc:h2:file:../src/main/resources/database/maihamadb
+    ; url      = jdbc:h2:file:../etc/database/maihamadb
     ; schema   = PUBLIC
     ; user     = sa
     ; password = 

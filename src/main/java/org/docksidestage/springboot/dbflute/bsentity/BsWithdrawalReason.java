@@ -88,24 +88,16 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     protected Integer _displayOrder;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
+    public DBMeta asDBMeta() {
+        return DBMetaInstanceHandler.findDBMeta(asTableDbName());
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
         return "WITHDRAWAL_REASON";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "withdrawalReason";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
-        return DBMetaInstanceHandler.findDBMeta(getTableDbName());
     }
 
     // ===================================================================================
@@ -281,7 +273,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _withdrawalReasonCode);
         return hs;
     }

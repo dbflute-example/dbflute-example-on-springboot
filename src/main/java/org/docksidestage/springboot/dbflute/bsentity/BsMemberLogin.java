@@ -100,24 +100,16 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     protected String _loginMemberStatusCode;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
+    public DBMeta asDBMeta() {
+        return DBMetaInstanceHandler.findDBMeta(asTableDbName());
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
         return "MEMBER_LOGIN";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "memberLogin";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
-        return DBMetaInstanceHandler.findDBMeta(getTableDbName());
     }
 
     // ===================================================================================
@@ -408,7 +400,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _memberLoginId);
         return hs;
     }

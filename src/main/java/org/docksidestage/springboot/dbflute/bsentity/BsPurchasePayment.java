@@ -120,24 +120,16 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     protected String _updateUser;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
+    public DBMeta asDBMeta() {
+        return DBMetaInstanceHandler.findDBMeta(asTableDbName());
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
         return "PURCHASE_PAYMENT";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "purchasePayment";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
-        return DBMetaInstanceHandler.findDBMeta(getTableDbName());
     }
 
     // ===================================================================================
@@ -197,7 +189,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _purchasePaymentId);
         return hs;
     }

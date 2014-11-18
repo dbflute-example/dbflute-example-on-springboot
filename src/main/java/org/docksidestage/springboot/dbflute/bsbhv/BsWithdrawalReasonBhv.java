@@ -76,10 +76,12 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
     /*df:endQueryPath*/
 
     // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public WithdrawalReasonDbm getDBMeta() { return WithdrawalReasonDbm.getInstance(); }
+    public WithdrawalReasonDbm asDBMeta() { return WithdrawalReasonDbm.getInstance(); }
+    /** {@inheritDoc} */
+    public String asTableDbName() { return "WITHDRAWAL_REASON"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -321,7 +323,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
     //                                                                            ========
     @Override
     protected Number doReadNextVal() {
-        String msg = "This table is NOT related to sequence: " + getTableDbName();
+        String msg = "This table is NOT related to sequence: " + asTableDbName();
         throw new UnsupportedOperationException(msg);
     }
 

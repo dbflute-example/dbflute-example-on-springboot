@@ -13,7 +13,7 @@
 	<inceptionYear>2014</inceptionYear>
 
 	<properties>
-		<dbflute.version>1.1.0-pilotC-SNAPSHOT</dbflute.version>
+		<dbflute.version>1.1.0-pilotD-SNAPSHOT</dbflute.version>
 		<h2.jdbc.version>1.4.182</h2.jdbc.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
 		<spring.boot.version>1.2.0.M2</spring.boot.version>
@@ -128,6 +128,17 @@
 					<clientProject>maihamadb</clientProject>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.1.RELEASE</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
 		</plugins>
 	</build>
 
