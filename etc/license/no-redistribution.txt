@@ -1,2 +1,0 @@
-All dependencies are resolved by Maven.
-(except libraries that DBFlute Module includes)
