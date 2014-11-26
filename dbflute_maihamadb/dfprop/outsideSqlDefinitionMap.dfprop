@@ -95,7 +95,7 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isRequiredSqlTitle: (NotRequired - Default false)
+    # o isRequiredSqlTitle: (NotRequired - Default true)
     #   [true]
     #     You should always write the title of outsideSql.
     #     If it doesn't exist, the OutsideSqlTest task fails.
@@ -103,11 +103,11 @@ map:{
     #   [false]
     #     Non.
     #
-    ; isRequiredSqlTitle = true
+    #; isRequiredSqlTitle = true
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isRequiredSqlDescription: (NotRequired - Default false)
+    # o isRequiredSqlDescription: (NotRequired - Default true)
     #   [true]
     #     You should always write the description of outsideSql.
     #     If it doesn't exist, the OutsideSqlTest task fails.
@@ -115,7 +115,7 @@ map:{
     #   [false]
     #     Non.
     #
-    ; isRequiredSqlDescription = true
+    #; isRequiredSqlDescription = true
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

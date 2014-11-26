@@ -13,11 +13,11 @@
 	<inceptionYear>2014</inceptionYear>
 
 	<properties>
-		<dbflute.version>1.1.0-pilotF-SNAPSHOT</dbflute.version>
+		<dbflute.version>1.1.0-RC1</dbflute.version>
 		<h2.jdbc.version>1.4.182</h2.jdbc.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
 		<spring.boot.version>1.2.0.M2</spring.boot.version>
-		<utflute.version>0.5.0-pilotD-SNAPSHOT</utflute.version>
+		<utflute.version>0.5.0-RC1</utflute.version>
 	</properties>
 
 	<licenses>
