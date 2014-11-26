@@ -71,8 +71,8 @@ public class DBFluteConfig {
     protected boolean _innerJoinAutoDetect = true;
     protected boolean _thatsBadTimingDetect = true;
     protected boolean _nullOrEmptyQueryAllowed = false;
-    protected boolean _emptyStringQueryAllowed;
-    protected boolean _emptyStringParameterAllowed;
+    protected boolean _emptyStringQueryAllowed = false;
+    protected boolean _emptyStringParameterAllowed = false;
     protected boolean _overridingQueryAllowed = false;
     protected boolean _nonSpecifiedColumnAccessAllowed = false;
     protected boolean _columnNullObjectAllowed = false;
