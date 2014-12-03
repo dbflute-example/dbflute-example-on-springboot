@@ -35,5 +35,5 @@ public class ExampleApplication { // #dbflute: import JavaConfig of DBFlute
 
     public static void main(String[] args) {
         SpringApplication.run(ExampleApplication.class, args);
-    };
+    }
 }
