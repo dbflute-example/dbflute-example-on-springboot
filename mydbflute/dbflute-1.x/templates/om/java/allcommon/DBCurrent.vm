@@ -36,6 +36,10 @@ public class ${glDBCurrent} {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    protected final String _projectName = "${database.projectName}";
+    protected final String _projectPrefix = "${database.projectPrefix}";
+    protected final String _generationGapBasePrefix = "${database.basePrefix}";
+
     protected DBDef _currentDBDef;
     {
         _currentDBDef = DBDef.codeOf("${database.defaultDBDef}");
@@ -65,6 +69,34 @@ public class ${glDBCurrent} {
     }
 
     // ===================================================================================
+    //                                                                        Project Name
+    //                                                                        ============
+    /**
+     * Get project name of the database (DBFlute client).
+     * @return The name string, lower case in many cases. e.g. maihamadb (NotNull)
+     */
+    public String projectName() {
+        return _projectName;
+    }
+
+    /**
+     * Get project prefix of the database, used as class name. (normally empty)
+     * Normally empty string, only when prejextPrefix is set in basicInfoMap.dfprop.
+     * @return The prefix string, camel case in many cases. e.g. Resola (ResolaStationCB) (NotNull, EmptyAllowed)
+     */
+    public String projectPrefix() {
+        return _projectPrefix;
+    }
+
+    /**
+     * Get base prefix of the database for generation gap. (normally 'Bs')
+     * @return The prefix string, camel case in many cases. e.g. Bs (BsMemberCB) (NotNull, EmptyAllowed)
+     */
+    public String generationGapBasePrefix() {
+        return _generationGapBasePrefix;
+    }
+
+    // ===================================================================================
     //                                                                       Current DBDef
     //                                                                       =============
     public void initializeCurrentDBDef(DBDef currentDBDef) {
@@ -78,10 +110,19 @@ public class ${glDBCurrent} {
         _currentDBDef = currentDBDef;
     }
 
+    /**
+     * Get current DB definition saved in this object.
+     * @return The object of DB definition. (NotNull)
+     */
     public DBDef currentDBDef() {
         return _currentDBDef;
     }
 
+    /**
+     * Is the current DB specified DB?
+     * @param currentDBDef The DB definition of current DB. (NullAllowed: if null, returns false)
+     * @return The determination, true or false.
+     */
     public boolean isCurrentDBDef(DBDef currentDBDef) {
 	    return _currentDBDef.equals(currentDBDef);
     }

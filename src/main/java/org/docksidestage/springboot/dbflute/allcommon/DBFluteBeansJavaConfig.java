@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.bhv.core.InvokerAssistant;
 import org.docksidestage.springboot.dbflute.allcommon.DBFluteInitializer;
@@ -48,10 +49,11 @@ public class DBFluteBeansJavaConfig {
     //                                                                   Runtime Component
     //                                                                   =================
     @Bean(name="introduction")
-    public DBFluteInitializer createDBFluteInitializer() {
+    public DBFluteInitializer createDBFluteInitializer() { // no lazy for initialize-only component
         return new org.docksidestage.springboot.dbflute.allcommon.DBFluteInitializer(_dataSource);
     }
 
+    @Lazy
     @Bean(name="invokerAssistant")
     public InvokerAssistant createImplementedInvokerAssistant() {
         ImplementedInvokerAssistant assistant = newImplementedInvokerAssistant();
@@ -63,6 +65,7 @@ public class DBFluteBeansJavaConfig {
         return new org.docksidestage.springboot.dbflute.allcommon.ImplementedInvokerAssistant();
     }
 
+    @Lazy
     @Bean(name="behaviorCommandInvoker")
     public BehaviorCommandInvoker createBehaviorCommandInvoker() {
         BehaviorCommandInvoker invoker = newBehaviorCommandInvoker();
@@ -74,6 +77,7 @@ public class DBFluteBeansJavaConfig {
         return new BehaviorCommandInvoker();
     }
 
+    @Lazy
     @Bean(name="behaviorSelector")
     public ImplementedBehaviorSelector createImplementedBehaviorSelector() {
         ImplementedBehaviorSelector selector = newImplementedBehaviorSelector();
@@ -85,6 +89,7 @@ public class DBFluteBeansJavaConfig {
         return new ImplementedBehaviorSelector();
     }
 
+    @Lazy
     @Bean(name="commonColumnAutoSetupper")
     public ImplementedCommonColumnAutoSetupper createImplementedCommonColumnAutoSetupper() {
         return newImplementedCommonColumnAutoSetupper();
@@ -97,6 +102,7 @@ public class DBFluteBeansJavaConfig {
     // ===================================================================================
     //                                                                            Behavior
     //                                                                            ========
+    @Lazy
     @Bean(name="memberBhv")
     public MemberBhv createMemberBhv() {
         MemberBhv bhv = newMemberBhv();
@@ -106,6 +112,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberBhv newMemberBhv() { return new MemberBhv(); }
 
+    @Lazy
     @Bean(name="memberAddressBhv")
     public MemberAddressBhv createMemberAddressBhv() {
         MemberAddressBhv bhv = newMemberAddressBhv();
@@ -115,6 +122,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberAddressBhv newMemberAddressBhv() { return new MemberAddressBhv(); }
 
+    @Lazy
     @Bean(name="memberFollowingBhv")
     public MemberFollowingBhv createMemberFollowingBhv() {
         MemberFollowingBhv bhv = newMemberFollowingBhv();
@@ -124,6 +132,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberFollowingBhv newMemberFollowingBhv() { return new MemberFollowingBhv(); }
 
+    @Lazy
     @Bean(name="memberLoginBhv")
     public MemberLoginBhv createMemberLoginBhv() {
         MemberLoginBhv bhv = newMemberLoginBhv();
@@ -133,6 +142,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberLoginBhv newMemberLoginBhv() { return new MemberLoginBhv(); }
 
+    @Lazy
     @Bean(name="memberSecurityBhv")
     public MemberSecurityBhv createMemberSecurityBhv() {
         MemberSecurityBhv bhv = newMemberSecurityBhv();
@@ -142,6 +152,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberSecurityBhv newMemberSecurityBhv() { return new MemberSecurityBhv(); }
 
+    @Lazy
     @Bean(name="memberServiceBhv")
     public MemberServiceBhv createMemberServiceBhv() {
         MemberServiceBhv bhv = newMemberServiceBhv();
@@ -151,6 +162,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberServiceBhv newMemberServiceBhv() { return new MemberServiceBhv(); }
 
+    @Lazy
     @Bean(name="memberStatusBhv")
     public MemberStatusBhv createMemberStatusBhv() {
         MemberStatusBhv bhv = newMemberStatusBhv();
@@ -160,6 +172,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberStatusBhv newMemberStatusBhv() { return new MemberStatusBhv(); }
 
+    @Lazy
     @Bean(name="memberWithdrawalBhv")
     public MemberWithdrawalBhv createMemberWithdrawalBhv() {
         MemberWithdrawalBhv bhv = newMemberWithdrawalBhv();
@@ -169,6 +182,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected MemberWithdrawalBhv newMemberWithdrawalBhv() { return new MemberWithdrawalBhv(); }
 
+    @Lazy
     @Bean(name="productBhv")
     public ProductBhv createProductBhv() {
         ProductBhv bhv = newProductBhv();
@@ -178,6 +192,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected ProductBhv newProductBhv() { return new ProductBhv(); }
 
+    @Lazy
     @Bean(name="productCategoryBhv")
     public ProductCategoryBhv createProductCategoryBhv() {
         ProductCategoryBhv bhv = newProductCategoryBhv();
@@ -187,6 +202,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected ProductCategoryBhv newProductCategoryBhv() { return new ProductCategoryBhv(); }
 
+    @Lazy
     @Bean(name="productStatusBhv")
     public ProductStatusBhv createProductStatusBhv() {
         ProductStatusBhv bhv = newProductStatusBhv();
@@ -196,6 +212,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected ProductStatusBhv newProductStatusBhv() { return new ProductStatusBhv(); }
 
+    @Lazy
     @Bean(name="purchaseBhv")
     public PurchaseBhv createPurchaseBhv() {
         PurchaseBhv bhv = newPurchaseBhv();
@@ -205,6 +222,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected PurchaseBhv newPurchaseBhv() { return new PurchaseBhv(); }
 
+    @Lazy
     @Bean(name="purchasePaymentBhv")
     public PurchasePaymentBhv createPurchasePaymentBhv() {
         PurchasePaymentBhv bhv = newPurchasePaymentBhv();
@@ -214,6 +232,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected PurchasePaymentBhv newPurchasePaymentBhv() { return new PurchasePaymentBhv(); }
 
+    @Lazy
     @Bean(name="regionBhv")
     public RegionBhv createRegionBhv() {
         RegionBhv bhv = newRegionBhv();
@@ -223,6 +242,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected RegionBhv newRegionBhv() { return new RegionBhv(); }
 
+    @Lazy
     @Bean(name="serviceRankBhv")
     public ServiceRankBhv createServiceRankBhv() {
         ServiceRankBhv bhv = newServiceRankBhv();
@@ -232,6 +252,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected ServiceRankBhv newServiceRankBhv() { return new ServiceRankBhv(); }
 
+    @Lazy
     @Bean(name="summaryProductBhv")
     public SummaryProductBhv createSummaryProductBhv() {
         SummaryProductBhv bhv = newSummaryProductBhv();
@@ -240,6 +261,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected SummaryProductBhv newSummaryProductBhv() { return new SummaryProductBhv(); }
 
+    @Lazy
     @Bean(name="summaryWithdrawalBhv")
     public SummaryWithdrawalBhv createSummaryWithdrawalBhv() {
         SummaryWithdrawalBhv bhv = newSummaryWithdrawalBhv();
@@ -248,6 +270,7 @@ public class DBFluteBeansJavaConfig {
     }
     protected SummaryWithdrawalBhv newSummaryWithdrawalBhv() { return new SummaryWithdrawalBhv(); }
 
+    @Lazy
     @Bean(name="withdrawalReasonBhv")
     public WithdrawalReasonBhv createWithdrawalReasonBhv() {
         WithdrawalReasonBhv bhv = newWithdrawalReasonBhv();

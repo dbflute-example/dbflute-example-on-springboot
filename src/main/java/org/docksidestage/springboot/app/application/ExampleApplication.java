@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,8 @@
 package org.docksidestage.springboot.app.application;
 
 import org.docksidestage.springboot.dbflute.allcommon.DBFluteBeansJavaConfig;
-import org.docksidestage.springboot.dbflute.svflute.RequestLoggingFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -38,14 +35,5 @@ public class ExampleApplication { // #dbflute: import JavaConfig of DBFlute
 
     public static void main(String[] args) {
         SpringApplication.run(ExampleApplication.class, args);
-    }
-
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean() { // for logging
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        RequestLoggingFilter loggingFilter = new RequestLoggingFilter();
-        registrationBean.setFilter(loggingFilter);
-        registrationBean.setOrder(1);
-        return registrationBean;
     }
 }
