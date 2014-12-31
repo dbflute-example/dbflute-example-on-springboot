@@ -13,11 +13,11 @@
 	<inceptionYear>2014</inceptionYear>
 
 	<properties>
-		<dbflute.version>1.1.0-RC2</dbflute.version>
-		<h2.jdbc.version>1.4.182</h2.jdbc.version>
-		<spring.version>4.1.1.RELEASE</spring.version>
+		<dbflute.version>1.1.0-RC5</dbflute.version>
+		<h2.jdbc.version>1.4.184</h2.jdbc.version>
+		<spring.version>4.1.3.RELEASE</spring.version>
 		<spring.boot.version>1.2.0.M2</spring.boot.version>
-		<utflute.version>0.5.0-pilotF-SNAPSHOT</utflute.version>
+		<utflute.version>0.5.0-RC5</utflute.version>
 	</properties>
 
 	<licenses>
@@ -120,11 +120,10 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.seasar.dbflute</groupId>
+				<groupId>org.dbflute</groupId>
 				<artifactId>dbflute-maven-plugin</artifactId>
-				<version>1.0.0</version>
+				<version>1.1.0-RC1</version>
 				<configuration>
-					<dbfluteVersion>${dbflute.version}</dbfluteVersion>
 					<clientProject>maihamadb</clientProject>
 				</configuration>
 			</plugin>
@@ -164,19 +163,6 @@
 	        </snapshots>
 	    </repository>
 	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>mave.seaser.org</id>
-			<name>The Seasar Foundation Maven2 Repository</name>
-			<url>http://maven.seasar.org/maven2</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>snapshot.mave.seaser.org</id>
-			<name>The Seasar Foundation Maven2 Repository</name>
-			<url>http://maven.seasar.org/maven2-snapshot</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<dependencies>
 		<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->

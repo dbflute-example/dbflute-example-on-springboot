@@ -44,10 +44,10 @@ public class MemberController {
     //                                                                             =======
     @RequestMapping("")
     public String index(Model model, MemberForm memberForm) throws ParseException, NamingException {
-        // TODO jflute example: SpringBoot example making now 
         int count = memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
+
         LOG.debug("count: " + count);
         return "index";
     }

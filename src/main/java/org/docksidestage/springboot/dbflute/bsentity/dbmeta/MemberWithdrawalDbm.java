@@ -44,6 +44,9 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Current DBDef
     //                                                                       =============
+    public String getProjectName() { return DBCurrent.getInstance().projectName(); }
+    public String getProjectPrefix() { return DBCurrent.getInstance().projectPrefix(); }
+    public String getGenerationGapBasePrefix() { return DBCurrent.getInstance().generationGapBasePrefix(); }
     public DBDef getCurrentDBDef() { return DBCurrent.getInstance().currentDBDef(); }
 
     // ===================================================================================
@@ -66,10 +69,10 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
             }
         }, "withdrawalReasonCode");
         setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getWithdrawalReasonInputText(), (et, vl) -> ((MemberWithdrawal)et).setWithdrawalReasonInputText((String)vl), "withdrawalReasonInputText");
-        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getWithdrawalDatetime(), (et, vl) -> ((MemberWithdrawal)et).setWithdrawalDatetime((java.time.LocalDateTime)vl), "withdrawalDatetime");
-        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getRegisterDatetime(), (et, vl) -> ((MemberWithdrawal)et).setRegisterDatetime((java.time.LocalDateTime)vl), "registerDatetime");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getWithdrawalDatetime(), (et, vl) -> ((MemberWithdrawal)et).setWithdrawalDatetime(ctldt(vl)), "withdrawalDatetime");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getRegisterDatetime(), (et, vl) -> ((MemberWithdrawal)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getRegisterUser(), (et, vl) -> ((MemberWithdrawal)et).setRegisterUser((String)vl), "registerUser");
-        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getUpdateDatetime(), (et, vl) -> ((MemberWithdrawal)et).setUpdateDatetime((java.time.LocalDateTime)vl), "updateDatetime");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getUpdateDatetime(), (et, vl) -> ((MemberWithdrawal)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
         setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getUpdateUser(), (et, vl) -> ((MemberWithdrawal)et).setUpdateUser((String)vl), "updateUser");
         setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getVersionNo(), (et, vl) -> ((MemberWithdrawal)et).setVersionNo(ctl(vl)), "versionNo");
     }

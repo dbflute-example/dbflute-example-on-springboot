@@ -44,6 +44,9 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Current DBDef
     //                                                                       =============
+    public String getProjectName() { return DBCurrent.getInstance().projectName(); }
+    public String getProjectPrefix() { return DBCurrent.getInstance().projectPrefix(); }
+    public String getGenerationGapBasePrefix() { return DBCurrent.getInstance().generationGapBasePrefix(); }
     public DBDef getCurrentDBDef() { return DBCurrent.getInstance().currentDBDef(); }
 
     // ===================================================================================
@@ -58,7 +61,7 @@ public class MemberFollowingDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((MemberFollowing)et).getMemberFollowingId(), (et, vl) -> ((MemberFollowing)et).setMemberFollowingId(ctl(vl)), "memberFollowingId");
         setupEpg(_epgMap, et -> ((MemberFollowing)et).getMyMemberId(), (et, vl) -> ((MemberFollowing)et).setMyMemberId(cti(vl)), "myMemberId");
         setupEpg(_epgMap, et -> ((MemberFollowing)et).getYourMemberId(), (et, vl) -> ((MemberFollowing)et).setYourMemberId(cti(vl)), "yourMemberId");
-        setupEpg(_epgMap, et -> ((MemberFollowing)et).getFollowDatetime(), (et, vl) -> ((MemberFollowing)et).setFollowDatetime((java.time.LocalDateTime)vl), "followDatetime");
+        setupEpg(_epgMap, et -> ((MemberFollowing)et).getFollowDatetime(), (et, vl) -> ((MemberFollowing)et).setFollowDatetime(ctldt(vl)), "followDatetime");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -90,7 +93,7 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, null, Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6481AB2F_FE5C_4CC3_8BA4_9EEF130AC7EF", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, null, Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_9A20D28D_E0AF_4194_9E7F_750D9892A41E", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMyMemberId = cci("MY_MEMBER_ID", "MY_MEMBER_ID", null, null, Integer.class, "myMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "memberByMyMemberId", null, null, false);
     protected final ColumnInfo _columnYourMemberId = cci("YOUR_MEMBER_ID", "YOUR_MEMBER_ID", null, null, Integer.class, "yourMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "memberByYourMemberId", null, null, false);
     protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, null, java.time.LocalDateTime.class, "followDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null, false);

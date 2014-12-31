@@ -44,6 +44,9 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Current DBDef
     //                                                                       =============
+    public String getProjectName() { return DBCurrent.getInstance().projectName(); }
+    public String getProjectPrefix() { return DBCurrent.getInstance().projectPrefix(); }
+    public String getGenerationGapBasePrefix() { return DBCurrent.getInstance().generationGapBasePrefix(); }
     public DBDef getCurrentDBDef() { return DBCurrent.getInstance().currentDBDef(); }
 
     // ===================================================================================
@@ -69,9 +72,9 @@ public class ProductDbm extends AbstractDBMeta {
             }
         }, "productStatusCode");
         setupEpg(_epgMap, et -> ((Product)et).getRegularPrice(), (et, vl) -> ((Product)et).setRegularPrice(cti(vl)), "regularPrice");
-        setupEpg(_epgMap, et -> ((Product)et).getRegisterDatetime(), (et, vl) -> ((Product)et).setRegisterDatetime((java.time.LocalDateTime)vl), "registerDatetime");
+        setupEpg(_epgMap, et -> ((Product)et).getRegisterDatetime(), (et, vl) -> ((Product)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((Product)et).getRegisterUser(), (et, vl) -> ((Product)et).setRegisterUser((String)vl), "registerUser");
-        setupEpg(_epgMap, et -> ((Product)et).getUpdateDatetime(), (et, vl) -> ((Product)et).setUpdateDatetime((java.time.LocalDateTime)vl), "updateDatetime");
+        setupEpg(_epgMap, et -> ((Product)et).getUpdateDatetime(), (et, vl) -> ((Product)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
         setupEpg(_epgMap, et -> ((Product)et).getUpdateUser(), (et, vl) -> ((Product)et).setUpdateUser((String)vl), "updateUser");
         setupEpg(_epgMap, et -> ((Product)et).getVersionNo(), (et, vl) -> ((Product)et).setVersionNo(ctl(vl)), "versionNo");
     }
@@ -105,7 +108,7 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_857DE831_8B2A_4621_8B25_910029571B88", false, null, null, null, "purchaseList", null, false);
+    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_16B6B46D_8053_429B_9EFF_502D33193505", false, null, null, null, "purchaseList", null, false);
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, null, String.class, "productName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, null, String.class, "productHandleCode", null, false, false, true, "VARCHAR", 100, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductCategoryCode = cci("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", null, null, String.class, "productCategoryCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "productCategory", null, null, false);
