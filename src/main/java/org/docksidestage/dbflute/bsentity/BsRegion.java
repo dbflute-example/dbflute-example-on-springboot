@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
-import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.allcommon.DBMetaInstanceHandler;
+import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exentity.*;
 
 /**

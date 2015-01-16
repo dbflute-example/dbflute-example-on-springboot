@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.naming.NamingException;
+import javax.sql.DataSource;
 import javax.validation.Valid;
 
 import org.dbflute.cbean.result.PagingResultBean;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,16 +40,18 @@ public class MemberController {
     //                                                                           =========
     @Autowired
     private MemberBhv memberBhv; // #dbflute: you can use DBFlute behaviors like this
+    @Autowired
+    private DataSource dataSource;
 
     // ===================================================================================
     //                                                                              Entry
     //                                                                             =======
     @RequestMapping("")
+    @Transactional
     public String index(Model model, MemberForm memberForm) throws ParseException, NamingException {
         int count = memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
-
         LOG.debug("count: " + count);
         return "index";
     }
@@ -57,7 +61,7 @@ public class MemberController {
     //                                                                           =========
     @RequestMapping("/list")
     public String list(Model model, @Valid MemberSearchForm memberSearchForm, BindingResult result) throws ParseException, NamingException {
-        // TODO jflute example: SpringBoot transaction
+        // TODO jflute example: SpringBoot controller transaction
         // TODO jflute example: SpringBoot paging template
         PagingResultBean<Member> page = selectMemberPage(memberSearchForm);
         model.addAttribute("beans", convertToResultBeans(page));
@@ -119,9 +123,5 @@ public class MemberController {
     @RequestMapping("/add")
     public String add(Model model, @Valid MemberForm memberForm, BindingResult result) throws ParseException, NamingException {
         throw new RuntimeException("not implemented yet");
-        //        if (result.hasErrors()) {
-        //            return "index";
-        //        }
-        //        return "index";
     }
 }

@@ -108,7 +108,7 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8AA57F7B_6CE8_45E9_8DA9_DF8881608C1C", false, null, null, null, "purchaseList", null, false);
+    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_757B0795_24B9_413A_B19D_5FA7FCC80065", false, null, null, null, "purchaseList", null, false);
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, null, String.class, "productName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, null, String.class, "productHandleCode", null, false, false, true, "VARCHAR", 100, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductCategoryCode = cci("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", null, null, String.class, "productCategoryCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "productCategory", null, null, false);
@@ -258,9 +258,9 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.springboot.dbflute.exentity.Product"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.springboot.dbflute.cbean.ProductCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.springboot.dbflute.exbhv.ProductBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.dbflute.exentity.Product"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.dbflute.cbean.ProductCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.dbflute.exbhv.ProductBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type

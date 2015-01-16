@@ -23,9 +23,9 @@ import org.dbflute.cbean.coption.*;
 import org.dbflute.cbean.cvalue.ConditionValue;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
+import org.docksidestage.dbflute.cbean.cq.ciq.*;
 import org.docksidestage.dbflute.cbean.*;
 import org.docksidestage.dbflute.cbean.cq.*;
-import org.docksidestage.dbflute.cbean.cq.ciq.*;
 
 /**
  * The base condition-query of MEMBER_WITHDRAWAL.

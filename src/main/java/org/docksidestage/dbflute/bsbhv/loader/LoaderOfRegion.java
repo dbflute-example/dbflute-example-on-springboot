@@ -19,9 +19,9 @@ import java.util.List;
 
 import org.dbflute.bhv.*;
 import org.dbflute.bhv.referrer.*;
-import org.docksidestage.dbflute.cbean.*;
 import org.docksidestage.dbflute.exbhv.*;
 import org.docksidestage.dbflute.exentity.*;
+import org.docksidestage.dbflute.cbean.*;
 
 /**
  * The referrer loader of REGION as TABLE. <br>

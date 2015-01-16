@@ -186,9 +186,9 @@ public class ServiceRankDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.springboot.dbflute.exentity.ServiceRank"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.springboot.dbflute.cbean.ServiceRankCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.springboot.dbflute.exbhv.ServiceRankBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.dbflute.exentity.ServiceRank"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.dbflute.cbean.ServiceRankCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.dbflute.exbhv.ServiceRankBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type

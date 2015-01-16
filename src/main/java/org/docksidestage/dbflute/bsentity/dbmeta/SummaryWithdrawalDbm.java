@@ -188,9 +188,9 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.springboot.dbflute.exentity.SummaryWithdrawal"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.springboot.dbflute.cbean.SummaryWithdrawalCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.springboot.dbflute.exbhv.SummaryWithdrawalBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.dbflute.exentity.SummaryWithdrawal"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.dbflute.cbean.SummaryWithdrawalCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.dbflute.exbhv.SummaryWithdrawalBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type

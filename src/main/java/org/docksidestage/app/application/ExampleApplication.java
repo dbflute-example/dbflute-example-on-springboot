@@ -29,7 +29,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebMvc
 @EnableAutoConfiguration
-@ComponentScan("org.docksidestage.springboot.app")
+@ComponentScan("org.docksidestage.app")
 @Import(DBFluteBeansJavaConfig.class)
 public class ExampleApplication { // #dbflute: import JavaConfig of DBFlute
 

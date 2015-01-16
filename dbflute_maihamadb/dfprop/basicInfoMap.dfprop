@@ -76,7 +76,7 @@ map:{
     #      --> org.docksidestage.dbflute.exbhv
     #      --> org.docksidestage.dbflute.exentity
     #
-    ; packageBase = org.docksidestage.springboot.dbflute
+    ; packageBase = org.docksidestage.dbflute
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

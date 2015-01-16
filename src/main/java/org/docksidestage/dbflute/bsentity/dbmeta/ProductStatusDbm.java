@@ -154,9 +154,9 @@ public class ProductStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.springboot.dbflute.exentity.ProductStatus"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.springboot.dbflute.cbean.ProductStatusCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.springboot.dbflute.exbhv.ProductStatusBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.dbflute.exentity.ProductStatus"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.dbflute.cbean.ProductStatusCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.dbflute.exbhv.ProductStatusBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type

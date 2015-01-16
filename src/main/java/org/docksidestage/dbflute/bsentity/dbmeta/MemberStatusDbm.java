@@ -170,9 +170,9 @@ public class MemberStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.springboot.dbflute.exentity.MemberStatus"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.springboot.dbflute.cbean.MemberStatusCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.springboot.dbflute.exbhv.MemberStatusBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.dbflute.exentity.MemberStatus"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.dbflute.cbean.MemberStatusCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.dbflute.exbhv.MemberStatusBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type
