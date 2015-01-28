@@ -106,8 +106,8 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_memberStatusCode == null) { return false; }

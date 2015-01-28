@@ -116,8 +116,8 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_serviceRankCode == null) { return false; }

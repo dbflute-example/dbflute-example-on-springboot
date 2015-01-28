@@ -158,6 +158,11 @@ public class ServiceRankDbm extends AbstractDBMeta {
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    public UniqueInfo uniqueOf() { return hpcui(columnDisplayOrder()); }
+
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============

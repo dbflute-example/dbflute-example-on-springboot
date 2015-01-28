@@ -76,7 +76,7 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
     }
 
     /**
-     * Get the unmodifiable map of DB meta.
+     * Get the unmodifiable map of DB meta. map:{tableDbName = DBMeta}
      * @return The unmodifiable map that contains all instances of DB meta. (NotNull, NotEmpty)
      */
     public static Map<String, DBMeta> getUnmodifiableDBMetaMap() {
