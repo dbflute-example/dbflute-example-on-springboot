@@ -40,11 +40,11 @@ Eclipseであれば、ExampleApplicationクラスで右クリック Run As - Jav
 # ----------------------------------------------------------
 #                                          Package Structure
 #                                          -----------------
-org.docksidestage.springboot が、このプロジェクトのルートパッケージと考えてください。
+org.docksidestage が、このプロジェクトのルートパッケージと考えてください。
 アプリケーションのプログラムが app パッケージ配下にあり、ここは ComponentScan 対象です。
 自動生成されたDBFluteのクラスは、dbfluteパッケージ配下にあります。
 
-※一緒にしていないのは、自動生成されたクラスが ComponentScan されると起動が遅くならないだろうか？
+一緒にしていないのは「自動生成されたクラスが ComponentScan されると起動が遅くならないだろうか？」
 と、ちょっとだけ心配になったからです。問題なければ一緒にしてもいいかもしれません。
 (すると、ExampleApplicationにて、JavaConfigの @Import が不要になるかも!?)
 ですが、とりあえずScan対象と対象でないものを管理できるようなパッケージ構成としています。
