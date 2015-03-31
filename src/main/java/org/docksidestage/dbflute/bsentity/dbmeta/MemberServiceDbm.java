@@ -63,7 +63,7 @@ public class MemberServiceDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((MemberService)et).getServicePointCount(), (et, vl) -> ((MemberService)et).setServicePointCount(cti(vl)), "servicePointCount");
         setupEpg(_epgMap, et -> ((MemberService)et).getServiceRankCode(), (et, vl) -> {
             ColumnInfo col = columnServiceRankCode();
-            CDef.ServiceRank cls = (CDef.ServiceRank)gcls(col, vl);
+            CDef.ServiceRank cls = (CDef.ServiceRank)gcls(et, col, vl);
             if (cls != null) {
                 ((MemberService)et).setServiceRankCodeAsServiceRank(cls);
             } else {
@@ -108,7 +108,7 @@ public class MemberServiceDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, null, Integer.class, "memberServiceId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_988DE1DD_0C27_4EE4_B5A2_00B5A356C0F3", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, null, Integer.class, "memberServiceId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_2BC64ABE_F38A_41E1_A46B_3E67A8E28420", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, null, Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null, false);
     protected final ColumnInfo _columnServicePointCount = cci("SERVICE_POINT_COUNT", "SERVICE_POINT_COUNT", null, null, Integer.class, "servicePointCount", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, null, String.class, "serviceRankCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "serviceRank", null, CDef.DefMeta.ServiceRank, false);

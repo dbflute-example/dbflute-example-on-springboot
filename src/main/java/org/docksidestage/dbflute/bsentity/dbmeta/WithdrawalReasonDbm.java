@@ -59,7 +59,7 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((WithdrawalReason)et).getWithdrawalReasonCode(), (et, vl) -> {
             ColumnInfo col = columnWithdrawalReasonCode();
-            CDef.WithdrawalReason cls = (CDef.WithdrawalReason)gcls(col, vl);
+            CDef.WithdrawalReason cls = (CDef.WithdrawalReason)gcls(et, col, vl);
             if (cls != null) {
                 ((WithdrawalReason)et).setWithdrawalReasonCodeAsWithdrawalReason(cls);
             } else {
