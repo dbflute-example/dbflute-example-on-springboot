@@ -27,7 +27,4 @@ import org.docksidestage.dbflute.bsbhv.BsRegionBhv;
  */
 @org.springframework.stereotype.Component("regionBhv")
 public class RegionBhv extends BsRegionBhv {
-    {
-        System.out.println("**********: " + toString());
-    }
 }
