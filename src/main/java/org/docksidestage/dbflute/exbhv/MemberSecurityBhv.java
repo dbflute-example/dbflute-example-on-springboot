@@ -25,5 +25,6 @@ import org.docksidestage.dbflute.bsbhv.BsMemberSecurityBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("memberSecurityBhv")
 public class MemberSecurityBhv extends BsMemberSecurityBhv {
 }

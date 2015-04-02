@@ -24,6 +24,8 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
+ isDBFluteBeansHybritScanConfig = true
+ ; isDBFluteBeansJavaConfigLazy = false
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o dbfluteDiconNamespace: (NotRequired - Default 'dbflute')
     #  The namespace of DBFlute DI configuration.

@@ -25,5 +25,6 @@ import org.docksidestage.dbflute.bsbhv.BsMemberAddressBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("memberAddressBhv")
 public class MemberAddressBhv extends BsMemberAddressBhv {
 }

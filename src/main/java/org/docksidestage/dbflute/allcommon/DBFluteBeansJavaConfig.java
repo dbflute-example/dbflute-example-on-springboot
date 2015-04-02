@@ -20,13 +20,12 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.bhv.core.InvokerAssistant;
 import org.docksidestage.dbflute.allcommon.DBFluteInitializer;
-import org.docksidestage.dbflute.exbhv.*;
 
 /**
  * The Java configuration of DBFlute beans for Spring Framework. <br>
@@ -34,6 +33,7 @@ import org.docksidestage.dbflute.exbhv.*;
  * @author DBFlute(AutoGenerator)
  */
 @Configuration
+@ComponentScan("org.docksidestage.dbflute.exbhv")
 public class DBFluteBeansJavaConfig {
 
     // ===================================================================================
@@ -53,7 +53,6 @@ public class DBFluteBeansJavaConfig {
         return new org.docksidestage.dbflute.allcommon.DBFluteInitializer(_dataSource);
     }
 
-    @Lazy
     @Bean(name="invokerAssistant")
     public InvokerAssistant createImplementedInvokerAssistant() {
         ImplementedInvokerAssistant assistant = newImplementedInvokerAssistant();
@@ -65,7 +64,6 @@ public class DBFluteBeansJavaConfig {
         return new org.docksidestage.dbflute.allcommon.ImplementedInvokerAssistant();
     }
 
-    @Lazy
     @Bean(name="behaviorCommandInvoker")
     public BehaviorCommandInvoker createBehaviorCommandInvoker() {
         BehaviorCommandInvoker invoker = newBehaviorCommandInvoker();
@@ -77,7 +75,6 @@ public class DBFluteBeansJavaConfig {
         return new BehaviorCommandInvoker();
     }
 
-    @Lazy
     @Bean(name="behaviorSelector")
     public ImplementedBehaviorSelector createImplementedBehaviorSelector() {
         ImplementedBehaviorSelector selector = newImplementedBehaviorSelector();
@@ -89,7 +86,6 @@ public class DBFluteBeansJavaConfig {
         return new ImplementedBehaviorSelector();
     }
 
-    @Lazy
     @Bean(name="commonColumnAutoSetupper")
     public ImplementedCommonColumnAutoSetupper createImplementedCommonColumnAutoSetupper() {
         return newImplementedCommonColumnAutoSetupper();
@@ -97,168 +93,5 @@ public class DBFluteBeansJavaConfig {
 
     protected ImplementedCommonColumnAutoSetupper newImplementedCommonColumnAutoSetupper() {
         return new ImplementedCommonColumnAutoSetupper();
-    }
-
-    // ===================================================================================
-    //                                                                            Behavior
-    //                                                                            ========
-    @Lazy
-    @Bean(name="memberBhv")
-    public MemberBhv createMemberBhv() {
-        MemberBhv bhv = new MemberBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="memberAddressBhv")
-    public MemberAddressBhv createMemberAddressBhv() {
-        MemberAddressBhv bhv = new MemberAddressBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="memberFollowingBhv")
-    public MemberFollowingBhv createMemberFollowingBhv() {
-        MemberFollowingBhv bhv = new MemberFollowingBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="memberLoginBhv")
-    public MemberLoginBhv createMemberLoginBhv() {
-        MemberLoginBhv bhv = new MemberLoginBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="memberSecurityBhv")
-    public MemberSecurityBhv createMemberSecurityBhv() {
-        MemberSecurityBhv bhv = new MemberSecurityBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="memberServiceBhv")
-    public MemberServiceBhv createMemberServiceBhv() {
-        MemberServiceBhv bhv = new MemberServiceBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="memberStatusBhv")
-    public MemberStatusBhv createMemberStatusBhv() {
-        MemberStatusBhv bhv = new MemberStatusBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="memberWithdrawalBhv")
-    public MemberWithdrawalBhv createMemberWithdrawalBhv() {
-        MemberWithdrawalBhv bhv = new MemberWithdrawalBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="productBhv")
-    public ProductBhv createProductBhv() {
-        ProductBhv bhv = new ProductBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="productCategoryBhv")
-    public ProductCategoryBhv createProductCategoryBhv() {
-        ProductCategoryBhv bhv = new ProductCategoryBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="productStatusBhv")
-    public ProductStatusBhv createProductStatusBhv() {
-        ProductStatusBhv bhv = new ProductStatusBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="purchaseBhv")
-    public PurchaseBhv createPurchaseBhv() {
-        PurchaseBhv bhv = new PurchaseBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="purchasePaymentBhv")
-    public PurchasePaymentBhv createPurchasePaymentBhv() {
-        PurchasePaymentBhv bhv = new PurchasePaymentBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="regionBhv")
-    public RegionBhv createRegionBhv() {
-        RegionBhv bhv = new RegionBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="serviceRankBhv")
-    public ServiceRankBhv createServiceRankBhv() {
-        ServiceRankBhv bhv = new ServiceRankBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="summaryProductBhv")
-    public SummaryProductBhv createSummaryProductBhv() {
-        SummaryProductBhv bhv = new SummaryProductBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="summaryWithdrawalBhv")
-    public SummaryWithdrawalBhv createSummaryWithdrawalBhv() {
-        SummaryWithdrawalBhv bhv = new SummaryWithdrawalBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        return bhv;
-    }
-
-    @Lazy
-    @Bean(name="withdrawalReasonBhv")
-    public WithdrawalReasonBhv createWithdrawalReasonBhv() {
-        WithdrawalReasonBhv bhv = new WithdrawalReasonBhv();
-        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
-        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
-        return bhv;
     }
 }

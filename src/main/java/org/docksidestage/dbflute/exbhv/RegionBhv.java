@@ -25,5 +25,9 @@ import org.docksidestage.dbflute.bsbhv.BsRegionBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("regionBhv")
 public class RegionBhv extends BsRegionBhv {
+    {
+        System.out.println("**********: " + toString());
+    }
 }

@@ -25,5 +25,9 @@ import org.docksidestage.dbflute.bsbhv.BsMemberBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("memberBhv")
 public class MemberBhv extends BsMemberBhv {
+    {
+        System.out.println("**********: " + toString());
+    }
 }
