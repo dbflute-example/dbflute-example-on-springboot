@@ -25,5 +25,6 @@ import org.docksidestage.dbflute.bsbhv.BsMemberStatusBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("memberStatusBhv")
 public class MemberStatusBhv extends BsMemberStatusBhv {
 }

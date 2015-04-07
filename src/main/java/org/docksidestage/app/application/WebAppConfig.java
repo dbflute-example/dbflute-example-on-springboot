@@ -4,14 +4,14 @@ import org.docksidestage.dbflute.svflute.GodHandableControllerInterceptor;
 import org.docksidestage.dbflute.svflute.RequestLoggingFilter;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * @author jflute
  */
-@Component
+@Configuration
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Bean

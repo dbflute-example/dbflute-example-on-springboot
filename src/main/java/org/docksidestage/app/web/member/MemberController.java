@@ -61,8 +61,6 @@ public class MemberController {
     //                                                                           =========
     @RequestMapping("/list")
     public String list(Model model, @Valid MemberSearchForm memberSearchForm, BindingResult result) throws ParseException, NamingException {
-        // TODO jflute example: SpringBoot controller transaction
-        // TODO jflute example: SpringBoot paging template
         PagingResultBean<Member> page = selectMemberPage(memberSearchForm);
         model.addAttribute("beans", convertToResultBeans(page));
         return "member/member_list";

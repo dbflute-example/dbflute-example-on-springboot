@@ -25,5 +25,6 @@ import org.docksidestage.dbflute.bsbhv.BsSummaryProductBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("summaryProductBhv")
 public class SummaryProductBhv extends BsSummaryProductBhv {
 }
