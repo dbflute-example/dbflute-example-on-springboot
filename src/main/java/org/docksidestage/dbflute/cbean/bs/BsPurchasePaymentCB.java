@@ -270,7 +270,7 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
      */
     public PurchaseNss setupSelect_Purchase() {
         assertSetupSelectPurpose("purchase");
-        if (hasSpecifiedColumn()) { // if reverse call
+        if (hasSpecifiedLocalColumn()) {
             specify().columnPurchaseId();
         }
         doSetupSelect(() -> query().queryPurchase());
@@ -315,8 +315,8 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
         return specify();
     }
 
-    public boolean hasSpecifiedColumn() {
-        return _specification != null && _specification.isAlreadySpecifiedRequiredColumn();
+    public boolean hasSpecifiedLocalColumn() {
+        return _specification != null && _specification.hasSpecifiedColumn();
     }
 
     public static class HpSpecification extends HpAbstractSpecification<PurchasePaymentCQ> {

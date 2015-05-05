@@ -276,7 +276,7 @@ public class BsMemberCB extends AbstractConditionBean {
      */
     public void setupSelect_MemberStatus() {
         assertSetupSelectPurpose("memberStatus");
-        if (hasSpecifiedColumn()) { // if reverse call
+        if (hasSpecifiedLocalColumn()) {
             specify().columnMemberStatusCode();
         }
         doSetupSelect(() -> query().queryMemberStatus());
@@ -357,7 +357,8 @@ public class BsMemberCB extends AbstractConditionBean {
     public MemberSecurityNss setupSelect_MemberSecurityAsOne() {
         assertSetupSelectPurpose("memberSecurityAsOne");
         doSetupSelect(() -> query().queryMemberSecurityAsOne());
-        if (_nssMemberSecurityAsOne == null || !_nssMemberSecurityAsOne.hasConditionQuery()) { _nssMemberSecurityAsOne = new MemberSecurityNss(query().queryMemberSecurityAsOne()); }
+        if (_nssMemberSecurityAsOne == null || !_nssMemberSecurityAsOne.hasConditionQuery())
+        { _nssMemberSecurityAsOne = new MemberSecurityNss(query().queryMemberSecurityAsOne()); }
         return _nssMemberSecurityAsOne;
     }
 
@@ -382,7 +383,8 @@ public class BsMemberCB extends AbstractConditionBean {
     public MemberServiceNss setupSelect_MemberServiceAsOne() {
         assertSetupSelectPurpose("memberServiceAsOne");
         doSetupSelect(() -> query().queryMemberServiceAsOne());
-        if (_nssMemberServiceAsOne == null || !_nssMemberServiceAsOne.hasConditionQuery()) { _nssMemberServiceAsOne = new MemberServiceNss(query().queryMemberServiceAsOne()); }
+        if (_nssMemberServiceAsOne == null || !_nssMemberServiceAsOne.hasConditionQuery())
+        { _nssMemberServiceAsOne = new MemberServiceNss(query().queryMemberServiceAsOne()); }
         return _nssMemberServiceAsOne;
     }
 
@@ -407,7 +409,8 @@ public class BsMemberCB extends AbstractConditionBean {
     public MemberWithdrawalNss setupSelect_MemberWithdrawalAsOne() {
         assertSetupSelectPurpose("memberWithdrawalAsOne");
         doSetupSelect(() -> query().queryMemberWithdrawalAsOne());
-        if (_nssMemberWithdrawalAsOne == null || !_nssMemberWithdrawalAsOne.hasConditionQuery()) { _nssMemberWithdrawalAsOne = new MemberWithdrawalNss(query().queryMemberWithdrawalAsOne()); }
+        if (_nssMemberWithdrawalAsOne == null || !_nssMemberWithdrawalAsOne.hasConditionQuery())
+        { _nssMemberWithdrawalAsOne = new MemberWithdrawalNss(query().queryMemberWithdrawalAsOne()); }
         return _nssMemberWithdrawalAsOne;
     }
 
@@ -447,8 +450,8 @@ public class BsMemberCB extends AbstractConditionBean {
         return specify();
     }
 
-    public boolean hasSpecifiedColumn() {
-        return _specification != null && _specification.isAlreadySpecifiedRequiredColumn();
+    public boolean hasSpecifiedLocalColumn() {
+        return _specification != null && _specification.hasSpecifiedColumn();
     }
 
     public static class HpSpecification extends HpAbstractSpecification<MemberCQ> {
@@ -564,10 +567,9 @@ public class BsMemberCB extends AbstractConditionBean {
                                     , () -> _qyCall.qy().queryMemberAddressAsValid(targetDate))
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _memberAddressAsValid.xsetSyncQyCall(new HpSpQyCall<MemberAddressCQ>() {
-                        public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMemberAddressAsValid(); }
-                        public MemberAddressCQ qy() { return xsyncQyCall().qy().queryMemberAddressAsValid(targetDate); }
-                    });
+                    _memberAddressAsValid.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMemberAddressAsValid()
+                      , () -> xsyncQyCall().qy().queryMemberAddressAsValid(targetDate)));
                 }
             }
             return _memberAddressAsValid;
