@@ -23,6 +23,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.bhv.core.InvokerAssistant;
 import org.docksidestage.dbflute.allcommon.DBFluteInitializer;
@@ -33,7 +34,7 @@ import org.docksidestage.dbflute.allcommon.DBFluteInitializer;
  * @author DBFlute(AutoGenerator)
  */
 @Configuration
-@ComponentScan("org.docksidestage.dbflute.exbhv")
+@ComponentScan(value="org.docksidestage.dbflute.exbhv", lazyInit=true)
 public class DBFluteBeansJavaConfig {
 
     // ===================================================================================
@@ -54,6 +55,7 @@ public class DBFluteBeansJavaConfig {
     }
 
     @Bean(name="invokerAssistant")
+    @Lazy
     public InvokerAssistant createImplementedInvokerAssistant() {
         ImplementedInvokerAssistant assistant = newImplementedInvokerAssistant();
         assistant.setDataSource(_dataSource);
@@ -65,6 +67,7 @@ public class DBFluteBeansJavaConfig {
     }
 
     @Bean(name="behaviorCommandInvoker")
+    @Lazy
     public BehaviorCommandInvoker createBehaviorCommandInvoker() {
         BehaviorCommandInvoker invoker = newBehaviorCommandInvoker();
         invoker.setInvokerAssistant(createImplementedInvokerAssistant());
@@ -76,6 +79,7 @@ public class DBFluteBeansJavaConfig {
     }
 
     @Bean(name="behaviorSelector")
+    @Lazy
     public ImplementedBehaviorSelector createImplementedBehaviorSelector() {
         ImplementedBehaviorSelector selector = newImplementedBehaviorSelector();
         selector.setContainer(_container);
@@ -87,6 +91,7 @@ public class DBFluteBeansJavaConfig {
     }
 
     @Bean(name="commonColumnAutoSetupper")
+    @Lazy
     public ImplementedCommonColumnAutoSetupper createImplementedCommonColumnAutoSetupper() {
         return newImplementedCommonColumnAutoSetupper();
     }
