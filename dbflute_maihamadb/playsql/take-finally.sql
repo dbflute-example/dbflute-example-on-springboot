@@ -2,33 +2,27 @@
 -- =======================================================================================
 --                                                                     Business Constraint
 --                                                                     ===================
--- #df:assertCountZero#
--- /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
--- Formalized members should have their own formalized date-times.
--- - - - - - - - - - -/
-select count(*)
+-- #df:assertListZero#
+-- formalized members should have their own formalized date-times
+select MEMBER_ID, MEMBER_NAME, MEMBER_STATUS_CODE, FORMALIZED_DATETIME
   from MEMBER
  where MEMBER_STATUS_CODE = 'FML'
    and FORMALIZED_DATETIME is null
 ;
 
 -- #df:assertListZero#
--- /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
--- Withdrawal members should have their own withdrawal informations.
--- - - - - - - - - - -/
-select member.MEMBER_ID, member.MEMBER_NAME
-  from MEMBER member
- where member.MEMBER_STATUS_CODE = 'WDL'
-   and not exists (select withdrawal.MEMBER_ID
-                     from MEMBER_WITHDRAWAL withdrawal
-                    where withdrawal.MEMBER_ID = member.MEMBER_ID
+-- withdrawal members should have their own withdrawal informations
+select mb.MEMBER_ID, mb.MEMBER_NAME, mb.MEMBER_STATUS_CODE
+  from MEMBER mb
+ where mb.MEMBER_STATUS_CODE = 'WDL'
+   and not exists (select wdl.MEMBER_ID
+                     from MEMBER_WITHDRAWAL wdl
+                    where wdl.MEMBER_ID = mb.MEMBER_ID
        )
 ;
 
 -- #df:assertListZero#
--- /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
--- Member addresses should be only one at any time.
--- - - - - - - - - - -/
+-- member addresses should be only one at any time
 select adr.MEMBER_ADDRESS_ID, adr.MEMBER_ID
      , adr.VALID_BEGIN_DATE, adr.VALID_END_DATE
      , adr.ADDRESS
@@ -45,14 +39,11 @@ select adr.MEMBER_ADDRESS_ID, adr.MEMBER_ID
 -- =======================================================================================
 --                                                                     TestData Constraint
 --                                                                     ===================
--- /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
--- These tables should have at least one record at ut and should not have at real.
--- - - - - - - - - - -/
 -- #df:assertCountExists@ut#
--- #df:assertCountZero@real#
+-- should have at least one record at ut
 select count(*) from MEMBER member
 ;
 -- #df:assertCountExists@ut#
--- #df:assertCountZero@real#
+-- should have at least one record at ut
 select count(*) from MEMBER_LOGIN login
 ;

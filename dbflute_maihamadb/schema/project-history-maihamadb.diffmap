@@ -1,4 +1,23 @@
 map:{
+    ; 2015/07/01 03:09:36 = map:{
+        ; diffDate = 2015/07/01 03:09:36
+        ; tableDiff = map:{
+            ; MEMBER_SECURITY = map:{
+                ; tableName = MEMBER_SECURITY
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; LOGIN_PASSWORD = map:{
+                        ; columnName = LOGIN_PASSWORD
+                        ; diffType = CHANGE
+                        ; columnSizeDiff = map:{
+                            ; next = 100
+                            ; previous = 50
+                        }
+                    }
+                }
+            }
+        }
+    }
     ; 2014/11/07 19:27:16 = map:{
         ; diffDate = 2014/11/07 19:27:16
         ; tableCount = map:{

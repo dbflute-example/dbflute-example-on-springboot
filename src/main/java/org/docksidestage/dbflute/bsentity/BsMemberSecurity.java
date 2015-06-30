@@ -97,7 +97,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements DomainE
     /** MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _memberId;
 
-    /** LOGIN_PASSWORD: {NotNull, VARCHAR(50)} */
+    /** LOGIN_PASSWORD: {NotNull, VARCHAR(100)} */
     protected String _loginPassword;
 
     /** REMINDER_QUESTION: {NotNull, VARCHAR(50)} */
@@ -268,7 +268,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements DomainE
     }
 
     /**
-     * [get] LOGIN_PASSWORD: {NotNull, VARCHAR(50)} <br>
+     * [get] LOGIN_PASSWORD: {NotNull, VARCHAR(100)} <br>
      * @return The value of the column 'LOGIN_PASSWORD'. (basically NotNull if selected: for the constraint)
      */
     public String getLoginPassword() {
@@ -277,7 +277,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements DomainE
     }
 
     /**
-     * [set] LOGIN_PASSWORD: {NotNull, VARCHAR(50)} <br>
+     * [set] LOGIN_PASSWORD: {NotNull, VARCHAR(100)} <br>
      * @param loginPassword The value of the column 'LOGIN_PASSWORD'. (basically NotNull if update: for the constraint)
      */
     public void setLoginPassword(String loginPassword) {

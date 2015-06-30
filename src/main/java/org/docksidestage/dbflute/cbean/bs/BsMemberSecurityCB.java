@@ -328,7 +328,7 @@ public class BsMemberSecurityCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
+         * LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnLoginPassword() { return doColumn("LOGIN_PASSWORD"); }
