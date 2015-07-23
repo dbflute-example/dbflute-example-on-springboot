@@ -1,5 +1,5 @@
 map:{
-    ; url = jdbc:h2:file:../etc/database/maihamasyncdb
+    ; url = jdbc:h2:file:../src/main/resources/database/maihamasyncdb
 	; schema =
 	# use root user to execute dumped DDL (it might need super privilege)
     ; user = root

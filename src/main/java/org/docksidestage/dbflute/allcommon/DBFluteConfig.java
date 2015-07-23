@@ -98,7 +98,6 @@ public class DBFluteConfig {
     protected PhysicalConnectionDigger _physicalConnectionDigger;
     protected SQLExceptionDigger _sqlExceptionDigger;
     protected String _outsideSqlPackage = null;
-    protected boolean _useSqlLogRegistry = false;
     protected MappingDateTimeZoneProvider _mappingDateTimeZoneProvider;
 
     // extension
@@ -597,22 +596,6 @@ public class DBFluteConfig {
             _log.info("...Setting outsideSqlPackage: " + outsideSqlPackage);
         }
         _outsideSqlPackage = outsideSqlPackage;
-    }
-
-    // [DBFlute-0.8.2]
-    // ===================================================================================
-    //                                                                    SQL Log Registry
-    //                                                                    ================
-    public boolean isUseSqlLogRegistry() {
-        return _useSqlLogRegistry;
-    }
-
-    public void setUseSqlLogRegistry(boolean useSqlLogRegistry) {
-        assertUnlocked();
-        if (_log.isInfoEnabled()) {
-            _log.info("...Setting useSqlLogRegistry: " + useSqlLogRegistry);
-        }
-        _useSqlLogRegistry = useSqlLogRegistry;
     }
 
     // [DBFlute-1.1.0]

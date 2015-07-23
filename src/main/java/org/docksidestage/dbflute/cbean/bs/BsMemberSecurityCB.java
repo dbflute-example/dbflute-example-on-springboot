@@ -312,8 +312,8 @@ public class BsMemberSecurityCB extends AbstractConditionBean {
         return specify();
     }
 
-    public boolean hasSpecifiedColumn() {
-        return _specification != null && _specification.isAlreadySpecifiedRequiredColumn();
+    public boolean hasSpecifiedLocalColumn() {
+        return _specification != null && _specification.hasSpecifiedColumn();
     }
 
     public static class HpSpecification extends HpAbstractSpecification<MemberSecurityCQ> {
@@ -328,7 +328,7 @@ public class BsMemberSecurityCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
+         * LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnLoginPassword() { return doColumn("LOGIN_PASSWORD"); }

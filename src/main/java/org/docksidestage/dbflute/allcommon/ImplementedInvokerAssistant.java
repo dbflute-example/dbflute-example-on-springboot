@@ -502,8 +502,7 @@ public class ImplementedInvokerAssistant implements InvokerAssistant {
     // to check the initializer is an instance of DBFluteInitializer
     // when the initializer is extended by DBFlute property
     // so this variable is actually unused in this class
-    // (needs to be injected only when the DI container
-    // is set by its DI setting file)
+    // (needs to be injected only when the DI container is set by its DI setting file)
     public void setIntroduction(DBFluteInitializer introduction) {
         _introduction = introduction;
     }

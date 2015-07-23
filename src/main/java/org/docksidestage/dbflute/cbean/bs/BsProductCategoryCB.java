@@ -270,7 +270,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
      */
     public ProductCategoryNss setupSelect_ProductCategorySelf() {
         assertSetupSelectPurpose("productCategorySelf");
-        if (hasSpecifiedColumn()) { // if reverse call
+        if (hasSpecifiedLocalColumn()) {
             specify().columnParentCategoryCode();
         }
         doSetupSelect(() -> query().queryProductCategorySelf());
@@ -315,8 +315,8 @@ public class BsProductCategoryCB extends AbstractConditionBean {
         return specify();
     }
 
-    public boolean hasSpecifiedColumn() {
-        return _specification != null && _specification.isAlreadySpecifiedRequiredColumn();
+    public boolean hasSpecifiedLocalColumn() {
+        return _specification != null && _specification.hasSpecifiedColumn();
     }
 
     public static class HpSpecification extends HpAbstractSpecification<ProductCategoryCQ> {
