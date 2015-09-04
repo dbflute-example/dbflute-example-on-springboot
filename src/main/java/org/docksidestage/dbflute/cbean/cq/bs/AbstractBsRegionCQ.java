@@ -61,7 +61,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
-     * @param regionId The value of regionId as equal. (NullAllowed: if null, no condition)
+     * @param regionId The value of regionId as equal. (basically NotNull: error as default, or no condition as option)
      */
     protected void setRegionId_Equal(Integer regionId) {
         doSetRegionId_Equal(regionId);
@@ -71,7 +71,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * Equal(=). As Region. And NullIgnored, OnlyOnceRegistered. <br>
      * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * 主に会員の住んでいる地域を示す
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setRegionId_Equal_AsRegion(CDef.Region cdef) {
         doSetRegionId_Equal(cTNum(cdef != null ? cdef.code() : null, Integer.class));
@@ -116,7 +116,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
-     * @param regionId The value of regionId as notEqual. (NullAllowed: if null, no condition)
+     * @param regionId The value of regionId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     protected void setRegionId_NotEqual(Integer regionId) {
         doSetRegionId_NotEqual(regionId);
@@ -126,7 +126,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * NotEqual(&lt;&gt;). As Region. And NullIgnored, OnlyOnceRegistered. <br>
      * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * 主に会員の住んでいる地域を示す
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setRegionId_NotEqual_AsRegion(CDef.Region cdef) {
         doSetRegionId_NotEqual(cTNum(cdef != null ? cdef.code() : null, Integer.class));

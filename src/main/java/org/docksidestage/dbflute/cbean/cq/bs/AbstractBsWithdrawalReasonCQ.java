@@ -71,7 +71,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * Equal(=). As WithdrawalReason. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * 会員の退会理由。なのでちょっとねがてぃぶ
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason cdef) {
         doSetWithdrawalReasonCode_Equal(cdef != null ? cdef.code() : null);
@@ -126,7 +126,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * NotEqual(&lt;&gt;). As WithdrawalReason. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * 会員の退会理由。なのでちょっとねがてぃぶ
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason cdef) {
         doSetWithdrawalReasonCode_NotEqual(cdef != null ? cdef.code() : null);
@@ -404,7 +404,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as equal. (NullAllowed: if null, no condition)
+     * @param displayOrder The value of displayOrder as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_Equal(Integer displayOrder) {
         doSetDisplayOrder_Equal(displayOrder);

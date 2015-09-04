@@ -61,7 +61,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param purchasePaymentId The value of purchasePaymentId as equal. (NullAllowed: if null, no condition)
+     * @param purchasePaymentId The value of purchasePaymentId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchasePaymentId_Equal(Long purchasePaymentId) {
         doSetPurchasePaymentId_Equal(purchasePaymentId);
@@ -74,7 +74,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param purchasePaymentId The value of purchasePaymentId as notEqual. (NullAllowed: if null, no condition)
+     * @param purchasePaymentId The value of purchasePaymentId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchasePaymentId_NotEqual(Long purchasePaymentId) {
         doSetPurchasePaymentId_NotEqual(purchasePaymentId);
@@ -87,7 +87,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param purchasePaymentId The value of purchasePaymentId as greaterThan. (NullAllowed: if null, no condition)
+     * @param purchasePaymentId The value of purchasePaymentId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchasePaymentId_GreaterThan(Long purchasePaymentId) {
         regPurchasePaymentId(CK_GT, purchasePaymentId);
@@ -96,7 +96,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param purchasePaymentId The value of purchasePaymentId as lessThan. (NullAllowed: if null, no condition)
+     * @param purchasePaymentId The value of purchasePaymentId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchasePaymentId_LessThan(Long purchasePaymentId) {
         regPurchasePaymentId(CK_LT, purchasePaymentId);
@@ -105,7 +105,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param purchasePaymentId The value of purchasePaymentId as greaterEqual. (NullAllowed: if null, no condition)
+     * @param purchasePaymentId The value of purchasePaymentId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchasePaymentId_GreaterEqual(Long purchasePaymentId) {
         regPurchasePaymentId(CK_GE, purchasePaymentId);
@@ -114,7 +114,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param purchasePaymentId The value of purchasePaymentId as lessEqual. (NullAllowed: if null, no condition)
+     * @param purchasePaymentId The value of purchasePaymentId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchasePaymentId_LessEqual(Long purchasePaymentId) {
         regPurchasePaymentId(CK_LE, purchasePaymentId);
@@ -190,7 +190,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
-     * @param purchaseId The value of purchaseId as equal. (NullAllowed: if null, no condition)
+     * @param purchaseId The value of purchaseId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchaseId_Equal(Long purchaseId) {
         doSetPurchaseId_Equal(purchaseId);
@@ -203,7 +203,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
-     * @param purchaseId The value of purchaseId as notEqual. (NullAllowed: if null, no condition)
+     * @param purchaseId The value of purchaseId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchaseId_NotEqual(Long purchaseId) {
         doSetPurchaseId_NotEqual(purchaseId);
@@ -216,7 +216,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
-     * @param purchaseId The value of purchaseId as greaterThan. (NullAllowed: if null, no condition)
+     * @param purchaseId The value of purchaseId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchaseId_GreaterThan(Long purchaseId) {
         regPurchaseId(CK_GT, purchaseId);
@@ -225,7 +225,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
-     * @param purchaseId The value of purchaseId as lessThan. (NullAllowed: if null, no condition)
+     * @param purchaseId The value of purchaseId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchaseId_LessThan(Long purchaseId) {
         regPurchaseId(CK_LT, purchaseId);
@@ -234,7 +234,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
-     * @param purchaseId The value of purchaseId as greaterEqual. (NullAllowed: if null, no condition)
+     * @param purchaseId The value of purchaseId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchaseId_GreaterEqual(Long purchaseId) {
         regPurchaseId(CK_GE, purchaseId);
@@ -243,7 +243,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
-     * @param purchaseId The value of purchaseId as lessEqual. (NullAllowed: if null, no condition)
+     * @param purchaseId The value of purchaseId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPurchaseId_LessEqual(Long purchaseId) {
         regPurchaseId(CK_LE, purchaseId);
@@ -307,7 +307,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
-     * @param paymentAmount The value of paymentAmount as equal. (NullAllowed: if null, no condition)
+     * @param paymentAmount The value of paymentAmount as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentAmount_Equal(java.math.BigDecimal paymentAmount) {
         doSetPaymentAmount_Equal(paymentAmount);
@@ -320,7 +320,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
-     * @param paymentAmount The value of paymentAmount as notEqual. (NullAllowed: if null, no condition)
+     * @param paymentAmount The value of paymentAmount as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentAmount_NotEqual(java.math.BigDecimal paymentAmount) {
         doSetPaymentAmount_NotEqual(paymentAmount);
@@ -333,7 +333,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
-     * @param paymentAmount The value of paymentAmount as greaterThan. (NullAllowed: if null, no condition)
+     * @param paymentAmount The value of paymentAmount as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentAmount_GreaterThan(java.math.BigDecimal paymentAmount) {
         regPaymentAmount(CK_GT, paymentAmount);
@@ -342,7 +342,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
-     * @param paymentAmount The value of paymentAmount as lessThan. (NullAllowed: if null, no condition)
+     * @param paymentAmount The value of paymentAmount as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentAmount_LessThan(java.math.BigDecimal paymentAmount) {
         regPaymentAmount(CK_LT, paymentAmount);
@@ -351,7 +351,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
-     * @param paymentAmount The value of paymentAmount as greaterEqual. (NullAllowed: if null, no condition)
+     * @param paymentAmount The value of paymentAmount as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentAmount_GreaterEqual(java.math.BigDecimal paymentAmount) {
         regPaymentAmount(CK_GE, paymentAmount);
@@ -360,7 +360,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
-     * @param paymentAmount The value of paymentAmount as lessEqual. (NullAllowed: if null, no condition)
+     * @param paymentAmount The value of paymentAmount as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentAmount_LessEqual(java.math.BigDecimal paymentAmount) {
         regPaymentAmount(CK_LE, paymentAmount);
@@ -424,7 +424,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
-     * @param paymentDatetime The value of paymentDatetime as equal. (NullAllowed: if null, no condition)
+     * @param paymentDatetime The value of paymentDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentDatetime_Equal(java.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_EQ,  paymentDatetime);
@@ -433,7 +433,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
-     * @param paymentDatetime The value of paymentDatetime as greaterThan. (NullAllowed: if null, no condition)
+     * @param paymentDatetime The value of paymentDatetime as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentDatetime_GreaterThan(java.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_GT,  paymentDatetime);
@@ -442,7 +442,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
-     * @param paymentDatetime The value of paymentDatetime as lessThan. (NullAllowed: if null, no condition)
+     * @param paymentDatetime The value of paymentDatetime as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentDatetime_LessThan(java.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_LT,  paymentDatetime);
@@ -451,7 +451,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
-     * @param paymentDatetime The value of paymentDatetime as greaterEqual. (NullAllowed: if null, no condition)
+     * @param paymentDatetime The value of paymentDatetime as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentDatetime_GreaterEqual(java.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_GE,  paymentDatetime);
@@ -460,7 +460,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
-     * @param paymentDatetime The value of paymentDatetime as lessEqual. (NullAllowed: if null, no condition)
+     * @param paymentDatetime The value of paymentDatetime as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentDatetime_LessEqual(java.time.LocalDateTime paymentDatetime) {
         regPaymentDatetime(CK_LE, paymentDatetime);
@@ -598,7 +598,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as equal. (NullAllowed: if null, no condition)
+     * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_Equal(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_EQ,  registerDatetime);
@@ -653,7 +653,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as equal. (NullAllowed: if null, no condition)
+     * @param updateDatetime The value of updateDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_Equal(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_EQ,  updateDatetime);

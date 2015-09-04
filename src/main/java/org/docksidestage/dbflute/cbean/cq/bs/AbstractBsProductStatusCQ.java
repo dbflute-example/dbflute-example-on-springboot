@@ -71,7 +71,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * Equal(=). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * 商品ステータス。あんまり面白みのないステータス
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus cdef) {
         doSetProductStatusCode_Equal(cdef != null ? cdef.code() : null);
@@ -118,7 +118,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * NotEqual(&lt;&gt;). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * 商品ステータス。あんまり面白みのないステータス
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus cdef) {
         doSetProductStatusCode_NotEqual(cdef != null ? cdef.code() : null);
@@ -349,7 +349,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as equal. (NullAllowed: if null, no condition)
+     * @param displayOrder The value of displayOrder as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_Equal(Integer displayOrder) {
         doSetDisplayOrder_Equal(displayOrder);

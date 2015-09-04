@@ -71,7 +71,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
      * Equal(=). As MemberStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
      * 入会から退会までの会員のステータスを示す
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberStatusCode_Equal_AsMemberStatus(CDef.MemberStatus cdef) {
         doSetMemberStatusCode_Equal(cdef != null ? cdef.code() : null);
@@ -118,7 +118,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
      * NotEqual(&lt;&gt;). As MemberStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
      * 入会から退会までの会員のステータスを示す
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberStatusCode_NotEqual_AsMemberStatus(CDef.MemberStatus cdef) {
         doSetMemberStatusCode_NotEqual(cdef != null ? cdef.code() : null);
@@ -541,7 +541,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as equal. (NullAllowed: if null, no condition)
+     * @param displayOrder The value of displayOrder as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_Equal(Integer displayOrder) {
         doSetDisplayOrder_Equal(displayOrder);
