@@ -61,7 +61,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
-     * @param productId The value of productId as equal. (NullAllowed: if null, no condition)
+     * @param productId The value of productId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_Equal(Integer productId) {
         doSetProductId_Equal(productId);
@@ -74,7 +74,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
-     * @param productId The value of productId as notEqual. (NullAllowed: if null, no condition)
+     * @param productId The value of productId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_NotEqual(Integer productId) {
         doSetProductId_NotEqual(productId);
@@ -87,7 +87,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
-     * @param productId The value of productId as greaterThan. (NullAllowed: if null, no condition)
+     * @param productId The value of productId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_GreaterThan(Integer productId) {
         regProductId(CK_GT, productId);
@@ -96,7 +96,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
-     * @param productId The value of productId as lessThan. (NullAllowed: if null, no condition)
+     * @param productId The value of productId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_LessThan(Integer productId) {
         regProductId(CK_LT, productId);
@@ -105,7 +105,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
-     * @param productId The value of productId as greaterEqual. (NullAllowed: if null, no condition)
+     * @param productId The value of productId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_GreaterEqual(Integer productId) {
         regProductId(CK_GE, productId);
@@ -114,7 +114,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_ID: {PK, ID, NotNull, INTEGER(10)}
-     * @param productId The value of productId as lessEqual. (NullAllowed: if null, no condition)
+     * @param productId The value of productId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_LessEqual(Integer productId) {
         regProductId(CK_LE, productId);
@@ -531,7 +531,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * Equal(=). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br>
      * 商品ステータス。あんまり面白みのないステータス
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus cdef) {
         doSetProductStatusCode_Equal(cdef != null ? cdef.code() : null);
@@ -578,7 +578,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * NotEqual(&lt;&gt;). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br>
      * 商品ステータス。あんまり面白みのないステータス
-     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, no condition)
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus cdef) {
         doSetProductStatusCode_NotEqual(cdef != null ? cdef.code() : null);
@@ -664,7 +664,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * REGULAR_PRICE: {NotNull, INTEGER(10)}
-     * @param regularPrice The value of regularPrice as equal. (NullAllowed: if null, no condition)
+     * @param regularPrice The value of regularPrice as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegularPrice_Equal(Integer regularPrice) {
         doSetRegularPrice_Equal(regularPrice);
@@ -677,7 +677,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * REGULAR_PRICE: {NotNull, INTEGER(10)}
-     * @param regularPrice The value of regularPrice as notEqual. (NullAllowed: if null, no condition)
+     * @param regularPrice The value of regularPrice as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegularPrice_NotEqual(Integer regularPrice) {
         doSetRegularPrice_NotEqual(regularPrice);
@@ -690,7 +690,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * REGULAR_PRICE: {NotNull, INTEGER(10)}
-     * @param regularPrice The value of regularPrice as greaterThan. (NullAllowed: if null, no condition)
+     * @param regularPrice The value of regularPrice as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegularPrice_GreaterThan(Integer regularPrice) {
         regRegularPrice(CK_GT, regularPrice);
@@ -699,7 +699,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * REGULAR_PRICE: {NotNull, INTEGER(10)}
-     * @param regularPrice The value of regularPrice as lessThan. (NullAllowed: if null, no condition)
+     * @param regularPrice The value of regularPrice as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegularPrice_LessThan(Integer regularPrice) {
         regRegularPrice(CK_LT, regularPrice);
@@ -708,7 +708,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * REGULAR_PRICE: {NotNull, INTEGER(10)}
-     * @param regularPrice The value of regularPrice as greaterEqual. (NullAllowed: if null, no condition)
+     * @param regularPrice The value of regularPrice as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegularPrice_GreaterEqual(Integer regularPrice) {
         regRegularPrice(CK_GE, regularPrice);
@@ -717,7 +717,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * REGULAR_PRICE: {NotNull, INTEGER(10)}
-     * @param regularPrice The value of regularPrice as lessEqual. (NullAllowed: if null, no condition)
+     * @param regularPrice The value of regularPrice as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegularPrice_LessEqual(Integer regularPrice) {
         regRegularPrice(CK_LE, regularPrice);
@@ -781,7 +781,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as equal. (NullAllowed: if null, no condition)
+     * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_Equal(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_EQ,  registerDatetime);
@@ -836,7 +836,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as equal. (NullAllowed: if null, no condition)
+     * @param updateDatetime The value of updateDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_Equal(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_EQ,  updateDatetime);
@@ -891,7 +891,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as equal. (NullAllowed: if null, no condition)
+     * @param versionNo The value of versionNo as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setVersionNo_Equal(Long versionNo) {
         doSetVersionNo_Equal(versionNo);
