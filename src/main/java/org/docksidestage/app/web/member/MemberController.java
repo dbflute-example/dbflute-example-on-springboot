@@ -61,6 +61,7 @@ public class MemberController {
     //                                                                           =========
     @RequestMapping("/list")
     public String list(Model model, @Valid MemberSearchForm memberSearchForm, BindingResult result) throws ParseException, NamingException {
+        logger.debug("#form: {}", memberSearchForm);
         PagingResultBean<Member> page = selectMemberPage(memberSearchForm);
         model.addAttribute("beans", convertToResultBeans(page));
         return "member/member_list";
