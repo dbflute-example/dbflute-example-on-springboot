@@ -33,7 +33,7 @@ public class MemberController {
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    private static final Logger LOG = LoggerFactory.getLogger(MemberController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     // ===================================================================================
     //                                                                           Attribute
@@ -52,7 +52,7 @@ public class MemberController {
         int count = memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
-        LOG.debug("count: " + count);
+        logger.debug("count: {}", count);
         return "index";
     }
 

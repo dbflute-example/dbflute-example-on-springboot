@@ -15,6 +15,11 @@ public class LoginForm {
     @Length(max = 20)
     private String password;
 
+    @Override
+    public String toString() {
+        return "login:{" + memberAccount + ", " + password + "}";
+    }
+
     public String getMemberAccount() {
         return memberAccount;
     }

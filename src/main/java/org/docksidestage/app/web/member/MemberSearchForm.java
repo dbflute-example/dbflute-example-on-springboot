@@ -17,6 +17,8 @@ package org.docksidestage.app.web.member;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Length;
+
 /**
  * @author jflute
  */
@@ -35,6 +37,7 @@ public class MemberSearchForm implements Serializable {
     // -----------------------------------------------------
     //                                             Condition
     //                                             ---------
+    @Length(min = 2)
     public String memberName;
     public String memberStatus;
     public String purchaseProductName;

@@ -18,14 +18,13 @@ public class LoginController {
 
     @RequestMapping("")
     public String index(LoginForm loginForm, Model model) throws ParseException, NamingException {
-        // exception try
-        return "/xxx/login/";
+        return "login/login";
     }
 
     @RequestMapping("/doLogin")
     public String doLogin(@Valid LoginForm loginForm, BindingResult result, Model model) throws ParseException, NamingException {
         if (result.hasErrors()) {
-            return "login.html";
+            return "login/login";
         }
         // TODO jflute example: SpringBoot no login check for now
         // return "redirect:/member/3/"
