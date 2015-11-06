@@ -35,7 +35,7 @@ public class MemberSearchForm implements Serializable {
     // -----------------------------------------------------
     //                                             Condition
     //                                             ---------
-    public String memberName;
+    private String memberName;
     public String memberStatus;
     public String purchaseProductName;
     public boolean unpaid;
@@ -55,5 +55,16 @@ public class MemberSearchForm implements Serializable {
     @Override
     public String toString() {
         return "{" + memberName + ", " + memberStatus + "}";
+    }
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 }

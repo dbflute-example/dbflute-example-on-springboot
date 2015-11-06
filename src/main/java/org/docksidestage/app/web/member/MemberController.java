@@ -75,7 +75,7 @@ public class MemberController {
                 purchaseCB.specify().columnPurchaseId();
             }, Member.ALIAS_purchaseCount);
 
-            cb.query().setMemberName_LikeSearch(memberSearchForm.memberName, op -> op.likeContain());
+            cb.query().setMemberName_LikeSearch(memberSearchForm.getMemberName(), op -> op.likeContain());
             final String purchaseProductName = memberSearchForm.purchaseProductName;
             final boolean unpaid = memberSearchForm.unpaid;
             if ((purchaseProductName != null && purchaseProductName.trim().length() > 0) || unpaid) {
