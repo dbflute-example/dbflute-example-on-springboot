@@ -4,7 +4,7 @@
 <div class="contents">
 	<h2>Member List</h2>
 	<div class="condition">
-		<form action="#" th:action="@{/member/list/}" th:object="${memberSearchForm}" method="POST">
+		<form action="#" th:action="@{/member/list/}" th:object="${memberSearchForm}" method="get">
 			<!-- show error per 'p' tag -->
 			<div th:if="${#fields.hasErrors('*')}">
 			    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    

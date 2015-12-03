@@ -33,7 +33,7 @@ public class MemberController {
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    private static final Logger LOG = LoggerFactory.getLogger(MemberController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     // ===================================================================================
     //                                                                           Attribute
@@ -52,7 +52,7 @@ public class MemberController {
         int count = memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
-        LOG.debug("count: " + count);
+        logger.debug("count: {}", count);
         return "index";
     }
 
@@ -61,6 +61,7 @@ public class MemberController {
     //                                                                           =========
     @RequestMapping("/list")
     public String list(Model model, @Valid MemberSearchForm memberSearchForm, BindingResult result) throws ParseException, NamingException {
+        logger.debug("#form: {}", memberSearchForm);
         PagingResultBean<Member> page = selectMemberPage(memberSearchForm);
         model.addAttribute("beans", convertToResultBeans(page));
         return "member/member_list";
@@ -74,7 +75,7 @@ public class MemberController {
                 purchaseCB.specify().columnPurchaseId();
             }, Member.ALIAS_purchaseCount);
 
-            cb.query().setMemberName_LikeSearch(memberSearchForm.memberName, op -> op.likeContain());
+            cb.query().setMemberName_LikeSearch(memberSearchForm.getMemberName(), op -> op.likeContain());
             final String purchaseProductName = memberSearchForm.purchaseProductName;
             final boolean unpaid = memberSearchForm.unpaid;
             if ((purchaseProductName != null && purchaseProductName.trim().length() > 0) || unpaid) {
