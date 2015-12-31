@@ -4,7 +4,7 @@
 <database name="PUBLIC">
     <table name="MEMBER" schema="MAIHAMADB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D75AD382_8022_4350_A774_B13E329C79CD"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_3ABC353E_34D7_4867_8B0B_170731982FC3"
             javaType="Integer" name="MEMBER_ID" pkName="CONSTRAINT_8"
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column comment="" dbType="VARCHAR" javaType="String"
@@ -49,7 +49,7 @@
     </table>
     <table name="MEMBER_ADDRESS" schema="MAIHAMADB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_AEAD9E43_5A11_4FF0_8F72_973E88E00329"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BFC4D8B1_FFC8_47A4_9673_9B6E85DE95AC"
             javaType="Integer" name="MEMBER_ADDRESS_ID"
             pkName="CONSTRAINT_B" pkPosition="1" primaryKey="true"
             required="true" size="10" type="INTEGER"/>
@@ -96,7 +96,7 @@
     </table>
     <table name="MEMBER_FOLLOWING" schema="MAIHAMADB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_93670203_88A1_4938_91A8_868D4502E01C"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D35B4667_702B_4E5D_8872_4AE34CD18A8B"
             javaType="Long" name="MEMBER_FOLLOWING_ID"
             pkName="CONSTRAINT_BD" pkPosition="1" primaryKey="true"
             required="true" size="19" type="BIGINT"/>
@@ -135,7 +135,7 @@
     </table>
     <table name="MEMBER_LOGIN" schema="MAIHAMADB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6E5DD395_2EBF_4061_B933_E22C51323063"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_C9D02847_2452_43E9_B88E_DB54F82A0339"
             javaType="Long" name="MEMBER_LOGIN_ID"
             pkName="CONSTRAINT_BDA" pkPosition="1" primaryKey="true"
             required="true" size="19" type="BIGINT"/>
@@ -201,7 +201,7 @@
     </table>
     <table name="MEMBER_SERVICE" schema="MAIHAMADB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1FD66E53_1F0B_4174_8398_E91B4E5BA1E0"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_02A8A00E_CDA2_4892_9EC6_C07686173E94"
             javaType="Integer" name="MEMBER_SERVICE_ID"
             pkName="CONSTRAINT_6F" pkPosition="1" primaryKey="true"
             required="true" size="10" type="INTEGER"/>
@@ -295,7 +295,7 @@
     </table>
     <table name="PRODUCT" schema="MAIHAMADB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_B1E24F5A_C198_4858_A4DC_C381EB1E6450"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_51618E1B_B8C8_4715_99DA_575D51756D5D"
             javaType="Integer" name="PRODUCT_ID" pkName="CONSTRAINT_1"
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column comment="" dbType="VARCHAR" javaType="String"
@@ -371,7 +371,7 @@
     </table>
     <table name="PURCHASE" schema="MAIHAMADB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_9585BF57_53FF_484D_B880_352AE377FD66"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_9A9CFC49_1108_433E_9AE9_2ECE3895C9AE"
             javaType="Long" name="PURCHASE_ID" pkName="CONSTRAINT_9"
             pkPosition="1" primaryKey="true" required="true" size="19" type="BIGINT"/>
         <column comment="" dbType="INTEGER" javaType="Integer"
@@ -432,7 +432,7 @@
     </table>
     <table name="PURCHASE_PAYMENT" schema="MAIHAMADB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_34BE3A52_BD96_47BF_B0B9_282445D1AF33"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_39BBFCE6_AF1E_4AE0_B1B6_ACE3A2552D27"
             javaType="Long" name="PURCHASE_PAYMENT_ID"
             pkName="CONSTRAINT_C" pkPosition="1" primaryKey="true"
             required="true" size="19" type="BIGINT"/>
@@ -543,21 +543,21 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_B1E24F5A_C198_4858_A4DC_C381EB1E6450" schema="MAIHAMADB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_39BBFCE6_AF1E_4AE0_B1B6_ACE3A2552D27" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_1FD66E53_1F0B_4174_8398_E91B4E5BA1E0" schema="MAIHAMADB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_D35B4667_702B_4E5D_8872_4AE34CD18A8B" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_6E5DD395_2EBF_4061_B933_E22C51323063" schema="MAIHAMADB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_BFC4D8B1_FFC8_47A4_9673_9B6E85DE95AC" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_D75AD382_8022_4350_A774_B13E329C79CD" schema="MAIHAMADB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_02A8A00E_CDA2_4892_9EC6_C07686173E94" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_9585BF57_53FF_484D_B880_352AE377FD66" schema="MAIHAMADB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_9A9CFC49_1108_433E_9AE9_2ECE3895C9AE" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_AEAD9E43_5A11_4FF0_8F72_973E88E00329" schema="MAIHAMADB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_C9D02847_2452_43E9_B88E_DB54F82A0339" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_93670203_88A1_4938_91A8_868D4502E01C" schema="MAIHAMADB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_51618E1B_B8C8_4715_99DA_575D51756D5D" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_34BE3A52_BD96_47BF_B0B9_282445D1AF33" schema="MAIHAMADB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_3ABC353E_34D7_4867_8B0B_170731982FC3" schema="MAIHAMADB.PUBLIC"/>
     </sequenceGroup>
     <procedureGroup/>
 </database>
