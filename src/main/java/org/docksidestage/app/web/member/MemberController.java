@@ -48,7 +48,7 @@ public class MemberController {
     //                                                                             =======
     @RequestMapping("")
     @Transactional
-    public String index(Model model, MemberForm memberForm) throws ParseException, NamingException {
+    public String index(Model model, MemberForm memberForm) {
         int count = memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
@@ -60,7 +60,7 @@ public class MemberController {
     //                                                                           Show List
     //                                                                           =========
     @RequestMapping("/list")
-    public String list(Model model, @Valid MemberSearchForm memberSearchForm, BindingResult result) throws ParseException, NamingException {
+    public String list(Model model, @Valid MemberSearchForm memberSearchForm, BindingResult result) {
         logger.debug("#form: {}", memberSearchForm);
         PagingResultBean<Member> page = selectMemberPage(memberSearchForm);
         model.addAttribute("beans", convertToResultBeans(page));

@@ -13,15 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.dbflute.svflute;
+package org.docksidestage.bizfw;
 
 import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -31,13 +31,13 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 public class GodHandableControllerInterceptor extends HandlerInterceptorAdapter {
 
-    private static final Log LOG = LogFactory.getLog(GodHandableControllerInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(GodHandableControllerInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("#flow ...Beginning #controller " + buildActionDisp(handlerMethod));
+        if (logger.isDebugEnabled()) {
+            logger.debug("#flow ...Beginning #controller " + buildActionDisp(handlerMethod));
         }
         return super.preHandle(request, response, handler);
     }
@@ -46,8 +46,8 @@ public class GodHandableControllerInterceptor extends HandlerInterceptorAdapter 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
             throws Exception {
         super.postHandle(request, response, handler, modelAndView);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(modelAndView);
+        if (logger.isDebugEnabled()) {
+            logger.debug(modelAndView.toString());
             //final HandlerMethod handlerMethod = (HandlerMethod) handler;
             // TODO jflute example: SpringBoot, finally logging;
             //final String failureMark = "";

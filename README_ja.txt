@@ -28,7 +28,7 @@ DBFluteクライアント(dbflute_maihamadb)配下の manage.bat(sh) を叩き�
 # ----------------------------------------------------------
 #                                           Boot Application
 #                                           ----------------
-org.docksidestage.springboot.app.application.ExampleApplication
+org.docksidestage.app.application.ExampleApplication
 の main() メソッドを実行すると、Tomcatが 8080 ポートで起動します。
 
 ブラウザで以下のURLにアクセス：

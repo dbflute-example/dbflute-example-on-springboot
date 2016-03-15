@@ -1,7 +1,7 @@
 package org.docksidestage.app.application;
 
-import org.docksidestage.dbflute.svflute.GodHandableControllerInterceptor;
-import org.docksidestage.dbflute.svflute.RequestLoggingFilter;
+import org.docksidestage.bizfw.GodHandableControllerInterceptor;
+import org.docksidestage.bizfw.RequestLoggingFilter;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
