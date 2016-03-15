@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright 2015-2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,13 @@
  */
 package org.docksidestage.bizfw;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -27,6 +31,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
@@ -40,12 +45,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * The filter for logging of request. <br />
- * org.seasar.extension.filter.RequestDumpFilter be used as reference.
+ * The filter for logging of request. <br>
+ * Seasar's RequestDumpFilter is used as reference.
  * 
  * <p>This filter outputs request info as debug level in development
  * and outputs exception info as error level in development and production.
@@ -65,13 +70,15 @@ public class RequestLoggingFilter implements Filter {
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    private static final Log LOG = LogFactory.getLog(RequestLoggingFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(RequestLoggingFilter.class);
 
     public static final String ERROR_ATTRIBUTE_KEY = "javax.servlet.error.exception";
     protected static final String LF = "\n";
     protected static final String IND = "  ";
-    protected static final ThreadLocal<String> DUPLICATE_CHECK_LOCAL = new ThreadLocal<String>();
-    protected static final ThreadLocal<Request500Handler> REQUEST_500_HANDLER_LOCAL = new ThreadLocal<Request500Handler>();
+    protected static final ThreadLocal<String> begunLocal = new ThreadLocal<String>();
+    protected static final ThreadLocal<RequestClientErrorHandler> clientErrorHandlerLocal = new ThreadLocal<>();
+    protected static final ThreadLocal<RequestServerErrorHandler> serverErrorHandlerLocal = new ThreadLocal<>();
+    protected static final ThreadLocal<RequestAccessLogHandler> accessLogHandlerLocal = new ThreadLocal<>();
 
     // ===================================================================================
     //                                                                           Attribute
@@ -117,7 +124,7 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected List<String> getDefaultExceptExtSet() {
-        return Arrays.asList(".js", ".css", ".png", ".gif", ".jpg", ".ico", ".svg", ".svgz", ".ttf");
+        return Arrays.asList(".js", ".css", ".png", ".gif", ".jpg", ".ico", ".svg", ".svgz", ".ttf", ".woff");
     }
 
     protected void setupExceptUrlPattern(FilterConfig filterConfig) {
@@ -131,14 +138,14 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected void setupRequestUriTitleUrlPattern(FilterConfig filterConfig) {
-        String pattern = filterConfig.getInitParameter("requestUriTitleUrlPattern");
+        final String pattern = filterConfig.getInitParameter("requestUriTitleUrlPattern");
         if (pattern != null && pattern.trim().length() > 0) {
             this.requestUriTitleUrlPattern = Pattern.compile(pattern);
         }
     }
 
     protected void setupSubRequestUrlPatternUrlPattern(FilterConfig filterConfig) {
-        String pattern = filterConfig.getInitParameter("subRequestUrlPattern");
+        final String pattern = filterConfig.getInitParameter("subRequestUrlPattern");
         if (pattern != null && pattern.trim().length() > 0) {
             this.subRequestUrlPattern = Pattern.compile(pattern);
         }
@@ -151,72 +158,81 @@ public class RequestLoggingFilter implements Filter {
     // ===================================================================================
     //                                                                              Filter
     //                                                                              ======
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException,
-            ServletException {
-        if (!isHttpServlet(servletRequest, servletResponse)) {
-            chain.doFilter(servletRequest, servletResponse);
+    public void doFilter(ServletRequest servRequest, ServletResponse servResponse, FilterChain chain) throws IOException, ServletException {
+        if (!isHttpServlet(servRequest, servResponse)) {
+            chain.doFilter(servRequest, servResponse);
             return;
         }
-        final HttpServletRequest request = (HttpServletRequest) servletRequest;
-        final HttpServletResponse response = (HttpServletResponse) servletResponse;
-
-        if (isNestedProcess() || isOutOfTargetPath(request)) {
-            // nested processes are e.g. forwarding to JSP
-            // out-of-target paths are e.g. .html
+        final HttpServletRequest request = (HttpServletRequest) servRequest;
+        final HttpServletResponse response = (HttpServletResponse) servResponse;
+        if (isAlreadyBegun() || !isTargetPath(request)) { // e.g. forwarding to JSP or .html
             chain.doFilter(request, response);
-            return;
+        } else { // target top level process
+            actuallyFilter(chain, request, response);
         }
-        prepareCharacterEncodingIfNeeds(request);
+    }
 
-        Long before = null;
-        if (LOG.isDebugEnabled()) {
+    protected void actuallyFilter(FilterChain chain, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        prepareCharacterEncodingIfNeeds(request);
+        final Long before = System.currentTimeMillis(); // used in not only debug but also error
+        if (logger.isDebugEnabled()) {
             before(request, response);
-            before = System.currentTimeMillis();
         }
+        String specifiedErrorTitle = null;
         boolean existsServerError = false;
+        Throwable cause = null;
         try {
-            markBegin();
+            markBegun();
             chain.doFilter(request, response);
             if (handleErrorAttribute(request, response)) {
                 existsServerError = true;
             }
-        } catch (Request404NotFoundException e) {
-            handle404NotFound(response, e);
+        } catch (RequestClientErrorException e) {
+            specifiedErrorTitle = handleClientError(request, response, e);
+            cause = e;
         } catch (RuntimeException e) {
-            sendInternalServerError(request, response, e);
-            logError(request, response, "*RuntimeException occurred.", e);
-            existsServerError = true;
             // no throw the exception to suppress duplicate error message
             // (Jetty's message doesn't have line separator so hard to see it)
-        } catch (ServletException e) {
+            sendInternalServerError(request, response, e);
+            logError(request, response, "*RuntimeException occurred.", before, e);
+            existsServerError = true;
+            cause = e;
+        } catch (ServletException e) { // also no throw same reason as RuntimeException catch
             final Throwable rootCause = e.getRootCause();
-            if (rootCause instanceof Request404NotFoundException) {
-                handle404NotFound(response, (Request404NotFoundException) rootCause);
+            if (rootCause instanceof RequestClientErrorException) {
+                specifiedErrorTitle = handleClientError(request, response, (RequestClientErrorException) rootCause);
+                cause = rootCause;
             } else {
                 final Throwable realCause = rootCause != null ? rootCause : e;
                 sendInternalServerError(request, response, realCause);
-                logError(request, response, "*ServletException occurred.", realCause);
+                logError(request, response, "*ServletException occurred.", before, realCause);
                 existsServerError = true;
+                cause = realCause;
             }
-        } catch (IOException e) {
+        } catch (IOException e) { // also no throw
             sendInternalServerError(request, response, e);
-            logError(request, response, "*IOException occurred.", e);
+            logError(request, response, "*IOException occurred.", before, e);
             existsServerError = true;
-        } catch (Error e) {
+            cause = e;
+        } catch (Error e) { // also no throw
             sendInternalServerError(request, response, e);
-            logError(request, response, "*Error occurred.", e);
+            logError(request, response, "*Error occurred.", before, e);
             existsServerError = true;
+            cause = e;
         } finally {
-            clearMark();
-            clearHandler();
-            if (LOG.isDebugEnabled()) {
-                if (existsServerError) {
-                    attention(request, response);
-                } else {
-                    // only when success request
-                    // because error logging contains request info
-                    Long after = System.currentTimeMillis();
-                    after(request, response, before, after);
+            try {
+                handleAccessLog(request, response, cause, before);
+            } finally {
+                clearMark();
+                clearHandler();
+                if (logger.isDebugEnabled()) {
+                    if (existsServerError) {
+                        attention(request, response);
+                    } else {
+                        // only when success request because error logging contains request info
+                        final Long after = System.currentTimeMillis();
+                        after(request, response, before, after, specifiedErrorTitle);
+                    }
                 }
             }
         }
@@ -226,11 +242,11 @@ public class RequestLoggingFilter implements Filter {
         return (servletRequest instanceof HttpServletRequest) && (servletResponse instanceof HttpServletResponse);
     }
 
-    protected boolean isOutOfTargetPath(HttpServletRequest request) {
+    protected boolean isTargetPath(HttpServletRequest request) {
         if (exceptUrlPattern != null) {
             final String uri = getRequestURI(request);
             if (exceptUrlPattern.matcher(uri).find()) {
-                return true;
+                return false;
             }
         }
         if (exceptExtSet != null) {
@@ -240,27 +256,29 @@ public class RequestLoggingFilter implements Filter {
                 final int indexOf = path.lastIndexOf(".");
                 final String ext = path.substring(indexOf);
                 if (exceptExtSet.contains(ext)) {
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
-    protected boolean isNestedProcess() {
-        return DUPLICATE_CHECK_LOCAL.get() != null;
+    public boolean isAlreadyBegun() { // for e.g. enabling access log
+        return begunLocal.get() != null;
     }
 
-    protected void markBegin() {
-        DUPLICATE_CHECK_LOCAL.set("begin");
+    protected void markBegun() {
+        begunLocal.set("begun");
     }
 
     protected void clearMark() {
-        DUPLICATE_CHECK_LOCAL.set(null);
+        begunLocal.set(null);
     }
 
     protected void clearHandler() {
-        REQUEST_500_HANDLER_LOCAL.set(null);
+        clientErrorHandlerLocal.set(null);
+        serverErrorHandlerLocal.set(null);
+        accessLogHandlerLocal.set(null);
     }
 
     protected void prepareCharacterEncodingIfNeeds(HttpServletRequest request) throws UnsupportedEncodingException {
@@ -289,58 +307,29 @@ public class RequestLoggingFilter implements Filter {
         sb.append(getTitlePath(request));
         sb.append(LF).append(IND);
         buildRequestInfo(sb, request, response, false);
-        LOG.debug(sb.toString().trim());
+        logger.debug(sb.toString().trim());
     }
 
     protected void buildRequestInfo(StringBuilder sb, HttpServletRequest request, HttpServletResponse response, boolean showResponse) {
-        sb.append("Request class=" + request.getClass().getName());
-        sb.append(", RequestedSessionId=").append(request.getRequestedSessionId());
+        sb.append("requestClass=" + request.getClass().getName());
+        sb.append(" ; sessionId=").append(request.getRequestedSessionId());
 
         sb.append(LF).append(IND);
-        sb.append(", REQUEST_URI=").append(request.getRequestURI());
-        sb.append(", SERVLET_PATH=").append(request.getServletPath());
-        sb.append(", CharacterEncoding=" + request.getCharacterEncoding());
-        sb.append(", ContentLength=").append(request.getContentLength());
-
+        final String queryString = request.getQueryString();
+        sb.append("; url=").append(request.getRequestURL()).append(queryString != null ? "?" + queryString : "");
         sb.append(LF).append(IND);
-        sb.append(", ContentType=").append(request.getContentType());
-        sb.append(", Locale=").append(request.getLocale());
-        sb.append(", Locales=");
-        final Enumeration<?> locales = request.getLocales();
-        boolean first = true;
-        while (locales.hasMoreElements()) {
-            final Locale locale = (Locale) locales.nextElement();
-            if (first) {
-                first = false;
-            } else {
-                sb.append(", ");
-            }
-            sb.append(locale.toString());
-        }
-        sb.append(", Scheme=").append(request.getScheme());
-        sb.append(", isSecure=").append(request.isSecure());
-
+        sb.append("; method=").append(request.getMethod());
+        sb.append(" ; protocol=").append(request.getProtocol());
+        sb.append(" ; scheme=").append(request.getScheme());
+        sb.append(" ; secure=").append(request.isSecure());
+        sb.append(" ; remoteAddr=").append(request.getRemoteAddr());
+        sb.append(" ; remoteHost=").append(request.getRemoteHost());
         sb.append(LF).append(IND);
-        sb.append(", SERVER_PROTOCOL=").append(request.getProtocol());
-        sb.append(", REMOTE_ADDR=").append(request.getRemoteAddr());
-        sb.append(", REMOTE_HOST=").append(request.getRemoteHost());
-        sb.append(", SERVER_NAME=").append(request.getServerName());
-        sb.append(", SERVER_PORT=").append(request.getServerPort());
-
-        sb.append(LF).append(IND);
-        sb.append(", ContextPath=").append(request.getContextPath());
-        sb.append(", REQUEST_METHOD=").append(request.getMethod());
-        sb.append(", PathInfo=").append(request.getPathInfo());
-        sb.append(", RemoteUser=").append(request.getRemoteUser());
-
-        sb.append(LF).append(IND);
-        sb.append(", REQUEST_URL=").append(request.getRequestURL());
-        sb.append(LF).append(IND);
-        sb.append(", QUERY_STRING=").append(request.getQueryString());
-        if (showResponse) {
-            sb.append(LF).append(IND);
-            buildResponseInfo(sb, request, response);
-        }
+        sb.append("; characterEncoding=").append(request.getCharacterEncoding());
+        sb.append(" ; contentLength=").append(request.getContentLength());
+        sb.append(" ; contentType=").append(request.getContentType());
+        sb.append(" ; locale=").append(request.getLocale());
+        sb.append(" ; locales=").append(buildLocalesExp(request.getLocales()));
 
         sb.append(LF);
         buildRequestHeaders(sb, request);
@@ -348,18 +337,29 @@ public class RequestLoggingFilter implements Filter {
         buildCookies(sb, request);
         buildRequestAttributes(sb, request);
         buildSessionAttributes(sb, request);
+        if (showResponse) {
+            sb.append(IND);
+            buildResponseInfo(sb, request, response);
+        }
+    }
+
+    protected String buildLocalesExp(Enumeration<Locale> locales) {
+        final StringBuilder sb = new StringBuilder();
+        while (locales.hasMoreElements()) {
+            final Locale locale = locales.nextElement();
+            sb.append(sb.length() > 0 ? "," : "");
+            sb.append(locale.toString());
+        }
+        return sb.toString();
     }
 
     // -----------------------------------------------------
     //                                                 After
     //                                                 -----
-    protected void after(HttpServletRequest request, HttpServletResponse response, Long before, Long after) {
+    protected void after(HttpServletRequest request, HttpServletResponse response, Long before, Long after, String specifiedErrorTitle) {
         final StringBuilder sb = new StringBuilder();
         sb.append(LF).append(IND);
         buildResponseInfo(sb, request, response);
-
-        // show only dynamic values in request
-        sb.append(LF);
         // hope response cookie (not request cookie)
         //buildCookies(sb, request);
         buildRequestAttributes(sb, request);
@@ -375,10 +375,13 @@ public class RequestLoggingFilter implements Filter {
         sb.append(getTitlePath(request));
         sb.append(" [" + convertToPerformanceView(after.longValue() - before.longValue()) + "]");
         sb.append(LF);
+        if (specifiedErrorTitle != null) {
+            sb.append(" *").append(specifiedErrorTitle).append(", read the message for the detail");
+        }
         sb.append(LF);
 
         String logString = sb.toString();
-        LOG.debug(logString);
+        logger.debug(logString);
     }
 
     // -----------------------------------------------------
@@ -411,13 +414,23 @@ public class RequestLoggingFilter implements Filter {
 
     protected void buildRequestHeaders(StringBuilder sb, HttpServletRequest request) {
         for (Iterator<?> it = toSortedSet(request.getHeaderNames()).iterator(); it.hasNext();) {
-            String name = (String) it.next();
-            String value = request.getHeader(name);
-            sb.append(IND);
-            sb.append("[header] ").append(name);
-            sb.append("=").append(value);
-            sb.append(LF);
+            final String name = (String) it.next();
+            doBuildHeaderLine(sb, name, request.getHeader(name));
         }
+    }
+
+    protected void buildResponseHeaders(StringBuilder sb, HttpServletResponse response) {
+        for (Iterator<?> it = toSortedSet(response.getHeaderNames()).iterator(); it.hasNext();) {
+            final String name = (String) it.next();
+            doBuildHeaderLine(sb, name, response.getHeader(name));
+        }
+    }
+
+    protected void doBuildHeaderLine(StringBuilder sb, String name, String value) {
+        sb.append(IND);
+        sb.append("[header] ").append(name);
+        sb.append("=").append(value);
+        sb.append(LF);
     }
 
     protected void buildCookies(StringBuilder sb, HttpServletRequest request) {
@@ -478,9 +491,9 @@ public class RequestLoggingFilter implements Filter {
         }
     }
 
-    protected String filterAttributeDisp(final Object attr) {
+    protected String filterAttributeDisp(Object attr) {
         if (attr == null) {
-            return "null";
+            return null;
         }
         final String stringExp;
         if (attr instanceof Throwable) { // exception will be displayed in another way
@@ -488,15 +501,30 @@ public class RequestLoggingFilter implements Filter {
         } else {
             stringExp = attr.toString();
         }
-        // might contain line separator in the expression
-        // and large display is noisy for debug so one liner
-        return convertToOneLinerDisp(stringExp);
+        if (attr instanceof WholeShowRequestAttribute) {
+            return convertToWholeShow(stringExp);
+        } else {
+            // might contain line separator in the expression
+            // and large display is noisy for debug so one liner
+            return convertToOneLinerDisp(convertToCutDisp(stringExp));
+        }
     }
 
-    protected String convertToOneLinerDisp(final String msg) {
+    protected String convertToCutDisp(String msg) {
+        if (msg == null) {
+            return null;
+        }
+        final int limit = 500;
+        return msg.length() > limit ? (msg.substring(0, limit) + "...") : msg;
+    }
+
+    protected String convertToOneLinerDisp(String msg) {
+        if (msg == null) {
+            return null;
+        }
         final String filtered;
         final String ln = "\n";
-        if (msg != null && msg.contains(ln)) {
+        if (msg.contains(ln)) {
             filtered = msg.substring(0, msg.indexOf(ln)) + "...";
         } else {
             filtered = msg;
@@ -504,58 +532,34 @@ public class RequestLoggingFilter implements Filter {
         return filtered;
     }
 
+    protected String convertToWholeShow(String exp) {
+        return indent(IND.length() + 1, exp).trim();
+
+    }
+
+    public static class WholeShowRequestAttribute {
+
+        protected final Object attribute;
+
+        public WholeShowRequestAttribute(Object attribute) {
+            this.attribute = attribute;
+        }
+
+        @Override
+        public String toString() {
+            return "wholeShow:" + (attribute != null ? attribute.toString() : null);
+        }
+    }
+
     protected void buildResponseInfo(StringBuilder sb, HttpServletRequest request, HttpServletResponse response) {
-        sb.append("Response class=" + response.getClass().getName());
-        sb.append(", ContentType=").append(response.getContentType());
-        sb.append(", Committed=").append(response.isCommitted());
-        String exp = response.toString().trim();
-        if (exp != null) {
-            exp = replaceString(exp, "\r\n", "\n");
-            exp = replaceString(exp, "\n", " ");
-            final int limitLength = 120;
-            if (exp.length() >= limitLength) {
-                // it is possible that Response toString() show all HTML strings
-                // so cut it to suppress too big logging here
-                exp = exp.substring(0, limitLength) + "...";
-            }
-            sb.append(LF).append(IND);
-            sb.append(", toString()=").append(exp);
-            // e.g. Jetty
-            // HTTP/1.1 200  Expires: Thu, 01-Jan-1970 00:00:00 GMT Set-Cookie: ...
-        }
-    }
-
-    // -----------------------------------------------------
-    //                                               Failure
-    //                                               -------
-    protected void logError(HttpServletRequest request, HttpServletResponse response, String comment, Throwable e) {
-        final StringBuilder sb = new StringBuilder();
-        sb.append(comment);
-        sb.append(LF);
-        sb.append("/= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =: " + getTitlePath(request));
+        sb.append("responseClass=").append(response.getClass().getName());
+        sb.append(" ; committed=").append(response.isCommitted());
         sb.append(LF).append(IND);
-        try {
-            buildRequestInfo(sb, request, response, true);
-        } catch (RuntimeException continued) {
-            sb.append("*Failed to get request info: " + continued.getMessage());
-            sb.append(LF);
-        }
-        sb.append("= = = = = = = = = =/");
-        final String msg = sb.toString().trim();
-        if (errorLogging) {
-            LOG.error(msg, e);
-        } else {
-            LOG.debug(msg, e);
-        }
-    }
-
-    protected void attention(HttpServletRequest request, HttpServletResponse response) {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("{FAILURE}: ").append(getTitlePath(request));
+        sb.append("; httpStatus=").append(response.getStatus());
+        sb.append(" ; contentType=").append(response.getContentType());
+        sb.append(" ; locale=").append(response.getLocale());
         sb.append(LF);
-        sb.append(" *Read the exception message!");
-        sb.append(LF);
-        LOG.debug(sb.toString());
+        buildResponseHeaders(sb, response);
     }
 
     // ===================================================================================
@@ -574,9 +578,9 @@ public class RequestLoggingFilter implements Filter {
             sendInternalServerError(request, response, null);
             final String msg = "The error attribute exists but unknown type: " + errorObj;
             if (errorLogging) {
-                LOG.error(msg);
+                logger.error(msg);
             } else {
-                LOG.debug(msg);
+                logger.debug(msg);
             }
             return true;
         }
@@ -584,54 +588,229 @@ public class RequestLoggingFilter implements Filter {
     }
 
     // ===================================================================================
-    //                                                                       404 Not Found
-    //                                                                       =============
-    protected void handle404NotFound(HttpServletResponse response, Request404NotFoundException notFoundEx) throws IOException {
+    //                                                               Client Error e.g. 404
+    //                                                               =====================
+    protected String handleClientError(HttpServletRequest request, HttpServletResponse response, RequestClientErrorException cause)
+            throws IOException {
+        final boolean beforeHandlingCommitted = response.isCommitted(); // basically false
+        processClientErrorCallback(request, response, cause);
+        final String title;
         if (response.isCommitted()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("*Cannot send error as '404 Not Found' because of already committed");
+            title = response.getStatus() + " (thrown as " + cause.getTitle() + ")";
+            if (beforeHandlingCommitted) { // basically no way but just in case
+                showCliEx(cause, () -> {
+                    final StringBuilder sb = new StringBuilder();
+                    sb.append("*Cannot send error as '").append(title).append("' because of already committed:");
+                    sb.append(" path=").append(request.getRequestURI());
+                    return sb.toString();
+                });
+                return title; // cannot help it
             }
-            return; // cannot help it
+            // committed in callback process
+        } else {
+            title = cause.getTitle();
         }
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("...Sending error as '404 Not Found' manually: " + notFoundEx.getMessage());
+        showCliEx(cause, () -> {
+            final StringBuilder sb = new StringBuilder();
+            sb.append(LF).append("_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/");
+            sb.append(LF).append("...Sending error as '").append(title).append("' manually");
+            sb.append(LF).append(" Request: ").append(request.getRequestURI());
+            final String queryString = request.getQueryString();
+            if (queryString != null && !queryString.isEmpty()) {
+                sb.append("?").append(queryString);
+            }
+            sb.append(LF);
+            buildRequestHeaders(sb, request);
+            buildSessionAttributes(sb, request);
+            sb.append(" Exception: ").append(cause.getClass().getName());
+            sb.append(LF).append(" Message: ");
+            final String causeMsg = cause.getMessage();
+            if (causeMsg != null && causeMsg.contains(LF)) {
+                sb.append(LF).append("/- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+                sb.append(LF).append(causeMsg);
+                sb.append(LF).append("- - - - - - - - - -/");
+            } else {
+                sb.append(causeMsg);
+            }
+            sb.append(LF).append(" Stack Traces:");
+            buildClientErrorStackTrace(cause, sb, 0);
+            sb.append(LF);
+            sb.append("_/_/_/_/_/_/_/_/_/_/");
+            return sb.toString();
+        });
+        try {
+            if (!response.isCommitted()) { // because may be committed in callback process
+                response.sendError(cause.getErrorStatus());
+            }
+            return title;
+        } catch (IOException sendEx) {
+            final String msg = "Failed to send error as '" + title + "': " + sendEx.getMessage();
+            if (errorLogging) {
+                logger.error(msg);
+            } else {
+                showCliEx(cause, () -> msg);
+            }
+            return title; // cannot help it
+        }
+    }
+
+    // -----------------------------------------------------
+    //                                 Client Error Callback
+    //                                 ---------------------
+    protected void processClientErrorCallback(HttpServletRequest request, HttpServletResponse response, RequestClientErrorException cause) {
+        final RequestClientErrorHandler clientErrorHandler = clientErrorHandlerLocal.get();
+        if (clientErrorHandler == null) {
+            return;
         }
         try {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        } catch (IOException sendEx) {
-            final String msg = "Failed to send error as '404 Not Found': " + sendEx.getMessage();
+            clientErrorHandler.handle(request, response, cause);
+        } catch (Throwable handlingEx) {
+            final String msg = "Failed to handle 'Client Error' by the handler: " + clientErrorHandler;
             if (errorLogging) {
-                LOG.error(msg);
+                logger.error(msg, handlingEx);
             } else {
-                LOG.debug(msg);
+                logger.debug(msg, handlingEx);
             }
-            return; // cannot help it
         }
     }
 
     /**
-     * The exception that means 404 Not Found for the current request. <br />
-     * You can send 404 by throwing this exception in your program.
+     * The handler of 'Client Error' in the request.
      */
-    public static class Request404NotFoundException extends RuntimeException {
+    @FunctionalInterface
+    public interface RequestClientErrorHandler {
 
-        private static final long serialVersionUID = 1L;
+        /**
+         * Handle the 'Client Error' exception. <br>
+         * The info logging is executed after your handling so basically you don't need logging.
+         * @param request The request provided by caller. (NotNull)
+         * @param response The response provided by caller, might be already committed. (NotNull)
+         * @param cause The cause of this 'Client Error'. (NotNull)
+         */
+        void handle(HttpServletRequest request, HttpServletResponse response, RequestClientErrorException cause);
+    }
 
-        public Request404NotFoundException(String msg) {
-            super(msg);
-        }
+    public static void setClientErrorHandlerOnThread(RequestClientErrorHandler handler) {
+        clientErrorHandlerLocal.set(handler);
+    }
 
-        public Request404NotFoundException(String message, Throwable cause) {
-            super(message, cause);
+    // -----------------------------------------------------
+    //                                     Show Client Error
+    //                                     -----------------
+    protected void showCliEx(RequestClientErrorException cause, Supplier<String> msgSupplier) {
+        final DelicateErrorLoggingLevel loggingLevel = cause.getLoggingLevel();
+        if (DelicateErrorLoggingLevel.DEBUG.equals(loggingLevel)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug(msgSupplier.get());
+            }
+        } else if (DelicateErrorLoggingLevel.INFO.equals(loggingLevel)) {
+            if (logger.isInfoEnabled()) {
+                logger.info(msgSupplier.get());
+            }
+        } else if (DelicateErrorLoggingLevel.WARN.equals(loggingLevel)) {
+            if (logger.isWarnEnabled()) {
+                logger.warn(msgSupplier.get());
+            }
+        } else if (DelicateErrorLoggingLevel.ERROR.equals(loggingLevel)) {
+            if (logger.isErrorEnabled()) {
+                logger.error(msgSupplier.get());
+            }
+        } else { // as default
+            if (logger.isInfoEnabled()) {
+                logger.info(msgSupplier.get());
+            }
         }
     }
 
+    protected void buildClientErrorStackTrace(Throwable cause, StringBuilder sb, int nestLevel) {
+        if (nestLevel > 0) { // first level message already appended
+            sb.append(LF).append("Caused by: ").append(cause.getClass().getName());
+            sb.append(": ").append(cause.getMessage());
+        }
+        final StackTraceElement[] stackTrace = cause.getStackTrace();
+        if (stackTrace == null) { // just in case
+            return;
+        }
+        final int limit = nestLevel == 0 ? 10 : 3;
+        int index = 0;
+        for (StackTraceElement element : stackTrace) {
+            if (index > limit) { // not all because it's not error
+                sb.append(LF).append("  ...");
+                break;
+            }
+            final String className = element.getClassName();
+            final String fileName = element.getFileName(); // might be null
+            final int lineNumber = element.getLineNumber();
+            final String methodName = element.getMethodName();
+            sb.append(LF).append("  at ").append(className).append(".").append(methodName);
+            sb.append("(").append(fileName);
+            if (lineNumber >= 0) {
+                sb.append(":").append(lineNumber);
+            }
+            sb.append(")");
+            ++index;
+        }
+        final Throwable nested = cause.getCause();
+        if (nested != null && nested != cause) {
+            buildClientErrorStackTrace(nested, sb, nestLevel + 1);
+        }
+    }
+
+    // -----------------------------------------------------
+    //                                Client Error Exception
+    //                                ----------------------
+    /**
+     * The exception that means specified client error for the current request. <br>
+     * You can send specified status e.g. 400, 404 by throwing this exception in your program.
+     */
+    public static class RequestClientErrorException extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        protected final String title; // not null
+        protected final int errorStatus; // one of HttpServletResponse.SC_...
+        protected DelicateErrorLoggingLevel loggingLevel; // null allowed, INFO as default
+
+        public RequestClientErrorException(String msg, String title, int errorStatus) {
+            super(msg);
+            this.title = title;
+            this.errorStatus = errorStatus;
+        }
+
+        public RequestClientErrorException(String msg, String title, int errorStatus, Throwable cause) {
+            super(msg, cause);
+            this.title = title;
+            this.errorStatus = errorStatus;
+        }
+
+        public RequestClientErrorException asLogging(DelicateErrorLoggingLevel loggingLevel) {
+            this.loggingLevel = loggingLevel;
+            return this;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public int getErrorStatus() {
+            return errorStatus;
+        }
+
+        public DelicateErrorLoggingLevel getLoggingLevel() {
+            return loggingLevel;
+        }
+    }
+
+    public static enum DelicateErrorLoggingLevel {
+        DEBUG, INFO, WARN, ERROR
+    }
+
     // ===================================================================================
-    //                                                                    500 Server Error
-    //                                                                    ================
+    //                                                               Server Error e.g. 500
+    //                                                               =====================
     protected void sendInternalServerError(HttpServletRequest request, HttpServletResponse response, Throwable cause) throws IOException {
         if (cause != null) {
-            process500HandlingCallback(request, response, cause);
+            processServerErrorCallback(request, response, cause);
             request.setAttribute(ERROR_ATTRIBUTE_KEY, cause); // for something outer process
         }
         try {
@@ -641,66 +820,184 @@ public class RequestLoggingFilter implements Filter {
         } catch (IOException sendEx) {
             final String msg = "Failed to send error as '500 Error': " + sendEx.getMessage();
             if (errorLogging) {
-                LOG.error(msg);
+                logger.error(msg);
             } else {
-                LOG.debug(msg);
+                logger.debug(msg);
             }
             return; // cannot help it
         }
     }
 
-    protected void process500HandlingCallback(HttpServletRequest request, HttpServletResponse response, Throwable cause) {
-        final Request500Handler request500Handler = REQUEST_500_HANDLER_LOCAL.get();
-        if (request500Handler == null) {
+    // -----------------------------------------------------
+    //                                 Server Error Callback
+    //                                 ---------------------
+    protected void processServerErrorCallback(HttpServletRequest request, HttpServletResponse response, Throwable cause) {
+        final RequestServerErrorHandler serverErrorHandler = serverErrorHandlerLocal.get();
+        if (serverErrorHandler == null) {
             return;
         }
         try {
-            request500Handler.handle(request, response, cause);
+            serverErrorHandler.handle(request, response, cause);
         } catch (Throwable handlingEx) {
-            final String msg = "Failed to handle '500 Error' by the handler: " + request500Handler;
+            final String msg = "Failed to handle '500 Error' by the handler: " + serverErrorHandler;
             if (errorLogging) {
-                LOG.error(msg, handlingEx);
+                logger.error(msg, handlingEx);
             } else {
-                LOG.debug(msg, handlingEx);
+                logger.debug(msg, handlingEx);
             }
         }
     }
 
     /**
-     * The handler of '500 Error' in the request.
+     * The handler of 'Server Error' in the request.
      */
-    public interface Request500Handler {
+    @FunctionalInterface
+    public interface RequestServerErrorHandler {
 
         /**
-         * Handle the '500 Error' exception. <br />
+         * Handle the 'Server Error' exception. <br>
          * The error logging is executed after your handling so basically you don't need logging.
          * @param request The request provided by caller. (NotNull)
          * @param response The response provided by caller, might be already committed. (NotNull)
-         * @param cause The cause of this '500 Error'. (NotNull)
+         * @param cause The cause of this 'Server Error'. (NotNull)
          */
         void handle(HttpServletRequest request, HttpServletResponse response, Throwable cause);
     }
 
-    public static void setRequest500HandlerOnThread(Request500Handler handler) {
-        REQUEST_500_HANDLER_LOCAL.set(handler);
+    public static void setServerErrorHandlerOnThread(RequestServerErrorHandler handler) {
+        serverErrorHandlerLocal.set(handler);
     }
 
     // ===================================================================================
-    //                                                                             Destory
+    //                                                                      Error Handling
+    //                                                                      ==============
+    protected void logError(HttpServletRequest request, HttpServletResponse response, String comment, Long before, Throwable cause) {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(comment);
+        sb.append(LF);
+        sb.append("/= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =: ").append(getTitlePath(request));
+        sb.append(LF).append(IND);
+        try {
+            buildRequestInfo(sb, request, response, true);
+        } catch (RuntimeException continued) {
+            sb.append("*Failed to get request info: " + continued.getMessage());
+            sb.append(LF);
+        }
+        final long after = System.currentTimeMillis();
+        final String performanceView = convertToPerformanceView(after - before);
+        sb.append("= = = = = = = = = =/ [").append(performanceView).append("] #").append(Integer.toHexString(cause.hashCode()));
+        buildExceptionStackTrace(cause, sb); // extract stack trace manually
+        final String msg = sb.toString().trim();
+        if (errorLogging) {
+            // not use second argument here
+            // because Logback loads classes in stack trace destroying hot deploy
+            // so show stack trace added to the logging message
+            logger.error(msg);
+        } else {
+            logger.debug(msg);
+        }
+    }
+
+    protected void buildExceptionStackTrace(Throwable cause, StringBuilder sb) {
+        sb.append(LF);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
+        PrintStream ps = null;
+        try {
+            ps = new PrintStream(out);
+            cause.printStackTrace(ps);
+            final String encoding = "UTF-8";
+            try {
+                sb.append(out.toString(encoding));
+            } catch (UnsupportedEncodingException continued) {
+                logger.warn("Unknown encoding: " + encoding, continued);
+                sb.append(out.toString()); // retry without encoding
+            }
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+    }
+
+    protected void attention(HttpServletRequest request, HttpServletResponse response) {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("{FAILURE}: ").append(getTitlePath(request));
+        sb.append(LF);
+        sb.append(" *Read the exception message!");
+        sb.append(LF);
+        logger.debug(sb.toString());
+    }
+
+    // ===================================================================================
+    //                                                                          Access Log
+    //                                                                          ==========
+    protected void handleAccessLog(HttpServletRequest request, HttpServletResponse response, Throwable cause, Long before) {
+        final RequestAccessLogHandler handler = accessLogHandlerLocal.get();
+        if (handler != null) {
+            handler.handle(request, response, cause, before);
+        }
+    }
+
+    /**
+     * The handler of 'Access Log' in the request.
+     */
+    @FunctionalInterface
+    public interface RequestAccessLogHandler {
+
+        /**
+         * Handle the 'Access Log' process. <br>
+         * The error logging is executed after your handling so basically you don't need logging.
+         * @param request The request provided by caller. (NotNull)
+         * @param response The response provided by caller, might be already committed. (NotNull)
+         * @param cause The cause of this 'Access Log'. (NotNull)
+         * @param before The time milliseconds before request process, you can derive performance cost of request.
+         */
+        void handle(HttpServletRequest request, HttpServletResponse response, Throwable cause, long before);
+    }
+
+    public static void setAccessLogHandlerOnThread(RequestAccessLogHandler handler) {
+        accessLogHandlerLocal.set(handler);
+    }
+
+    // ===================================================================================
+    //                                                                             Destroy
     //                                                                             =======
     public void destroy() {
         config = null;
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
-    protected SortedSet<?> toSortedSet(final Enumeration<?> enu) {
-        final SortedSet<Object> set = new TreeSet<Object>();
-        set.addAll(Collections.list(enu));
-        return set;
+    //                                                                        Small Helper
+    //                                                                        ============
+    // -----------------------------------------------------
+    //                                                 Split
+    //                                                 -----
+    public List<String> splitList(final String str, final String delimiter) {
+        return doSplitList(str, delimiter, false);
     }
 
+    public List<String> splitListTrimmed(final String str, final String delimiter) {
+        return doSplitList(str, delimiter, true);
+    }
+
+    protected List<String> doSplitList(final String str, final String delimiter, boolean trim) {
+        final List<String> list = new ArrayList<String>();
+        int elementIndex = 0;
+        int delimiterIndex = str.indexOf(delimiter);
+        while (delimiterIndex >= 0) {
+            final String element = str.substring(elementIndex, delimiterIndex);
+            list.add(trim ? element.trim() : element);
+            elementIndex = delimiterIndex + delimiter.length();
+            delimiterIndex = str.indexOf(delimiter, elementIndex);
+        }
+        final String element = str.substring(elementIndex);
+        list.add(trim ? element.trim() : element);
+        return list;
+    }
+
+    // -----------------------------------------------------
+    //                                               Replace
+    //                                               -------
     protected String replaceString(String str, String fromStr, String toStr) {
         StringBuilder sb = null; // lazy load
         int basePos = 0;
@@ -727,6 +1024,38 @@ public class RequestLoggingFilter implements Filter {
         } while (true);
     }
 
+    // -----------------------------------------------------
+    //                                                Indent
+    //                                                ------
+    protected String indent(int size) {
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
+    protected String indent(int size, String str) {
+        final List<String> lineList = splitList(removeCR(str), "\n");
+        final StringBuilder sb = new StringBuilder();
+        int index = 0;
+        for (String element : lineList) {
+            if (index > 0) {
+                sb.append("\n");
+            }
+            sb.append(indent(size)).append(element);
+            ++index;
+        }
+        return sb.toString();
+    }
+
+    protected String removeCR(String str) {
+        return str != null ? str.replaceAll("\r", "") : null;
+    }
+
+    // -----------------------------------------------------
+    //                                      Performance View
+    //                                      ----------------
     /**
      * Convert to performance view.
      * @param afterMinusBefore The difference between before time and after time.
@@ -762,5 +1091,15 @@ public class RequestLoggingFilter implements Filter {
         }
 
         return sb.toString();
+    }
+
+    protected SortedSet<?> toSortedSet(Enumeration<?> enu) {
+        final SortedSet<Object> set = new TreeSet<Object>();
+        set.addAll(Collections.list(enu));
+        return set;
+    }
+
+    protected SortedSet<?> toSortedSet(Collection<?> enu) {
+        return new TreeSet<Object>(enu);
     }
 }
