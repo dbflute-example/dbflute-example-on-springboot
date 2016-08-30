@@ -31,31 +31,31 @@ import org.docksidestage.dbflute.exentity.*;
  * <pre>
  * [primary-key]
  *     MEMBER_FOLLOWING_ID
- * 
+ *
  * [column]
  *     MEMBER_FOLLOWING_ID, MY_MEMBER_ID, YOUR_MEMBER_ID, FOLLOW_DATETIME
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     MEMBER_FOLLOWING_ID
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     MEMBER
- * 
+ *
  * [referrer table]
  *     
- * 
+ *
  * [foreign property]
  *     memberByMyMemberId, memberByYourMemberId
- * 
+ *
  * [referrer property]
  *     
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Long memberFollowingId = entity.getMemberFollowingId();
@@ -176,7 +176,7 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 
