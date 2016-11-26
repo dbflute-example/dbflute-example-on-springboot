@@ -50,7 +50,7 @@ import org.elasticsearch.search.SearchHits;
 public abstract class EsAbstractBehavior<ENTITY extends Entity, CB extends ConditionBean> extends AbstractBehaviorWritable<ENTITY, CB> {
 
     @Resource
-    protected Client client;
+    private Client client;
 
     protected int sizeForDelete = 100;
     protected String scrollForDelete = "1m";
@@ -125,7 +125,7 @@ public abstract class EsAbstractBehavior<ENTITY extends Entity, CB extends Condi
         esCb.request().build(builder);
         final SearchResponse response = esCb.build(builder).execute().actionGet(searchTimeout);
 
-        final EsPagingResultBean<RESULT> list = new EsPagingResultBean<>();
+        final EsPagingResultBean<RESULT> list = new EsPagingResultBean<>(builder);
         final SearchHits searchHits = response.getHits();
         searchHits.forEach(hit -> {
             final Map<String, Object> source = hit.getSource();
@@ -144,6 +144,9 @@ public abstract class EsAbstractBehavior<ENTITY extends Entity, CB extends Condi
         list.setTotalShards(response.getTotalShards());
         list.setSuccessfulShards(response.getSuccessfulShards());
         list.setFailedShards(response.getFailedShards());
+
+        list.setAggregation(response.getAggregations());
+
         // #pending others
 
         return list;
