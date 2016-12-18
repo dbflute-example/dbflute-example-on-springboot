@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author jflute
+ * @author inoue
  */
 public class LoginForm {
 
