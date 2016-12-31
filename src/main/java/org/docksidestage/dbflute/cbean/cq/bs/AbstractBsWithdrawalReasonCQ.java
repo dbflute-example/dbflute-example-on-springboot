@@ -173,7 +173,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
      * @param withdrawalReasonCodeList The collection of withdrawalReasonCode as inScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
+    protected void setWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
         doSetWithdrawalReasonCode_InScope(withdrawalReasonCodeList);
     }
 

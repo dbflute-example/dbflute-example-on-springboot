@@ -1,5 +1,5 @@
 ##
-## Copyright 2014-2016 the original author or authors.
+## Copyright 2014-2017 the original author or authors.
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -30,12 +30,12 @@
 #set($rowspan = 2)
 #end
     <tr>
-        <td class="rownumcell" rowspan="$rowspan">${foreach.count}</td>
+        <td class="rowcellnum" rowspan="$rowspan">${foreach.count}</td>
         <td>${nestTypeDocMeta.name}</td>
         <td><p title="$manager.htmlEscape($nestTypeDocMeta.typeName)">$manager.htmlEscape($nestTypeDocMeta.simpleTypeName)</p></td>
         <td class="fieldcomment">
-        	<p title="$!manager.htmlEscape($nestTypeDocMeta.comment)">$!manager.htmlEscape($nestTypeDocMeta.description)</p>
-        	<p>$!manager.htmlEscape($nestTypeDocMeta.value)</p>
+            <p title="$!manager.htmlEscape($nestTypeDocMeta.comment)">$!manager.htmlEscape($nestTypeDocMeta.description)</p>
+            <p>$!manager.htmlEscape($nestTypeDocMeta.value)</p>
         </td>
         <td class="fieldannotations">
 #foreach ($annotation in $nestTypeDocMeta.annotationList)

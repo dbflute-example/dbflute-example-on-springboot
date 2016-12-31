@@ -59,6 +59,9 @@ public class BsProductStatusCB extends AbstractConditionBean {
         if (DBFluteConfig.getInstance().isNonSpecifiedColumnAccessAllowed()) {
             enableNonSpecifiedColumnAccess();
         }
+        if (DBFluteConfig.getInstance().isSpecifyColumnRequired()) {
+            enableSpecifyColumnRequired();
+        }
         if (DBFluteConfig.getInstance().isQueryUpdateCountPreCheck()) {
             enableQueryUpdateCountPreCheck();
         }

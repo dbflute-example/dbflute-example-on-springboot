@@ -75,6 +75,7 @@ public class DBFluteConfig {
     protected boolean _emptyStringParameterAllowed = false;
     protected boolean _overridingQueryAllowed = false;
     protected boolean _nonSpecifiedColumnAccessAllowed = false;
+    protected boolean _specifyColumnRequired = false;
     protected boolean _columnNullObjectAllowed = false;
     protected boolean _columnNullObjectGearedToSpecify = false;
     protected boolean _disableSelectIndex;
@@ -287,6 +288,21 @@ public class DBFluteConfig {
             _log.info("...Setting nonSpecifiedColumnAccessAllowed: " + nonSpecifiedColumnAccessAllowed);
         }
         _nonSpecifiedColumnAccessAllowed = nonSpecifiedColumnAccessAllowed;
+    }
+
+    // ===================================================================================
+    //                                                              SpecifyColumn Required
+    //                                                              ======================
+    public boolean isSpecifyColumnRequired() {
+        return _specifyColumnRequired;
+    }
+
+    public void setSpecifyColumnRequired(boolean specifyColumnRequired) {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting specifyColumnRequired: " + specifyColumnRequired);
+        }
+        _specifyColumnRequired = specifyColumnRequired;
     }
 
     // ===================================================================================

@@ -17,20 +17,19 @@ package org.docksidestage.dbflute.allcommon;
 
 import java.util.*;
 
+import org.dbflute.exception.ClassificationNotFoundException;
 import org.dbflute.jdbc.Classification;
 import org.dbflute.jdbc.ClassificationCodeType;
 import org.dbflute.jdbc.ClassificationMeta;
 import org.dbflute.jdbc.ClassificationUndefinedHandlingType;
 import org.dbflute.optional.OptionalThing;
+import static org.dbflute.util.DfTypeUtil.emptyStrings;
 
 /**
  * The definition of classification.
  * @author DBFlute(AutoGenerator)
  */
 public interface CDef extends Classification {
-
-    /** The empty array for no sisters. */
-    String[] EMPTY_SISTERS = new String[]{};
 
     /**
      * flag, true or false
@@ -159,13 +158,13 @@ public interface CDef extends Classification {
      */
     public enum MemberStatus implements CDef {
         /** Formalized: as formal member, allowed to use all service */
-        Formalized("FML", "Formalized", EMPTY_SISTERS)
+        Formalized("FML", "Formalized", emptyStrings())
         ,
         /** Withdrawal: withdrawal is fixed, not allowed to use service */
-        Withdrawal("WDL", "Withdrawal", EMPTY_SISTERS)
+        Withdrawal("WDL", "Withdrawal", emptyStrings())
         ,
         /** Provisional: first status after entry, allowed to use only part of service */
-        Provisional("PRV", "Provisional", EMPTY_SISTERS)
+        Provisional("PRV", "Provisional", emptyStrings())
         ;
         private static final Map<String, MemberStatus> _codeClsMap = new HashMap<String, MemberStatus>();
         private static final Map<String, MemberStatus> _nameClsMap = new HashMap<String, MemberStatus>();
@@ -330,19 +329,19 @@ public interface CDef extends Classification {
      */
     public enum ServiceRank implements CDef {
         /** PLATINUM: platinum rank */
-        Platinum("PLT", "PLATINUM", EMPTY_SISTERS)
+        Platinum("PLT", "PLATINUM", emptyStrings())
         ,
         /** GOLD: gold rank */
-        Gold("GLD", "GOLD", EMPTY_SISTERS)
+        Gold("GLD", "GOLD", emptyStrings())
         ,
         /** SILVER: silver rank */
-        Silver("SIL", "SILVER", EMPTY_SISTERS)
+        Silver("SIL", "SILVER", emptyStrings())
         ,
         /** BRONZE: bronze rank */
-        Bronze("BRZ", "BRONZE", EMPTY_SISTERS)
+        Bronze("BRZ", "BRONZE", emptyStrings())
         ,
         /** PLASTIC: plastic rank */
-        Plastic("PLS", "PLASTIC", EMPTY_SISTERS)
+        Plastic("PLS", "PLASTIC", emptyStrings())
         ;
         private static final Map<String, ServiceRank> _codeClsMap = new HashMap<String, ServiceRank>();
         private static final Map<String, ServiceRank> _nameClsMap = new HashMap<String, ServiceRank>();
@@ -461,16 +460,16 @@ public interface CDef extends Classification {
      */
     public enum Region implements CDef {
         /** AMERICA */
-        America("1", "AMERICA", EMPTY_SISTERS)
+        America("1", "AMERICA", emptyStrings())
         ,
         /** CANADA */
-        Canada("2", "CANADA", EMPTY_SISTERS)
+        Canada("2", "CANADA", emptyStrings())
         ,
         /** CHINA */
-        China("3", "CHINA", EMPTY_SISTERS)
+        China("3", "CHINA", emptyStrings())
         ,
         /** CHIBA */
-        Chiba("4", "CHIBA", EMPTY_SISTERS)
+        Chiba("4", "CHIBA", emptyStrings())
         ;
         private static final Map<String, Region> _codeClsMap = new HashMap<String, Region>();
         private static final Map<String, Region> _nameClsMap = new HashMap<String, Region>();
@@ -589,16 +588,16 @@ public interface CDef extends Classification {
      */
     public enum WithdrawalReason implements CDef {
         /** SIT: サイトが使いにくいから */
-        Sit("SIT", "SIT", EMPTY_SISTERS)
+        Sit("SIT", "SIT", emptyStrings())
         ,
         /** PRD: 商品に魅力がないから */
-        Prd("PRD", "PRD", EMPTY_SISTERS)
+        Prd("PRD", "PRD", emptyStrings())
         ,
         /** FRT: フリテンだから */
-        Frt("FRT", "FRT", EMPTY_SISTERS)
+        Frt("FRT", "FRT", emptyStrings())
         ,
         /** OTH: その他理由 */
-        Oth("OTH", "OTH", EMPTY_SISTERS)
+        Oth("OTH", "OTH", emptyStrings())
         ;
         private static final Map<String, WithdrawalReason> _codeClsMap = new HashMap<String, WithdrawalReason>();
         private static final Map<String, WithdrawalReason> _nameClsMap = new HashMap<String, WithdrawalReason>();
@@ -717,19 +716,19 @@ public interface CDef extends Classification {
      */
     public enum ProductCategory implements CDef {
         /** 音楽: of  */
-        音楽("MSC", "音楽", EMPTY_SISTERS)
+        音楽("MSC", "音楽", emptyStrings())
         ,
         /** 食品: of  */
-        食品("FOD", "食品", EMPTY_SISTERS)
+        食品("FOD", "食品", emptyStrings())
         ,
         /** ハーブ: of 食品 */
-        ハーブ("HEB", "ハーブ", EMPTY_SISTERS)
+        ハーブ("HEB", "ハーブ", emptyStrings())
         ,
         /** 音楽CD: of 音楽 */
-        音楽cd("MCD", "音楽CD", EMPTY_SISTERS)
+        音楽cd("MCD", "音楽CD", emptyStrings())
         ,
         /** 楽器: of 音楽 */
-        楽器("INS", "楽器", EMPTY_SISTERS)
+        楽器("INS", "楽器", emptyStrings())
         ;
         private static final Map<String, ProductCategory> _codeClsMap = new HashMap<String, ProductCategory>();
         private static final Map<String, ProductCategory> _nameClsMap = new HashMap<String, ProductCategory>();
@@ -848,13 +847,13 @@ public interface CDef extends Classification {
      */
     public enum ProductStatus implements CDef {
         /** 生産販売可能 */
-        生産販売可能("ONS", "生産販売可能", EMPTY_SISTERS)
+        生産販売可能("ONS", "生産販売可能", emptyStrings())
         ,
         /** 生産中止 */
-        生産中止("PST", "生産中止", EMPTY_SISTERS)
+        生産中止("PST", "生産中止", emptyStrings())
         ,
         /** 販売中止 */
-        販売中止("SST", "販売中止", EMPTY_SISTERS)
+        販売中止("SST", "販売中止", emptyStrings())
         ;
         private static final Map<String, ProductStatus> _codeClsMap = new HashMap<String, ProductStatus>();
         private static final Map<String, ProductStatus> _nameClsMap = new HashMap<String, ProductStatus>();
@@ -1039,51 +1038,51 @@ public interface CDef extends Classification {
         }
 
         public List<Classification> listAll() {
-            if (Flg.name().equals(name())) { return toClassificationList(CDef.Flg.listAll()); }
-            if (MemberStatus.name().equals(name())) { return toClassificationList(CDef.MemberStatus.listAll()); }
-            if (ServiceRank.name().equals(name())) { return toClassificationList(CDef.ServiceRank.listAll()); }
-            if (Region.name().equals(name())) { return toClassificationList(CDef.Region.listAll()); }
-            if (WithdrawalReason.name().equals(name())) { return toClassificationList(CDef.WithdrawalReason.listAll()); }
-            if (ProductCategory.name().equals(name())) { return toClassificationList(CDef.ProductCategory.listAll()); }
-            if (ProductStatus.name().equals(name())) { return toClassificationList(CDef.ProductStatus.listAll()); }
+            if (Flg.name().equals(name())) { return toClsList(CDef.Flg.listAll()); }
+            if (MemberStatus.name().equals(name())) { return toClsList(CDef.MemberStatus.listAll()); }
+            if (ServiceRank.name().equals(name())) { return toClsList(CDef.ServiceRank.listAll()); }
+            if (Region.name().equals(name())) { return toClsList(CDef.Region.listAll()); }
+            if (WithdrawalReason.name().equals(name())) { return toClsList(CDef.WithdrawalReason.listAll()); }
+            if (ProductCategory.name().equals(name())) { return toClsList(CDef.ProductCategory.listAll()); }
+            if (ProductStatus.name().equals(name())) { return toClsList(CDef.ProductStatus.listAll()); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
         public List<Classification> listByGroup(String groupName) { // exception if not found
-            if (Flg.name().equals(name())) { return toClassificationList(CDef.Flg.listByGroup(groupName)); }
-            if (MemberStatus.name().equals(name())) { return toClassificationList(CDef.MemberStatus.listByGroup(groupName)); }
-            if (ServiceRank.name().equals(name())) { return toClassificationList(CDef.ServiceRank.listByGroup(groupName)); }
-            if (Region.name().equals(name())) { return toClassificationList(CDef.Region.listByGroup(groupName)); }
-            if (WithdrawalReason.name().equals(name())) { return toClassificationList(CDef.WithdrawalReason.listByGroup(groupName)); }
-            if (ProductCategory.name().equals(name())) { return toClassificationList(CDef.ProductCategory.listByGroup(groupName)); }
-            if (ProductStatus.name().equals(name())) { return toClassificationList(CDef.ProductStatus.listByGroup(groupName)); }
+            if (Flg.name().equals(name())) { return toClsList(CDef.Flg.listByGroup(groupName)); }
+            if (MemberStatus.name().equals(name())) { return toClsList(CDef.MemberStatus.listByGroup(groupName)); }
+            if (ServiceRank.name().equals(name())) { return toClsList(CDef.ServiceRank.listByGroup(groupName)); }
+            if (Region.name().equals(name())) { return toClsList(CDef.Region.listByGroup(groupName)); }
+            if (WithdrawalReason.name().equals(name())) { return toClsList(CDef.WithdrawalReason.listByGroup(groupName)); }
+            if (ProductCategory.name().equals(name())) { return toClsList(CDef.ProductCategory.listByGroup(groupName)); }
+            if (ProductStatus.name().equals(name())) { return toClsList(CDef.ProductStatus.listByGroup(groupName)); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
-        public List<? extends Classification> listOf(Collection<String> codeList) {
-            if (Flg.name().equals(name())) { return CDef.Flg.listOf(codeList); }
-            if (MemberStatus.name().equals(name())) { return CDef.MemberStatus.listOf(codeList); }
-            if (ServiceRank.name().equals(name())) { return CDef.ServiceRank.listOf(codeList); }
-            if (Region.name().equals(name())) { return CDef.Region.listOf(codeList); }
-            if (WithdrawalReason.name().equals(name())) { return CDef.WithdrawalReason.listOf(codeList); }
-            if (ProductCategory.name().equals(name())) { return CDef.ProductCategory.listOf(codeList); }
-            if (ProductStatus.name().equals(name())) { return CDef.ProductStatus.listOf(codeList); }
+        public List<Classification> listOf(Collection<String> codeList) {
+            if (Flg.name().equals(name())) { return toClsList(CDef.Flg.listOf(codeList)); }
+            if (MemberStatus.name().equals(name())) { return toClsList(CDef.MemberStatus.listOf(codeList)); }
+            if (ServiceRank.name().equals(name())) { return toClsList(CDef.ServiceRank.listOf(codeList)); }
+            if (Region.name().equals(name())) { return toClsList(CDef.Region.listOf(codeList)); }
+            if (WithdrawalReason.name().equals(name())) { return toClsList(CDef.WithdrawalReason.listOf(codeList)); }
+            if (ProductCategory.name().equals(name())) { return toClsList(CDef.ProductCategory.listOf(codeList)); }
+            if (ProductStatus.name().equals(name())) { return toClsList(CDef.ProductStatus.listOf(codeList)); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
         public List<Classification> groupOf(String groupName) { // old style
-            if (Flg.name().equals(name())) { return toClassificationList(CDef.Flg.groupOf(groupName)); }
-            if (MemberStatus.name().equals(name())) { return toClassificationList(CDef.MemberStatus.groupOf(groupName)); }
-            if (ServiceRank.name().equals(name())) { return toClassificationList(CDef.ServiceRank.groupOf(groupName)); }
-            if (Region.name().equals(name())) { return toClassificationList(CDef.Region.groupOf(groupName)); }
-            if (WithdrawalReason.name().equals(name())) { return toClassificationList(CDef.WithdrawalReason.groupOf(groupName)); }
-            if (ProductCategory.name().equals(name())) { return toClassificationList(CDef.ProductCategory.groupOf(groupName)); }
-            if (ProductStatus.name().equals(name())) { return toClassificationList(CDef.ProductStatus.groupOf(groupName)); }
+            if (Flg.name().equals(name())) { return toClsList(CDef.Flg.groupOf(groupName)); }
+            if (MemberStatus.name().equals(name())) { return toClsList(CDef.MemberStatus.groupOf(groupName)); }
+            if (ServiceRank.name().equals(name())) { return toClsList(CDef.ServiceRank.groupOf(groupName)); }
+            if (Region.name().equals(name())) { return toClsList(CDef.Region.groupOf(groupName)); }
+            if (WithdrawalReason.name().equals(name())) { return toClsList(CDef.WithdrawalReason.groupOf(groupName)); }
+            if (ProductCategory.name().equals(name())) { return toClsList(CDef.ProductCategory.groupOf(groupName)); }
+            if (ProductStatus.name().equals(name())) { return toClsList(CDef.ProductStatus.groupOf(groupName)); }
             throw new IllegalStateException("Unknown definition: " + this); // basically unreachable
         }
 
         @SuppressWarnings("unchecked")
-        private List<Classification> toClassificationList(List<?> clsList) {
+        private List<Classification> toClsList(List<?> clsList) {
             return (List<Classification>)clsList;
         }
 
@@ -1133,13 +1132,6 @@ public interface CDef extends Classification {
             if (ProductCategory.name().equalsIgnoreCase(classificationName)) { return CDef.DefMeta.ProductCategory; }
             if (ProductStatus.name().equalsIgnoreCase(classificationName)) { return CDef.DefMeta.ProductStatus; }
             throw new IllegalStateException("Unknown classification: " + classificationName);
-        }
-    }
-
-    public static class ClassificationNotFoundException extends RuntimeException {
-        private static final long serialVersionUID = 1L;
-        public ClassificationNotFoundException(String msg) {
-            super(msg);
         }
     }
 }

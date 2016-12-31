@@ -810,7 +810,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
      * MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}
      * @param memberStatusCodeList The collection of memberStatusCode as inScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setMemberStatusCode_InScope(Collection<String> memberStatusCodeList) {
+    protected void setMemberStatusCode_InScope(Collection<String> memberStatusCodeList) {
         doSetMemberStatusCode_InScope(memberStatusCodeList);
     }
 
