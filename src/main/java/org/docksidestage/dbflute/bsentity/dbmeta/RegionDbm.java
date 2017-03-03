@@ -58,8 +58,7 @@ public class RegionDbm extends AbstractDBMeta {
     { xsetupEpg(); }
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((Region)et).getRegionId(), (et, vl) -> {
-            ColumnInfo col = columnRegionId();
-            CDef.Region cls = (CDef.Region)gcls(et, col, vl);
+            CDef.Region cls = (CDef.Region)gcls(et, columnRegionId(), vl);
             if (cls != null) {
                 ((Region)et).setRegionIdAsRegion(cls);
             } else {

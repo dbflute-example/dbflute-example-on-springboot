@@ -691,7 +691,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
      * @param regionIdList The collection of regionId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setRegionId_NotInScope(Collection<Integer> regionIdList) {
+    protected void setRegionId_NotInScope(Collection<Integer> regionIdList) {
         doSetRegionId_NotInScope(regionIdList);
     }
 

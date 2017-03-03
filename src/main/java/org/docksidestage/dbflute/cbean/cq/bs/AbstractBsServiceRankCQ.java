@@ -212,7 +212,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
      * @param serviceRankCodeList The collection of serviceRankCode as notInScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setServiceRankCode_NotInScope(Collection<String> serviceRankCodeList) {
+    protected void setServiceRankCode_NotInScope(Collection<String> serviceRankCodeList) {
         doSetServiceRankCode_NotInScope(serviceRankCodeList);
     }
 
@@ -611,7 +611,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @param newAcceptableFlgList The collection of newAcceptableFlg as notInScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setNewAcceptableFlg_NotInScope(Collection<Integer> newAcceptableFlgList) {
+    protected void setNewAcceptableFlg_NotInScope(Collection<Integer> newAcceptableFlgList) {
         doSetNewAcceptableFlg_NotInScope(newAcceptableFlgList);
     }
 

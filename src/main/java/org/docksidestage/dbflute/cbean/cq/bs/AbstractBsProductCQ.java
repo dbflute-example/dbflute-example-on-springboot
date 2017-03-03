@@ -640,7 +640,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @param productStatusCodeList The collection of productStatusCode as notInScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
+    protected void setProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
         doSetProductStatusCode_NotInScope(productStatusCodeList);
     }
 

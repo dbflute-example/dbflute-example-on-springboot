@@ -64,8 +64,7 @@ public class MemberAddressDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((MemberAddress)et).getValidEndDate(), (et, vl) -> ((MemberAddress)et).setValidEndDate(ctld(vl)), "validEndDate");
         setupEpg(_epgMap, et -> ((MemberAddress)et).getAddress(), (et, vl) -> ((MemberAddress)et).setAddress((String)vl), "address");
         setupEpg(_epgMap, et -> ((MemberAddress)et).getRegionId(), (et, vl) -> {
-            ColumnInfo col = columnRegionId();
-            CDef.Region cls = (CDef.Region)gcls(et, col, vl);
+            CDef.Region cls = (CDef.Region)gcls(et, columnRegionId(), vl);
             if (cls != null) {
                 ((MemberAddress)et).setRegionIdAsRegion(cls);
             } else {

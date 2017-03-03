@@ -62,8 +62,7 @@ public class MemberDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((Member)et).getMemberName(), (et, vl) -> ((Member)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((Member)et).getMemberAccount(), (et, vl) -> ((Member)et).setMemberAccount((String)vl), "memberAccount");
         setupEpg(_epgMap, et -> ((Member)et).getMemberStatusCode(), (et, vl) -> {
-            ColumnInfo col = columnMemberStatusCode();
-            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(et, col, vl);
+            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(et, columnMemberStatusCode(), vl);
             if (cls != null) {
                 ((Member)et).setMemberStatusCodeAsMemberStatus(cls);
             } else {

@@ -24,6 +24,8 @@ private AsyncManager asyncManager;</template>
 private ${app}Config config;</template>
 <template autoinsert="true" context="java-members" deleted="false" description="LastaFlute: DI for CookieManager" enabled="true" name="_ladcookie">${:import(javax.annotation.Resource,org.lastaflute.web.servlet.cookie.CookieManager)}@Resource
 private CookieManager cookieManager;</template>
+<template autoinsert="true" context="java-members" deleted="false" description="LastaFlute: DI for JobManager" enabled="true" name="_ladjob">${:import(javax.annotation.Resource,org.lastaflute.job.JobManager)}@Resource
+private JobManager jobManager;</template>
 <template autoinsert="true" context="java-members" deleted="false" description="LastaFlute: DI for JsonManager" enabled="true" name="_ladjson">${:import(javax.annotation.Resource,org.lastaflute.core.json.JsonManager)}@Resource
 private JsonManager jsonManager;</template>
 <template autoinsert="true" context="java-members" deleted="false" description="LastaFlute: DI for MessageManager" enabled="true" name="_ladmessage">${:import(javax.annotation.Resource,org.lastaflute.core.message.MessageManager)}@Resource
@@ -143,7 +145,7 @@ public String toString() {
 
 	// ## Assert ##
 }</template><template autoinsert="true" context="java" deleted="false" description="TODO comment" enabled="true" name="_todo">    // TODO ${user} ${cursor} (${date})</template>
-<template autoinsert="true" context="java" deleted="false" description="TODO review comment" enabled="true" name="_trev">    // TODO ${newName} ${cursor} by ${user} (${date})</template>
+<template autoinsert="true" context="java" deleted="false" description="TODO review comment" enabled="true" name="_trev">    // TODO ${you} ${message} by ${user} (${date})</template>
 <template autoinsert="true" context="java-statements" deleted="false" description="throw new IllegalArgumentException(...)" enabled="true" name="_tharg">throw new IllegalArgumentException("The argument '${localVar}' should not be null.");</template>
 <template autoinsert="true" context="java-statements" deleted="false" description="throw new IllegalStateException(...)" enabled="true" name="_thstate">throw new IllegalStateException("${message}", ${e:localVar(java.lang.Throwable)});</template>
 <template autoinsert="true" context="java" deleted="false" description="DBFlute: Trick for OrScopeQueryAndPart" enabled="true" name="andCBLambda">andCB -&gt; {
