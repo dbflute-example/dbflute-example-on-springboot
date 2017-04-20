@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,24 +46,22 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
     protected static final Map<String, String> _tableDbNameClassNameMap;
     static {
         final Map<String, String> tmpMap = newHashMap();
-        tmpMap.put("MEMBER", "org.docksidestage.dbflute.bsentity.dbmeta.MemberDbm");
-        tmpMap.put("MEMBER_ADDRESS", "org.docksidestage.dbflute.bsentity.dbmeta.MemberAddressDbm");
-        tmpMap.put("MEMBER_FOLLOWING", "org.docksidestage.dbflute.bsentity.dbmeta.MemberFollowingDbm");
-        tmpMap.put("MEMBER_LOGIN", "org.docksidestage.dbflute.bsentity.dbmeta.MemberLoginDbm");
-        tmpMap.put("MEMBER_SECURITY", "org.docksidestage.dbflute.bsentity.dbmeta.MemberSecurityDbm");
-        tmpMap.put("MEMBER_SERVICE", "org.docksidestage.dbflute.bsentity.dbmeta.MemberServiceDbm");
-        tmpMap.put("MEMBER_STATUS", "org.docksidestage.dbflute.bsentity.dbmeta.MemberStatusDbm");
-        tmpMap.put("MEMBER_WITHDRAWAL", "org.docksidestage.dbflute.bsentity.dbmeta.MemberWithdrawalDbm");
-        tmpMap.put("PRODUCT", "org.docksidestage.dbflute.bsentity.dbmeta.ProductDbm");
-        tmpMap.put("PRODUCT_CATEGORY", "org.docksidestage.dbflute.bsentity.dbmeta.ProductCategoryDbm");
-        tmpMap.put("PRODUCT_STATUS", "org.docksidestage.dbflute.bsentity.dbmeta.ProductStatusDbm");
-        tmpMap.put("PURCHASE", "org.docksidestage.dbflute.bsentity.dbmeta.PurchaseDbm");
-        tmpMap.put("PURCHASE_PAYMENT", "org.docksidestage.dbflute.bsentity.dbmeta.PurchasePaymentDbm");
-        tmpMap.put("REGION", "org.docksidestage.dbflute.bsentity.dbmeta.RegionDbm");
-        tmpMap.put("SERVICE_RANK", "org.docksidestage.dbflute.bsentity.dbmeta.ServiceRankDbm");
-        tmpMap.put("SUMMARY_PRODUCT", "org.docksidestage.dbflute.bsentity.dbmeta.SummaryProductDbm");
-        tmpMap.put("SUMMARY_WITHDRAWAL", "org.docksidestage.dbflute.bsentity.dbmeta.SummaryWithdrawalDbm");
-        tmpMap.put("WITHDRAWAL_REASON", "org.docksidestage.dbflute.bsentity.dbmeta.WithdrawalReasonDbm");
+        tmpMap.put("member", "org.docksidestage.dbflute.bsentity.dbmeta.MemberDbm");
+        tmpMap.put("member_address", "org.docksidestage.dbflute.bsentity.dbmeta.MemberAddressDbm");
+        tmpMap.put("member_following", "org.docksidestage.dbflute.bsentity.dbmeta.MemberFollowingDbm");
+        tmpMap.put("member_login", "org.docksidestage.dbflute.bsentity.dbmeta.MemberLoginDbm");
+        tmpMap.put("member_security", "org.docksidestage.dbflute.bsentity.dbmeta.MemberSecurityDbm");
+        tmpMap.put("member_service", "org.docksidestage.dbflute.bsentity.dbmeta.MemberServiceDbm");
+        tmpMap.put("member_status", "org.docksidestage.dbflute.bsentity.dbmeta.MemberStatusDbm");
+        tmpMap.put("member_withdrawal", "org.docksidestage.dbflute.bsentity.dbmeta.MemberWithdrawalDbm");
+        tmpMap.put("product", "org.docksidestage.dbflute.bsentity.dbmeta.ProductDbm");
+        tmpMap.put("product_category", "org.docksidestage.dbflute.bsentity.dbmeta.ProductCategoryDbm");
+        tmpMap.put("product_status", "org.docksidestage.dbflute.bsentity.dbmeta.ProductStatusDbm");
+        tmpMap.put("purchase", "org.docksidestage.dbflute.bsentity.dbmeta.PurchaseDbm");
+        tmpMap.put("purchase_payment", "org.docksidestage.dbflute.bsentity.dbmeta.PurchasePaymentDbm");
+        tmpMap.put("region", "org.docksidestage.dbflute.bsentity.dbmeta.RegionDbm");
+        tmpMap.put("service_rank", "org.docksidestage.dbflute.bsentity.dbmeta.ServiceRankDbm");
+        tmpMap.put("withdrawal_reason", "org.docksidestage.dbflute.bsentity.dbmeta.WithdrawalReasonDbm");
         _tableDbNameClassNameMap = Collections.unmodifiableMap(tmpMap);
     }
 

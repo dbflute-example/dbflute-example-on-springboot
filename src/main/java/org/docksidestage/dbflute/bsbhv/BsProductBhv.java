@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import org.docksidestage.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dbflute.cbean.*;
 
 /**
- * The behavior of PRODUCT as TABLE. <br>
+ * The behavior of (商品)PRODUCT as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_ID
@@ -82,7 +82,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /** {@inheritDoc} */
     public ProductDbm asDBMeta() { return ProductDbm.getInstance(); }
     /** {@inheritDoc} */
-    public String asTableDbName() { return "PRODUCT"; }
+    public String asTableDbName() { return "product"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -174,7 +174,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Select the entity by the primary-key value.
-     * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     * @param productId (商品ID): PK, ID, NotNull, INT(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -203,7 +203,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Select the entity by the unique-key value.
-     * @param productHandleCode : UQ, NotNull, VARCHAR(100). (NotNull)
+     * @param productHandleCode (商品ハンドルコード): UQ, NotNull, VARCHAR(100). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -403,7 +403,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
+     * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">productList</span>, <span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">purchaseCB</span>.setupSelect...
@@ -434,7 +434,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
+     * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">product</span>, <span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">purchaseCB</span>.setupSelect...

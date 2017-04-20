@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import org.docksidestage.dbflute.exentity.*;
 import org.docksidestage.dbflute.cbean.*;
 
 /**
- * The referrer loader of PRODUCT_STATUS as TABLE. <br>
+ * The referrer loader of (商品ステータス)PRODUCT_STATUS as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_STATUS_CODE
@@ -80,7 +80,7 @@ public class LoaderOfProductStatus {
 
     /**
      * Load referrer of productList by the set-upper of referrer. <br>
-     * PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * <pre>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productStatusList</span>, <span style="color: #553000">statusLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">statusLoader</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

@@ -36,7 +36,7 @@ map:{
     #    mysql, postgresql, oracle, db2, mssql,
     #    h2, derby, (sqlite, firebird, msaccess)
     # 
-    ; database = h2
+    ; database = mysql
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -52,11 +52,10 @@ map:{
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o targetContainer: (Required)
     #  The target DI container.
-    #  If your target language is 'csharp', you can specify 'seasar' only.
     #  Your possible choices are:
-    # 
-    #       spring, guice, seasar, cdi
-    # 
+    #
+    #       spring, guice, seasar, cdi, lasta_di
+    #
     ; targetContainer = spring
     # - - - - - - - - - -/
 

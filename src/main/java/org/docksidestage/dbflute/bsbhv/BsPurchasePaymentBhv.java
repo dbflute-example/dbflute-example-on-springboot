@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import org.docksidestage.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dbflute.cbean.*;
 
 /**
- * The behavior of PURCHASE_PAYMENT as TABLE. <br>
+ * The behavior of (購入支払)PURCHASE_PAYMENT as TABLE. <br>
  * <pre>
  * [primary key]
  *     PURCHASE_PAYMENT_ID
@@ -82,7 +82,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
     /** {@inheritDoc} */
     public PurchasePaymentDbm asDBMeta() { return PurchasePaymentDbm.getInstance(); }
     /** {@inheritDoc} */
-    public String asTableDbName() { return "PURCHASE_PAYMENT"; }
+    public String asTableDbName() { return "purchase_payment"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -174,7 +174,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
 
     /**
      * Select the entity by the primary-key value.
-     * @param purchasePaymentId : PK, ID, NotNull, BIGINT(19). (NotNull)
+     * @param purchasePaymentId (購入支払ID): PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.

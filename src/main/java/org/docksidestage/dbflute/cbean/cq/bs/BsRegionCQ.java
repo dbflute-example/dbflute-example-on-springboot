@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.docksidestage.dbflute.cbean.*;
 import org.docksidestage.dbflute.cbean.cq.*;
 
 /**
- * The base condition-query of REGION.
+ * The base condition-query of region.
  * @author DBFlute(AutoGenerator)
  */
 public class BsRegionCQ extends AbstractBsRegionCQ {
@@ -50,7 +50,7 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     //                                                                 ===================
     /**
      * Prepare InlineView query. <br>
-     * {select ... from ... left outer join (select * from REGION) where FOO = [value] ...}
+     * {select ... from ... left outer join (select * from region) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
      * </pre>
@@ -73,7 +73,7 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
 
     /**
      * Prepare OnClause query. <br>
-     * {select ... from ... left outer join REGION on ... and FOO = [value] ...}
+     * {select ... from ... left outer join region on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
      * </pre>
@@ -110,14 +110,14 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
+     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region}
      * @return this. (NotNull)
      */
     public BsRegionCQ addOrderBy_RegionId_Asc() { regOBA("REGION_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
+     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region}
      * @return this. (NotNull)
      */
     public BsRegionCQ addOrderBy_RegionId_Desc() { regOBD("REGION_ID"); return this; }
@@ -130,14 +130,14 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * REGION_NAME: {NotNull, VARCHAR(50)}
+     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsRegionCQ addOrderBy_RegionName_Asc() { regOBA("REGION_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REGION_NAME: {NotNull, VARCHAR(50)}
+     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsRegionCQ addOrderBy_RegionName_Desc() { regOBD("REGION_NAME"); return this; }

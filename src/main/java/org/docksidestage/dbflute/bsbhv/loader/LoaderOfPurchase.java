@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import org.docksidestage.dbflute.exentity.*;
 import org.docksidestage.dbflute.cbean.*;
 
 /**
- * The referrer loader of PURCHASE as TABLE. <br>
+ * The referrer loader of (購入)PURCHASE as TABLE. <br>
  * <pre>
  * [primary key]
  *     PURCHASE_ID
@@ -80,7 +80,7 @@ public class LoaderOfPurchase {
 
     /**
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br>
-     * PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
      * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">purchaseList</span>, <span style="color: #553000">purchaseLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">purchaseLoader</span>.<span style="color: #CC4747">loadPurchasePayment</span>(<span style="color: #553000">paymentCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

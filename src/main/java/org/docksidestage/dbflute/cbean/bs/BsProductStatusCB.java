@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import org.docksidestage.dbflute.cbean.*;
 import org.docksidestage.dbflute.cbean.cq.*;
 
 /**
- * The base condition-bean of PRODUCT_STATUS.
+ * The base condition-bean of product_status.
  * @author DBFlute(AutoGenerator)
  */
 public class BsProductStatusCB extends AbstractConditionBean {
@@ -88,7 +88,7 @@ public class BsProductStatusCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "PRODUCT_STATUS";
+        return "product_status";
     }
 
     // ===================================================================================
@@ -96,7 +96,7 @@ public class BsProductStatusCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param productStatusCode : PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
+     * @param productStatusCode (商品ステータスコード): PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
      * @return this. (NotNull)
      */
     public ProductStatusCB acceptPK(CDef.ProductStatus productStatusCode) {
@@ -108,7 +108,7 @@ public class BsProductStatusCB extends AbstractConditionBean {
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @param displayOrder (表示順): UQ, NotNull, INT(10). (NotNull)
      * @return this. (NotNull)
      */
     public ProductStatusCB acceptUniqueOf(Integer displayOrder) {
@@ -311,17 +311,17 @@ public class BsProductStatusCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+         * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductStatusCode() { return doColumn("PRODUCT_STATUS_CODE"); }
         /**
-         * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+         * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductStatusName() { return doColumn("PRODUCT_STATUS_NAME"); }
         /**
-         * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+         * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnDisplayOrder() { return doColumn("DISPLAY_ORDER"); }
@@ -332,11 +332,11 @@ public class BsProductStatusCB extends AbstractConditionBean {
             columnProductStatusCode(); // PK
         }
         @Override
-        protected String getTableDbName() { return "PRODUCT_STATUS"; }
+        protected String getTableDbName() { return "product_status"; }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from PRODUCT where ...) as FOO_MAX} <br>
-         * PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+         * {select max(FOO) from product where ...) as FOO_MAX} <br>
+         * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(productCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     productCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -445,6 +445,13 @@ public class BsProductStatusCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<ProductStatusCB> andCBLambda) {
         xorSQAP((ProductStatusCB)this, andCBLambda);
+    }
+
+    // ===================================================================================
+    //                                                                       Cursor Select
+    //                                                                       =============
+    public void customizeCursorSelect(SVOptionCall<CursorSelectOption> opLambda) {
+        doAcceptCursorSelectOption(opLambda);
     }
 
     // ===================================================================================

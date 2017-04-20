@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.docksidestage.dbflute.cbean.*;
 import org.docksidestage.dbflute.cbean.cq.*;
 
 /**
- * The base condition-query of PRODUCT_STATUS.
+ * The base condition-query of product_status.
  * @author DBFlute(AutoGenerator)
  */
 public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
@@ -50,7 +50,7 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
     //                                                                 ===================
     /**
      * Prepare InlineView query. <br>
-     * {select ... from ... left outer join (select * from PRODUCT_STATUS) where FOO = [value] ...}
+     * {select ... from ... left outer join (select * from product_status) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
      * </pre>
@@ -73,7 +73,7 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
 
     /**
      * Prepare OnClause query. <br>
-     * {select ... from ... left outer join PRODUCT_STATUS on ... and FOO = [value] ...}
+     * {select ... from ... left outer join product_status on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
      * </pre>
@@ -110,14 +110,14 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusCode_Asc() { regOBA("PRODUCT_STATUS_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusCode_Desc() { regOBD("PRODUCT_STATUS_CODE"); return this; }
@@ -130,14 +130,14 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusName_Asc() { regOBA("PRODUCT_STATUS_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusName_Desc() { regOBD("PRODUCT_STATUS_NAME"); return this; }
@@ -150,14 +150,14 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_DisplayOrder_Asc() { regOBA("DISPLAY_ORDER"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_DisplayOrder_Desc() { regOBD("DISPLAY_ORDER"); return this; }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import org.docksidestage.dbflute.cbean.cq.*;
 import org.docksidestage.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of MEMBER_FOLLOWING.
+ * The base condition-bean of member_following.
  * @author DBFlute(AutoGenerator)
  */
 public class BsMemberFollowingCB extends AbstractConditionBean {
@@ -88,7 +88,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "MEMBER_FOLLOWING";
+        return "member_following";
     }
 
     // ===================================================================================
@@ -96,7 +96,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param memberFollowingId : PK, ID, NotNull, BIGINT(19). (NotNull)
+     * @param memberFollowingId (会員フォローイングID): PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return this. (NotNull)
      */
     public MemberFollowingCB acceptPK(Long memberFollowingId) {
@@ -108,8 +108,8 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param myMemberId : UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
-     * @param yourMemberId : +UQ, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param myMemberId (わたし): UQ+, NotNull, INT(10), FK to member. (NotNull)
+     * @param yourMemberId (あなた): +UQ, IX, NotNull, INT(10), FK to member. (NotNull)
      * @return this. (NotNull)
      */
     public MemberFollowingCB acceptUniqueOf(Integer myMemberId, Integer yourMemberId) {
@@ -273,7 +273,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
+     * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
      * <pre>
      * <span style="color: #0000C0">memberFollowingBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MemberByMyMemberId()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -302,7 +302,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
+     * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
      * <pre>
      * <span style="color: #0000C0">memberFollowingBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MemberByYourMemberId()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -372,22 +372,22 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+         * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberFollowingId() { return doColumn("MEMBER_FOLLOWING_ID"); }
         /**
-         * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
+         * (わたし)MY_MEMBER_ID: {UQ+, NotNull, INT(10), FK to member}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMyMemberId() { return doColumn("MY_MEMBER_ID"); }
         /**
-         * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
+         * (あなた)YOUR_MEMBER_ID: {+UQ, IX, NotNull, INT(10), FK to member}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnYourMemberId() { return doColumn("YOUR_MEMBER_ID"); }
         /**
-         * FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
+         * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnFollowDatetime() { return doColumn("FOLLOW_DATETIME"); }
@@ -406,10 +406,10 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
             }
         }
         @Override
-        protected String getTableDbName() { return "MEMBER_FOLLOWING"; }
+        protected String getTableDbName() { return "member_following"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
+         * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public MemberCB.HpSpecification specifyMemberByMyMemberId() {
@@ -429,7 +429,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
         }
         /**
          * Prepare to specify functions about relation table. <br>
-         * MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
+         * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public MemberCB.HpSpecification specifyMemberByYourMemberId() {
@@ -542,6 +542,13 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<MemberFollowingCB> andCBLambda) {
         xorSQAP((MemberFollowingCB)this, andCBLambda);
+    }
+
+    // ===================================================================================
+    //                                                                       Cursor Select
+    //                                                                       =============
+    public void customizeCursorSelect(SVOptionCall<CursorSelectOption> opLambda) {
+        doAcceptCursorSelectOption(opLambda);
     }
 
     // ===================================================================================

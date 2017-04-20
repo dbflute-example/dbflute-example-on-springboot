@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.docksidestage.dbflute.cbean.*;
 import org.docksidestage.dbflute.cbean.cq.*;
 
 /**
- * The base condition-query of MEMBER_STATUS.
+ * The base condition-query of member_status.
  * @author DBFlute(AutoGenerator)
  */
 public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
@@ -50,7 +50,7 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
     //                                                                 ===================
     /**
      * Prepare InlineView query. <br>
-     * {select ... from ... left outer join (select * from MEMBER_STATUS) where FOO = [value] ...}
+     * {select ... from ... left outer join (select * from member_status) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
      * </pre>
@@ -73,7 +73,7 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
 
     /**
      * Prepare OnClause query. <br>
-     * {select ... from ... left outer join MEMBER_STATUS on ... and FOO = [value] ...}
+     * {select ... from ... left outer join member_status on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
      * </pre>
@@ -124,14 +124,14 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_MemberStatusCode_Asc() { regOBA("MEMBER_STATUS_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_MemberStatusCode_Desc() { regOBD("MEMBER_STATUS_CODE"); return this; }
@@ -144,14 +144,14 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_MemberStatusName_Asc() { regOBA("MEMBER_STATUS_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_MemberStatusName_Desc() { regOBD("MEMBER_STATUS_NAME"); return this; }
@@ -164,14 +164,14 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * DESCRIPTION: {NotNull, VARCHAR(200)}
+     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_Description_Asc() { regOBA("DESCRIPTION"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * DESCRIPTION: {NotNull, VARCHAR(200)}
+     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_Description_Desc() { regOBD("DESCRIPTION"); return this; }
@@ -184,14 +184,14 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_DisplayOrder_Asc() { regOBA("DISPLAY_ORDER"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_DisplayOrder_Desc() { regOBD("DISPLAY_ORDER"); return this; }

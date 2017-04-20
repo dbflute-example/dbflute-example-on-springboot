@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import org.docksidestage.dbflute.exentity.*;
 import org.docksidestage.dbflute.cbean.*;
 
 /**
- * The referrer loader of WITHDRAWAL_REASON as TABLE. <br>
+ * The referrer loader of (退会理由)WITHDRAWAL_REASON as TABLE. <br>
  * <pre>
  * [primary key]
  *     WITHDRAWAL_REASON_CODE
@@ -80,7 +80,7 @@ public class LoaderOfWithdrawalReason {
 
     /**
      * Load referrer of memberWithdrawalList by the set-upper of referrer. <br>
-     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * <pre>
      * <span style="color: #0000C0">withdrawalReasonBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">withdrawalReasonList</span>, <span style="color: #553000">reasonLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">reasonLoader</span>.<span style="color: #CC4747">loadMemberWithdrawal</span>(<span style="color: #553000">withdrawalCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

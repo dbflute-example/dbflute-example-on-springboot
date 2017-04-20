@@ -14,7 +14,7 @@
 
 	<properties>
 		<dbflute.version>1.1.2</dbflute.version>
-		<h2.jdbc.version>1.4.193</h2.jdbc.version>
+		<mysql.jdbc.version>5.1.37</mysql.jdbc.version>
 		<spring.version>4.3.4.RELEASE</spring.version>
 		<spring.boot.version>1.4.2.RELEASE</spring.boot.version>
 		<utflute.version>0.7.3</utflute.version>
@@ -178,9 +178,9 @@
 			<version>${dbflute.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>${h2.jdbc.version}</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.jdbc.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 

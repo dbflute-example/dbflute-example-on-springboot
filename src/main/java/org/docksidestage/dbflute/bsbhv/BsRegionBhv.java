@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ import org.docksidestage.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dbflute.cbean.*;
 
 /**
- * The behavior of REGION as TABLE. <br>
+ * The behavior of (地域)REGION as TABLE. <br>
  * <pre>
  * [primary key]
  *     REGION_ID
@@ -83,7 +83,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
     /** {@inheritDoc} */
     public RegionDbm asDBMeta() { return RegionDbm.getInstance(); }
     /** {@inheritDoc} */
-    public String asTableDbName() { return "REGION"; }
+    public String asTableDbName() { return "region"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -175,7 +175,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
 
     /**
      * Select the entity by the primary-key value.
-     * @param regionId : PK, NotNull, INTEGER(10), classification=Region. (NotNull)
+     * @param regionId (地域ID): PK, NotNull, INT(10), classification=Region. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -379,7 +379,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
 
     /**
      * Load referrer of memberAddressList by the set-upper of referrer. <br>
-     * MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
      * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">loadMemberAddress</span>(<span style="color: #553000">regionList</span>, <span style="color: #553000">addressCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">addressCB</span>.setupSelect...
@@ -410,7 +410,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
 
     /**
      * Load referrer of memberAddressList by the set-upper of referrer. <br>
-     * MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
      * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">loadMemberAddress</span>(<span style="color: #553000">region</span>, <span style="color: #553000">addressCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">addressCB</span>.setupSelect...

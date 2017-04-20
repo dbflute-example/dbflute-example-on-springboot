@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import org.docksidestage.dbflute.cbean.*;
 import org.docksidestage.dbflute.cbean.cq.*;
 
 /**
- * The abstract condition-query of PRODUCT_STATUS.
+ * The abstract condition-query of product_status.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
@@ -52,7 +52,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     }
 
     public String asTableDbName() {
-        return "PRODUCT_STATUS";
+        return "product_status";
     }
 
     // ===================================================================================
@@ -60,7 +60,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     //                                                                               =====
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @param productStatusCode The value of productStatusCode as equal. (NullAllowed: if null (or empty), no condition)
      */
     protected void setProductStatusCode_Equal(String productStatusCode) {
@@ -69,7 +69,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * 商品ステータス。あんまり面白みのないステータス
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
@@ -78,27 +78,27 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Equal(=). As 生産販売可能 (ONS). And OnlyOnceRegistered. <br>
-     * 生産販売可能
+     * Equal(=). As OnSaleProduction (ONS). And OnlyOnceRegistered. <br>
+     * OnSaleProduction
      */
-    public void setProductStatusCode_Equal_生産販売可能() {
-        setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.生産販売可能);
+    public void setProductStatusCode_Equal_OnSaleProduction() {
+        setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.OnSaleProduction);
     }
 
     /**
-     * Equal(=). As 生産中止 (PST). And OnlyOnceRegistered. <br>
-     * 生産中止
+     * Equal(=). As ProductionStop (PST). And OnlyOnceRegistered. <br>
+     * ProductionStop
      */
-    public void setProductStatusCode_Equal_生産中止() {
-        setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.生産中止);
+    public void setProductStatusCode_Equal_ProductionStop() {
+        setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.ProductionStop);
     }
 
     /**
-     * Equal(=). As 販売中止 (SST). And OnlyOnceRegistered. <br>
-     * 販売中止
+     * Equal(=). As SaleStop (SST). And OnlyOnceRegistered. <br>
+     * SaleStop
      */
-    public void setProductStatusCode_Equal_販売中止() {
-        setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.販売中止);
+    public void setProductStatusCode_Equal_SaleStop() {
+        setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.SaleStop);
     }
 
     protected void doSetProductStatusCode_Equal(String productStatusCode) {
@@ -107,7 +107,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @param productStatusCode The value of productStatusCode as notEqual. (NullAllowed: if null (or empty), no condition)
      */
     protected void setProductStatusCode_NotEqual(String productStatusCode) {
@@ -116,7 +116,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * 商品ステータス。あんまり面白みのないステータス
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
@@ -125,27 +125,27 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotEqual(&lt;&gt;). As 生産販売可能 (ONS). And OnlyOnceRegistered. <br>
-     * 生産販売可能
+     * NotEqual(&lt;&gt;). As OnSaleProduction (ONS). And OnlyOnceRegistered. <br>
+     * OnSaleProduction
      */
-    public void setProductStatusCode_NotEqual_生産販売可能() {
-        setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus.生産販売可能);
+    public void setProductStatusCode_NotEqual_OnSaleProduction() {
+        setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus.OnSaleProduction);
     }
 
     /**
-     * NotEqual(&lt;&gt;). As 生産中止 (PST). And OnlyOnceRegistered. <br>
-     * 生産中止
+     * NotEqual(&lt;&gt;). As ProductionStop (PST). And OnlyOnceRegistered. <br>
+     * ProductionStop
      */
-    public void setProductStatusCode_NotEqual_生産中止() {
-        setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus.生産中止);
+    public void setProductStatusCode_NotEqual_ProductionStop() {
+        setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus.ProductionStop);
     }
 
     /**
-     * NotEqual(&lt;&gt;). As 販売中止 (SST). And OnlyOnceRegistered. <br>
-     * 販売中止
+     * NotEqual(&lt;&gt;). As SaleStop (SST). And OnlyOnceRegistered. <br>
+     * SaleStop
      */
-    public void setProductStatusCode_NotEqual_販売中止() {
-        setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus.販売中止);
+    public void setProductStatusCode_NotEqual_SaleStop() {
+        setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus.SaleStop);
     }
 
     protected void doSetProductStatusCode_NotEqual(String productStatusCode) {
@@ -154,7 +154,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @param productStatusCodeList The collection of productStatusCode as inScope. (NullAllowed: if null (or empty), no condition)
      */
     protected void setProductStatusCode_InScope(Collection<String> productStatusCodeList) {
@@ -163,7 +163,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. As ProductStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * 商品ステータス。あんまり面白みのないステータス
      * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
      */
@@ -177,7 +177,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @param productStatusCodeList The collection of productStatusCode as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     protected void setProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
@@ -186,7 +186,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. As ProductStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * 商品ステータス。あんまり面白みのないステータス
      * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
      */
@@ -200,8 +200,8 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * Set up ExistsReferrer (correlated sub-query). <br>
-     * {exists (select PRODUCT_STATUS_CODE from PRODUCT where ...)} <br>
-     * PRODUCT by PRODUCT_STATUS_CODE, named 'productAsOne'.
+     * {exists (select PRODUCT_STATUS_CODE from product where ...)} <br>
+     * (商品)product by PRODUCT_STATUS_CODE, named 'productAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">existsProduct</span>(productCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     productCB.query().set...
@@ -219,8 +219,8 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
-     * {not exists (select PRODUCT_STATUS_CODE from PRODUCT where ...)} <br>
-     * PRODUCT by PRODUCT_STATUS_CODE, named 'productAsOne'.
+     * {not exists (select PRODUCT_STATUS_CODE from product where ...)} <br>
+     * (商品)product by PRODUCT_STATUS_CODE, named 'productAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">notExistsProduct</span>(productCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     productCB.query().set...
@@ -246,8 +246,8 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
-     * {FOO &lt;= (select max(BAR) from PRODUCT where ...)} <br>
-     * PRODUCT by PRODUCT_STATUS_CODE, named 'productAsOne'.
+     * {FOO &lt;= (select max(BAR) from product where ...)} <br>
+     * (商品)product by PRODUCT_STATUS_CODE, named 'productAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">derivedProduct()</span>.<span style="color: #CC4747">max</span>(productCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     productCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -273,13 +273,13 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      */
     public void setProductStatusCode_IsNull() { regProductStatusCode(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      */
     public void setProductStatusCode_IsNotNull() { regProductStatusCode(CK_ISNN, DOBJ); }
 
@@ -288,7 +288,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param productStatusName The value of productStatusName as equal. (NullAllowed: if null (or empty), no condition)
      */
     public void setProductStatusName_Equal(String productStatusName) {
@@ -301,7 +301,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setProductStatusName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param productStatusName The value of productStatusName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -312,7 +312,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setProductStatusName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param productStatusName The value of productStatusName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -324,7 +324,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param productStatusName The value of productStatusName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
@@ -335,7 +335,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param productStatusName The value of productStatusName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
@@ -348,7 +348,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
      * @param displayOrder The value of displayOrder as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_Equal(Integer displayOrder) {
@@ -363,7 +363,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
      * @param minNumber The min number of displayOrder. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -376,7 +376,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)}
      * @param minNumber The min number of displayOrder. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)

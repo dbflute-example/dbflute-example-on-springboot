@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import org.docksidestage.dbflute.cbean.cq.*;
 import org.docksidestage.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of PURCHASE_PAYMENT.
+ * The base condition-bean of purchase_payment.
  * @author DBFlute(AutoGenerator)
  */
 public class BsPurchasePaymentCB extends AbstractConditionBean {
@@ -88,7 +88,7 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "PURCHASE_PAYMENT";
+        return "purchase_payment";
     }
 
     // ===================================================================================
@@ -96,7 +96,7 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param purchasePaymentId : PK, ID, NotNull, BIGINT(19). (NotNull)
+     * @param purchasePaymentId (購入支払ID): PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return this. (NotNull)
      */
     public PurchasePaymentCB acceptPK(Long purchasePaymentId) {
@@ -260,7 +260,7 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * PURCHASE by my PURCHASE_ID, named 'purchase'.
+     * (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
      * <pre>
      * <span style="color: #0000C0">purchasePaymentBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Purchase()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -329,47 +329,47 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+         * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPurchasePaymentId() { return doColumn("PURCHASE_PAYMENT_ID"); }
         /**
-         * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
+         * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to purchase}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPurchaseId() { return doColumn("PURCHASE_ID"); }
         /**
-         * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+         * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPaymentAmount() { return doColumn("PAYMENT_AMOUNT"); }
         /**
-         * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)}
+         * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPaymentDatetime() { return doColumn("PAYMENT_DATETIME"); }
         /**
-         * PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
+         * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPaymentMethodCode() { return doColumn("PAYMENT_METHOD_CODE"); }
         /**
-         * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+         * (登録日時)REGISTER_DATETIME: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterDatetime() { return doColumn("REGISTER_DATETIME"); }
         /**
-         * REGISTER_USER: {NotNull, VARCHAR(200)}
+         * (登録ユーザー)REGISTER_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterUser() { return doColumn("REGISTER_USER"); }
         /**
-         * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+         * (更新日時)UPDATE_DATETIME: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateDatetime() { return doColumn("UPDATE_DATETIME"); }
         /**
-         * UPDATE_USER: {NotNull, VARCHAR(200)}
+         * (更新ユーザー)UPDATE_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateUser() { return doColumn("UPDATE_USER"); }
@@ -384,10 +384,10 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
             }
         }
         @Override
-        protected String getTableDbName() { return "PURCHASE_PAYMENT"; }
+        protected String getTableDbName() { return "purchase_payment"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * PURCHASE by my PURCHASE_ID, named 'purchase'.
+         * (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public PurchaseCB.HpSpecification specifyPurchase() {
@@ -500,6 +500,13 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<PurchasePaymentCB> andCBLambda) {
         xorSQAP((PurchasePaymentCB)this, andCBLambda);
+    }
+
+    // ===================================================================================
+    //                                                                       Cursor Select
+    //                                                                       =============
+    public void customizeCursorSelect(SVOptionCall<CursorSelectOption> opLambda) {
+        doAcceptCursorSelectOption(opLambda);
     }
 
     // ===================================================================================

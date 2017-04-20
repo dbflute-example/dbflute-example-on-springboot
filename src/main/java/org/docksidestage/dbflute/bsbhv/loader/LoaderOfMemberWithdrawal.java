@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,13 @@ import org.docksidestage.dbflute.exbhv.*;
 import org.docksidestage.dbflute.exentity.*;
 
 /**
- * The referrer loader of MEMBER_WITHDRAWAL as TABLE. <br>
+ * The referrer loader of (会員退会情報)MEMBER_WITHDRAWAL as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_ID
  *
  * [column]
- *     MEMBER_ID, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
+ *     MEMBER_ID, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER
  *
  * [sequence]
  *     
@@ -37,7 +37,7 @@ import org.docksidestage.dbflute.exentity.*;
  *     
  *
  * [version-no]
- *     VERSION_NO
+ *     
  *
  * [foreign table]
  *     MEMBER, WITHDRAWAL_REASON

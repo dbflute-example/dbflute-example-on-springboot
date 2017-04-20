@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.docksidestage.dbflute.cbean.*;
 import org.docksidestage.dbflute.cbean.cq.*;
 
 /**
- * The base condition-query of PRODUCT_CATEGORY.
+ * The base condition-query of product_category.
  * @author DBFlute(AutoGenerator)
  */
 public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
@@ -50,7 +50,7 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     //                                                                 ===================
     /**
      * Prepare InlineView query. <br>
-     * {select ... from ... left outer join (select * from PRODUCT_CATEGORY) where FOO = [value] ...}
+     * {select ... from ... left outer join (select * from product_category) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
      * </pre>
@@ -73,7 +73,7 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
 
     /**
      * Prepare OnClause query. <br>
-     * {select ... from ... left outer join PRODUCT_CATEGORY on ... and FOO = [value] ...}
+     * {select ... from ... left outer join product_category on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
      * </pre>
@@ -124,14 +124,14 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
+     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ProductCategoryCode_Asc() { regOBA("PRODUCT_CATEGORY_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
+     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ProductCategoryCode_Desc() { regOBD("PRODUCT_CATEGORY_CODE"); return this; }
@@ -144,14 +144,14 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
+     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ProductCategoryName_Asc() { regOBA("PRODUCT_CATEGORY_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
+     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ProductCategoryName_Desc() { regOBD("PRODUCT_CATEGORY_NAME"); return this; }
@@ -164,14 +164,14 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
+     * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to product_category}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ParentCategoryCode_Asc() { regOBA("PARENT_CATEGORY_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
+     * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to product_category}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ParentCategoryCode_Desc() { regOBD("PARENT_CATEGORY_CODE"); return this; }
@@ -227,7 +227,7 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
+     * (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
      * @return The instance of condition-query. (NotNull)
      */
     public ProductCategoryCQ queryProductCategorySelf() {
@@ -239,7 +239,7 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
         return xgetQueRlMap(prop);
     }
     protected ProductCategoryCQ xcreateQueryProductCategorySelf() {
-        String nrp = xresolveNRP("PRODUCT_CATEGORY", "productCategorySelf"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        String nrp = xresolveNRP("product_category", "productCategorySelf"); String jan = xresolveJAN(nrp, xgetNNLvl());
         return xinitRelCQ(new ProductCategoryCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "productCategorySelf", nrp);
     }
     protected void xsetupOuterJoinProductCategorySelf() { xregOutJo("productCategorySelf"); }

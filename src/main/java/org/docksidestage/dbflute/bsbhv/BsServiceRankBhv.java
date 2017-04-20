@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ import org.docksidestage.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dbflute.cbean.*;
 
 /**
- * The behavior of SERVICE_RANK as TABLE. <br>
+ * The behavior of (サービスランク)SERVICE_RANK as TABLE. <br>
  * <pre>
  * [primary key]
  *     SERVICE_RANK_CODE
@@ -83,7 +83,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     /** {@inheritDoc} */
     public ServiceRankDbm asDBMeta() { return ServiceRankDbm.getInstance(); }
     /** {@inheritDoc} */
-    public String asTableDbName() { return "SERVICE_RANK"; }
+    public String asTableDbName() { return "service_rank"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -175,7 +175,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
 
     /**
      * Select the entity by the primary-key value.
-     * @param serviceRankCode : PK, NotNull, CHAR(3), classification=ServiceRank. (NotNull)
+     * @param serviceRankCode (サービスランクコード): PK, NotNull, CHAR(3), classification=ServiceRank. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -204,7 +204,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
 
     /**
      * Select the entity by the unique-key value.
-     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @param displayOrder (表示順): UQ, NotNull, INT(10). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -404,7 +404,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
 
     /**
      * Load referrer of memberServiceList by the set-upper of referrer. <br>
-     * MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
+     * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
      * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">loadMemberService</span>(<span style="color: #553000">serviceRankList</span>, <span style="color: #553000">serviceCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">serviceCB</span>.setupSelect...
@@ -435,7 +435,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
 
     /**
      * Load referrer of memberServiceList by the set-upper of referrer. <br>
-     * MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
+     * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
      * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">loadMemberService</span>(<span style="color: #553000">serviceRank</span>, <span style="color: #553000">serviceCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">serviceCB</span>.setupSelect...

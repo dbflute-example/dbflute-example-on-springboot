@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.docksidestage.dbflute.cbean.cq.bs.*;
 import org.docksidestage.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of MEMBER_WITHDRAWAL.
+ * The condition-query for in-line of member_withdrawal.
  * @author DBFlute(AutoGenerator)
  */
 public class MemberWithdrawalCIQ extends AbstractBsMemberWithdrawalCQ {
@@ -84,7 +84,6 @@ public class MemberWithdrawalCIQ extends AbstractBsMemberWithdrawalCQ {
     protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
     protected ConditionValue xgetCValueUpdateUser() { return _myCQ.xdfgetUpdateUser(); }
-    protected ConditionValue xgetCValueVersionNo() { return _myCQ.xdfgetVersionNo(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(MemberWithdrawalCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

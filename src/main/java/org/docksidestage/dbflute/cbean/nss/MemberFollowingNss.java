@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package org.docksidestage.dbflute.cbean.nss;
 import org.docksidestage.dbflute.cbean.cq.MemberFollowingCQ;
 
 /**
- * The nest select set-upper of MEMBER_FOLLOWING.
+ * The nest select set-upper of member_following.
  * @author DBFlute(AutoGenerator)
  */
 public class MemberFollowingNss {
@@ -35,7 +35,7 @@ public class MemberFollowingNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
+     * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMemberByMyMemberId() {
@@ -44,7 +44,7 @@ public class MemberFollowingNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
+     * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMemberByYourMemberId() {

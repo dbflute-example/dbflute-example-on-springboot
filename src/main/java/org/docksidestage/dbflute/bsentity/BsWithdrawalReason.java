@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,8 @@ import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exentity.*;
 
 /**
- * The entity of WITHDRAWAL_REASON as TABLE. <br>
+ * The entity of (退会理由)WITHDRAWAL_REASON as TABLE. <br>
+ * 会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...
  * <pre>
  * [primary-key]
  *     WITHDRAWAL_REASON_CODE
@@ -78,13 +79,13 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} */
+    /** (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} */
     protected String _withdrawalReasonCode;
 
-    /** WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} */
+    /** (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, TEXT(65535)} */
     protected String _withdrawalReasonText;
 
-    /** DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} */
+    /** (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)} */
     protected Integer _displayOrder;
 
     // ===================================================================================
@@ -97,7 +98,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /** {@inheritDoc} */
     public String asTableDbName() {
-        return "WITHDRAWAL_REASON";
+        return "withdrawal_reason";
     }
 
     // ===================================================================================
@@ -112,7 +113,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     /**
      * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
-     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @param displayOrder (表示順): UQ, NotNull, INT(10). (NotNull)
      */
     public void uniqueBy(Integer displayOrder) {
         __uniqueDrivenProperties.clear();
@@ -125,7 +126,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     //                                                             =======================
     /**
      * Get the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * 会員の退会理由。なのでちょっとねがてぃぶ
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -136,7 +137,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * Set the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * 会員の退会理由。なのでちょっとねがてぃぶ
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -149,7 +150,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     //                                                              ======================
     /**
      * Set the value of withdrawalReasonCode as Sit (SIT). <br>
-     * SIT: サイトが使いにくいから
+     * SIT: site is not kindness
      */
     public void setWithdrawalReasonCode_Sit() {
         setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Sit);
@@ -157,7 +158,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * Set the value of withdrawalReasonCode as Prd (PRD). <br>
-     * PRD: 商品に魅力がないから
+     * PRD: no attractive product
      */
     public void setWithdrawalReasonCode_Prd() {
         setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Prd);
@@ -165,7 +166,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * Set the value of withdrawalReasonCode as Frt (FRT). <br>
-     * FRT: フリテンだから
+     * FRT: because of furiten
      */
     public void setWithdrawalReasonCode_Frt() {
         setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Frt);
@@ -173,7 +174,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * Set the value of withdrawalReasonCode as Oth (OTH). <br>
-     * OTH: その他理由
+     * OTH: other reasons
      */
     public void setWithdrawalReasonCode_Oth() {
         setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Oth);
@@ -184,7 +185,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     //                                                        ============================
     /**
      * Is the value of withdrawalReasonCode Sit? <br>
-     * SIT: サイトが使いにくいから
+     * SIT: site is not kindness
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */
@@ -195,7 +196,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * Is the value of withdrawalReasonCode Prd? <br>
-     * PRD: 商品に魅力がないから
+     * PRD: no attractive product
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */
@@ -206,7 +207,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * Is the value of withdrawalReasonCode Frt? <br>
-     * FRT: フリテンだから
+     * FRT: because of furiten
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */
@@ -217,7 +218,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * Is the value of withdrawalReasonCode Oth? <br>
-     * OTH: その他理由
+     * OTH: other reasons
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */
@@ -232,11 +233,11 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'. */
+    /** (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'. */
     protected List<MemberWithdrawal> _memberWithdrawalList;
 
     /**
-     * [get] MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * [get] (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * @return The entity list of referrer property 'memberWithdrawalList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberWithdrawal> getMemberWithdrawalList() {
@@ -245,7 +246,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * [set] (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * @param memberWithdrawalList The entity list of referrer property 'memberWithdrawalList'. (NullAllowed)
      */
     public void setMemberWithdrawalList(List<MemberWithdrawal> memberWithdrawalList) {
@@ -319,7 +320,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * [get] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getWithdrawalReasonCode() {
@@ -328,7 +329,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * [set] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if update: for the constraint)
      */
     protected void setWithdrawalReasonCode(String withdrawalReasonCode) {
@@ -338,7 +339,9 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [get] WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * [get] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, TEXT(65535)} <br>
+     * 退会理由の内容。<br>
+     * テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。
      * @return The value of the column 'WITHDRAWAL_REASON_TEXT'. (basically NotNull if selected: for the constraint)
      */
     public String getWithdrawalReasonText() {
@@ -347,7 +350,9 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * [set] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, TEXT(65535)} <br>
+     * 退会理由の内容。<br>
+     * テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。
      * @param withdrawalReasonText The value of the column 'WITHDRAWAL_REASON_TEXT'. (basically NotNull if update: for the constraint)
      */
     public void setWithdrawalReasonText(String withdrawalReasonText) {
@@ -356,7 +361,8 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [get] DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
+     * [get] (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)} <br>
+     * もう、ご想像の通りです。
      * @return The value of the column 'DISPLAY_ORDER'. (basically NotNull if selected: for the constraint)
      */
     public Integer getDisplayOrder() {
@@ -365,7 +371,8 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
+     * [set] (表示順)DISPLAY_ORDER: {UQ, NotNull, INT(10)} <br>
+     * もう、ご想像の通りです。
      * @param displayOrder The value of the column 'DISPLAY_ORDER'. (basically NotNull if update: for the constraint)
      */
     public void setDisplayOrder(Integer displayOrder) {

@@ -38,6 +38,7 @@ map:{
     # o isAvailableAddingCatalogToTableSqlName: (NotRequired - Default false)
     #   [true]
     #     Add catalog to table SQL name. (The table name on query is CATALOG.SCHEMA.TABLE)
+    #     This property works only when isAvailableAddingSchemaToTableSqlName is true.
     #
     #; isAvailableAddingCatalogToTableSqlName = false
     # - - - - - - - - - -/
@@ -45,7 +46,8 @@ map:{
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableDatabaseDependency: (NotRequired - Default false)
     #   [true]
-    #     Generate the method that depends on the database. e.g. cb.lockWithRR() at DB2.
+    #     Generate the method that depends on the database.
+    #     For example: cb.lockWithRR() at DB2.
     #
     #; isAvailableDatabaseDependency = false
     # - - - - - - - - - -/
@@ -53,7 +55,8 @@ map:{
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableDatabaseNativeJDBC: (NotRequired - Default false)
     #   [true]
-    #     Use classes of database native JDBC on generated classes to get best performances of DB access.
+    #     Use classes of database native JDBC on generated classes
+    #     to get best performances of DB access.
     #     Your project needs to refer to database native JDBC.
     #
     #; isAvailableDatabaseNativeJDBC = false
@@ -81,7 +84,11 @@ map:{
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isTableDispNameUpperCase: (NotRequired - Default false)
     #   [true]
-    #     Table names for display, e.g. on documents, are forcedly treated as upper case.
+    #     Table names for display, e.g. on documents,
+    #     are forcedly treated as upper case.
+    #
+    #   [false]
+    #     Non.
     #
     ; isTableDispNameUpperCase = true
     # - - - - - - - - - -/
@@ -92,6 +99,9 @@ map:{
     #     Table names on SQL executed by condition-bean or behavior
     #     are forcedly treated as upper case. (except outside-SQL)
     #
+    #   [false]
+    #     Non.
+    #
     ; isTableSqlNameUpperCase = true
     # - - - - - - - - - -/
 
@@ -100,6 +110,9 @@ map:{
     #   [true]
     #     Column names on SQL executed by condition-bean or behavior
     #     are forcedly treated as upper case. (except outside-SQL)
+    #
+    #   [false]
+    #     Non.
     #
     ; isColumnSqlNameUpperCase = true
     # - - - - - - - - - -/
@@ -113,7 +126,7 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o extendedDBFluteInitializerClass: (NotRequired - Default null)
+    # o extendedDBFluteInitializerClass: (NotRequired - Default '')
     #  If you want to extend the embedded DBFlute initializer,
     #  specify the class name of your original initializer
     #  that extends the embedded one.
@@ -135,14 +148,16 @@ map:{
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o quoteTableNameList: (NotRequired - Default list:{})
-    #  The list of table DB names that need to be quoted. Specified tables is quoted on auto-generated SQL.
+    #  The list of table DB names that need to be quoted.
+    #  Specified tables is quoted on auto-generated SQL.
     #
     #; quoteTableNameList = list:{}
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o quoteColumnNameList: (NotRequired - Default list:{})
-    #  The list of column DB names that need to be quoted. Specified columns is quoted on auto-generated SQL.
+    #  The list of column DB names that need to be quoted.
+    #  Specified columns is quoted on auto-generated SQL.
     #
     #; quoteColumnNameList = list:{}
     # - - - - - - - - - -/
@@ -173,8 +188,8 @@ map:{
     #; relationalNullObjectMap = map:{
     #    ; providerPackage = $$packageBase$$.nogen.cache
     #    ; foreignMap = map:{
-    #        ; MEMBER_STATUS = CachedMemberStatus.get(this, "$$foreignPropertyName$$", $$primaryKey$$)
-    #        ; MEMBER_SECURITY = CachedMemberSecurity.get(this, "$$foreignPropertyName$$", $$primaryKey$$)
+    #        ; MEMBER_STATUS = CachedMemberStatus.get($$PrimaryKey$$)
+    #        ; MEMBER_SECURITY = CachedMemberSecurity.get($$PrimaryKey$$)
     #    }
     #}
     # - - - - - - - - - -/

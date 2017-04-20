@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,9 @@ import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exentity.*;
 
 /**
- * The entity of REGION as TABLE. <br>
+ * The entity of (地域)REGION as TABLE. <br>
+ * 主に会員の住所に対応する漠然とした地域。<br>
+ * かなりざっくりした感じではある。唯一の業務的one-to-oneの親テーブルのケース。
  * <pre>
  * [primary-key]
  *     REGION_ID
@@ -76,10 +78,10 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} */
+    /** (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} */
     protected Integer _regionId;
 
-    /** REGION_NAME: {NotNull, VARCHAR(50)} */
+    /** (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} */
     protected String _regionName;
 
     // ===================================================================================
@@ -92,7 +94,7 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
 
     /** {@inheritDoc} */
     public String asTableDbName() {
-        return "REGION";
+        return "region";
     }
 
     // ===================================================================================
@@ -109,7 +111,7 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     //                                                             =======================
     /**
      * Get the value of regionId as the classification of Region. <br>
-     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
+     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
      * 主に会員の住んでいる地域を示す
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -120,7 +122,7 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
 
     /**
      * Set the value of regionId as the classification of Region. <br>
-     * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
+     * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
      * 主に会員の住んでいる地域を示す
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -216,11 +218,11 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'. */
+    /** (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'. */
     protected List<MemberAddress> _memberAddressList;
 
     /**
-     * [get] MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * [get] (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * @return The entity list of referrer property 'memberAddressList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberAddress> getMemberAddressList() {
@@ -229,7 +231,7 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * [set] (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * @param memberAddressList The entity list of referrer property 'memberAddressList'. (NullAllowed)
      */
     public void setMemberAddressList(List<MemberAddress> memberAddressList) {
@@ -302,7 +304,9 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
+     * [get] (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
+     * 地域をしっかりと識別するID。<br>
+     * 珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。
      * @return The value of the column 'REGION_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegionId() {
@@ -311,7 +315,9 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
+     * [set] (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
+     * 地域をしっかりと識別するID。<br>
+     * 珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。
      * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
      */
     protected void setRegionId(Integer regionId) {
@@ -321,7 +327,8 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] REGION_NAME: {NotNull, VARCHAR(50)} <br>
+     * [get] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br>
+     * 地域を漠然と表す名称。
      * @return The value of the column 'REGION_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getRegionName() {
@@ -330,7 +337,8 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] REGION_NAME: {NotNull, VARCHAR(50)} <br>
+     * [set] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br>
+     * 地域を漠然と表す名称。
      * @param regionName The value of the column 'REGION_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setRegionName(String regionName) {

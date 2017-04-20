@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,9 +92,9 @@ public class DBFluteConfig {
     // environment
     protected StatementConfig _defaultStatementConfig;
     protected Integer _cursorSelectFetchSize = Integer.MIN_VALUE;
-    protected Integer _entitySelectFetchSize = null;
-    protected boolean _usePagingByCursorSkipSynchronizedFetchSize = false;
-    protected Integer _fixedPagingByCursorSkipSynchronizedFetchSize = null;
+    protected Integer _entitySelectFetchSize = Integer.MIN_VALUE;
+    protected boolean _usePagingByCursorSkipSynchronizedFetchSize = true;
+    protected Integer _fixedPagingByCursorSkipSynchronizedFetchSize = Integer.MIN_VALUE;
     protected DataSourceHandler _dataSourceHandler;
     protected PhysicalConnectionDigger _physicalConnectionDigger;
     protected SQLExceptionDigger _sqlExceptionDigger;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package org.docksidestage.dbflute.cbean.nss;
 import org.docksidestage.dbflute.cbean.cq.PurchasePaymentCQ;
 
 /**
- * The nest select set-upper of PURCHASE_PAYMENT.
+ * The nest select set-upper of purchase_payment.
  * @author DBFlute(AutoGenerator)
  */
 public class PurchasePaymentNss {
@@ -35,7 +35,7 @@ public class PurchasePaymentNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * PURCHASE by my PURCHASE_ID, named 'purchase'.
+     * (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public PurchaseNss withPurchase() {

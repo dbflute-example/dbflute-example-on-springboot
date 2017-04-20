@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -587,16 +587,16 @@ public interface CDef extends Classification {
      * 会員の退会理由。なのでちょっとねがてぃぶ
      */
     public enum WithdrawalReason implements CDef {
-        /** SIT: サイトが使いにくいから */
+        /** SIT: site is not kindness */
         Sit("SIT", "SIT", emptyStrings())
         ,
-        /** PRD: 商品に魅力がないから */
+        /** PRD: no attractive product */
         Prd("PRD", "PRD", emptyStrings())
         ,
-        /** FRT: フリテンだから */
+        /** FRT: because of furiten */
         Frt("FRT", "FRT", emptyStrings())
         ,
-        /** OTH: その他理由 */
+        /** OTH: other reasons */
         Oth("OTH", "OTH", emptyStrings())
         ;
         private static final Map<String, WithdrawalReason> _codeClsMap = new HashMap<String, WithdrawalReason>();
@@ -715,20 +715,20 @@ public interface CDef extends Classification {
      * 商品のカテゴリ。階層構造である
      */
     public enum ProductCategory implements CDef {
-        /** 音楽: of  */
-        音楽("MSC", "音楽", emptyStrings())
+        /** Music */
+        Music("MSC", "Music", emptyStrings())
         ,
-        /** 食品: of  */
-        食品("FOD", "食品", emptyStrings())
+        /** Food */
+        Food("FOD", "Food", emptyStrings())
         ,
-        /** ハーブ: of 食品 */
-        ハーブ("HEB", "ハーブ", emptyStrings())
+        /** Herb: of Food */
+        Herb("HEB", "Herb", emptyStrings())
         ,
-        /** 音楽CD: of 音楽 */
-        音楽cd("MCD", "音楽CD", emptyStrings())
+        /** MusicCD: of Music */
+        MusicCD("MCD", "MusicCD", emptyStrings())
         ,
-        /** 楽器: of 音楽 */
-        楽器("INS", "楽器", emptyStrings())
+        /** Instruments: of Music */
+        Instruments("INS", "Instruments", emptyStrings())
         ;
         private static final Map<String, ProductCategory> _codeClsMap = new HashMap<String, ProductCategory>();
         private static final Map<String, ProductCategory> _nameClsMap = new HashMap<String, ProductCategory>();
@@ -846,14 +846,14 @@ public interface CDef extends Classification {
      * 商品ステータス。あんまり面白みのないステータス
      */
     public enum ProductStatus implements CDef {
-        /** 生産販売可能 */
-        生産販売可能("ONS", "生産販売可能", emptyStrings())
+        /** OnSaleProduction */
+        OnSaleProduction("ONS", "OnSaleProduction", emptyStrings())
         ,
-        /** 生産中止 */
-        生産中止("PST", "生産中止", emptyStrings())
+        /** ProductionStop */
+        ProductionStop("PST", "ProductionStop", emptyStrings())
         ,
-        /** 販売中止 */
-        販売中止("SST", "販売中止", emptyStrings())
+        /** SaleStop */
+        SaleStop("SST", "SaleStop", emptyStrings())
         ;
         private static final Map<String, ProductStatus> _codeClsMap = new HashMap<String, ProductStatus>();
         private static final Map<String, ProductStatus> _nameClsMap = new HashMap<String, ProductStatus>();

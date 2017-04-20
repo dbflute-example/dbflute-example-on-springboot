@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package org.docksidestage.dbflute.cbean.nss;
 import org.docksidestage.dbflute.cbean.cq.ProductCQ;
 
 /**
- * The nest select set-upper of PRODUCT.
+ * The nest select set-upper of product.
  * @author DBFlute(AutoGenerator)
  */
 public class ProductNss {
@@ -35,7 +35,7 @@ public class ProductNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
+     * (商品カテゴリ)PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public ProductCategoryNss withProductCategory() {
@@ -44,7 +44,7 @@ public class ProductNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      */
     public void withProductStatus() {
         _query.xdoNss(() -> _query.queryProductStatus());
