@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.naming.NamingException;
-import javax.sql.DataSource;
 import javax.validation.Valid;
 
 import org.dbflute.cbean.result.PagingResultBean;
@@ -40,8 +39,6 @@ public class MemberController {
     //                                                                           =========
     @Autowired
     private MemberBhv memberBhv; // #dbflute: you can use DBFlute behaviors like this
-    @Autowired
-    private DataSource dataSource;
 
     // ===================================================================================
     //                                                                              Entry

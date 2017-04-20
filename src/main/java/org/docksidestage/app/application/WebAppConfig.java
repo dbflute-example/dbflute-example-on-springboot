@@ -1,6 +1,6 @@
 package org.docksidestage.app.application;
 
-import org.docksidestage.bizfw.GodHandableControllerInterceptor;
+import org.docksidestage.bizfw.GodHandableInterceptor;
 import org.docksidestage.bizfw.RequestLoggingFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +25,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) { // for logging
-        registry.addInterceptor(new GodHandableControllerInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new GodHandableInterceptor()).addPathPatterns("/**");
     }
 }

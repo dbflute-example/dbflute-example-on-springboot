@@ -29,9 +29,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 /**
  * @author jflute
  */
-public class GodHandableControllerInterceptor extends HandlerInterceptorAdapter {
+public class GodHandableInterceptor extends HandlerInterceptorAdapter {
 
-    private static final Logger logger = LoggerFactory.getLogger(GodHandableControllerInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(GodHandableInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -48,10 +48,8 @@ public class GodHandableControllerInterceptor extends HandlerInterceptorAdapter 
         super.postHandle(request, response, handler, modelAndView);
         if (logger.isDebugEnabled()) {
             logger.debug(modelAndView.toString());
-            //final HandlerMethod handlerMethod = (HandlerMethod) handler;
-            // TODO jflute example: SpringBoot, finally logging;
-            //final String failureMark = "";
-            //LOG.debug("#flow ...Calling back #finally" + failureMark + " for " + buildActionName(handlerMethod));
+            final HandlerMethod handlerMethod = (HandlerMethod) handler;
+            logger.debug("#flow ...Calling back #finally for " + buildActionDisp(handlerMethod));
         }
     }
 
@@ -59,11 +57,5 @@ public class GodHandableControllerInterceptor extends HandlerInterceptorAdapter 
         final Method method = handlerMethod.getMethod();
         final Class<?> declaringClass = method.getDeclaringClass();
         return declaringClass.getSimpleName() + "." + method.getName() + "()";
-    }
-
-    protected String buildActionName(HandlerMethod handlerMethod) {
-        final Method method = handlerMethod.getMethod();
-        final Class<?> declaringClass = method.getDeclaringClass();
-        return declaringClass.getSimpleName();
     }
 }
