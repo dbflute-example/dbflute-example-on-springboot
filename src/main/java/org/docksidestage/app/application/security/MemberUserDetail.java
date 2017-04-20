@@ -1,6 +1,7 @@
-package org.docksidestage.app.application;
+package org.docksidestage.app.application.security;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import org.docksidestage.dbflute.exentity.Member;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author inoue on 2016/12/18.
+ * @author jflute
  */
 public class MemberUserDetail implements UserDetails {
 
@@ -16,21 +18,13 @@ public class MemberUserDetail implements UserDetails {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    public Member member;
+    private final Member member;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
     public MemberUserDetail(Member member) {
         this.member = member;
-    }
-
-    // ===================================================================================
-    //                                                                      Basic Override
-    //                                                                      ==============
-    @Override
-    public String toString() {
-        return member.toString();
     }
 
     // ===================================================================================
@@ -43,12 +37,12 @@ public class MemberUserDetail implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return member.getMemberSecurityAsOne().get().getLoginPassword();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -69,5 +63,20 @@ public class MemberUserDetail implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    // ===================================================================================
+    //                                                                      Basic Override
+    //                                                                      ==============
+    @Override
+    public String toString() {
+        return member.toString();
+    }
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    public Member getMember() {
+        return member;
     }
 }

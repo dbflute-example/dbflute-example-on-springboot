@@ -1,6 +1,6 @@
 package org.docksidestage.app.web.login;
 
-import org.docksidestage.app.application.MemberUserDetail;
+import org.docksidestage.app.application.security.MemberUserDetail;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +21,10 @@ public class LoginService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String memberAccount) throws UsernameNotFoundException {
         return memberBhv.selectEntity(cb -> {
+            cb.setupSelect_MemberSecurityAsOne();
             cb.query().setMemberAccount_Equal(memberAccount);
-        }).map(MemberUserDetail::new).orElseThrow(() -> new IllegalArgumentException());
+        }).map(member -> new MemberUserDetail(member)).orElseTranslatingThrow(cause -> {
+            throw new UsernameNotFoundException("Not found the account: " + memberAccount, cause);
+        });
     }
 }
