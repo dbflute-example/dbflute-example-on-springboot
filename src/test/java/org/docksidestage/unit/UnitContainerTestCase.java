@@ -15,7 +15,10 @@
  */
 package org.docksidestage.unit;
 
+import java.util.List;
+
 import org.dbflute.utflute.spring.ContainerTestCase;
+import org.dbflute.util.DfCollectionUtil;
 import org.docksidestage.dbflute.allcommon.DBFluteBeansJavaConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -31,6 +34,13 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
     //                                                                            ========
     @Override
     protected ApplicationContext provideDefaultApplicationContext() {
-        return new AnnotationConfigApplicationContext(JdbcBeansJavaConfig.class, DBFluteBeansJavaConfig.class);
+        List<Object> configList = DfCollectionUtil.newArrayList();
+        configList.add(JdbcBeansJavaConfig.class);
+        configList.add(DBFluteBeansJavaConfig.class);
+        readyConfigs(configList);
+        return new AnnotationConfigApplicationContext(configList.toArray(new Class<?>[] {}));
+    }
+
+    protected void readyConfigs(List<Object> configList) { // you can override
     }
 }
