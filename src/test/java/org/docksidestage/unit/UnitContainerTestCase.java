@@ -34,13 +34,19 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
     //                                                                            ========
     @Override
     protected ApplicationContext provideDefaultApplicationContext() {
-        List<Object> configList = DfCollectionUtil.newArrayList();
+        List<Class<?>> configList = DfCollectionUtil.newArrayList();
         configList.add(JdbcBeansJavaConfig.class);
         configList.add(DBFluteBeansJavaConfig.class);
         readyConfigs(configList);
         return new AnnotationConfigApplicationContext(configList.toArray(new Class<?>[] {}));
     }
 
-    protected void readyConfigs(List<Object> configList) { // you can override
+    /**
+     * Ready configurations of your unit test. <br>
+     * You can add your own configurations. <br>
+     * (several configurations are already registered as default)
+     * @param configList The list of java configuration type for Spring Framework. (NotNull, Mutable)
+     */
+    protected void readyConfigs(List<Class<?>> configList) { // you can override
     }
 }
