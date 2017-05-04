@@ -1,5 +1,6 @@
 /target
 /bin
-/dbflute-intro.jar
 /.idea
 /*.iml
+/dbflute-intro.*
+/mydbflute/intro_resources
