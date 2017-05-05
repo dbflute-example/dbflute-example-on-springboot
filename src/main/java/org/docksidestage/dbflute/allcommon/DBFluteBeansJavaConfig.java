@@ -26,7 +26,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.bhv.core.InvokerAssistant;
-import org.docksidestage.dbflute.allcommon.DBFluteInitializer;
 
 /**
  * The Java configuration of DBFlute beans for Spring Framework. <br>
