@@ -40,6 +40,9 @@ public class JdbcBeansJavaConfig {
         ds.setUrl("jdbc:mysql://localhost:3306/maihamadb");
         ds.setUsername("maihamadb");
         ds.setPassword("maihamadb");
+        // you can try abandoned settings here
+        //ds.setRemoveAbandoned(true);
+        //ds.setRemoveAbandonedTimeout(2);
         return ds;
     }
 
