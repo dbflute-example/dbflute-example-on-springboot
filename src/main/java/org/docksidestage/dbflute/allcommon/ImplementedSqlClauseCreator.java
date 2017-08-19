@@ -161,6 +161,7 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
         doSetupSqlClauseOverridingQuery(sqlClause);
         doSetupSqlClauseColumnNullObject(sqlClause);
         doSetupSqlClauseColumnNullObjectGearedToSpecify(sqlClause);
+        doSetupSqlClauseTruncateConditionDatetimePrecision(sqlClause);
         doSetupSqlClauseSelectIndex(sqlClause);
     }
 
@@ -214,6 +215,14 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
         }
     }
 
+    protected void doSetupSqlClauseTruncateConditionDatetimePrecision(SqlClause sqlClause) {
+        if (isDatetimePrecisionTruncationOfCondition()) {
+            sqlClause.enableDatetimePrecisionTruncationOfCondition();
+        } else {
+            sqlClause.disableDatetimePrecisionTruncationOfCondition();
+        }
+    }
+
     protected void doSetupSqlClauseSelectIndex(SqlClause sqlClause) {
         if (isDisableSelectIndex()) {
             sqlClause.disableSelectIndex();
@@ -253,6 +262,10 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
 
     protected boolean isColumnNullObjectGearedToSpecify() {
 	    return DBFluteConfig.getInstance().isColumnNullObjectGearedToSpecify();
+    }
+
+    protected boolean isDatetimePrecisionTruncationOfCondition() {
+	    return DBFluteConfig.getInstance().isDatetimePrecisionTruncationOfCondition();
     }
 
     protected boolean isDisableSelectIndex() {
