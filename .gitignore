@@ -1,6 +1,29 @@
+# common
 /target
+/build
 /bin
-/.idea
+.DS_Store
+
+# IntelliJ IDEA
+/.idea/artifacts
+/.idea/libraries
+/.idea/modules
+/.idea/compiler.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
 /*.iml
+/out
+
+# Gradle
+/.gradle
+
+# Tomcat
+/tomcat.*
+
+# DBFlute
 /dbflute-intro.*
 /mydbflute/intro_resources
+
+# LastaFlute
+trial_config.ignored
