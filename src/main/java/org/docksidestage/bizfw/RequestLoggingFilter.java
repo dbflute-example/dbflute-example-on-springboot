@@ -72,7 +72,8 @@ public class RequestLoggingFilter implements Filter {
     //                                                                          ==========
     private static final Logger logger = LoggerFactory.getLogger(RequestLoggingFilter.class);
 
-    public static final String ERROR_ATTRIBUTE_KEY = "javax.servlet.error.exception";
+    public static final String ERROR_EXCEPTION_ATTRIBUTE_KEY = "javax.servlet.error.exception";
+    public static final String ERROR_MESSAGE_ATTRIBUTE_KEY = "javax.servlet.error.message";
     protected static final String LF = "\n";
     protected static final String IND = "  ";
     protected static final ThreadLocal<String> begunLocal = new ThreadLocal<String>();
@@ -191,10 +192,25 @@ public class RequestLoggingFilter implements Filter {
         }
         final HttpServletRequest request = (HttpServletRequest) servRequest;
         final HttpServletResponse response = (HttpServletResponse) servResponse;
-        if (isAlreadyBegun() || !isTargetPath(request)) { // e.g. forwarding to JSP or .html
+        if (isAlreadyBegun()) { // e.g. forwarding to JSP or .html
             chain.doFilter(request, response);
+        } else if (!isTargetPath(request)) { // e.g. .css, .js
+            staticResourceFilter(request, response, chain);
         } else { // target top level process
             actuallyFilter(chain, request, response);
+        }
+    }
+
+    protected void staticResourceFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        final Long before = System.currentTimeMillis(); // used in not only debug but also error
+        try {
+            chain.doFilter(request, response);
+        } catch (RequestClientErrorException e) { // e.g. forcedly 404
+            handleClientError(request, response, e);
+        } catch (RuntimeException e) { // similar to main process
+            sendInternalServerError(request, response, e);
+            logError(request, response, "*RuntimeException occurred.", before, e);
         }
     }
 
@@ -500,10 +516,13 @@ public class RequestLoggingFilter implements Filter {
     protected void buildRequestAttributes(StringBuilder sb, HttpServletRequest request, boolean showErrorFlush) {
         for (Iterator<?> it = toSortedSet(request.getAttributeNames()).iterator(); it.hasNext();) {
             final String name = (String) it.next();
-            if (ERROR_ATTRIBUTE_KEY.equals(name)) {
-                continue; // because the error is handled in this filter
+            if (isIgnoreRequestAttributeShow(name)) {
+                continue;
             }
             final Object attr = request.getAttribute(name);
+            if (attr instanceof NonShowAttribute) {
+                continue;
+            }
             if (cannotShowIfErrorFlush(showErrorFlush, attr)) {
                 continue;
             }
@@ -514,6 +533,10 @@ public class RequestLoggingFilter implements Filter {
         }
     }
 
+    protected boolean isIgnoreRequestAttributeShow(String name) { // because the error is handled in this filter
+        return ERROR_EXCEPTION_ATTRIBUTE_KEY.equals(name) || ERROR_MESSAGE_ATTRIBUTE_KEY.equals(name);
+    }
+
     protected void buildSessionAttributes(StringBuilder sb, HttpServletRequest request, boolean showErrorFlush) {
         final HttpSession session = request.getSession(false);
         if (session == null) {
@@ -522,6 +545,9 @@ public class RequestLoggingFilter implements Filter {
         for (Iterator<?> it = toSortedSet(session.getAttributeNames()).iterator(); it.hasNext();) {
             final String name = (String) it.next();
             final Object attr = session.getAttribute(name);
+            if (attr instanceof NonShowAttribute) {
+                continue;
+            }
             if (cannotShowIfErrorFlush(showErrorFlush, attr)) {
                 continue;
             }
@@ -579,7 +605,6 @@ public class RequestLoggingFilter implements Filter {
 
     protected String convertToWholeShow(String exp) {
         return indent(IND.length() + 1, exp).trim();
-
     }
 
     public static class WholeShowAttribute {
@@ -604,6 +629,24 @@ public class RequestLoggingFilter implements Filter {
         }
     }
 
+    public static class NonShowAttribute { // for e.g. framework paramter
+
+        protected final Object attribute;
+
+        public NonShowAttribute(Object attribute) {
+            this.attribute = attribute;
+        }
+
+        @Override
+        public String toString() {
+            return "nonShow";
+        }
+
+        public Object getAttribute() {
+            return attribute;
+        }
+    }
+
     protected void buildResponseInfo(StringBuilder sb, HttpServletRequest request, HttpServletResponse response) {
         sb.append("responseClass=").append(response.getClass().getName());
         sb.append(" ; committed=").append(response.isCommitted());
@@ -619,7 +662,7 @@ public class RequestLoggingFilter implements Filter {
     //                                                                     Error Attribute
     //                                                                     ===============
     protected boolean handleErrorAttribute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final String attributeKey = ERROR_ATTRIBUTE_KEY;
+        final String attributeKey = ERROR_EXCEPTION_ATTRIBUTE_KEY;
         final Object errorObj = request.getAttribute(attributeKey);
         if (errorObj != null && errorObj instanceof Throwable) {
             if (errorObj instanceof RuntimeException) {
@@ -667,6 +710,7 @@ public class RequestLoggingFilter implements Filter {
             final StringBuilder sb = new StringBuilder();
             sb.append(LF).append("_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/");
             sb.append(LF).append("...Sending error as '").append(title).append("' manually");
+            sb.append(" #").append(Integer.toHexString(cause.hashCode()));
             sb.append(LF).append(" Request: ").append(request.getRequestURI());
             final String queryString = request.getQueryString();
             if (queryString != null && !queryString.isEmpty()) {
@@ -865,7 +909,7 @@ public class RequestLoggingFilter implements Filter {
     protected void sendInternalServerError(HttpServletRequest request, HttpServletResponse response, Throwable cause) throws IOException {
         if (cause != null) {
             processServerErrorCallback(request, response, cause);
-            request.setAttribute(ERROR_ATTRIBUTE_KEY, cause); // for something outer process
+            request.setAttribute(ERROR_EXCEPTION_ATTRIBUTE_KEY, cause); // for something outer process
         }
         try {
             if (!response.isCommitted()) { // might be committed in callback
