@@ -1,6 +1,7 @@
 package org.docksidestage.app.web.member;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,15 +57,28 @@ public class MemberController {
     // ===================================================================================
     //                                                                           Show List
     //                                                                           =========
+    // http://localhost:8080/member/list?pageNumber=1
+    // http://localhost:8080/member/list?pageNumber=sea
     @RequestMapping("/list")
-    public String list(Model model, @Valid MemberSearchForm memberSearchForm, BindingResult result) {
-        logger.debug("#form: {}", memberSearchForm);
-        PagingResultBean<Member> page = selectMemberPage(memberSearchForm);
+    public String list(Model model, @Valid MemberSearchForm form, BindingResult result) {
+        logger.debug("#form: {}", form);
+        if (result.hasErrors()) {
+            logger.debug("has error:" + result.getFieldErrors());
+            model.addAttribute("beans", Collections.emptyList()); // #for_now avoid error
+            // #hope change type failure message
+            // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+            // Failed to convert property value of type
+            // java.lang.String to required type java.lang.Integer for property pageNumber;
+            // nested exception is java.lang.NumberFormatException: For input string: "sea"
+            // _/_/_/_/_/_/_/_/_/_/
+            return "member/member_list";
+        }
+        PagingResultBean<Member> page = selectMemberPage(form);
         model.addAttribute("beans", convertToResultBeans(page));
         return "member/member_list";
     }
 
-    protected PagingResultBean<Member> selectMemberPage(MemberSearchForm memberSearchForm) { // #dbflute: you can select like this
+    protected PagingResultBean<Member> selectMemberPage(MemberSearchForm form) { // #dbflute: you can select like this
         return memberBhv.selectPage(cb -> {
             cb.ignoreNullOrEmptyQuery();
             cb.setupSelect_MemberStatus();
@@ -72,9 +86,9 @@ public class MemberController {
                 purchaseCB.specify().columnPurchaseId();
             }, Member.ALIAS_purchaseCount);
 
-            cb.query().setMemberName_LikeSearch(memberSearchForm.getMemberName(), op -> op.likeContain());
-            final String purchaseProductName = memberSearchForm.purchaseProductName;
-            final boolean unpaid = memberSearchForm.unpaid;
+            cb.query().setMemberName_LikeSearch(form.getMemberName(), op -> op.likeContain());
+            final String purchaseProductName = form.purchaseProductName;
+            final boolean unpaid = form.unpaid;
             if ((purchaseProductName != null && purchaseProductName.trim().length() > 0) || unpaid) {
                 cb.query().existsPurchase(purchaseCB -> {
                     purchaseCB.query().queryProduct().setProductName_LikeSearch(purchaseProductName, op -> op.likeContain());
@@ -83,16 +97,16 @@ public class MemberController {
                     }
                 });
             }
-            cb.query().setMemberStatusCode_Equal_AsMemberStatus(CDef.MemberStatus.codeOf(memberSearchForm.memberStatus));
-            LocalDateTime formalizedDateFrom = DfTypeUtil.toLocalDateTime(memberSearchForm.formalizedDateFrom);
-            LocalDateTime formalizedDateTo = DfTypeUtil.toLocalDateTime(memberSearchForm.formalizedDateTo);
+            cb.query().setMemberStatusCode_Equal_AsMemberStatus(CDef.MemberStatus.codeOf(form.memberStatus));
+            LocalDateTime formalizedDateFrom = DfTypeUtil.toLocalDateTime(form.getFormalizedDateFrom());
+            LocalDateTime formalizedDateTo = DfTypeUtil.toLocalDateTime(form.formalizedDateTo);
             cb.query().setFormalizedDatetime_FromTo(formalizedDateFrom, formalizedDateTo, op -> op.compareAsDate());
 
             cb.query().addOrderBy_UpdateDatetime_Desc();
             cb.query().addOrderBy_MemberId_Asc();
 
             int pageSize = 4;
-            cb.paging(pageSize, memberSearchForm.pageNumber);
+            cb.paging(pageSize, form.getPageNumber());
         });
     }
 

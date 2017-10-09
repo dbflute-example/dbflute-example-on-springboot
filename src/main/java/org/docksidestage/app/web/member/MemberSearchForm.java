@@ -16,6 +16,9 @@
 package org.docksidestage.app.web.member;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author jflute
@@ -28,19 +31,20 @@ public class MemberSearchForm implements Serializable {
     //                                                                           Attribute
     //                                                                           =========
     // -----------------------------------------------------
-    //                                                 Basic
-    //                                                 -----
-    public Integer pageNumber = 0;
-
-    // -----------------------------------------------------
     //                                             Condition
     //                                             ---------
+    @NotEmpty
     private String memberName;
     public String memberStatus;
     public String purchaseProductName;
     public boolean unpaid;
-    public String formalizedDateFrom;
-    public String formalizedDateTo;
+    private LocalDate formalizedDateFrom;
+    public LocalDate formalizedDateTo;
+
+    // -----------------------------------------------------
+    //                                                Paging
+    //                                                ------
+    private Integer pageNumber = 1;
 
     // ===================================================================================
     //                                                                               Reset
@@ -54,7 +58,7 @@ public class MemberSearchForm implements Serializable {
     //                                                                      ==============
     @Override
     public String toString() {
-        return "{" + memberName + ", " + memberStatus + "}";
+        return "{" + memberName + ", " + memberStatus + ", " + pageNumber + "}";
     }
 
     // ===================================================================================
@@ -66,5 +70,29 @@ public class MemberSearchForm implements Serializable {
 
     public void setMemberName(String memberName) {
         this.memberName = memberName;
+    }
+
+    public String getMemberStatus() {
+        return memberStatus;
+    }
+
+    public void setMemberStatus(String memberStatus) {
+        this.memberStatus = memberStatus;
+    }
+
+    public LocalDate getFormalizedDateFrom() {
+        return formalizedDateFrom;
+    }
+
+    public void setFormalizedDateFrom(LocalDate formalizedDateFrom) {
+        this.formalizedDateFrom = formalizedDateFrom;
+    }
+
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
     }
 }
