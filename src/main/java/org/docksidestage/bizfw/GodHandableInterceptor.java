@@ -47,7 +47,7 @@ public class GodHandableInterceptor extends HandlerInterceptorAdapter {
             throws Exception {
         super.postHandle(request, response, handler, modelAndView);
         if (logger.isDebugEnabled()) {
-            logger.debug(modelAndView.toString());
+            logger.debug("modelAndView: {}", modelAndView != null ? modelAndView.toString() : null);
             final HandlerMethod handlerMethod = (HandlerMethod) handler;
             logger.debug("#flow ...Calling back #finally for " + buildActionDisp(handlerMethod));
         }
