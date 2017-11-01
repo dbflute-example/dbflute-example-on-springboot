@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WxJsonController {
 
     // ===================================================================================
-    //                                                                              Entry
-    //                                                                             =======
+    //                                                                               Empty
+    //                                                                               =====
     // http://localhost:8080/wx/json/emptybody
     @RequestMapping(method = RequestMethod.GET, value = "emptybody")
     @ResponseBody
-    public void emptybody() {
+    public void emptybody() { // contentType=null
         return;
     }
 
@@ -40,5 +40,12 @@ public class WxJsonController {
     @ResponseBody
     public List<String> emptylist() {
         return Arrays.asList("sea", "land", "piari");
+    }
+
+    // http://localhost:8080/wx/json/strval
+    @RequestMapping(method = RequestMethod.GET, value = "strval")
+    @ResponseBody
+    public String strval() { // contentType=text/html
+        return "sea";
     }
 }
