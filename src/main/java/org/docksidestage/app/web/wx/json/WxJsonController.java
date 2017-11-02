@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/wx/json")
 public class WxJsonController {
 
-    // ===================================================================================
-    //                                                                               Empty
-    //                                                                               =====
     // http://localhost:8080/wx/json/emptybody
     @RequestMapping(method = RequestMethod.GET, value = "emptybody")
     @ResponseBody
