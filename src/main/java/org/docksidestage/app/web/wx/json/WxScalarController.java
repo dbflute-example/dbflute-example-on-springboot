@@ -28,6 +28,14 @@ public class WxScalarController {
         return 1;
     }
 
+    // integer with produces => error page: httpStatus=406 ; contentType=null
+    //// http://localhost:8080/wx/scalar/integer
+    //@RequestMapping(method = RequestMethod.GET, value = "integer", produces = "text/plain;charset=UTF-8")
+    //@ResponseBody
+    //public Integer integer() { // httpStatus=406 ; contentType=null
+    //    return 1;
+    //}
+
     // http://localhost:8080/wx/scalar/date
     @RequestMapping(method = RequestMethod.GET, value = "date")
     @ResponseBody
