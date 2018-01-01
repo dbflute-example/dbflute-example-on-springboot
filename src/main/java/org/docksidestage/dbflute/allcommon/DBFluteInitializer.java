@@ -118,7 +118,7 @@ public class DBFluteInitializer {
     protected boolean needsSpringTransactionalDataSource(String dataSourceFqcn) {
         return dataSourceFqcn.startsWith("org.apache.commons.dbcp.")
             || dataSourceFqcn.startsWith("org.apache.tomcat.jdbc.pool.");
-    } 
+    }
 
     /**
      * Adjust DBFlute system if it needs.

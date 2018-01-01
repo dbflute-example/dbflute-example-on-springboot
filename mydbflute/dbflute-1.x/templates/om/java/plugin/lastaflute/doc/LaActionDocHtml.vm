@@ -1,5 +1,5 @@
 ##
-## Copyright 2014-2017 the original author or authors.
+## Copyright 2014-2018 the original author or authors.
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -13,8 +13,8 @@
 ## either express or implied. See the License for the specific language
 ## governing permissions and limitations under the License.
 ##
+#if ($actionDocMetaList && $actionDocMetaList.size() > 0)
 <h2 id="lastadoc_action">action</h2>
-#if ($table.tableMap.actionDocMetaList)
 <table>
     <thead>
     <tr>
@@ -32,11 +32,11 @@
         <th>method lines</th>
     </tr>
     </thead>
-    <tbody id="table-list-body">
-#foreach ($actionDocMeta in $table.tableMap.actionDocMetaList)
+    <tbody id="action-list-body">
+#foreach ($actionDocMeta in $actionDocMetaList)
     <tr>
         <td class="rowcellnum">${foreach.count}</td>
-        <td class="rowcell"><a href="#$manager.htmlEscape($actionDocMeta.url)">$manager.htmlEscape($actionDocMeta.url)</a></td>
+        <td class="rowcell"><a href="#$manager.htmlEscapeAsId($actionDocMeta.url)::$manager.htmlEscapeAsId($actionDocMeta.methodName)">$manager.htmlEscape($actionDocMeta.url)</a></td>
         <td class="rowcell">$!manager.htmlEscape($actionDocMeta.description)</td>
         <td class="rowcell"><span title="$manager.htmlEscape($actionDocMeta.typeName)">$manager.htmlEscape($actionDocMeta.simpleTypeName)</span>#${actionDocMeta.methodName}()</td>
         <td class="rowcell">
@@ -57,8 +57,8 @@
     </tbody>
 </table>
 
-#foreach ($actionDocMeta in $table.tableMap.actionDocMetaList)
-<h3 id="$manager.htmlEscape($actionDocMeta.url)">
+#foreach ($actionDocMeta in $actionDocMetaList)
+<h3 id="$manager.htmlEscapeAsId($actionDocMeta.url)::$manager.htmlEscapeAsId($actionDocMeta.methodName)">
 $manager.htmlEscape($actionDocMeta.url)
 </h3>
 <p>
@@ -68,7 +68,7 @@ $manager.htmlEscape($actionDocMeta.url)
 <p class="docsubitem">
 <span class="docsubtitle">annotations:</span>
 #foreach($annotation in $actionDocMeta.annotationList)
-<span class="docannotations docsubvalue">&#64;${annotation}</span>
+<span class="docannotations docsubvalue">&#64;$!manager.htmlEscape(${annotation})</span>
 #end
 </p>
 #end
