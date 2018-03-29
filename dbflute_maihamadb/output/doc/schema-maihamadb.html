@@ -362,7 +362,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="aliascell">会員</td>
-		<td class="namecell"><a href="#member" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=6, columnCount=11">MEMBER</a></td>
+		<td class="namecell" data-name="member"><a href="#member" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=6, columnCount=11">MEMBER</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#member_status" title="FK_MEMBER_MEMBER_STATUS">MEMBER_STATUS</a>, <a href="#member_address" class="additionalfk" title="FK_MEMBER_MEMBER_ADDRESS_VALID: fixedCondition=&quot;$$foreignAlias$$.VALID_BEGIN_DATE &lt;= /*$$locationBase$$.parameterMapMemberAddressAsValid.targetDate*/null\n     and $$foreignAlias$$.VALID_END_DATE &gt;= /*$$locationBase$$.parameterMapMemberAddressAsValid.targetDate*/null&quot;, comment=Member's address at the target date.">MEMBER_ADDRESS(AsValid)</a>, <a href="#member_login" class="additionalfk" title="FK_MEMBER_MEMBER_LOGIN_LATEST: fixedCondition=&quot;$$foreignAlias$$.LOGIN_DATETIME = ($$sqbegin$$\nselect max(login.LOGIN_DATETIME)\n  from MEMBER_LOGIN login\n where login.MEMBER_ID = $$foreignAlias$$.MEMBER_ID\n)$$sqend$$&quot;">MEMBER_LOGIN(AsLatest)</a></td>
 		<td class="relcell"><a href="#member_address" title="FK_MEMBER_ADDRESS_MEMBER">MEMBER_ADDRESS</a>, <a href="#member_following" title="FK_MEMBER_FOLLOWING_MY_MEMBER_ID">MEMBER_FOLLOWING</a>, <a href="#member_following" title="FK_MEMBER_FOLLOWING_YOUR_MEMBER_ID">MEMBER_FOLLOWING</a>, <a href="#member_login" title="FK_MEMBER_LOGIN_MEMBER">MEMBER_LOGIN</a>, <a href="#member_security" title="FK_MEMBER_SECURITY_MEMBER">MEMBER_SECURITY</a>, <a href="#member_service" title="FK_MEMBER_SERVICE_MEMBER">MEMBER_SERVICE</a>, <a href="#member_withdrawal" title="FK_MEMBER_WITHDRAWAL_MEMBER">MEMBER_WITHDRAWAL</a>, <a href="#purchase" title="FK_PURCHASE_MEMBER">PURCHASE</a></td>
@@ -374,7 +374,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">2</td>
 		<td class="aliascell">会員住所情報</td>
-		<td class="namecell"><a href="#member_address" title="type=TABLE, primaryKey={MEMBER_ADDRESS_ID}, nameLength=14, columnCount=11">MEMBER_ADDRESS</a></td>
+		<td class="namecell" data-name="member_address"><a href="#member_address" title="type=TABLE, primaryKey={MEMBER_ADDRESS_ID}, nameLength=14, columnCount=11">MEMBER_ADDRESS</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#member" title="FK_MEMBER_ADDRESS_MEMBER">MEMBER</a>, <a href="#region" title="FK_MEMBER_ADDRESS_REGION">REGION</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -386,7 +386,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">3</td>
 		<td class="aliascell">会員フォローイング</td>
-		<td class="namecell"><a href="#member_following" title="type=TABLE, primaryKey={MEMBER_FOLLOWING_ID}, nameLength=16, columnCount=4">MEMBER_FOLLOWING</a></td>
+		<td class="namecell" data-name="member_following"><a href="#member_following" title="type=TABLE, primaryKey={MEMBER_FOLLOWING_ID}, nameLength=16, columnCount=4">MEMBER_FOLLOWING</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#member" title="FK_MEMBER_FOLLOWING_MY_MEMBER_ID">MEMBER</a>, <a href="#member" title="FK_MEMBER_FOLLOWING_YOUR_MEMBER_ID">MEMBER</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -396,7 +396,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">4</td>
 		<td class="aliascell">会員ログイン</td>
-		<td class="namecell"><a href="#member_login" title="type=TABLE, primaryKey={MEMBER_LOGIN_ID}, nameLength=12, columnCount=5">MEMBER_LOGIN</a></td>
+		<td class="namecell" data-name="member_login"><a href="#member_login" title="type=TABLE, primaryKey={MEMBER_LOGIN_ID}, nameLength=12, columnCount=5">MEMBER_LOGIN</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#member_status" title="FK_MEMBER_LOGIN_MEMBER_STATUS">MEMBER_STATUS</a>, <a href="#member" title="FK_MEMBER_LOGIN_MEMBER">MEMBER</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -407,7 +407,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">5</td>
 		<td class="aliascell">会員セキュリティ</td>
-		<td class="namecell"><a href="#member_security" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=15, columnCount=10">MEMBER_SECURITY</a></td>
+		<td class="namecell" data-name="member_security"><a href="#member_security" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=15, columnCount=10">MEMBER_SECURITY</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#member" title="FK_MEMBER_SECURITY_MEMBER">MEMBER</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -417,7 +417,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">6</td>
 		<td class="aliascell">会員サービス</td>
-		<td class="namecell"><a href="#member_service" title="type=TABLE, primaryKey={MEMBER_SERVICE_ID}, nameLength=14, columnCount=9">MEMBER_SERVICE</a></td>
+		<td class="namecell" data-name="member_service"><a href="#member_service" title="type=TABLE, primaryKey={MEMBER_SERVICE_ID}, nameLength=14, columnCount=9">MEMBER_SERVICE</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#member" title="FK_MEMBER_SERVICE_MEMBER">MEMBER</a>, <a href="#service_rank" title="FK_MEMBER_SERVICE_SERVICE_RANK_CODE">SERVICE_RANK</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -428,7 +428,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">7</td>
 		<td class="aliascell">会員ステータス</td>
-		<td class="namecell"><a href="#member_status" title="type=TABLE, primaryKey={MEMBER_STATUS_CODE}, nameLength=13, columnCount=4">MEMBER_STATUS</a></td>
+		<td class="namecell" data-name="member_status"><a href="#member_status" title="type=TABLE, primaryKey={MEMBER_STATUS_CODE}, nameLength=13, columnCount=4">MEMBER_STATUS</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"><a href="#member" title="FK_MEMBER_MEMBER_STATUS">MEMBER</a>, <a href="#member_login" title="FK_MEMBER_LOGIN_MEMBER_STATUS">MEMBER_LOGIN</a></td>
@@ -441,7 +441,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">8</td>
 		<td class="aliascell">会員退会情報</td>
-		<td class="namecell"><a href="#member_withdrawal" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=17, columnCount=8">MEMBER_WITHDRAWAL</a></td>
+		<td class="namecell" data-name="member_withdrawal"><a href="#member_withdrawal" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=17, columnCount=8">MEMBER_WITHDRAWAL</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#member" title="FK_MEMBER_WITHDRAWAL_MEMBER">MEMBER</a>, <a href="#withdrawal_reason" title="FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON">WITHDRAWAL_REASON</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -454,7 +454,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">9</td>
 		<td class="aliascell">商品</td>
-		<td class="namecell"><a href="#product" title="type=TABLE, primaryKey={PRODUCT_ID}, nameLength=7, columnCount=11">PRODUCT</a></td>
+		<td class="namecell" data-name="product"><a href="#product" title="type=TABLE, primaryKey={PRODUCT_ID}, nameLength=7, columnCount=11">PRODUCT</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#product_category" title="FK_PRODUCT_PRODUCT_CATEGORY">PRODUCT_CATEGORY</a>, <a href="#product_status" title="FK_PRODUCT_PRODUCT_STATUS">PRODUCT_STATUS</a></td>
 		<td class="relcell"><a href="#purchase" title="FK_PURCHASE_PRODUCT">PURCHASE</a></td>
@@ -464,7 +464,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">10</td>
 		<td class="aliascell">商品カテゴリ</td>
-		<td class="namecell"><a href="#product_category" title="type=TABLE, primaryKey={PRODUCT_CATEGORY_CODE}, nameLength=16, columnCount=3">PRODUCT_CATEGORY</a></td>
+		<td class="namecell" data-name="product_category"><a href="#product_category" title="type=TABLE, primaryKey={PRODUCT_CATEGORY_CODE}, nameLength=16, columnCount=3">PRODUCT_CATEGORY</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#product_category" title="FK_PRODUCT_CATEGORY_PARENT">PRODUCT_CATEGORY</a></td>
 		<td class="relcell"><a href="#product" title="FK_PRODUCT_PRODUCT_CATEGORY">PRODUCT</a>, <a href="#product_category" title="FK_PRODUCT_CATEGORY_PARENT">PRODUCT_CATEGORY</a></td>
@@ -474,7 +474,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">11</td>
 		<td class="aliascell">商品ステータス</td>
-		<td class="namecell"><a href="#product_status" title="type=TABLE, primaryKey={PRODUCT_STATUS_CODE}, nameLength=14, columnCount=3">PRODUCT_STATUS</a></td>
+		<td class="namecell" data-name="product_status"><a href="#product_status" title="type=TABLE, primaryKey={PRODUCT_STATUS_CODE}, nameLength=14, columnCount=3">PRODUCT_STATUS</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"><a href="#product" title="FK_PRODUCT_PRODUCT_STATUS">PRODUCT</a></td>
@@ -484,7 +484,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">12</td>
 		<td class="aliascell">購入</td>
-		<td class="namecell"><a href="#purchase" title="type=TABLE, primaryKey={PURCHASE_ID}, nameLength=8, columnCount=12">PURCHASE</a></td>
+		<td class="namecell" data-name="purchase"><a href="#purchase" title="type=TABLE, primaryKey={PURCHASE_ID}, nameLength=8, columnCount=12">PURCHASE</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#member" title="FK_PURCHASE_MEMBER">MEMBER</a>, <a href="#product" title="FK_PURCHASE_PRODUCT">PRODUCT</a></td>
 		<td class="relcell"><a href="#purchase_payment" title="FK_PURCHASE_PAYMENT_PURCHASE">PURCHASE_PAYMENT</a></td>
@@ -495,7 +495,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">13</td>
 		<td class="aliascell">購入支払</td>
-		<td class="namecell"><a href="#purchase_payment" title="type=TABLE, primaryKey={PURCHASE_PAYMENT_ID}, nameLength=16, columnCount=9">PURCHASE_PAYMENT</a></td>
+		<td class="namecell" data-name="purchase_payment"><a href="#purchase_payment" title="type=TABLE, primaryKey={PURCHASE_PAYMENT_ID}, nameLength=16, columnCount=9">PURCHASE_PAYMENT</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#purchase" title="FK_PURCHASE_PAYMENT_PURCHASE">PURCHASE</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -506,7 +506,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">14</td>
 		<td class="aliascell">地域</td>
-		<td class="namecell"><a href="#region" title="type=TABLE, primaryKey={REGION_ID}, nameLength=6, columnCount=2">REGION</a></td>
+		<td class="namecell" data-name="region"><a href="#region" title="type=TABLE, primaryKey={REGION_ID}, nameLength=6, columnCount=2">REGION</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"><a href="#member_address" title="FK_MEMBER_ADDRESS_REGION">MEMBER_ADDRESS</a></td>
@@ -517,7 +517,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">15</td>
 		<td class="aliascell">サービスランク</td>
-		<td class="namecell"><a href="#service_rank" title="type=TABLE, primaryKey={SERVICE_RANK_CODE}, nameLength=12, columnCount=6">SERVICE_RANK</a></td>
+		<td class="namecell" data-name="service_rank"><a href="#service_rank" title="type=TABLE, primaryKey={SERVICE_RANK_CODE}, nameLength=12, columnCount=6">SERVICE_RANK</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"><a href="#member_service" title="FK_MEMBER_SERVICE_SERVICE_RANK_CODE">MEMBER_SERVICE</a></td>
@@ -527,7 +527,7 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">16</td>
 		<td class="aliascell">退会理由</td>
-		<td class="namecell"><a href="#withdrawal_reason" title="type=TABLE, primaryKey={WITHDRAWAL_REASON_CODE}, nameLength=17, columnCount=3">WITHDRAWAL_REASON</a></td>
+		<td class="namecell" data-name="withdrawal_reason"><a href="#withdrawal_reason" title="type=TABLE, primaryKey={WITHDRAWAL_REASON_CODE}, nameLength=17, columnCount=3">WITHDRAWAL_REASON</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"><a href="#member_withdrawal" title="FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON">MEMBER_WITHDRAWAL</a></td>
@@ -3287,7 +3287,7 @@ dl.procedurelist dd.column pre {
 	Created by <a href="http://dbflute.org/">DBFlute(AutoGenerator)</a>
 </p>
 
-<!-- Only used by dbflute intro http://dbflute.seasar.org/ja/manual/function/helper/intro/index.html -->
+<!-- Only used by dbflute intro http://dbflute.seasar.org/ja/manual/function/generator/intro/index.html -->
 <div id="decomment-modal" class="decommentmodal">
 	<div class="decommentmodalcontent">
 		<div id="decomment-close" class="decommentmodal-close-btn"><span>x</span></div>
@@ -4144,7 +4144,7 @@ Decomment.prototype = {
 		that = this;
 		Array.prototype.forEach.call(decomment["tables"], function (table) {
 			var tableElements = that.extractTableElements(table);
-			if (that.storePickupTableProperties(table)) {
+			if (tableElements && that.storePickupTableProperties(table)) {
 				var newTableComment = that.buildDisplayTableCommentFromServer(table);
 				var authors = that.getTableMapInfoFromStore(that.getTableNameFromJson(table))['authors'];
 				that.storePreviousWholeTableComment(table, newTableComment, authors);
@@ -4153,12 +4153,14 @@ Decomment.prototype = {
 			}
 			Array.prototype.forEach.call(table["columns"], function (column) {
 				var columnElement = that.extractColumnElement(table, column);
-				that.storePickupColumnProperties(table, column);
-				var newComment = that.buildDisplayColumnCommentFromServer(table, column);
-				var authors = that.buildColumnCommentAuthoers(table, column);
-				that.storePreviousWholeColumnComment(table, column, newComment);
-				that.updateDisplayColumnCommentToHtml(columnElement, newComment, authors);
-				that.reflectCommentConflictIfNeed(table, column, columnElement);
+				if (columnElement) {
+					that.storePickupColumnProperties(table, column);
+					var newComment = that.buildDisplayColumnCommentFromServer(table, column);
+					var authors = that.buildColumnCommentAuthoers(table, column);
+					that.storePreviousWholeColumnComment(table, column, newComment);
+					that.updateDisplayColumnCommentToHtml(columnElement, newComment, authors);
+					that.reflectCommentConflictIfNeed(table, column, columnElement);
+				}
 			});
 		});
 	},
@@ -4184,7 +4186,7 @@ Decomment.prototype = {
 		var columnId = (table["tableName"] + "_" + column["columnName"]);
 		columnId = columnId.toLowerCase();
 		var columnElement = document.getElementById(columnId);
-		return columnElement.parentElement
+		return columnElement == null ? null : columnElement.parentElement
 	},
 
 	/**
@@ -4482,7 +4484,7 @@ Decomment.prototype = {
 		var that = this;
 		var tableList = document.getElementById('table-list-body').querySelectorAll('tr');
 		Array.prototype.forEach.call(tableList, function (table) {
-			var tableName = table.querySelector('.namecell').querySelector('a').innerText;
+			var tableName = table.querySelector('.namecell').getAttribute('data-name');
 			var commentElement = table.querySelector('.commentcell');
 			that.setupSaveTableClickEvent(tableName, commentElement);
 		});

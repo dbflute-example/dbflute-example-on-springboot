@@ -448,7 +448,7 @@ ${linkDelimiter} <a href="${selector.getNeighborhoodSchemaHtmlPath($schemaHtmlKe
 #if ($isAliasDelimiterInDbCommentValid)
 		<td class="aliascell">${table.alias}</td>
 #end
-		<td class="namecell"><a href="#${table.tableIdForSchemaHtml}"${table.titleForSchemaHtml}>${table.tableDispName}</a></td>
+		<td class="namecell" data-name="${table.tableDbName}"><a href="#${table.tableIdForSchemaHtml}"${table.titleForSchemaHtml}>${table.tableDispName}</a></td>
 		<td class="typecell">${table.type}</td>
 #if ($hasAdditionalSchema)
 		<td class="schemacell">#if ($table.hasSchema()) ${table.documentSchema}#else &nbsp;#end</td>
@@ -629,7 +629,7 @@ $generator.parse("doc/html/table.vm", null, "table", $table)
 	Created by <a href="http://dbflute.org/">DBFlute(AutoGenerator)</a>
 </p>
 
-<!-- Only used by dbflute intro http://dbflute.seasar.org/ja/manual/function/helper/intro/index.html -->
+<!-- Only used by dbflute intro http://dbflute.seasar.org/ja/manual/function/generator/intro/index.html -->
 <div id="decomment-modal" class="decommentmodal">
 	<div class="decommentmodalcontent">
 		<div id="decomment-close" class="decommentmodal-close-btn"><span>x</span></div>
@@ -992,7 +992,7 @@ Incremental.prototype.util = {
 var searcher = new Incremental(document.getElementById('incremental-search-field'), document.getElementById('table-list-body'));
 searcher.init();
 </script>
-#macro(escape $str)$!str.replaceAll("'", "\\'").replaceAll("\n", "<br>")#end
+#macro(escapeDecommentJsonComment $str)$!str.replaceAll("'", "\\'").replaceAll("\n", "<br>")#end
 <script>
 /**
  * @author deco
@@ -1004,14 +1004,14 @@ function Decomment() {
 		'tables': [
 #foreach($table in $database.embeddedPickup.tableList)
 			#if ($velocityCount > 1), #end{
-				'tableName': '#escape($!{table.tableName})'
+				'tableName': '#escapeDecommentJsonComment($!{table.tableName})'
 				, 'properties': [
 #foreach($property in $table.propertyList)
 						#if ($velocityCount > 1), #end{
-						'decomment': '#escape($!{property.decomment})'
-						, 'databaseComment': '#escape($!{property.databaseComment})'
+						'decomment': '#escapeDecommentJsonComment($!{property.decomment})'
+						, 'databaseComment': '#escapeDecommentJsonComment($!{property.databaseComment})'
 						, 'commentVersion': $!{property.commentVersion}
-						, 'authors': [#foreach($author in $property.authorList)#if ($velocityCount > 1),#end'#escape($!{author})'#end]
+						, 'authors': [#foreach($author in $property.authorList)#if ($velocityCount > 1),#end'#escapeDecommentJsonComment($!{author})'#end]
 						, 'pieceCode': '$!{property.pieceCode}'
 						, 'pieceDatatime': '$!{property.pieceDatetime}'
 						, 'previousPieces': [#foreach($pieceCode in $property.previousPieceList)#if ($velocityCount > 1),#end'$!{pieceCode}'#end]
@@ -1021,14 +1021,14 @@ function Decomment() {
 				, 'columns': [
 #foreach($column in $table.columnList)
 					#if ($velocityCount > 1),#end {
-						'columnName': '#escape($!{column.columnName})'
+						'columnName': '#escapeDecommentJsonComment($!{column.columnName})'
 						, 'properties': [
 #foreach($property in $column.propertyList)
 								#if ($velocityCount > 1),#end {
-								'decomment': '#escape($!{property.decomment})'
-								, 'databaseComment': '#escape($!{property.databaseComment})'
+								'decomment': '#escapeDecommentJsonComment($!{property.decomment})'
+								, 'databaseComment': '#escapeDecommentJsonComment($!{property.databaseComment})'
 								, 'commentVersion': $!{property.commentVersion}
-								, 'authors': [#foreach($author in $property.authorList)#if ($velocityCount > 1),#end'#escape($!{author})'#end]
+								, 'authors': [#foreach($author in $property.authorList)#if ($velocityCount > 1),#end'#escapeDecommentJsonComment($!{author})'#end]
 								, 'pieceCode': '$!{property.pieceCode}'
 								, 'pieceDatatime': '$!{property.pieceDatetime}'
 								, 'previousPieces': [#foreach($pieceCode in $property.previousPieceList)#if ($velocityCount > 1),#end'$!{pieceCode}'#end]
@@ -1045,12 +1045,12 @@ function Decomment() {
 	this.pickupStore = {
 #foreach ($table in $database.tableDisplaySortedList)
 ## decomment uses display name so fix later
-		#if ($velocityCount > 1), #end'${table.tableDbName}': {
-			'databaseComment': '${table.commentForSchemaHtml}'
+		#if ($velocityCount > 1), #end'#escapeDecommentJsonComment(${table.tableDbName})': {
+			'databaseComment': '#escapeDecommentJsonComment(${table.commentForSchemaHtml})'
 			, 'columns': {
 #foreach ($col in $table.columns)
-				#if ($velocityCount > 1), #end'${col.name}': {
-					'databaseComment': '${col.commentForSchemaHtml}'
+				#if ($velocityCount > 1), #end'#escapeDecommentJsonComment(${col.name})': {
+					'databaseComment': '#escapeDecommentJsonComment(${col.commentForSchemaHtml})'
 				}
 #end
 			}
@@ -1129,7 +1129,7 @@ Decomment.prototype = {
 		that = this;
 		Array.prototype.forEach.call(decomment["tables"], function (table) {
 			var tableElements = that.extractTableElements(table);
-			if (that.storePickupTableProperties(table)) {
+			if (tableElements && that.storePickupTableProperties(table)) {
 				var newTableComment = that.buildDisplayTableCommentFromServer(table);
 				var authors = that.getTableMapInfoFromStore(that.getTableNameFromJson(table))['authors'];
 				that.storePreviousWholeTableComment(table, newTableComment, authors);
@@ -1138,12 +1138,14 @@ Decomment.prototype = {
 			}
 			Array.prototype.forEach.call(table["columns"], function (column) {
 				var columnElement = that.extractColumnElement(table, column);
-				that.storePickupColumnProperties(table, column);
-				var newComment = that.buildDisplayColumnCommentFromServer(table, column);
-				var authors = that.buildColumnCommentAuthoers(table, column);
-				that.storePreviousWholeColumnComment(table, column, newComment);
-				that.updateDisplayColumnCommentToHtml(columnElement, newComment, authors);
-				that.reflectCommentConflictIfNeed(table, column, columnElement);
+				if (columnElement) {
+					that.storePickupColumnProperties(table, column);
+					var newComment = that.buildDisplayColumnCommentFromServer(table, column);
+					var authors = that.buildColumnCommentAuthoers(table, column);
+					that.storePreviousWholeColumnComment(table, column, newComment);
+					that.updateDisplayColumnCommentToHtml(columnElement, newComment, authors);
+					that.reflectCommentConflictIfNeed(table, column, columnElement);
+				}
 			});
 		});
 	},
@@ -1169,7 +1171,7 @@ Decomment.prototype = {
 		var columnId = (table["tableName"] + "_" + column["columnName"]);
 		columnId = columnId.toLowerCase();
 		var columnElement = document.getElementById(columnId);
-		return columnElement.parentElement
+		return columnElement == null ? null : columnElement.parentElement
 	},
 
 	/**
@@ -1467,7 +1469,7 @@ Decomment.prototype = {
 		var that = this;
 		var tableList = document.getElementById('table-list-body').querySelectorAll('tr');
 		Array.prototype.forEach.call(tableList, function (table) {
-			var tableName = table.querySelector('.namecell').querySelector('a').innerText;
+			var tableName = table.querySelector('.namecell').getAttribute('data-name');
 			var commentElement = table.querySelector('.commentcell');
 			that.setupSaveTableClickEvent(tableName, commentElement);
 		});
