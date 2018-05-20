@@ -4,6 +4,9 @@
 	<meta charset="UTF-8" />
 	<title>maihamadb schema</title>
 	<style type="text/css">
+/* -------------------------------------------------
+                                             Core
+------------------------------------------------- */
 * {
 	margin: 0;
 	padding: 0;
@@ -15,7 +18,9 @@ body {
 	background-color: #ffffe0;
 }
 
-/* heading */
+/* -------------------------------------------------
+                                        Structure
+------------------------------------------------- */
 h1 {
 	font-size: 1.5em;
 	border-bottom: 2px solid #af0000;
@@ -45,7 +50,9 @@ h4 {
 	color: #333333;
 }
 
-/* total info */
+/* -------------------------------------------------
+                                     Whole Header
+------------------------------------------------- */
 .updatedate {
 	text-align: right;
 }
@@ -71,7 +78,9 @@ h4 {
 	font-size: 100%;
 }
 
-/* keyword search */
+/* -------------------------------------------------
+                                   Keyword Search
+------------------------------------------------- */
 .keywordsearch {
 	padding: 0.7em 0 0.7em 0;
 }
@@ -91,7 +100,9 @@ h4 {
 	list-style-type: none;
 }
 
-/* table */
+/* -------------------------------------------------
+                                   Database Table
+------------------------------------------------- */
 table {
 	border-collapse:collapse;
 }
@@ -198,9 +209,18 @@ table.child, table.child td, table.child th {
 }
 
 /* table supplementary info */
-span.tableschema {
-	font-size: 0.6em;
+span.tableschematitle {
+	font-size: 0.5em;
+	color: #888888;
 }
+span.tablefirstdatetitle {
+	font-size: 0.5em;
+	color: #888888;
+}
+
+/* -------------------------------------------------
+                             Behavior Query Path
+------------------------------------------------- */
 span.bqpcount {
 	font-size: 0.5em;
 }
@@ -235,6 +255,10 @@ dl.bqplist dd.subinfo span.ctet {
 dl.bqplist dd.subinfo span.pmb {
 	color: green;
 }
+
+/* -------------------------------------------------
+                                 Stored Procedure
+------------------------------------------------- */
 dl.procedurelist {
 	padding-left: 2em;
 }
@@ -269,7 +293,9 @@ dl.procedurelist dd.column pre {
 	padding-left: 1em;
 }
 
-/** decomment modal for dbflute intro */
+/* -------------------------------------------------
+                                  Decomment Modal
+------------------------------------------------- */
 .decommentmodal {
 	display: none;
 	position: fixed;
@@ -339,6 +365,56 @@ dl.procedurelist dd.column pre {
 <p class="sisterlink"><a href="./history-maihamadb.html">to HistoryHTML</a></p>
 </div>
 
+<div style="display:none" id="unmapped-tables">
+	<h2>Decomment Unmapped Tables</h2>
+	<table>
+		<thead id="unmapped-table-head">
+		<tr>
+			<th>No</th>
+			<th>Table Name</th>
+			<th class="conflictcell">Conflict Mapping Name</th>
+			<th>Mapping</th>
+		</tr>
+		</thead>
+		<tbody id="unmapped-table-body">
+		<!--tr>
+			<td class="rownumcell">1</td>
+			<td class="namecell">NEW_TABLE_NAME</td>
+			<td class="tableselectorcell">
+			</td>
+		</tr-->
+		</tbody>
+	</table>
+	<button id="table-mapping-submit-button">Mapping</button>
+</div>
+
+<div style="display:none" id="unmapped-columns">
+	<h2>Decomment Unmapped Columns</h2>
+	<ul id="unmapped-column-list">
+	</ul>
+	<table>
+		<thead id="unmapped-column-head">
+		<tr>
+			<th>No</th>
+			<th>Table Name</th>
+			<th>Column Name</th>
+			<th class="conflictcell">Conflict Mapping Name</th>
+			<th>Mapping</th>
+		</tr>
+		</thead>
+		<tbody id="unmapped-column-body">
+		<!--tr>
+			<td class="rownumcell">1</td>
+			<td class="namecell">NEW_TABLE_NAME</td>
+			<td class="namecell">NEW_COLUMN_NAME</td>
+			<td class="columnselectorcell">
+			</td>
+		</tr-->
+		</tbody>
+	</table>
+	<button id="column-mapping-submit-button">Mapping</button>
+</div>
+
 <h2>Table List</h2>
 <div class="keywordsearch">
 	<input type="text" id="incremental-search-field" tabindex=1 value="" placeholder="Table Search" />
@@ -356,6 +432,7 @@ dl.procedurelist dd.column pre {
 		<th>ReferrerTable</th>
 		<th>TableComment</th>
 		<th>EntityName</th>
+		<th>Since</th>
 	</tr>
 	</thead>
 	<tbody id="table-list-body">
@@ -370,6 +447,7 @@ dl.procedurelist dd.column pre {
 基本的に物理削除はなく、退会したらステータスが退会会員になる。
 ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。</pre></td>
 		<td class="subcell">Member</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -382,6 +460,7 @@ dl.procedurelist dd.column pre {
 会員を基点に考えた場合、構造的には one-to-many だが、業務的な定型条件で one-to-one になる。このような構造を「業務的one-to-one」と呼ぶ！
 有効期間は隙間なく埋められるが、ここでは住所情報のない会員も存在し、厳密には(業務的な) "1 : 0..1" である。</pre></td>
 		<td class="subcell">MemberAddress</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -392,6 +471,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell">&nbsp;</td>
 		<td class="commentcell member_following_comment"><pre>とある会員が他の会員をフォローできる。すると、フォローした会員の購入履歴が閲覧できる。</pre></td>
 		<td class="subcell">MemberFollowing</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -403,6 +483,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell member_login_comment"><pre>ログインするたびに登録されるログイン履歴。
 登録されたら更新されるも削除されることもない。さらには、登録する人もプログラムもはっきりしているので、(紙面の都合上もあって)ここでは共通カラムは省略している。</pre></td>
 		<td class="subcell">MemberLogin</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -413,6 +494,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell">&nbsp;</td>
 		<td class="commentcell member_security_comment"><pre>会員とは one-to-one で、会員一人につき必ず一つのセキュリティ情報がある</pre></td>
 		<td class="subcell">MemberSecurity</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -424,6 +506,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell member_service_comment"><pre>会員のサービス情報（ポイントサービスなど）。
 テストケースのために、あえて統一性を崩してユニーク制約経由の one-to-one を表現している。</pre></td>
 		<td class="subcell">MemberService</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -437,6 +520,7 @@ dl.procedurelist dd.column pre {
 
 こういった固定的なマスタテーブルには、更新日時などの共通カラムは定義していないが、業務上そういった情報を管理する必要性が低いという理由に加え、ExampleDBとして共通カラムでER図が埋め尽くされてしまい見づらくなるというところで割り切っている。実業務では統一的に定義することもある。</pre></td>
 		<td class="subcell">MemberStatus</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -450,6 +534,7 @@ dl.procedurelist dd.column pre {
 共通カラムがあってバージョンNOがないパターン。
 基本的に更新は入らないが、重要なデータなので万が一のために更新系の共通カラムも。</pre></td>
 		<td class="subcell">MemberWithdrawal</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -460,6 +545,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"><a href="#purchase" title="FK_PURCHASE_PRODUCT">PURCHASE</a></td>
 		<td class="commentcell product_comment"><pre>&nbsp;</pre></td>
 		<td class="subcell">Product</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
@@ -470,6 +556,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"><a href="#product" title="FK_PRODUCT_PRODUCT_CATEGORY">PRODUCT</a>, <a href="#product_category" title="FK_PRODUCT_CATEGORY_PARENT">PRODUCT_CATEGORY</a></td>
 		<td class="commentcell product_category_comment"><pre>商品のカテゴリを表現するマスタ。自己参照FKの階層になっている。</pre></td>
 		<td class="subcell">ProductCategory</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">11</td>
@@ -480,6 +567,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"><a href="#product" title="FK_PRODUCT_PRODUCT_STATUS">PRODUCT</a></td>
 		<td class="commentcell product_status_comment"><pre>商品のステータスを表現する固定的なマスタ。</pre></td>
 		<td class="subcell">ProductStatus</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">12</td>
@@ -491,6 +579,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell purchase_comment"><pre>一つの商品に対する購入を表現する(購入履歴とも言える)。
 実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。</pre></td>
 		<td class="subcell">Purchase</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">13</td>
@@ -502,6 +591,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell purchase_payment_comment"><pre>購入に対する支払。
 分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。</pre></td>
 		<td class="subcell">PurchasePayment</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">14</td>
@@ -513,6 +603,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell region_comment"><pre>主に会員の住所に対応する漠然とした地域。
 かなりざっくりした感じではある。唯一の業務的one-to-oneの親テーブルのケース。</pre></td>
 		<td class="subcell">Region</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">15</td>
@@ -523,6 +614,7 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"><a href="#member_service" title="FK_MEMBER_SERVICE_SERVICE_RANK_CODE">MEMBER_SERVICE</a></td>
 		<td class="commentcell service_rank_comment"><pre>会員のサービスレベルを表現するランク。(ゴールドとかプラチナとか)</pre></td>
 		<td class="subcell">ServiceRank</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">16</td>
@@ -533,12 +625,14 @@ dl.procedurelist dd.column pre {
 		<td class="relcell"><a href="#member_withdrawal" title="FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON">MEMBER_WITHDRAWAL</a></td>
 		<td class="commentcell withdrawal_reason_comment"><pre>会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...</pre></td>
 		<td class="subcell">WithdrawalReason</td>
+		<td class="subcell">2014/11/07</td>
 	</tr>
 	</tbody>
 </table>
 
 <h2 id="member" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=6, columnCount=11">
 (会員)MEMBER
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment member_comment" data-name="member"><pre>会員のプロフィールやアカウントなどの基本情報を保持する。
 基本的に物理削除はなく、退会したらステータスが退会会員になる。
@@ -563,8 +657,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="member-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -582,6 +678,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。</pre></td>
 		<td class="subcell">memberId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -601,6 +698,7 @@ dl.procedurelist dd.column pre {
 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。</pre></td>
 		<td class="subcell">memberName</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -620,6 +718,7 @@ dl.procedurelist dd.column pre {
 昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?</pre></td>
 		<td class="subcell">memberAccount</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -639,6 +738,7 @@ dl.procedurelist dd.column pre {
 ステータスが変わるたびに、このカラムが更新される。</pre></td>
 		<td class="subcell">memberStatusCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -658,6 +758,7 @@ dl.procedurelist dd.column pre {
 一度確定したらもう二度と更新されないはずだ！</pre></td>
 		<td class="subcell">formalizedDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -676,6 +777,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>必須項目ではないので、このデータがない会員もいる。</pre></td>
 		<td class="subcell">birthdate</td>
 		<td class="subcell">LocalDate</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -694,6 +796,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが登録された日時</pre></td>
 		<td class="subcell">registerDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -712,6 +815,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを登録したユーザー</pre></td>
 		<td class="subcell">registerUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -730,6 +834,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが(最後に)更新された日時</pre></td>
 		<td class="subcell">updateDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
@@ -748,6 +853,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを(最後に)更新したユーザー</pre></td>
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">11</td>
@@ -766,11 +872,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>排他制御用、更新されるごとにインクリメントされる</pre></td>
 		<td class="subcell">versionNo</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="member_address" title="type=TABLE, primaryKey={MEMBER_ADDRESS_ID}, nameLength=14, columnCount=11">
 (会員住所情報)MEMBER_ADDRESS
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment member_address_comment" data-name="member_address"><pre>会員の住所に関する情報で、同時に有効期間ごとに履歴管理されている。
 会員を基点に考えた場合、構造的には one-to-many だが、業務的な定型条件で one-to-one になる。このような構造を「業務的one-to-one」と呼ぶ！
@@ -795,8 +904,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="member_address-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -815,6 +926,7 @@ dl.procedurelist dd.column pre {
 期間ごとに同じ会員のデータを保持することがあるため、これは単なるPKであってFKではない。</pre></td>
 		<td class="subcell">memberAddressId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -834,6 +946,7 @@ dl.procedurelist dd.column pre {
 期間ごとのデータがあるので、これだけではユニークにはならない。有効開始日と合わせて複合ユニーク制約となるが、厳密には完全な制約にはなっていない。有効期間の概念はRDBでは表現しきれないのである。</pre></td>
 		<td class="subcell">memberId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -853,6 +966,7 @@ dl.procedurelist dd.column pre {
 前の有効終了日の次の日の値が格納される。</pre></td>
 		<td class="subcell">validBeginDate</td>
 		<td class="subcell">LocalDate</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -872,6 +986,7 @@ dl.procedurelist dd.column pre {
 期間の最後の日が格納される。基本的に、次の有効開始日の一日前の値となるが、次の有効期間がない場合は 9999/12/31 となる。</pre></td>
 		<td class="subcell">validEndDate</td>
 		<td class="subcell">LocalDate</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -890,6 +1005,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>まるごと住所</pre></td>
 		<td class="subcell">address</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -908,6 +1024,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>地域を参照するID。かなり漠然とした地域。</pre></td>
 		<td class="subcell">regionId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -926,6 +1043,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが登録された日時</pre></td>
 		<td class="subcell">registerDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -944,6 +1062,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを登録したユーザー</pre></td>
 		<td class="subcell">registerUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -962,6 +1081,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが(最後に)更新された日時</pre></td>
 		<td class="subcell">updateDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
@@ -980,6 +1100,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを(最後に)更新したユーザー</pre></td>
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">11</td>
@@ -998,11 +1119,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>排他制御用、更新されるごとにインクリメントされる</pre></td>
 		<td class="subcell">versionNo</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="member_following" title="type=TABLE, primaryKey={MEMBER_FOLLOWING_ID}, nameLength=16, columnCount=4">
 (会員フォローイング)MEMBER_FOLLOWING
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment member_following_comment" data-name="member_following"><pre>とある会員が他の会員をフォローできる。すると、フォローした会員の購入履歴が閲覧できる。</pre></div>
 <input type="hidden" value="member_following">
@@ -1025,8 +1149,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="member_following-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -1044,6 +1170,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>連番</pre></td>
 		<td class="subcell">memberFollowingId</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -1062,6 +1189,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>気になった人がいて...勇気を振り絞った会員のID。</pre></td>
 		<td class="subcell">myMemberId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -1080,6 +1208,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>いきなりのアクションに...ちょっと心揺らいだ会員のID。</pre></td>
 		<td class="subcell">yourMemberId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -1098,11 +1227,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>ふりかえるとちょっと恥ずかしい気持ちになる日時</pre></td>
 		<td class="subcell">followDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="member_login" title="type=TABLE, primaryKey={MEMBER_LOGIN_ID}, nameLength=12, columnCount=5">
 (会員ログイン)MEMBER_LOGIN
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment member_login_comment" data-name="member_login"><pre>ログインするたびに登録されるログイン履歴。
 登録されたら更新されるも削除されることもない。さらには、登録する人もプログラムもはっきりしているので、(紙面の都合上もあって)ここでは共通カラムは省略している。</pre></div>
@@ -1126,8 +1258,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="member_login-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -1145,6 +1279,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">memberLoginId</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -1163,6 +1298,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。</pre></td>
 		<td class="subcell">memberId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -1182,6 +1318,7 @@ dl.procedurelist dd.column pre {
 同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)</pre></td>
 		<td class="subcell">loginDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -1200,6 +1337,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>モバイル機器からのログインか否か。</pre></td>
 		<td class="subcell">mobileLoginFlg</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -1218,11 +1356,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>ログイン時の会員ステータス</pre></td>
 		<td class="subcell">loginMemberStatusCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="member_security" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=15, columnCount=10">
 (会員セキュリティ)MEMBER_SECURITY
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment member_security_comment" data-name="member_security"><pre>会員とは one-to-one で、会員一人につき必ず一つのセキュリティ情報がある</pre></div>
 <input type="hidden" value="member_security">
@@ -1245,8 +1386,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="member_security-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -1264,6 +1407,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>そのまま one-to-one を構成するためのFKとなる。</pre></td>
 		<td class="subcell">memberId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -1283,6 +1427,7 @@ dl.procedurelist dd.column pre {
 本当は良くないが、Exampleなのでひとまず暗号化していない。</pre></td>
 		<td class="subcell">loginPassword</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -1301,6 +1446,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>パスワードを忘れた際のリマインダ機能における質問の内容。</pre></td>
 		<td class="subcell">reminderQuestion</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -1319,6 +1465,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>パスワードを忘れた際のリマインダ機能における質問の答え。</pre></td>
 		<td class="subcell">reminderAnswer</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -1338,6 +1485,7 @@ dl.procedurelist dd.column pre {
 これが多いと忘れっぽい会員と言えるが、そんなことを知ってもしょうがない。</pre></td>
 		<td class="subcell">reminderUseCount</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -1356,6 +1504,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが登録された日時</pre></td>
 		<td class="subcell">registerDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -1374,6 +1523,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを登録したユーザー</pre></td>
 		<td class="subcell">registerUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -1392,6 +1542,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが(最後に)更新された日時</pre></td>
 		<td class="subcell">updateDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -1410,6 +1561,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを(最後に)更新したユーザー</pre></td>
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
@@ -1428,11 +1580,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>排他制御用、更新されるごとにインクリメントされる</pre></td>
 		<td class="subcell">versionNo</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="member_service" title="type=TABLE, primaryKey={MEMBER_SERVICE_ID}, nameLength=14, columnCount=9">
 (会員サービス)MEMBER_SERVICE
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment member_service_comment" data-name="member_service"><pre>会員のサービス情報（ポイントサービスなど）。
 テストケースのために、あえて統一性を崩してユニーク制約経由の one-to-one を表現している。</pre></div>
@@ -1456,8 +1611,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="member_service-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -1475,6 +1632,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>独立した主キーとなるが、実質的に会員IDとは one-to-one である。</pre></td>
 		<td class="subcell">memberServiceId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -1493,6 +1651,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>会員を参照するID。ユニークなので、会員とは one-to-one の関係に。</pre></td>
 		<td class="subcell">memberId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -1511,6 +1670,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>購入したら増えて使ったら減る。</pre></td>
 		<td class="subcell">servicePointCount</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -1529,6 +1689,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>どんなランクがあるのかドキドキですね。</pre></td>
 		<td class="subcell">serviceRankCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -1547,6 +1708,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが登録された日時</pre></td>
 		<td class="subcell">registerDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -1565,6 +1727,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを登録したユーザー</pre></td>
 		<td class="subcell">registerUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -1583,6 +1746,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが(最後に)更新された日時</pre></td>
 		<td class="subcell">updateDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -1601,6 +1765,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを(最後に)更新したユーザー</pre></td>
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -1619,11 +1784,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>排他制御用、更新されるごとにインクリメントされる</pre></td>
 		<td class="subcell">versionNo</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="member_status" title="type=TABLE, primaryKey={MEMBER_STATUS_CODE}, nameLength=13, columnCount=4">
 (会員ステータス)MEMBER_STATUS
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment member_status_comment" data-name="member_status"><pre>会員のステータスを示す固定的なマスタテーブル。いわゆるテーブル区分値！
 業務運用上で増えることはなく、増減するときはプログラム修正ともなうレベルの業務変更と考えられる。
@@ -1649,8 +1817,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="member_status-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -1669,6 +1839,7 @@ dl.procedurelist dd.column pre {
 固定的なデータなので連番とか番号にはせず、データを直接見たときも人が直感的にわかるように、例えば "FML" とかの３桁のコード形式にしている。(3って何会員だっけ？とかの問答をやりたくないので)</pre></td>
 		<td class="subcell">memberStatusCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -1688,6 +1859,7 @@ dl.procedurelist dd.column pre {
 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。</pre></td>
 		<td class="subcell">memberStatusName</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -1707,6 +1879,7 @@ dl.procedurelist dd.column pre {
 区分値の一つ一つの要素に気の利いた説明があるとディベロッパーがとても助かるので絶対に欲しい。</pre></td>
 		<td class="subcell">description</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -1726,11 +1899,14 @@ dl.procedurelist dd.column pre {
 並べるときは、このカラムに対して昇順のソート条件にする。</pre></td>
 		<td class="subcell">displayOrder</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="member_withdrawal" title="type=TABLE, primaryKey={MEMBER_ID}, nameLength=17, columnCount=8">
 (会員退会情報)MEMBER_WITHDRAWAL
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment member_withdrawal_comment" data-name="member_withdrawal"><pre>退会会員の退会に関する詳細な情報。
 退会会員のみデータが存在し、"1 : 0..1" のパターンの one-to-one である。
@@ -1756,8 +1932,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="member_withdrawal-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -1775,6 +1953,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。</pre></td>
 		<td class="subcell">memberId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -1794,6 +1973,7 @@ dl.procedurelist dd.column pre {
 何も言わずに退会する会員もいるので必須項目ではない。</pre></td>
 		<td class="subcell">withdrawalReasonCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -1813,6 +1993,7 @@ dl.procedurelist dd.column pre {
 もう言いたいこと言ってもらう感じ。サイト運営側としてはこういうのは真摯に受け止めて改善していきたいところ。</pre></td>
 		<td class="subcell">withdrawalReasonInputText</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -1832,6 +2013,7 @@ dl.procedurelist dd.column pre {
 正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。</pre></td>
 		<td class="subcell">withdrawalDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -1850,6 +2032,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが登録された日時</pre></td>
 		<td class="subcell">registerDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -1868,6 +2051,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを登録したユーザー</pre></td>
 		<td class="subcell">registerUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -1886,6 +2070,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが(最後に)更新された日時</pre></td>
 		<td class="subcell">updateDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -1904,11 +2089,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを(最後に)更新したユーザー</pre></td>
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="product" title="type=TABLE, primaryKey={PRODUCT_ID}, nameLength=7, columnCount=11">
 (商品)PRODUCT
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment product_comment" data-name="product"><pre></pre></div>
 <input type="hidden" value="product">
@@ -1931,8 +2119,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="product-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -1950,6 +2140,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">productId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -1969,6 +2160,7 @@ dl.procedurelist dd.column pre {
 実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜</pre></td>
 		<td class="subcell">productName</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -1987,6 +2179,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>これだけは書いておこう、商品を識別する業務上のコード。よく品番とか言うかもしれませんねぇ...</pre></td>
 		<td class="subcell">productHandleCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -2005,6 +2198,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>自分のテーブルの別のレコードからも参照される。</pre></td>
 		<td class="subcell">productCategoryCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -2023,6 +2217,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>商品ステータスを識別するコード。</pre></td>
 		<td class="subcell">productStatusCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -2041,6 +2236,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">regularPrice</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -2059,6 +2255,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが登録された日時</pre></td>
 		<td class="subcell">registerDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -2077,6 +2274,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを登録したユーザー</pre></td>
 		<td class="subcell">registerUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -2095,6 +2293,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが(最後に)更新された日時</pre></td>
 		<td class="subcell">updateDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
@@ -2113,6 +2312,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを(最後に)更新したユーザー</pre></td>
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">11</td>
@@ -2131,11 +2331,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>排他制御用、更新されるごとにインクリメントされる</pre></td>
 		<td class="subcell">versionNo</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="product_category" title="type=TABLE, primaryKey={PRODUCT_CATEGORY_CODE}, nameLength=16, columnCount=3">
 (商品カテゴリ)PRODUCT_CATEGORY
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment product_category_comment" data-name="product_category"><pre>商品のカテゴリを表現するマスタ。自己参照FKの階層になっている。</pre></div>
 <input type="hidden" value="product_category">
@@ -2158,8 +2361,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="product_category-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -2177,6 +2382,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>自分のテーブルの別のレコードからも参照される。</pre></td>
 		<td class="subcell">productCategoryCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -2195,6 +2401,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">productCategoryName</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -2213,11 +2420,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>最上位の場合はデータなし。まさひく自己参照FKカラム！</pre></td>
 		<td class="subcell">parentCategoryCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="product_status" title="type=TABLE, primaryKey={PRODUCT_STATUS_CODE}, nameLength=14, columnCount=3">
 (商品ステータス)PRODUCT_STATUS
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment product_status_comment" data-name="product_status"><pre>商品のステータスを表現する固定的なマスタ。</pre></div>
 <input type="hidden" value="product_status">
@@ -2240,8 +2450,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="product_status-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -2259,6 +2471,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>商品ステータスを識別するコード。</pre></td>
 		<td class="subcell">productStatusCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -2277,6 +2490,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>表示用の名称、英語名カラムがないのでそのままメソッド名の一部としても利用される。</pre></td>
 		<td class="subcell">productStatusName</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -2295,11 +2509,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>もう、ご想像の通りです。</pre></td>
 		<td class="subcell">displayOrder</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="purchase" title="type=TABLE, primaryKey={PURCHASE_ID}, nameLength=8, columnCount=12">
 (購入)PURCHASE
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment purchase_comment" data-name="purchase"><pre>一つの商品に対する購入を表現する(購入履歴とも言える)。
 実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。</pre></div>
@@ -2323,8 +2540,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="purchase-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -2342,6 +2561,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>連番</pre></td>
 		<td class="subcell">purchaseId</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -2361,6 +2581,7 @@ dl.procedurelist dd.column pre {
 購入を識別する自然キー(複合ユニーク制約)の筆頭要素。</pre></td>
 		<td class="subcell">memberId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -2379,6 +2600,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>あなたは何を買ったのか？</pre></td>
 		<td class="subcell">productId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -2397,6 +2619,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>購入した瞬間の日時。</pre></td>
 		<td class="subcell">purchaseDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -2415,6 +2638,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>購入した商品の一回の購入における数量。</pre></td>
 		<td class="subcell">purchaseCount</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -2434,6 +2658,7 @@ dl.procedurelist dd.column pre {
 基本は商品の定価に購入数量を掛けたものになるが、ポイント利用や割引があったりと必ずしもそうはならない。</pre></td>
 		<td class="subcell">purchasePrice</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -2452,6 +2677,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>この購入に関しての支払いが完了しているか否か。</pre></td>
 		<td class="subcell">paymentCompleteFlg</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -2470,6 +2696,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが登録された日時</pre></td>
 		<td class="subcell">registerDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -2488,6 +2715,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを登録したユーザー</pre></td>
 		<td class="subcell">registerUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
@@ -2506,6 +2734,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが(最後に)更新された日時</pre></td>
 		<td class="subcell">updateDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">11</td>
@@ -2524,6 +2753,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを(最後に)更新したユーザー</pre></td>
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">12</td>
@@ -2542,11 +2772,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>排他制御用、更新されるごとにインクリメントされる</pre></td>
 		<td class="subcell">versionNo</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="purchase_payment" title="type=TABLE, primaryKey={PURCHASE_PAYMENT_ID}, nameLength=16, columnCount=9">
 (購入支払)PURCHASE_PAYMENT
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment purchase_payment_comment" data-name="purchase_payment"><pre>購入に対する支払。
 分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。</pre></div>
@@ -2570,8 +2803,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="purchase_payment-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -2589,6 +2824,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>連番</pre></td>
 		<td class="subcell">purchasePaymentId</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -2607,6 +2843,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>支払い対象の購入へのID</pre></td>
 		<td class="subcell">purchaseId</td>
 		<td class="subcell">Long</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -2625,6 +2862,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>支払った金額。さて、小数点なのはなぜでしょう？</pre></td>
 		<td class="subcell">paymentAmount</td>
 		<td class="subcell">BigDecimal</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -2643,6 +2881,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>支払ったときの日時</pre></td>
 		<td class="subcell">paymentDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -2661,6 +2900,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>手渡しや銀行振込など</pre></td>
 		<td class="subcell">paymentMethodCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -2679,6 +2919,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが登録された日時</pre></td>
 		<td class="subcell">registerDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
@@ -2697,6 +2938,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを登録したユーザー</pre></td>
 		<td class="subcell">registerUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
@@ -2715,6 +2957,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードが(最後に)更新された日時</pre></td>
 		<td class="subcell">updateDatetime</td>
 		<td class="subcell">LocalDateTime</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
@@ -2733,11 +2976,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>レコードを(最後に)更新したユーザー</pre></td>
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="region" title="type=TABLE, primaryKey={REGION_ID}, nameLength=6, columnCount=2">
 (地域)REGION
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment region_comment" data-name="region"><pre>主に会員の住所に対応する漠然とした地域。
 かなりざっくりした感じではある。唯一の業務的one-to-oneの親テーブルのケース。</pre></div>
@@ -2761,8 +3007,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="region-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -2781,6 +3029,7 @@ dl.procedurelist dd.column pre {
 珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。</pre></td>
 		<td class="subcell">regionId</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -2799,11 +3048,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>地域を漠然と表す名称。</pre></td>
 		<td class="subcell">regionName</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="service_rank" title="type=TABLE, primaryKey={SERVICE_RANK_CODE}, nameLength=12, columnCount=6">
 (サービスランク)SERVICE_RANK
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment service_rank_comment" data-name="service_rank"><pre>会員のサービスレベルを表現するランク。(ゴールドとかプラチナとか)</pre></div>
 <input type="hidden" value="service_rank">
@@ -2826,8 +3078,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="service_rank-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -2845,6 +3099,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>サービスランクを識別するコード。</pre></td>
 		<td class="subcell">serviceRankCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -2864,6 +3119,7 @@ dl.procedurelist dd.column pre {
 ゴールドとかプラチナとか基本的には威厳のある名前</pre></td>
 		<td class="subcell">serviceRankName</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -2883,6 +3139,7 @@ dl.procedurelist dd.column pre {
 購入価格にこの値をかけた数が発生ポイント。ExampleDBとして数少ない貴重な小数点ありのカラム。</pre></td>
 		<td class="subcell">servicePointIncidence</td>
 		<td class="subcell">BigDecimal</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
@@ -2901,6 +3158,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>このランクへの新規受け入れができるかどうか。</pre></td>
 		<td class="subcell">newAcceptableFlg</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
@@ -2919,6 +3177,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>ランクに関する業務的な説明。</pre></td>
 		<td class="subcell">description</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
@@ -2937,11 +3196,14 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>UI上の表示順を表現する番号。</pre></td>
 		<td class="subcell">displayOrder</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 <h2 id="withdrawal_reason" title="type=TABLE, primaryKey={WITHDRAWAL_REASON_CODE}, nameLength=17, columnCount=3">
 (退会理由)WITHDRAWAL_REASON
+&nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
 <div class="tablecomment withdrawal_reason_comment" data-name="withdrawal_reason"><pre>会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...</pre></div>
 <input type="hidden" value="withdrawal_reason">
@@ -2964,8 +3226,10 @@ dl.procedurelist dd.column pre {
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
+		<th>Since</th>
 	</tr>
 	</thead>
+	<tbody id="withdrawal_reason-body">
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="flgcell" title="PRIMARY">o</td>
@@ -2983,6 +3247,7 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">withdrawalReasonCode</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -3002,6 +3267,7 @@ dl.procedurelist dd.column pre {
 テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。</pre></td>
 		<td class="subcell">withdrawalReasonText</td>
 		<td class="subcell">String</td>
+		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -3020,7 +3286,9 @@ dl.procedurelist dd.column pre {
 		<td class="commentcell"><pre>もう、ご想像の通りです。</pre></td>
 		<td class="subcell">displayOrder</td>
 		<td class="subcell">Integer</td>
+		<td class="subcell">first</td>
 	</tr>
+	</tbody>
 </table>
 
 
@@ -3287,7 +3555,7 @@ dl.procedurelist dd.column pre {
 	Created by <a href="http://dbflute.org/">DBFlute(AutoGenerator)</a>
 </p>
 
-<!-- Only used by dbflute intro http://dbflute.seasar.org/ja/manual/function/generator/intro/index.html -->
+<!-- Only used by dbflute intro http://dbflute.seasar.org/ja/manual/function/helper/intro/index.html -->
 <div id="decomment-modal" class="decommentmodal">
 	<div class="decommentmodalcontent">
 		<div id="decomment-close" class="decommentmodal-close-btn"><span>x</span></div>
@@ -3647,11 +3915,156 @@ var searcher = new Incremental(document.getElementById('incremental-search-field
 searcher.init();
 </script>
 <script>
+
 /**
  * @author deco
- * @author cabos
  */
-function Decomment() {
+function ApiClient() {
+}
+
+ApiClient.prototype = {
+	/**
+	 * Fetch decomment viertual pickup.
+	 * @param {function} successCallback
+	 */
+	fetchDecomment: function(successCallback) {
+		var path = '/api/document/decomment/' + DecommentUtil.getSchemaName() + '/pickup';
+		var method = 'GET';
+		var errorCallback = function() {
+			alert('Error!! cannot save decomment.');
+		}
+		this.request(path, method, null, successCallback, errorCallback);
+	},
+	/**
+	 * Request save decomment
+	 * @param {Object} params - Request parameters
+	 * @param {function} successCallback
+	 */
+	saveDecomment: function(params, successCallback) {
+		var path = '/api/document/decomment/' + DecommentUtil.getSchemaName() + '/save';
+		var method = 'POST';
+		var errorCallback = function() {
+			alert('Error!! cannot save new column comment.');
+		}
+		this.request(path, method, params, successCallback, errorCallback);
+	},
+	/**
+	 * Post mapping table.
+	 * @param {Object} params - Request parameters
+	 * @param {function} successCallback
+	 */
+	postMapping: function(params, successCallback) {
+		var path = '/api/document/decomment/' + DecommentUtil.getSchemaName() + '/mapping';
+		var method = 'POST';
+		var errorCallback = function() {
+			alert('Error!! cannot save new table mapping.');
+		}
+		this.request(path, method, params, successCallback, errorCallback);
+	},
+	/**
+	 * Request to intro server
+	 * @param {string} path
+	 * @param {string} method
+	 * @param {object} params
+	 * @param {function} successCallback
+	 * @param {function} errorCallback
+	 */
+	request: function(path, method, params, successCallback, errorCallback) {
+		var http = new XMLHttpRequest();
+		http.withCredentials = true;
+		var url = DecommentUtil.getHostName() + path;
+		http.open(method, url, true);
+
+		http.onreadystatechange = function () {
+			if (http.readyState === 4) {
+				if (http.status === 200) {
+					successCallback(http.response)
+				} else {
+					errorCallback()
+				}
+			}
+		};
+		if (params != null) {
+			http.send(JSON.stringify(params, null, "  "));
+		} else {
+			http.send();
+		}
+	}
+}
+
+/**
+ * @author deco
+ */
+var DecommentUtil = new function(){
+	/**
+	 * Get host name
+	 * @returns {string} Host name
+	 */
+	this.getHostName = function() {
+		return 'http://' + window.location.host;
+	},
+	/**
+	 * Get scheme name from url
+	 * @returns {string} Scheme name
+	 */
+	this.getSchemaName = function () {
+		return "maihamadb";
+	},
+	/**
+	 * Escape inputed text
+	 * @param {String} string - text
+	 */
+	this.escapeInputText = function(string) {
+		if(typeof string !== 'string') {
+			return string;
+		}
+		return string.replace(/[&'`"<>]/g, function(match) {
+			return {
+				'&': '&amp;',
+				"'": '&#x27;',
+				'`': '&#x60;',
+				'"': '&quot;',
+				'<': '&lt;',
+				'>': '&gt;',
+			}[match]
+		});
+	},
+	/**
+	 * Escape newline character of text
+	 * @param {String} string - text
+	 */
+	this.escapeNewlineCharacter = function (string) {
+		return string.split('<br>').join('\n');
+	},
+	/**
+	 * Delete unnecessary whitespace
+	 * @param {String} string - text
+	 */
+	this.deleteUnnecessaryWhitespace = function(string) {
+		var commentArray = string.split("\n");
+		var result = "";
+		for(var i = 0; i < commentArray.length; i++) {
+			result += commentArray[i].replace(/\s+$/g,'');
+			if (!(i == commentArray.length - 1)) {
+				result += '\n';
+			}
+		}
+		return result.trim();
+	},
+
+	/**
+	 * Unescape whitespace character of text
+	 * @param {String} string - text
+	 */
+	this.unescapeWhitespace = function (string) {
+		return string.split('&nbsp;').join(' ');
+	}
+}
+
+/**
+ * @author deco
+ */
+function StoreClient() {
 	// setup from dbflute if decomment pickup exists
 	this.embeddedPickup = {
 		'tables': [
@@ -4072,142 +4485,58 @@ function Decomment() {
 			}
 		}
 	}
+
+	this.unmappedTableArea = new UnmappedTableArea();
+	this.unmappedColumnArea = new UnmappedColumnArea();
 }
-Decomment.prototype = {
 
+StoreClient.prototype = {
 	/**
-	 * init
+	 * Store pickup json to store
+	 * @param {Object} pickup - pickup response
 	 */
-	init: function () {
-		if (document.getElementById("intro_opening") !== null) {
-			var schemeName = this.getSchemeName();
-			this.fetchVirtualPickup(schemeName);
-			this.setupSaveDecomment(schemeName);
-			this.setupKeyDownEvent();
-		} else {
-			this.reflectEmbeddedPickup();
-		}
-	},
-
-	/**
-	 * Get scheme name from url
-	 * @returns {string} Scheme name
-	 */
-	getSchemeName: function () {
-		return "maihamadb";
-	},
-
-	/**
-	 * Fetch virtual pickup from server
-	 * @param {string} schemeName - Scheme name
-	 */
-	fetchVirtualPickup: function (schemeName) {
-		var http = new XMLHttpRequest();
-		http.withCredentials = true;
-		var url = this.getHostName() + '/api/document/decomment/' + schemeName + '/pickup';
-		http.open('GET', url, true);
-
-		that = this;
-		http.onreadystatechange = function () {
-			if (http.readyState === 4) {
-				if (http.status === 200) {
-					that.handlePickupResponse(http.response);
-				} else {
-					alert('Error!! cannot fetch decomment.');
-				}
-			}
-		};
-		http.send();
-	},
-
-	/**
-	 * Reflect embedded pick
-	 */
-	reflectEmbeddedPickup: function () {
-		this.reflectPickup(this.embeddedPickup);
-	},
-
-	/**
-	 * Handle pickup response
-	 * @param {Object} response - Response from server
-	 */
-	handlePickupResponse: function (response) {
-		var decomment = JSON.parse(response);
-		this.reflectPickup(decomment);
-	},
-
-	/**
-	 * Reflect pickup
-	 * @param {Object} decomment - Decomment object
-	 */
-	reflectPickup: function (decomment) {
-		that = this;
-		Array.prototype.forEach.call(decomment["tables"], function (table) {
-			var tableElements = that.extractTableElements(table);
-			if (tableElements && that.storePickupTableProperties(table)) {
-				var newTableComment = that.buildDisplayTableCommentFromServer(table);
-				var authors = that.getTableMapInfoFromStore(that.getTableNameFromJson(table))['authors'];
-				that.storePreviousWholeTableComment(table, newTableComment, authors);
-				that.updateDisplayTableCommentToHtml(tableElements, newTableComment, authors);
-				that.reflectTableCommentConflictIfNeed(table, tableElements);
+	storePickup: function (pickup) {
+		var that = this;
+		Array.prototype.forEach.call(pickup["tables"], function (table) {
+			that.storePickupTable(table);
+			var tableProperty = that.getTablePickup(table['tableName'])
+			if (tableProperty.selectTargetHtmlElements().length === 0) {
+				that.unmappedTableArea.push(table);
+				return;
 			}
 			Array.prototype.forEach.call(table["columns"], function (column) {
-				var columnElement = that.extractColumnElement(table, column);
-				if (columnElement) {
-					that.storePickupColumnProperties(table, column);
-					var newComment = that.buildDisplayColumnCommentFromServer(table, column);
-					var authors = that.buildColumnCommentAuthoers(table, column);
-					that.storePreviousWholeColumnComment(table, column, newComment);
-					that.updateDisplayColumnCommentToHtml(columnElement, newComment, authors);
-					that.reflectCommentConflictIfNeed(table, column, columnElement);
+				var columnProperty = that.getColumnPickup(table['tableName'], column['columnName'])
+				if (!columnProperty.selectTargetHtmlElement()) {
+					that.unmappedColumnArea.push(table, column);
+					return;
 				}
+				that.storePickupColumn(table['tableName'], column);
 			});
 		});
 	},
 
 	/**
-	 * Extract table element
-	 * @param {Object} table - Table object
-	 * @returns {Object} Column element
+	 * Store table
+	 * @param {Object} table - table object of pickup response
 	 */
-	extractTableElements: function (table) {
-		var className = (table["tableName"] + "_" + "comment");
-		var tableElements = document.getElementsByClassName(className);
-		return tableElements;
-	},
-
-	/**
-	 * Extract column element
-	 * @param {Object} table - Table object
-	 * @param {Object} column - Column object
-	 * @returns {Object} Column element
-	 */
-	extractColumnElement: function (table, column) {
-		var columnId = (table["tableName"] + "_" + column["columnName"]);
-		columnId = columnId.toLowerCase();
-		var columnElement = document.getElementById(columnId);
-		return columnElement == null ? null : columnElement.parentElement
-	},
-
-	/**
-	 * Store table comment properties
-	 * @param {Object} table - Table object
-	 * @retuns {Boolean} if properties saved
-	 */
-	storePickupTableProperties: function(table) {
-		var tableName = this.getTableNameFromJson(table);
+	storePickupTable: function (table) {
+		// init if not exists
+		var tableName = table['tableName'];
 		if (this.pickupStore[tableName] === undefined) {
 			this.pickupStore[tableName] = {};
 		}
 
-		var tableMap = this.getTableMapInfoFromStore(tableName);
-		var databaseComment = tableMap['databaseComment'];
+		// return if not have properties
 		var properties = table['properties'];
-		if (properties.length == 0) {
-			return false;
+		if (properties.length === 0) {
+			return;
 		}
 
-		// properties to store
+		// get database comment
+		var tableMap = this.pickupStore[tableName];
+		var databaseComment = tableMap['databaseComment'];
+
+		// setup properties to store
 		var isConflict = properties.length > 1;
 		var isDatabaseCommentConflict = false;
 		var decomments = [];
@@ -4217,9 +4546,13 @@ Decomment.prototype = {
 		var that = this;
 		Array.prototype.forEach.call(properties, function (property) {
 			if (property['databaseComment'] != null && databaseComment != null && !isDatabaseCommentConflict) {
-				isDatabaseCommentConflict = that.escapeNewlineCharacter(databaseComment) != that.escapeNewlineCharacter(property['databaseComment']);
+				isDatabaseCommentConflict = DecommentUtil.escapeNewlineCharacter(databaseComment) != DecommentUtil.escapeNewlineCharacter(property['databaseComment']);
 			}
-			decomments.push(property["decomment"]);
+			var decomment = {
+				"body": property["decomment"],
+				"pieceGitBranch": property["pieceGitBranch"]
+			}
+			decomments.push(decomment);
 			if (property['pieceCode'] != null) {
 				previousPieces.push(property['pieceCode']);
 			}
@@ -4238,32 +4571,35 @@ Decomment.prototype = {
 		tableMap['previousPieces'] = previousPieces;
 		tableMap['authors'] = authors;
 		tableMap['commentVersion'] = commentVersion;
-		return true;
 	},
 
 	/**
-	 * Store column comment properties
-	 * @param {Object} table - Table object
-	 * @param {Object} column - Column object
+	 * Store column
+	 * @param {string} tableDbName - table db name
+	 * @param {Object} column - column object of pickup response
 	 */
-	storePickupColumnProperties: function (table, column) {
-		var tableName = this.getTableNameFromJson(table);
-		var columnName = this.getColumnNameFromJson(column);
-		if (this.pickupStore[tableName] === undefined) {
-			this.pickupStore[tableName] = {};
-		}
-		if (this.pickupStore[tableName]['columns'] === undefined) {
-			this.pickupStore[tableName]['columns'] = {};
-		}
-		if (this.pickupStore[tableName]['columns'][columnName] === undefined) {
-			this.pickupStore[tableName]['columns'][columnName] = {};
+	storePickupColumn: function (tableDbName, column) {
+		var columnName = column['columnName'];
+		// init if not exists
+		if (this.pickupStore[tableDbName]['columns'] === undefined) {
+			this.pickupStore[tableDbName]['columns'] = {};
 		}
 
-		var columnMap = this.getColumnMapInfoFromStore(tableName, columnName)
-		var databaseComment = columnMap['databaseComment'];
+		if (this.pickupStore[tableDbName]['columns'][columnName] === undefined) {
+			this.pickupStore[tableDbName]['columns'][columnName] = {};
+		}
+
+		// return if not have properties
 		var properties = column['properties'];
+		if (properties.length == 0) {
+			return;
+		}
 
-		// properties to store
+		// get database comment
+		var columnMap = this.pickupStore[tableDbName]['columns'][columnName];
+		var databaseComment = columnMap['databaseComment'];
+
+		// setup properties to store
 		var isConflict = properties.length > 1;
 		var isDatabaseCommentConflict = false;
 		var decomments = [];
@@ -4273,9 +4609,13 @@ Decomment.prototype = {
 		var that = this;
 		Array.prototype.forEach.call(properties, function (property) {
 			if (property['databaseComment'] != null && databaseComment != null && !isDatabaseCommentConflict) {
-				isDatabaseCommentConflict = that.escapeNewlineCharacter(databaseComment) != that.escapeNewlineCharacter(property['databaseComment']);
+				isDatabaseCommentConflict = DecommentUtil.escapeNewlineCharacter(databaseComment) != DecommentUtil.escapeNewlineCharacter(property['databaseComment']);
 			}
-			decomments.push(property["decomment"]);
+			var decomment = {
+				"body": property["decomment"],
+				"pieceGitBranch": property["pieceGitBranch"]
+			}
+			decomments.push(decomment);
 			if (property['pieceCode'] != null) {
 				previousPieces.push(property['pieceCode']);
 			}
@@ -4297,175 +4637,386 @@ Decomment.prototype = {
 	},
 
 	/**
-	 * Store new column comment properties
-	 * @param {Object} table - Table object
-	 * @param {Object} column - Column object
-	 * @param {string} newComment - Comment from server
+	 * Get decomments
+	 * @returns {Object} pickup
 	 */
-	storePreviousWholeTableComment: function (table, newComment) {
-		var tableName = this.getTableNameFromJson(table);
-		var tableMap = this.getTableMapInfoFromStore(tableName);
-		if (tableMap !== null) {
-			tableMap['previousWholeComment'] = newComment;
+	getDecomments: function () {
+		var pickup = this.pickupStore;
+		var result = [];
+		for (key in pickup) {
+			result.push(new PickupTableProperty(key, pickup[key]));
 		}
-	},
-
-	/**
-	 * Store new column comment properties
-	 * @param {Object} table - Table object
-	 * @param {Object} column - Column object
-	 * @param {string} newComment - Comment from server
-	 */
-	storePreviousWholeColumnComment: function (table, column, newComment) {
-		var tableName = this.getTableNameFromJson(table);
-		var columnName = this.getColumnNameFromJson(column);
-		var columnMap = this.getColumnMapInfoFromStore(tableName, columnName);
-		if (columnMap !== null) {
-			columnMap['previousWholeComment'] = newComment;
-		}
-	},
-
-	/**
-	 * Build new table comment from server response
-	 * @param {Object} table - table object
-	 * @returns {string} New scheme comment
-	 */
-	buildDisplayTableCommentFromServer: function (table) {
-		var tableName = this.getTableNameFromJson(table);
-		var tableMap = this.getTableMapInfoFromStore(tableName);
-		return this.buildDisplayCommentFromServer(tableMap);
-	},
-
-	/**
-	 * Build new column comment from server response
-	 * @param {Object} table - table object
-	 * @param {Object} column - Column object
-	 * @returns {string} New scheme comment
-	 */
-	buildDisplayColumnCommentFromServer: function (table, column) {
-		var tableName = this.getTableNameFromJson(table);
-		var columnName = this.getColumnNameFromJson(column);
-		var columnMap = this.getColumnMapInfoFromStore(tableName, columnName);
-		return this.buildDisplayCommentFromServer(columnMap);
-	},
-
-	/**
-	 * Build display comment for html
-	 * @param {Object} commentMap - Comment object of table, column
-	 * @retuns {string} Display comment
-	 */
-	buildDisplayCommentFromServer: function(commentMap) {
-		var result = "";
-		if (commentMap['isDatabaseCommentConflict']) {
-			var databaseComment = commentMap['databaseComment'];
-			databaseComment = this.unescapeWhitespace(databaseComment);
-			databaseComment = this.escapeNewlineCharacter(databaseComment);
-			databaseComment = this.escapeInputText(databaseComment);
-			result = databaseComment + '\n(from database comment)\n\n=======\n\n';
-		}
-		result += commentMap['decomments'].join('\n\n=======\n\n');
 		return result;
 	},
 
 	/**
-	 * Build authoers from server response
-	 * @param {Object} table - table object
-	 * @param {Object} column - Column object
-	 * @returns {string} New scheme comment
+	 * Get table pickup
+	 * @returns {Object} table pickup
 	 */
-	buildColumnCommentAuthoers: function (table, column) {
-		var tableName = this.getTableNameFromJson(table);
-		var columnName = this.getColumnNameFromJson(column);
-		var columnMap = this.getColumnMapInfoFromStore(tableName, columnName);
-		return columnMap['authors'];
+	getTablePickup: function (tableName) {
+		return new PickupTableProperty(tableName, this.pickupStore[tableName]);
 	},
 
 	/**
-	 * Update table comment of html
-	 * @param {Object} tableElements - Table elements
-	 * @param {string} newComment - New scheme comment
-	 * @param {Array} authors - Comment authoers
+	 * Get column pickup
+	 * @returns {Object} column pickup
 	 */
-	updateDisplayTableCommentToHtml: function (tableElements, newComment, authors) {
-		var author = authors.join(',');
-		var comment = newComment + "\n<span>@author(" + author + ")</span>";
-		Array.prototype.forEach.call(tableElements, function (element) {
-			element.querySelector('pre').innerHTML = comment;
+	getColumnPickup: function (tableName, columnName) {
+		var table = this.getTablePickup(tableName);
+		if (!table) {
+			return null;
+		}
+		return new PickupColumnProperty(tableName, columnName, table.columns[columnName])
+	}
+}
+
+function PickupTableProperty(tableDbName, json) {
+	this.tableDbName = tableDbName;
+	if (json) {
+		this.databaseComment = json.databaseComment;
+		this.isDatabaseCommentConflict = json.isDatabaseCommentConflict;
+		this.decomments = json.decomments || [];
+		this.previousPieces = json.previousPieces;
+		this.authors = json.authors;
+		this.commentVersion = json.commentVersion;
+		this.columns = {};
+		var columns = json.columns || {};
+		for (var key in columns) {
+			this.columns[key] = new PickupColumnProperty(tableDbName, key, columns[key]);
+		}
+	}
+}
+
+PickupTableProperty.prototype = {
+
+	/**
+	 * Reflect new comment to html
+	 */
+	reflectToHtml: function () {
+		if (this.notChangeDisplayComment()) {
+			return;
+		}
+		var author = this.authors.join(',');
+		var comment = this.buildDisplayComment() + "\n<span>@author(" + author + ")</span>";
+		var that = this;
+		Array.prototype.forEach.call(this.selectTargetHtmlElements(), function (element) {
+			element.innerHTML = comment;
+			if (that.isConflict()) {
+				element.className += " commentcellerror"
+			}
 		});
 	},
 
 	/**
-	 * Update column comment of html
-	 * @param {Object} columnElement - Column element
-	 * @param {string} newComment - New scheme comment
-	 * @param {Array} authors - Comment authoers
+	 * Convert to dialog title
+	 * @returns {string} dialog title
 	 */
-	updateDisplayColumnCommentToHtml: function (columnElement, newComment, authors) {
-		var author = authors.join(',');
-		var comment = newComment + "\n<span>@author(" + author + ")</span>";
-		columnElement.querySelector('.commentcell').querySelector('pre').innerHTML = comment;
+	toDialogTitle: function () {
+		return this.isConflict() ? this.tableDbName + " ... but now in CONFLICT!" : this.tableDbName;
 	},
 
 	/**
-	 * Add error class if table comment is conflict
-	 * @param {Object} table - Table object
-	 * @param {Object} column - Column object
-	 * @param {Object} columnElement - Column element
+	 * Check change display comment;
 	 */
-	reflectTableCommentConflictIfNeed: function(table, tableElements) {
-		var tableName = this.getTableNameFromJson(table);
-		if (this.isTableCommentConflict(tableName)) {
-			Array.prototype.forEach.call(tableElements, function (element) {
-				element.className += " commentcellerror"
-			});
+	notChangeDisplayComment: function () {
+		return this.decomments.length == 0 && !this.isConflict();
+	},
+
+	/**
+	 * Build display comment to html
+	 * @return {string} comment
+	 */
+	buildDisplayComment: function () {
+		var displayComment = "";
+		if (this.isDatabaseCommentConflict) {
+            displayComment = this.getEscapedDatabaseComment();
+			displayComment = displayComment + '\n(from database comment)\n\n=======\n\n';
+		}
+
+		var commentCount = this.decomments.length;
+		for (key in this.decomments) {
+			var decomment = this.decomments[key];
+			displayComment += decomment.body
+			if (this.isConflict() && decomment.pieceGitBranch) {
+				displayComment += '\n=======' + decomment.pieceGitBranch;
+				if (key < commentCount - 1) {
+					displayComment += '\n\n'; // show between comments
+				}
+			} else {
+				if (key < commentCount - 1) {
+					displayComment += '\n\n=======\n\n'; // show between comments
+				}
+			}
+		}
+		return displayComment;
+	},
+
+	/**
+	 * Get escaped database comment
+	 * @return {string} escaped database comment
+	 */
+	getEscapedDatabaseComment: function() {
+		var escapedComment = "";
+		escapedComment = DecommentUtil.escapeNewlineCharacter(escapedComment);
+		return escapedComment;
+	},
+
+	/**
+	 * Select target html element
+	 * @return {Array} html elements
+	 */
+	selectTargetHtmlElements: function () {
+		var className = this.tableDbName + "_" + "comment";
+		var tableElements = document.getElementsByClassName(className);
+		var result = [];
+		Array.prototype.forEach.call(tableElements, function (element) {
+			var target = element.querySelector('pre')
+			if (target) {
+				result.push(target);
+			}
+		});
+		return result;
+	},
+
+	/**
+	 * Get display html comment
+	 * @return {string} display html comment
+	 */
+	getDisplayHtmlComment: function() {
+		var child = this.selectTargetHtmlElements()[0].childNodes[0];
+		if (child != null && child.nodeName === "#text") {
+			return child.nodeValue.trim();
+		}
+		return ""
+	},
+
+	/**
+	 * Check conflict
+	 * @return {boolean} true: conflict, false: not
+	 */
+	isConflict: function () {
+		return this.decomments.length > 1 || this.isDatabaseCommentConflict;
+	},
+
+	/**
+	 * Convert to request params
+	 * @return {Object} request params
+	 */
+	toRequestParams: function () {
+		return {
+			'tableName': this.tableDbName,
+			'columnName': null,
+			'targetType': 'TABLE',
+			'decomment': (this.decomments[0] || {}).body,
+			'databaseComment': DecommentUtil.escapeNewlineCharacter(this.databaseComment),
+			'commentVersion': this.commentVersion || 0,
+			'authors': this.authors || [],
+			'previousPieces': this.previousPieces || []
+		};
+	}
+};
+
+function PickupColumnProperty(tableDbName, columnName, json) {
+	this.tableDbName = tableDbName;
+	this.columnName = columnName;
+	if (json) {
+		this.databaseComment = json['databaseComment'];
+		this.isDatabaseCommentConflict = json['isDatabaseCommentConflict'];
+		this.decomments = json['decomments'] || [];
+		this.previousPieces = json['previousPieces'];
+		this.authors = json['authors'];
+		this.commentVersion = json['commentVersion'];
+		this.previousWholeComment = json['previousWholeComment'];
+	}
+}
+
+PickupColumnProperty.prototype = {
+
+	/**
+	 * Reflect new comment to html
+	 */
+	reflectToHtml: function () {
+		if (this.notChangeDisplayComment()) {
+			return;
+		}
+		var author = this.authors.join(',');
+		var comment = this.buildDisplayComment() + "\n<span>@author(" + author + ")</span>";
+		var element = this.selectTargetHtmlElement();
+		if (!element) {
+			return
+		}
+		element.innerHTML = comment;
+		if (this.isConflict()) {
+			element.className += " commentcellerror"
 		}
 	},
 
 	/**
-	 * Add error class if comment is conflict
-	 * @param {Object} table - Table object
-	 * @param {Object} column - Column object
-	 * @param {Object} columnElement - Column element
+	 * Convert to dialog title
+	 * @returns {string} dialog title
 	 */
-	reflectCommentConflictIfNeed: function(table, column, columnElement) {
-		var tableName = this.getTableNameFromJson(table);
-		var columnName = this.getColumnNameFromJson(column);
-		if (this.isColumnCommentConflict(tableName, columnName)) {
-			columnElement.querySelector('.commentcell').className += " commentcellerror"
+	toDialogTitle: function () {
+		var name = this.tableDbName + "." + this.columnName;
+		return this.isConflict() ? name + " ... but now in CONFLICT!" : name;
+	},
+
+	/**
+	 * Check change display comment;
+	 */
+	notChangeDisplayComment: function () {
+		return this.decomments.length == 0 && !this.isConflict();
+	},
+
+	/**
+	 * Build display comment to html
+	 * @return {string} comment
+	 */
+	buildDisplayComment: function () {
+		var displayComment = "";
+		if (this.isDatabaseCommentConflict) {
+			displayComment = this.getEscapedDatabaseComment();
+			displayComment = displayComment + '\n(from database comment)\n\n=======\n\n';
+		}
+
+		var commentCount = this.decomments.length;
+		for (key in this.decomments) {
+			var decomment = this.decomments[key];
+			displayComment += decomment.body
+			if (this.isConflict() && decomment.pieceGitBranch) {
+				displayComment += '\n=======' + decomment.pieceGitBranch;
+				if (key < commentCount - 1) {
+					displayComment += '\n\n'; // show between comments
+				}
+			} else {
+				if (key < commentCount - 1) {
+					displayComment += '\n\n=======\n\n'; // show between comments
+				}
+			}
+		}
+		return displayComment;
+	},
+
+	/**
+	 * Get escaped database comment
+	 * @return {string} escaped database comment
+	 */
+	getEscapedDatabaseComment: function() {
+		var escapedComment = "";
+		escapedComment = DecommentUtil.escapeNewlineCharacter(escapedComment);
+		return escapedComment;
+	},
+
+	/**
+	 * Select target html element
+	 * @return {Object} html element
+	 */
+	selectTargetHtmlElement: function () {
+		var columnId = this.tableDbName + "_" + this.columnName;
+		columnId = columnId.toLowerCase();
+		var columnElement = document.getElementById(columnId);
+		if (columnElement === null) {
+			return null;
+		}
+		return columnElement.parentElement.querySelector('.commentcell').querySelector('pre')
+	},
+
+	/**
+	 * Get display html comment
+	 * @return {string} display html comment
+	 */
+	getDisplayHtmlComment: function() {
+		var child = this.selectTargetHtmlElement().childNodes[0];
+		if (child != null && child.nodeName === "#text") {
+			return child.nodeValue.trim();
+		}
+		return ""
+	},
+
+	/**
+	 * Check conflict
+	 * @return {boolean} true: conflict, false: not
+	 */
+	isConflict: function () {
+		return this.decomments.length > 1 || this.isDatabaseCommentConflict;
+	},
+
+	/**
+	 * Convert to request params
+	 * @return {Object} request params
+	 */
+	toRequestParams: function () {
+		return {
+			'tableName': this.tableDbName,
+			'columnName': this.columnName,
+			'targetType': 'COLUMN',
+			'decomment': (this.decomments[0] || {}).body,
+			'databaseComment': DecommentUtil.escapeNewlineCharacter(this.databaseComment),
+			'commentVersion': this.commentVersion || 0,
+			'authors': this.authors || [],
+			'previousPieces': this.previousPieces || []
+		};
+	}
+};
+
+/**
+ * @author deco
+ * @author cabos
+ */
+function Decomment() {
+	this.storeClient = new StoreClient()
+}
+Decomment.prototype = {
+
+	/**
+	 * init
+	 */
+	init: function () {
+		if (document.getElementById("intro_opening") !== null) {
+			this.fetchVirtualPickup();
+			this.setupKeyDownEvent();
+		} else {
+			this.reflectEmbeddedPickup();
 		}
 	},
 
 	/**
-	 * Check the table comment is conflict
-	 * @param {String} tableName - Table name
-	 * @returns {Boolean} comment is conflict
+	 * Fetch virtual pickup from server
 	 */
-	isTableCommentConflict: function(tableName) {
-		var tableMap = this.getTableMapInfoFromStore(tableName);
-		return this.isCommentConflict(tableMap);
+	fetchVirtualPickup: function () {
+		var that = this;
+		new ApiClient().fetchDecomment(function(response) {
+			var decomment = JSON.parse(response);
+			that.reflectPickup(decomment);
+			that.setupSaveDecomment();
+		})
 	},
 
 	/**
-	 * Check the column comment is conflict
-	 * @param {String} tableName - Table name
-	 * @param {String} columnName - Column name
-	 * @returns {Boolean} comment is conflict
+	 * Reflect embedded pick
 	 */
-	isColumnCommentConflict: function(tableName, columnName) {
-		var columnMap = this.getColumnMapInfoFromStore(tableName, columnName);
-		return this.isCommentConflict(columnMap);
+	reflectEmbeddedPickup: function () {
+		this.reflectPickup(this.embeddedPickup);
 	},
 
 	/**
-	 * Check the comment is conflict
-	 * @param {Object} commentMap - Commnet objedt of table or column
-	 * @returns {Boolean} comment is conflict
+	 * Reflect pickup
+	 * @param {Object} decomment - Decomment object
 	 */
-	isCommentConflict: function(commentMap) {
-		if (commentMap === null) {
-			return false;
-		}
-		return commentMap['isConflict'] || false;
+	reflectPickup: function (decomment) {
+		var that = this;
+		this.storeClient.unmappedTableArea.clear();
+		this.storeClient.unmappedColumnArea.clear();
+		this.storeClient.storePickup(decomment);
+		var pickup = this.storeClient.getDecomments()
+		Array.prototype.forEach.call(pickup, function (table) {
+			table.reflectToHtml();
+			for (var key in table.columns) {
+				var column = table.columns[key]
+				column.reflectToHtml();
+			}
+		});
+		this.storeClient.unmappedTableArea.reflect();
+		this.storeClient.unmappedColumnArea.reflect();
 	},
 
 	/**
@@ -4473,14 +5024,14 @@ Decomment.prototype = {
 	 * @param {string} table - Table name
 	 */
 	setupSaveDecomment: function(schemeName) {
-		this.setupSaveTableCommnt();
+		this.setupSaveTableComment();
 		this.setupSaveColumnComment();
 	},
 
 	/**
 	 * Setup save table comment event
 	 */
-	setupSaveTableCommnt: function() {
+	setupSaveTableComment: function() {
 		var that = this;
 		var tableList = document.getElementById('table-list-body').querySelectorAll('tr');
 		Array.prototype.forEach.call(tableList, function (table) {
@@ -4501,8 +5052,8 @@ Decomment.prototype = {
 	 * @param {Object} commentElement - Comment element
 	 */
 	setupSaveTableClickEvent: function(tableName, commentElement) {
-		var tableMap = this.getTableMapInfoFromStore(tableName);
-		commentElement.onclick = this.createSaveDecommentFunction(tableName, null, tableMap, commentElement);
+		var tableProperty = this.storeClient.getTablePickup(tableName) || new PickupTableProperty(tableName, null)
+		commentElement.onclick = this.createSaveDecommentFunction(tableProperty);
 	},
 
 	/**
@@ -4521,37 +5072,28 @@ Decomment.prototype = {
 				var commentElement = column.querySelector('.commentcell');
 				var tableName = that.getTableNameFromElement(table);
 				var columnName = column.querySelector('.columnnamecell').innerText;
-				var columnMap = that.getColumnMapInfoFromStore(tableName, columnName);
-				commentElement.onclick = that.createSaveDecommentFunction(tableName, columnName, columnMap, commentElement);
+				var columnProperty = that.storeClient.getColumnPickup(tableName, columnName) || new PickupTableProperty(tableName, columnName)
+				commentElement.onclick = that.createSaveDecommentFunction(columnProperty);
 			});
 		});
 	},
 
 	/**
-	 * Create save decomment function
-	 * param {string} tableName - Table name
-	 * param {string} columnName - Column name
+ 	 * Create save decomment function
+	 * param {object} commentProperty - Comment property
 	 * returns {function} Save decomment function
-	 * returns {Object} Coment element of table or column
 	 */
-	createSaveDecommentFunction: function(tableName, columnName, commentMap, commentElement) {
+	createSaveDecommentFunction: function (commentProperty) {
 		var that = this;
-		return function () {
-			var modalElement = document.getElementById("decomment-modal");
+ 		return function () {
+	 		var modalElement = document.getElementById("decomment-modal");
 			modalElement.style.display = "block";
 
-			var isConflict = that.isCommentConflict(commentMap);
-			var commentInfo;
-			if (columnName) {
-				var columnNameOfTable = tableName + "." + columnName;
-				columnInfo = isConflict ? columnNameOfTable + " ... but now in CONFLICT!" : columnNameOfTable;
-			} else {
-				columnInfo = isConflict ? tableName + " ... but now in CONFLICT!" : tableName;
-			}
-			document.getElementById("decomment-modal-column-info").innerText = columnInfo;
+			document.getElementById("decomment-modal-column-info").innerText = commentProperty.toDialogTitle();
 
 			var inputElement = document.getElementById("decomment-input");
-			inputElement.value = that.extractPreviousComment(commentElement);
+			var previousWholeComment = commentProperty.getDisplayHtmlComment();
+			inputElement.value = previousWholeComment;
 			inputElement.focus();
 
 			document.getElementById("decomment-close").onclick = function () {
@@ -4560,12 +5102,21 @@ Decomment.prototype = {
 
 			document.getElementById("decomment-ok").onclick = function () {
 				var decomment = inputElement.value;
-				if (!that.isCommentChanged(tableName, columnName, decomment)) {
+				if (that.isStillConflicting(decomment)) {
+					alert('Still conflicting. please resolve.');
+					return;
+				}
+				if (!that.isCommentChanged(previousWholeComment, decomment)) {
 					modalElement.style.display = "none";
 					return;
 				}
-				var params = that.buildCommentRequestParams(tableName, columnName, decomment);
-				that.requestSaveDecomment(that.getSchemeName(), params);
+				decomment = DecommentUtil.escapeInputText(decomment);
+				decomment = DecommentUtil.deleteUnnecessaryWhitespace(decomment);
+				commentProperty.decomments = [{'body': decomment}]
+				var params = commentProperty.toRequestParams()
+				new ApiClient().saveDecomment(params, function () {
+					that.fetchVirtualPickup()
+				});
 				modalElement.style.display = "none";
 			};
 
@@ -4591,23 +5142,6 @@ Decomment.prototype = {
 	},
 
 	/**
-	 * Get host name
-	 * @returns {string} Host name
-	 */
-	getHostName: function () {
-		return 'http://' + window.location.host;
-	},
-
-	/**
-	 * Get table name from json
-	 * @param {Object} table - Table object
-	 * @returns {string} Table name lower cased
-	 */
-	getTableNameFromJson: function(table) {
-		return table['tableName'];
-	},
-
-	/**
 	 * Get table name
 	 * @param {Object} table - Table element
 	 * @returns {string} table name
@@ -4618,25 +5152,12 @@ Decomment.prototype = {
 	},
 
 	/**
-	 * Get column name from json
-	 * @param {Object} column - Column object
-	 * @returns {string} Column name lower cased
+	 * Check still conflicting
+	 * @param {string} decomment - decomment
+	 * @returns {Boolean} is still conflicting
 	 */
-	getColumnNameFromJson: function(column) {
-		return column['columnName'];
-	},
-
-	/**
-	 * Extract previous comment
-	 * @param {Object} columnCommentElemnet - Ccolumn comment elemnet
-	 * @returns {string} Previous comment
-	 */
-	extractPreviousComment: function (columnCommentElemnet) {
-		var child = columnCommentElemnet.querySelector('pre').childNodes[0];
-		if (child != null && child.nodeName === "#text") {
-			return child.nodeValue.trim();
-		}
-		return "";
+	isStillConflicting: function(decomment) {
+		return decomment.includes('=======');
 	},
 
 	/**
@@ -4646,182 +5167,480 @@ Decomment.prototype = {
 	 * @param {string} decomment - decomment
 	 * @returns {Boolean} is changed
 	 */
-	isCommentChanged: function (tableName, columnName, decomment) {
-		var commentMap;
-		if (columnName) {
-			commentMap = this.getColumnMapInfoFromStore(tableName, columnName);
-		} else {
-			commentMap = this.getTableMapInfoFromStore(tableName);
-		}
-		if (commentMap !== null) {
-			var previousComment = commentMap['previousWholeComment'];
-			if (previousComment) {
-				return previousComment.trim() !== decomment.trim();
-			}
+	isCommentChanged: function (previousWholeComment, decomment) {
+		if (previousWholeComment) {
+			return previousWholeComment.trim() !== decomment.trim();
 		}
 		return decomment.trim().length != 0;
-	},
+	}
+};
+
+/**
+ * @author cabos
+ */
+function UnmappedTableRow () {
+}
+UnmappedTableRow.prototype = {
 
 	/**
-	 * Build comment request body
-	 * @param {string} tableName - Table name
-	 * @param {string} columnName - Column name (null if save table comment)
-	 * @param {string} decomment - Inputed decomment
-	 * @return {Object} Request body
+	 * Initialize unmapped table row
+	 * @param {number} row number
+	 * @param {object} table
 	 */
-	buildCommentRequestParams: function (tableName, columnName, decomment) {
-		var commentMap = this.getCommentMapFromStore(tableName, columnName);
-		var databaseComment;
-		var targetType = columnName == null ? 'TABLE' : 'COLUMN';
-		if (commentMap !== null) {
-			var authors = commentMap['authors'];
-			var previousPieces = commentMap['previousPieces'];
-			var commentVersion = commentMap['commentVersion'];
-			databaseComment = commentMap['databaseComment'];
-			if (databaseComment) {
-				databaseComment = this.escapeNewlineCharacter(databaseComment);
-			}
-		}
-
-		decomment = this.escapeInputText(decomment);
-		decomment = this.deleteUnnecessaryWhitespace(decomment);
-
-		return {
-			'tableName': tableName,
-			'columnName': columnName,
-			'targetType': targetType,
-			'decomment': decomment,
-			'databaseComment': databaseComment,
-			'commentVersion': commentVersion || 0,
-			'authors': authors || [],
-			'previousPieces': previousPieces || []
-		};
-	},
-
-	/**
-	 * Escape inputed text
-	 * @param {String} string - text
-	 */
-	escapeInputText: function (string) {
-		if(typeof string !== 'string') {
-			return string;
-		}
-		return string.replace(/[&'`"<>]/g, function(match) {
-			return {
-				'&': '&amp;',
-				"'": '&#x27;',
-				'`': '&#x60;',
-				'"': '&quot;',
-				'<': '&lt;',
-				'>': '&gt;',
-			}[match]
+	init: function (rowNum, table) {
+		this.rowNum = rowNum;
+		this.tableName = table.tableName;
+		this.mappedTableNameList = Array.prototype.map.call(table.mappings, function (mapping) {
+			return mapping.newTableName;
+		});
+		this.previousMappingList = Array.prototype.map.call(table.mappings, function (mapping) {
+			return mapping.mappingCode;
+		});
+		this.authorList = Array.prototype.map.call(table.mappings, function (mapping) {
+			return mapping.mappingOwner;
 		});
 	},
 
 	/**
-	 * Escape newline character of text
-	 * @param {String} string - text
+	 * Convert unmapped table row to string
+	 * @returns {string} Unmapped table row
 	 */
-	escapeNewlineCharacter: function (string) {
-		return string.split('<br>').join('\n');
+	toDisplayHtmlString: function () {
+		return '<tr id="unmapped-table-row-' + this.tableName + '">'
+		+ '<td class="rownumcell">' + this.rowNum + '</td>'
+		+ '<td class="namecell">' + this.tableName + '</td>'
+		+ '<td class="namecell tableconflictcell">' + this.toConflictDisplayHtmlString() + '</td>'
+		+ '<td class="tableselectorcell">' + '</td>'
+		+ '</tr>';
 	},
 
-	/**
-	 * Unescape whitespace character of text
-	 * @param {String} string - text
-	 */
-	unescapeWhitespace: function (string) {
-		return string.split('&nbsp;').join(' ');
-	},
-
-	/**
-	 * Delete unnecessary whitespace
-	 * @param {String} string - text
-	 */
-	deleteUnnecessaryWhitespace: function(string) {
-		var commentArray = string.split("\n");
-		var result = "";
-		for(var i = 0; i < commentArray.length; i++) {
-			result += commentArray[i].replace(/\s+$/g,'');
-			if (!(i == commentArray.length - 1)) {
-				result += '\n';
+	toConflictDisplayHtmlString: function() {
+		return Array.prototype.reduce.call(this.mappedTableNameList, function (currentStrs, name) {
+			if (currentStrs.length === 0) {
+				return name;
 			}
-		}
-		return result.trim();
+			return currentStrs + "<br>" + name ;
+		}, '');
 	},
 
-	/**
-	 * Request decomment
-	 * @param {string} schemeName - Scheme name
-	 * @param {Object} params - Request parameters
-	 */
-	requestSaveDecomment: function (schemeName, params) {
-		var http = new XMLHttpRequest();
-		http.withCredentials = true;
-		var url = this.getHostName() + '/api/document/decomment/' + schemeName + '/save';
-		http.open('POST', url, true);
-
-		var that = this;
-		http.onreadystatechange = function () {
-			if (http.readyState === 4) {
-				if (http.status === 200) {
-					// request success
-					that.fetchVirtualPickup(schemeName);
-				} else {
-					// request failed
-					alert('Error!! cannot save new column comment.');
-				}
-			}
-		};
-		http.send(JSON.stringify(params, null, "  "));
-	},
-
-	/**
-	 * Get comment map from store.
-	 * @param {string} tableName - Table name
-	 * @param {string} columnName - column name
-	 * @returns {Object} commentMap - Comment object of table or column
-	 */
-	getCommentMapFromStore: function(tableName, columnName) {
-		return columnName ? this.getColumnMapInfoFromStore(tableName, columnName) : this.getTableMapInfoFromStore(tableName);
-	},
-
-	/**
-	 * Get table object from pickup store.
-	 * @param {string} tableName - Table name
-	 * @return {Object} Column object
-	 */
-	getTableMapInfoFromStore: function (tableName) {
-		var tableMap = this.pickupStore[tableName];
-		if (tableMap === undefined) {
-			return null;
-		}
-		return tableMap;
-	},
-
-	/**
-	 * Get column object from pickup store.
-	 * @param {string} tableName - Table name
-	 * @param {string} columnName - Column name
-	 * @return {Object} Column object
-	 */
-	getColumnMapInfoFromStore: function (tableName, columnName) {
-		var tableMap = this.pickupStore[tableName];
-		if (tableMap === undefined) {
-			return null;
-		}
-		var columns = tableMap['columns'];
-		if (columns === undefined) {
-			return null;
-		}
-		var columnMap = columns[columnName];
-		if (columnMap === undefined) {
-			return null;
-		}
-		return columnMap;
+	isTableNameConflict: function() {
+		return this.previousMappingList.length >= 2;
 	}
-};
+}
 
+/**
+ * @author cabos
+ */
+function UnmappedTableArea() {
+	this.rows = [];
+}
+UnmappedTableArea.prototype = {
+
+	/**
+	 * Push unmapped table
+	 */
+	push: function (table) {
+		var row = new UnmappedTableRow();
+		row.init(this.rows.length + 1, table);
+		this.rows.push(row);
+	},
+
+	/**
+	 * Activate unmapped table field
+	 */
+	activate: function () {
+		if (document.getElementById("intro_opening") === null) {
+			return;
+		}
+
+		var unmappedElements = document.getElementById('unmapped-tables');
+		unmappedElements.style.display = 'inline';
+		var that = this;
+		document.getElementById('table-mapping-submit-button').onclick = function() {
+			that.postMappingTable();
+		};
+	},
+
+	/**
+	 * Clear unmapped table field
+	 */
+	clear: function () {
+		var tbody = this.getTableBodyElement();
+		tbody.innerHTML = '';
+		this.rows = [];
+
+		var unmappedElements = document.getElementById('unmapped-tables');
+		unmappedElements.style.display = 'none';
+	},
+
+	/**
+	 * Reflect unmapped table body
+	 */
+	reflect: function () {
+		if (this.rows.length === 0) {
+			return;
+		}
+
+		this.activate();
+
+		var tbody = this.getTableBodyElement();
+		tbody.innerHTML += this.toDisplayHtmlString();
+		this.showTableSelector();
+
+		if (!this.isTableNameConflict()) {
+			document.querySelector('#unmapped-table-head th.conflictcell').style.display = 'none';
+			Array.prototype.forEach.call(document.getElementsByClassName('tableconflictcell'), function (cell) {
+				cell.style.display = 'none'
+			});
+		}
+	},
+
+	isTableNameConflict: function () {
+		return Array.prototype.some.call(this.rows, function (row) {
+			return row.isTableNameConflict();
+		});
+	},
+
+	/**
+	 * Show table selector
+	 *	<select>
+	 *		<option>TABLE_NAME1</option>
+	 *		<option>TABLE_NAME2</option>
+	 *		<option>TABLE_NAME3</option>
+	 *		...
+	 *	</select>
+	 * @returns {string} show table selector
+	 */
+	showTableSelector: function () {
+		var tableSelector = this.createTableSelector();
+		var tableSelectorCellList = document.getElementsByClassName('tableselectorcell');
+		Array.prototype.forEach.call(tableSelectorCellList, function (cell) {
+			cell.innerHTML = tableSelector;
+		});
+	},
+
+	/**
+	 * Create select list of table
+	 * @returns {string}
+	 */
+	createTableSelector: function () {
+		var tableNameList = this.getTableNameList();
+		var options = Array.prototype.reduce.call(tableNameList, function (currentOptions, name) {
+			return currentOptions + '<option>' + name + '</option>';
+		}, '');
+		return '<select>' + '<option>-</option>' + options + '</select>'
+	},
+
+	/**
+	 * Get data list
+	 * @returns {array} table name list
+	 */
+	getTableNameList: function () {
+		var trs = document.getElementById('table-list-body').getElementsByTagName('tr');
+		var tableList = [];
+		for (var i = 0, max = trs.length; i < max; i++) {
+			tableList.push(trs[i].getElementsByTagName('td')[NAME_INDEX].innerText);
+		}
+		return tableList;
+	},
+
+	/**
+	 * Get Unmapped table body element
+	 * @returns {object} Unmapped table body element
+	 */
+	getTableBodyElement: function () {
+		return document.getElementById('unmapped-table-body');
+	},
+
+	/**
+	 * Convert to string
+	 * 	<tr>
+	 *		<td class="rownumcell">1</td>
+	 *		<td class="namecell">OLD_TABLE_NAME1</td>
+	 *		<td class="columnselectorcell">
+	 *		</td>
+	 *	</tr>
+	 * 	<tr>
+	 *		<td class="rownumcell">1</td>
+	 *		<td class="namecell">OLD_TABLE_NAME2</td>
+	 *		<td class="columnselectorcell">
+	 *		</td>
+	 *	</tr>
+	 *  ....
+	 * @returns {string} Unmapped table rows
+	 */
+	toDisplayHtmlString: function () {
+		return Array.prototype.reduce.call(this.rows, function (currentRows, row) {
+			return currentRows + row.toDisplayHtmlString();
+		}, '');
+	},
+
+	postMappingTable: function() {
+		var mappings = Array.prototype.map.call(this.rows, function (row) {
+			var newTableName = document.getElementById('unmapped-table-row-' + row.tableName).children[3].children[0].value;
+			return {
+				oldTableName: row.tableName,
+				newTableName: newTableName,
+				targetType: 'TABLE',
+				authors: row.authorList,
+				previousMappings : row.previousMappingList
+			};
+		});
+
+		mappings = Array.prototype.filter.call(mappings, function(mapping) {
+			return mapping.newTableName !== '-';
+		});
+
+		if (mappings.length === 0) {
+			return;
+		}
+
+		var params = { mappings: mappings };
+		var successCallback = function() {
+			window.location.reload();
+		};
+		new ApiClient().postMapping(params, successCallback);
+	},
+}
+
+/**
+ * @author cabos
+ */
+function UnmappedColumnRow () {
+}
+UnmappedColumnRow.prototype = {
+
+	/**
+	 * Initialize unmapped column row
+	 * @param {number} Row number
+	 * @param {string} Old table name
+	 */
+	init: function (rowNum, table, column) {
+		this.rowNum = rowNum;
+		this.tableName = table.tableName;
+		this.oldColumnName = column.columnName;
+
+		this.mappedColumnNameList = Array.prototype.map.call(column.mappings, function (mapping) {
+			return mapping.newTableName + '.' + mapping.newColumnName;
+		});
+		this.previousMappingList = Array.prototype.map.call(column.mappings, function (mapping) {
+			return mapping.mappingCode;
+		});
+		this.authorList = Array.prototype.map.call(column.mappings, function (mapping) {
+			return mapping.mappingOwner;
+		});
+	},
+
+	/**
+	 * Convert unmapped column row to string
+	 * @returns {string} Unmapped column row
+	 */
+	toDisplayHtmlString: function () {
+		return '<tr id="unmapped-column-row-' + this.oldColumnName + '">'
+		+ '<td class="rownumcell">' + this.rowNum + '</td>'
+		+ '<td class="namecell">' + this.tableName + '</td>'
+		+ '<td class="namecell">' + this.oldColumnName + '</td>'
+		+ '<td class="namecell columnconflictcell">' + this.toConflictDisplayHtmlString() + '</td>'
+		+ '<td id="columnselectorcell-' + this.tableName + '-' + this.oldColumnName + '">' + '</td>'
+		+ '</tr>';
+	},
+
+	toConflictDisplayHtmlString: function() {
+		return Array.prototype.reduce.call(this.mappedColumnNameList, function (currentStrs, name) {
+			if (currentStrs.length === 0) {
+				return name;
+			}
+			return currentStrs + "<br>" + name ;
+		}, '');
+	},
+
+	isColumnNameConflict: function() {
+		return this.previousMappingList.length >= 2;
+	}
+}
+
+/**
+ * @author cabos
+ */
+function UnmappedColumnArea() {
+	this.rows = [];
+}
+UnmappedColumnArea.prototype = {
+
+	/**
+	 * Push unmapped column
+	 */
+	push: function (table, column) {
+		var row = new UnmappedColumnRow();
+		row.init(this.rows.length + 1, table, column);
+		this.rows.push(row);
+	},
+
+	/**
+	 * Activate unmapped column field
+	 */
+	activate: function () {
+		if (document.getElementById("intro_opening") === null) {
+			return;
+		}
+
+		var unmappedElements = document.getElementById('unmapped-columns');
+		unmappedElements.style.display = 'inline';
+		var that = this;
+		document.getElementById('column-mapping-submit-button').onclick = function() {
+			that.postMappingColumn();
+		};
+	},
+
+	/**
+	 * Clear unmapped column field
+	 */
+	clear: function () {
+		var tbody = this.getColumnBodyElement();
+		this.rows = [];
+		tbody.innerHTML = '';
+
+		var unmappedElements = document.getElementById('unmapped-columns');
+		unmappedElements.style.display = 'none';
+	},
+
+	/**
+	 * Reflect unmapped column field
+	 */
+	reflect: function () {
+		if (this.rows.length === 0) {
+			return;
+		}
+
+		this.activate();
+
+		var tbody = this.getColumnBodyElement();
+		var that = this;
+		Array.prototype.forEach.call(this.rows, function (row) {
+			tbody.innerHTML += row.toDisplayHtmlString();
+			that.displayColumnSelector(row.tableName, row.oldColumnName);
+		});
+
+		if (!this.isColumnNameConflict()) {
+			document.querySelector('#unmapped-column-head th.conflictcell').style.display = 'none';
+			Array.prototype.forEach.call(document.getElementsByClassName('columnconflictcell'), function (cell) {
+				cell.style.display = 'none'
+			});
+		}
+	},
+
+	isColumnNameConflict: function () {
+		return Array.prototype.some.call(this.rows, function (row) {
+			return row.isColumnNameConflict();
+		});
+	},
+
+	/**
+	 * Display column selector
+	 */
+	displayColumnSelector: function (tableName, oldColumnName) {
+		var columnSelector = this.createColumnSelector(tableName);
+		var columnSelectorCell = document.getElementById('columnselectorcell-' + tableName + '-' + oldColumnName);
+		columnSelectorCell.innerHTML = columnSelector;
+	},
+
+	/**
+	 * Create select list of column
+	 *	<select>
+	 *		<option>COLUMN_NAME1</option>
+	 *		<option>COLUMN_NAME2</option>
+	 *		<option>COLUMN_NAME3</option>
+	 *		...
+	 *	</select>
+	 * @returns {string} Column selector
+	 */
+	createColumnSelector: function (tableName) {
+		var columnNameList = this.getColumnNameList(tableName);
+		var options = Array.prototype.reduce.call(columnNameList, function (currentOptions, name) {
+			return currentOptions + '<option>' + name + '</option>';
+		}, '');
+		return '<select>' + '<option>-</option>' + options + '</select>'
+	},
+
+	/**
+	 * Get column name list by table name
+	 * @returns {array} column name list
+	 */
+	getColumnNameList: function (tableName) {
+		var trs = document.getElementById(tableName.toLowerCase() + '-body').getElementsByTagName('tr');
+		var columnList = [];
+		for (var i = 0, max = trs.length; i < max; i++) {
+			// TODO check that column name column num is 6
+			columnList.push(trs[i].getElementsByTagName('td')[7].innerText);
+		}
+		return columnList;
+	},
+
+	/**
+	 * Get Unmapped column body element
+	 * @returns {object} Unmapped column body element
+	 */
+	getColumnBodyElement: function () {
+		return document.getElementById('unmapped-column-body');
+	},
+
+	/**
+	 * Convert to string
+	 * 	<tr>
+	 *		<td class="rownumcell">1</td>
+	 *		<td class="namecell">TABLE_NAME1</td>
+	 *		<td class="namecell">OLD_COLUMN_NAME1</td>
+	 *		<td class="columnselectorcell">
+	 *		</td>
+	 *	</tr>
+	 * 	<tr>
+	 *		<td class="rownumcell">1</td>
+	 *		<td class="namecell">TABLE_NAME2</td>
+	 *		<td class="namecell">OLD_COLUMN_NAME2</td>
+	 *		<td class="columnselectorcell">
+	 *		</td>
+	 *	</tr>
+	 *	....
+	 *	@returns {string} Unmapped column rows
+	 */
+	toDisplayHtmlString: function () {
+		return Array.prototype.reduce.call(this.rows, function (currentRows, row) {
+			return currentRows + row.toDisplayHtmlString();
+		}, '');
+	},
+
+	postMappingColumn: function() {
+		var mappings = Array.prototype.map.call(this.rows, function (row) {
+			var tableName = row.tableName;
+			var oldColumnName = row.oldColumnName;
+			var selectorCellId = 'columnselectorcell-' + tableName + '-' + oldColumnName;
+			var newColumnName = document.getElementById(selectorCellId).children[0].value;
+			return {
+				oldTableName: tableName,
+				oldColumnName: oldColumnName,
+				newTableName: tableName,
+				newColumnName: newColumnName,
+				targetType: 'COLUMN',
+				authors: row.authorList,
+				previousMappings : row.previousMappingList
+			};
+		});
+
+		mappings = Array.prototype.filter.call(mappings, function(mapping) {
+			return mapping.newColumnName !== '-';
+		});
+
+		if (mappings.length === 0) {
+			return;
+		}
+
+		var params = { mappings: mappings };
+		var successCallback = function() {
+			window.location.reload();
+		};
+		new ApiClient().postMapping(params, successCallback);
+	}
+}
 new Decomment().init();
 </script>
 </body>
