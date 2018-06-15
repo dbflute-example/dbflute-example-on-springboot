@@ -37,6 +37,7 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
         List<Class<?>> configList = DfCollectionUtil.newArrayList();
         configList.add(JdbcBeansJavaConfig.class);
         configList.add(DBFluteBeansJavaConfig.class);
+        configList.add(LogicBeansJavaConfig.class);
         readyConfigs(configList);
         return new AnnotationConfigApplicationContext(configList.toArray(new Class<?>[] {}));
     }
