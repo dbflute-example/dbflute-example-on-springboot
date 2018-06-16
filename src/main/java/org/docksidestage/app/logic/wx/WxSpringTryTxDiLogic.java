@@ -1,4 +1,4 @@
-package org.docksidestage.app.logic.whitebox;
+package org.docksidestage.app.logic.wx;
 
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.slf4j.Logger;
@@ -8,10 +8,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * white-box try
  * @author jflute
  */
 @Component
-@Transactional // #thinking how i use this? by jflute (2018/06/15)
+@Transactional
 public class WxSpringTryTxDiLogic {
 
     private static final Logger logger = LoggerFactory.getLogger(WxSpringTryTxDiLogic.class);
@@ -19,22 +20,36 @@ public class WxSpringTryTxDiLogic {
     @Autowired
     private MemberBhv memberBhv;
 
-    public int publicMethod() {
-        logger.debug("...Calling public method: {}", getClass().getName());
+    public int sea() {
+        logger.debug("#white ...Calling public method(sea): {}", getClass());
+        int count = memberBhv.selectCount(cb -> {
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        });
+        return count;
+    }
+
+    public void delegateCloset() {
+        land();
+        piari();
+        bonvo();
+    }
+
+    protected int land() {
+        logger.debug("#white ...Calling protected method(land): {}", getClass());
         return memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
     }
 
-    protected int protectedMethod() {
-        logger.debug("...Calling protected method: {}", getClass().getName());
+    int piari() {
+        logger.debug("#white ...Calling package-private method(piari): {}", getClass());
         return memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
     }
 
-    int packagePrivateMethod() {
-        logger.debug("...Calling package-private method: {}", getClass().getName());
+    private int bonvo() {
+        logger.debug("#white ...Calling private method(bonvo): {}", getClass());
         return memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });

@@ -1,4 +1,4 @@
-package org.docksidestage.app.logic.whitebox;
+package org.docksidestage.app.logic.wx;
 
 import org.docksidestage.unit.UnitContainerTestCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,9 @@ public class WxSpringTryTxDiLogicTest extends UnitContainerTestCase {
     }
 
     public void test_call() {
-        logic.publicMethod();
-        logic.protectedMethod();
-        logic.packagePrivateMethod();
+        logic.sea();
+        logic.land();
+        logic.piari();
+        logic.delegateCloset();
     }
 }
