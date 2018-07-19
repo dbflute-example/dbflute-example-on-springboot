@@ -24,6 +24,8 @@ public class WxJsonController {
     }
 
     // http://localhost:8080/wx/json/emptyobj
+    // java.lang.IllegalArgumentException: No converter found for return value of type:
+    // class org.docksidestage.app.web.wx.json.WxJsonController$EmptyObj
     @RequestMapping(method = RequestMethod.GET, value = "emptyobj")
     @ResponseBody
     public EmptyObj emptyobj() {
@@ -37,7 +39,15 @@ public class WxJsonController {
     @RequestMapping(method = RequestMethod.GET, value = "emptylist")
     @ResponseBody
     public List<String> emptylist() {
-        return Arrays.asList("sea", "land", "piari");
+        return Arrays.asList();
+    }
+
+    // http://localhost:8080/wx/json/newobject
+    // No converter found for return value of type: class java.lang.Object
+    @RequestMapping(method = RequestMethod.GET, value = "newobject")
+    @ResponseBody
+    public Object newobject() {
+        return new Object();
     }
 
     // http://localhost:8080/wx/json/strval
