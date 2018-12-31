@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
  */
 package org.docksidestage.dbflute.allcommon;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +42,8 @@ public class DBFluteBeansJavaConfig {
     @Autowired
     protected ApplicationContext _container;
 
-    @Resource(name="dataSource")
+    @Autowired
+    @Qualifier("dataSource")
     protected DataSource _dataSource; // name basis here for multiple DB
 
     // ===================================================================================
