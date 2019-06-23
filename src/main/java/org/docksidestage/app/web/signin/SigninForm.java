@@ -1,4 +1,4 @@
-package org.docksidestage.app.web.login;
+package org.docksidestage.app.web.signin;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author jflute
  * @author inoue
  */
-public class LoginForm {
+public class SigninForm {
 
     @NotEmpty
     @Length(max = 50)

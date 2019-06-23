@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.app.web.login;
+package org.docksidestage.app.web.signin;
 
 import org.docksidestage.unit.UnitContainerTestCase;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +25,7 @@ public class LoginServiceTest extends UnitContainerTestCase {
 
     public void test_loadUserByUsername() {
         // ## Arrange ##
-        LoginService service = new LoginService();
+        SigninService service = new SigninService();
         inject(service);
 
         // ## Act ##
