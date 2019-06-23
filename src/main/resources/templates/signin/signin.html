@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:la="http://dbflute.org/lastaflute">
+<head>
+<!--/*/ <th:block th:include="/common/layout.html :: head (title=#{labels.signin.title})"> /*/-->
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="../../../css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../../css/common.css" />
+	<link rel="stylesheet" type="text/css" href="../../../css/individual.css" />
+	<title>Preview Title</title>
+<!--/*/ </th:block> /*/-->
+<!--/* individual Css write to after */-->
+</head>
+<body>
+<header th:replace="/common/layout.html :: header">
+	<section class="nav-main cf">
+		<div class="wrap">
+			<h1 class="main-title"><a href="#">Harbor<span> (LastaFlute Example)</span></a></h1>
+			<ul class="nav-home">
+				<li><a href="../product/product_list.html"><span class="link-block">Products</span></a></li>
+				<li><a href="../member/member_list.html"><span class="link-block">Members</span></a></li>
+				<li><a href="../withdrawal/withdrawal.html"><span class="link-block">Withdrawal</span></a></li>
+			</ul>
+			<ul class="nav-user">
+				<li>
+					<p class="nameHeader">Welcome, Mr.Guest</p>
+					<ul class="child">
+						<li><a href="#">Profile</a></li>
+						<li><a href="#">Sign out</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</section>
+</header>
+<main>
+<div class="contents">
+	<h2 class="content-title" th:text="#{labels.signin.title}">labels.signin.title</h2>
+	<section class="sign-in-box">
+		<form class="signin-form" th:action="@{/signin/}" action="#" method="post">
+			<ul>
+				<li>
+					<span th:text="#{labels.account}">labels.account</span>
+					<input type="text" name="account" th:value="${account}" th:placeholder="#{labels.signin.input.account}"/>
+					<span la:errors="account"></span>
+				</li>
+				<li>
+					<span th:text="#{labels.password}">labels.password</span>
+					<input type="password" name="password" th:value="${password}" th:placeholder="#{labels.signin.input.password}"/>
+					<span la:errors="password"></span>
+				</li>
+				<li>
+					<label><input type="checkbox" name="rememberMe" th:text="#{labels.signin.rememberMe}"/></label>
+				</li>
+				<li>
+					<input type="submit" name="signin" th:value="#{labels.signin.button}" value="labels.signin.button"/>
+				</li>
+			</ul>
+		</form>
+	</section>
+</div>
+</main>
+<footer th:replace="/common/layout.html :: footer">
+	<div class="wrap">
+		<ul class="footer-link">
+			<li><a href="http://dbflute.seasar.org/">DBFlute Top</a></li>
+			<li><a href="http://dbflute.seasar.org/lastaflute">LastaFlute Top</a></li>
+		</ul>
+		<p class="copyright">&copy; LastaFlute project</p>
+	</div>
+</footer>
+<!--/*/ <th:block th:include="/common/layout.html :: afterScript"> /*/-->
+<!-- script contents -->
+<script src="../../../js/jquery-2.1.3.min.js" ></script>
+<script src="../../../js/common.js" ></script>
+<!--/*/ </th:block> /*/-->
+<!--/* individual Script write to after */-->
+</body>
+</html>
