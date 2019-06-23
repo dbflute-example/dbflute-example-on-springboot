@@ -17,7 +17,7 @@ package org.docksidestage.unit;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,14 +35,12 @@ public class JdbcBeansJavaConfig {
 
     @Bean(name = "dataSource")
     public DataSource createDataSource() {
-        BasicDataSource ds = new BasicDataSource();
+        HikariDataSource ds = new HikariDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost:3306/maihamadb");
+        ds.setJdbcUrl("jdbc:mysql://localhost:3306/maihamadb");
         ds.setUsername("maihamadb");
         ds.setPassword("maihamadb");
-        // you can try abandoned settings here
-        //ds.setRemoveAbandoned(true);
-        //ds.setRemoveAbandonedTimeout(2);
+
         return ds;
     }
 
