@@ -6,16 +6,18 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.docksidestage.bizfw.GodHandableInterceptor;
 import org.docksidestage.bizfw.RequestLoggingFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author jflute
  */
 @Configuration
-public class WebAppConfig extends WebMvcConfigurerAdapter {
+public class WebAppConfig implements WebMvcConfigurer {
 
     @Bean
     public FilterRegistrationBean filterRegistrationBean() { // for logging
@@ -39,5 +41,12 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         ds.setUsername("root");
         ds.setPassword("");
         return ds;
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("harbor_label");
+        return messageSource;
     }
 }
