@@ -16,11 +16,12 @@
 package org.docksidestage.bizfw;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 
+import org.dbflute.hook.AccessContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
@@ -42,6 +43,10 @@ public class GodHandableInterceptor extends HandlerInterceptorAdapter {
                 logger.debug("#flow ...Beginning #controller " + buildActionDisp(handlerMethod));
             }
         }
+        AccessContext context = new AccessContext();
+        context.setAccessLocalDateTime(LocalDateTime.now());
+        context.setAccessUser("example user");
+        AccessContext.setAccessContextOnThread(context);
         return super.preHandle(request, response, handler);
     }
 
