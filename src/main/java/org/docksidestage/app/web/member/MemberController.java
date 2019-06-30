@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.util.DfTypeUtil;
+import org.docksidestage.app.bean.HeaderBean;
 import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dbflute.exentity.Member;
@@ -64,6 +65,7 @@ public class MemberController {
         logger.debug("#form: {}", form);
         if (result.hasErrors()) {
             logger.debug("has error:" + result.getFieldErrors());
+            model.addAttribute("headerBean", HeaderBean.empty());
             model.addAttribute("beans", Collections.emptyList()); // #for_now avoid error
             // #hope change type failure message
             // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
@@ -74,6 +76,7 @@ public class MemberController {
             return "member/member_list";
         }
         PagingResultBean<Member> page = selectMemberPage(form);
+        model.addAttribute("headerBean", HeaderBean.empty());
         model.addAttribute("beans", convertToResultBeans(page));
         return "member/member_list";
     }
