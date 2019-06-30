@@ -37,33 +37,35 @@
 	<h2 class="content-title">List of Member</h2>
 	<section class="member-search-box">
 		<h3 class="content-title-second">Search Condition</h3>
-		<form class="member-search-form" action="#" th:action="@{/member/list/}" method="post">
+		<form class="member-search-form" action="#" th:action="@{/member/list/}" th:object="${searchForm}" method="get">
 			<ul class="member-search-condition-list">
 				<li>
 					<span>Member Name</span>
-					<input type="text" la:property="memberName"/>
+					<input type="text" th:field="*{memberName}"/>
 					<span la:errors="memberName"></span>
 				</li>
 				<li>
 					<span>Purchase Product</span>
-					<input type="text" la:property="purchaseProductName"/>
+					<input type="text" th:field="*{purchaseProductName}"/>
 					<span la:errors="purchaseProductName"></span>
 				</li>
 				<li>
 					<span>Member Status</span>
-					<select la:property="memberStatus">
+					<select th:field="*{memberStatus}">
 						<option value="" th:text="#{labels.listbox.caption.tell}"></option>
-						<option la:optionCls="MemberStatus"></option>
+						<option th:text="${status.alias()}"
+								th:value="${status.code()}"
+								th:each="status : ${memberStatusList}"></option>
 					</select>
 					<span la:errors="memberStatus"></span>
 				</li>
 				<li>
-					<span>has unpaid?</span><input type="checkbox" th:value="unpaid"/>
+					<span>has unpaid?</span><input type="checkbox" th:field="*{unpaid}"/>
 				</li>
 				<li>
 					<span>Formalized Date</span>
-					<input type="text" la:property="formalizedFrom" size="10"/>
-					- <input type="text" la:property="formalizedTo" size="10"/>
+					<input type="text" th:field="*{formalizedDateFrom}" size="10"/>
+					- <input type="text" th:field="*{formalizedDateTo}" size="10"/>
 					<span la:errors="formalizedFrom"></span>
 				</li>
 				<li>

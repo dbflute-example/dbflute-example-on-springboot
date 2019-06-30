@@ -10,7 +10,7 @@ import javax.validation.Valid;
 
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.util.DfTypeUtil;
-import org.docksidestage.app.bean.UserBean;
+import org.docksidestage.app.aop.util.ExampleStringUtils;
 import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dbflute.exentity.Member;
@@ -19,9 +19,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -42,11 +44,15 @@ public class MemberController {
     @Autowired
     private MemberBhv memberBhv; // #dbflute: you can use DBFlute behaviors like this
 
+    @ModelAttribute
+    public List<CDef.MemberStatus> memberStatusList() {
+        return CDef.MemberStatus.listAll();
+    }
+
     // ===================================================================================
     //                                                                              Entry
     //                                                                             =======
-    @RequestMapping("")
-    @Transactional
+    @GetMapping
     public String index(Model model, MemberForm memberForm) {
         int count = memberBhv.selectCount(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
@@ -61,11 +67,9 @@ public class MemberController {
     //                                                                           =========
     // http://localhost:8080/member/list?pageNumber=1
     // http://localhost:8080/member/list?pageNumber=sea
-    @RequestMapping("/list")
-    public String list(Model model, @Valid MemberSearchForm form, BindingResult result, UserBean userBean) {
-        logger.debug("#form: {}", form);
+    @GetMapping("/list")
+    public String list(Model model, @ModelAttribute(name = "searchForm") @Valid MemberSearchForm searchForm, BindingResult result) {
         if (result.hasErrors()) {
-            logger.debug("has error:" + result.getFieldErrors());
             model.addAttribute("beans", Collections.emptyList()); // #for_now avoid error
             // #hope change type failure message
             // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
@@ -75,40 +79,41 @@ public class MemberController {
             // _/_/_/_/_/_/_/_/_/_/
             return "member/member_list";
         }
-        PagingResultBean<Member> page = selectMemberPage(form);
+        PagingResultBean<Member> page = selectMemberPage(searchForm);
         model.addAttribute("beans", convertToResultBeans(page));
         return "member/member_list";
     }
 
     protected PagingResultBean<Member> selectMemberPage(MemberSearchForm form) { // #dbflute: you can select like this
         return memberBhv.selectPage(cb -> {
-            cb.ignoreNullOrEmptyQuery();
             cb.setupSelect_MemberStatus();
             cb.specify().derivedPurchase().count(purchaseCB -> {
                 purchaseCB.specify().columnPurchaseId();
             }, Member.ALIAS_purchaseCount);
-
-            cb.query().setMemberName_LikeSearch(form.getMemberName(), op -> op.likeContain());
-            final String purchaseProductName = form.purchaseProductName;
-            final boolean unpaid = form.unpaid;
-            if ((purchaseProductName != null && purchaseProductName.trim().length() > 0) || unpaid) {
+            if (ExampleStringUtils.isNotEmpty(form.getMemberName())) {
+                cb.query().setMemberName_LikeSearch(form.getMemberName(), op -> op.likeContain());
+            }
+            if (ExampleStringUtils.isNotEmpty(form.getPurchaseProductName()) || form.isUnpaid()) {
                 cb.query().existsPurchase(purchaseCB -> {
-                    purchaseCB.query().queryProduct().setProductName_LikeSearch(purchaseProductName, op -> op.likeContain());
-                    if (unpaid) {
+                    if (ExampleStringUtils.isNotEmpty(form.getPurchaseProductName())) {
+                        purchaseCB.query().queryProduct().setProductName_LikeSearch(form.getPurchaseProductName(), op -> op.likeContain());
+                    }
+                    if (form.isUnpaid()) {
                         purchaseCB.query().setPaymentCompleteFlg_Equal_False();
                     }
                 });
             }
-            cb.query().setMemberStatusCode_Equal_AsMemberStatus(CDef.MemberStatus.codeOf(form.memberStatus));
-            LocalDateTime formalizedDateFrom = DfTypeUtil.toLocalDateTime(form.getFormalizedDateFrom());
-            LocalDateTime formalizedDateTo = DfTypeUtil.toLocalDateTime(form.formalizedDateTo);
-            cb.query().setFormalizedDatetime_FromTo(formalizedDateFrom, formalizedDateTo, op -> op.compareAsDate());
-
+            if (ExampleStringUtils.isNotEmpty(form.getMemberStatus())) {
+                cb.query().setMemberStatusCode_Equal_AsMemberStatus(CDef.MemberStatus.codeOf(form.getMemberStatus()));
+            }
+            if (form.getFormalizedDateFrom() != null || form.getFormalizedDateTo() != null) {
+                LocalDateTime fromTime = form.getFormalizedDateFrom() != null ? form.getFormalizedDateFrom().atStartOfDay() : null;
+                LocalDateTime toTime = form.getFormalizedDateTo() != null ? form.getFormalizedDateTo().atStartOfDay() : null;
+                cb.query().setFormalizedDatetime_FromTo(fromTime, toTime, op -> op.compareAsDate().allowOneSide());
+            }
             cb.query().addOrderBy_UpdateDatetime_Desc();
             cb.query().addOrderBy_MemberId_Asc();
-
-            int pageSize = 4;
-            cb.paging(pageSize, form.getPageNumber());
+            cb.paging(4, form.getPageNumber());
         });
     }
 
@@ -132,7 +137,7 @@ public class MemberController {
     // ===================================================================================
     //                                                                          Add Member
     //                                                                          ==========
-    @RequestMapping("/add")
+    @PostMapping("/add")
     public String add(Model model, @Valid MemberForm memberForm, BindingResult result) throws ParseException, NamingException {
         throw new RuntimeException("not implemented yet");
     }
