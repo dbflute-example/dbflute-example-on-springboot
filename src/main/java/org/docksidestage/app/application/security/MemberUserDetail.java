@@ -3,6 +3,7 @@ package org.docksidestage.app.application.security;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.docksidestage.app.bean.UserBean;
 import org.docksidestage.dbflute.exentity.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,12 +20,14 @@ public class MemberUserDetail implements UserDetails {
     //                                                                           Attribute
     //                                                                           =========
     private final Member member;
+    public static UserBean userBean;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
     public MemberUserDetail(Member member) {
         this.member = member;
+        userBean = new UserBean(member);
     }
 
     // ===================================================================================
@@ -47,22 +50,22 @@ public class MemberUserDetail implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     // ===================================================================================

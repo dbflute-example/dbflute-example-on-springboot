@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.app.bean.HeaderBean;
+import org.docksidestage.app.bean.UserBean;
 import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dbflute.exentity.Member;
@@ -52,6 +53,7 @@ public class MemberController {
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
         logger.debug("count: {}", count);
+        model.addAttribute("memmberForm", memberForm);
         return "index";
     }
 
@@ -61,7 +63,7 @@ public class MemberController {
     // http://localhost:8080/member/list?pageNumber=1
     // http://localhost:8080/member/list?pageNumber=sea
     @RequestMapping("/list")
-    public String list(Model model, @Valid MemberSearchForm form, BindingResult result) {
+    public String list(Model model, @Valid MemberSearchForm form, BindingResult result, UserBean userBean) {
         logger.debug("#form: {}", form);
         if (result.hasErrors()) {
             logger.debug("has error:" + result.getFieldErrors());
