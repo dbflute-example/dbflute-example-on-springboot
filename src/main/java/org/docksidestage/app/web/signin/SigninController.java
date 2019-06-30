@@ -1,6 +1,5 @@
 package org.docksidestage.app.web.signin;
 
-import org.docksidestage.app.bean.HeaderBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,6 @@ public class SigninController {
     public String index(Model model, SigninForm signinForm) {
         logger.debug("#form: {}", signinForm);
         model.addAttribute("loginForm", signinForm);
-        model.addAttribute("headerBean", HeaderBean.empty());
         return "signin/signin";
     }
 }

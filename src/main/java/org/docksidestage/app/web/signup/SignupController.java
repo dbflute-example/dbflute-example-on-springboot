@@ -1,6 +1,5 @@
 package org.docksidestage.app.web.signup;
 
-import org.docksidestage.app.bean.HeaderBean;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dbflute.exbhv.MemberSecurityBhv;
 import org.docksidestage.dbflute.exbhv.MemberServiceBhv;
@@ -38,7 +37,6 @@ public class SignupController {
     @GetMapping
     public String indexGet(Model model) {
         model.addAttribute("signupForm", new SignupForm());
-        model.addAttribute("headerBean", HeaderBean.empty());
         return "signup/signup";
     }
 

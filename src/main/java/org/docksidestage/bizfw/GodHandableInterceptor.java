@@ -43,10 +43,7 @@ public class GodHandableInterceptor extends HandlerInterceptorAdapter {
                 logger.debug("#flow ...Beginning #controller " + buildActionDisp(handlerMethod));
             }
         }
-        AccessContext context = new AccessContext();
-        context.setAccessLocalDateTime(LocalDateTime.now());
-        context.setAccessUser("example user");
-        AccessContext.setAccessContextOnThread(context);
+        prepareAccessContext();
         return super.preHandle(request, response, handler);
     }
 
@@ -67,5 +64,12 @@ public class GodHandableInterceptor extends HandlerInterceptorAdapter {
         final Method method = handlerMethod.getMethod();
         final Class<?> declaringClass = method.getDeclaringClass();
         return declaringClass.getSimpleName() + "." + method.getName() + "()";
+    }
+
+    protected void prepareAccessContext() {
+        AccessContext context = new AccessContext();
+        context.setAccessLocalDateTime(LocalDateTime.now());
+        context.setAccessUser("example user");
+        AccessContext.setAccessContextOnThread(context);
     }
 }

@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.dbflute.cbean.result.PagingResultBean;
-import org.docksidestage.app.bean.HeaderBean;
 import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.ProductBhv;
 import org.docksidestage.dbflute.exentity.Product;
@@ -47,7 +46,6 @@ public class ProductListController {
             return mappingToBean(product);
         }).collect(Collectors.toList());
 
-        model.addAttribute("headerBean", HeaderBean.empty());
         model.addAttribute("beans", beans);
         return "product/product_list";
     }
