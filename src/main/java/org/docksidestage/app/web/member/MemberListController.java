@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.naming.NamingException;
 import javax.validation.Valid;
 
 import org.dbflute.cbean.result.PagingResultBean;
@@ -14,29 +13,20 @@ import org.docksidestage.app.aop.util.ExampleStringUtils;
 import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dbflute.exentity.Member;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author jflute
  */
 @Controller
-@RequestMapping("/member")
-public class MemberController {
-
-    // ===================================================================================
-    //                                                                          Definition
-    //                                                                          ==========
-    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+@RequestMapping("/member/list")
+public class MemberListController {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -50,26 +40,13 @@ public class MemberController {
     }
 
     // ===================================================================================
-    //                                                                              Entry
-    //                                                                             =======
-    @GetMapping
-    public String index(Model model, MemberForm memberForm) {
-        int count = memberBhv.selectCount(cb -> {
-            cb.query().setMemberStatusCode_Equal_Formalized();
-        });
-        logger.debug("count: {}", count);
-        model.addAttribute("memmberForm", memberForm);
-        return "index";
-    }
-
-    // ===================================================================================
     //                                                                           Show List
     //                                                                           =========
     // http://localhost:8080/member/list?pageNumber=1
     // http://localhost:8080/member/list?pageNumber=sea
-    @GetMapping("/list")
-    public String list(Model model, @ModelAttribute(name = "searchForm") @Valid MemberSearchForm searchForm, BindingResult result) {
-        if (result.hasErrors()) {
+    @GetMapping
+    public String list(Model model, @ModelAttribute(name = "searchForm") @Valid MemberSearchForm searchForm, BindingResult br) {
+        if (br.hasErrors()) {
             model.addAttribute("beans", Collections.emptyList()); // #for_now avoid error
             // #hope change type failure message
             // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
@@ -132,13 +109,5 @@ public class MemberController {
             return bean;
         }).collect(Collectors.toList());
         return beanList;
-    }
-
-    // ===================================================================================
-    //                                                                          Add Member
-    //                                                                          ==========
-    @PostMapping("/add")
-    public String add(Model model, @Valid MemberForm memberForm, BindingResult result) throws ParseException, NamingException {
-        throw new RuntimeException("not implemented yet");
     }
 }

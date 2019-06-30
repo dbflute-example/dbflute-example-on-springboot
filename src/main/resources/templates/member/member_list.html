@@ -42,12 +42,12 @@
 				<li>
 					<span>Member Name</span>
 					<input type="text" th:field="*{memberName}"/>
-					<span la:errors="memberName"></span>
+					<span th:if="${#fields.hasErrors('memberName')}" th:errors="*{memberName}" class="errors">Incorrect memberName</span>
 				</li>
 				<li>
 					<span>Purchase Product</span>
 					<input type="text" th:field="*{purchaseProductName}"/>
-					<span la:errors="purchaseProductName"></span>
+					<span th:if="${#fields.hasErrors('purchaseProductName')}" th:errors="*{purchaseProductName}" class="errors">Incorrect purchaseProductName</span>
 				</li>
 				<li>
 					<span>Member Status</span>
@@ -57,16 +57,17 @@
 								th:value="${status.code()}"
 								th:each="status : ${memberStatusList}"></option>
 					</select>
-					<span la:errors="memberStatus"></span>
+					<span th:if="${#fields.hasErrors('memberStatus')}" th:errors="*{memberStatus}" class="errors">Incorrect memberStatus</span>
 				</li>
 				<li>
 					<span>has unpaid?</span><input type="checkbox" th:field="*{unpaid}"/>
 				</li>
 				<li>
 					<span>Formalized Date</span>
-					<input type="text" th:field="*{formalizedDateFrom}" size="10"/>
-					- <input type="text" th:field="*{formalizedDateTo}" size="10"/>
-					<span la:errors="formalizedFrom"></span>
+					<input type="date" th:field="*{formalizedDateFrom}" size="10"/>
+					- <input type="date" th:field="*{formalizedDateTo}" size="10"/>
+					<span th:if="${#fields.hasErrors('formalizedDateFrom')}" th:errors="*{formalizedDateFrom}" class="errors">Incorrect formalizedDateFrom</span>
+					<span th:if="${#fields.hasErrors('formalizedDateTo')}" th:errors="*{formalizedDateTo}" class="errors">Incorrect formalizedDateTo</span>
 				</li>
 				<li>
 					<input type="submit" th:value="#{labels.search}" value="search"/>

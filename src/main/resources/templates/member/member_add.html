@@ -36,37 +36,39 @@
 <div class="contents">
 	<h2 class="content-title" th:text="#{labels.member.add.title}">labels.member.add.title</h2>
 	<section class="member-input-box">
-		<form th:action="@{/member/add/}" action="#" method="post">
+		<form th:action="@{/member/add/}" action="#" th:object="${addForm}" method="post">
 			<input type="hidden" la:token="true"/>
 			<span la:errors="_global"></span>
 			<table>
 				<tr>
 					<td>Member Name</td>
 					<td>
-						<input type="text" la:property="memberName" th:class="${errors.exists('memberName')} ? 'valid-error'"/>
+						<input type="text" th:field="*{memberName}"/>
 						<span la:errors="memberName"></span>
 					</td>
 				</tr>
 				<tr>
 					<td>Member Account</td>
 					<td>
-						<input type="text" la:property="memberAccount" th:class="${errors.exists('memberAccount')} ? 'valid-error'"/>
+						<input type="text" th:field="*{memberAccount}"/>
 						<span la:errors="memberAccount"></span>
 					</td>
 				</tr>
 				<tr>
 					<td>Birthdate</td>
 					<td>
-						<input type="date" la:property="birthdate" th:class="${errors.exists('birthdate')} ? 'valid-error'"/>
+						<input type="date" th:field="*{birthdate}"/>
 						<span la:errors="birthdate"></span>
 					</td>
 				</tr>
 				<tr>
 					<td>Member Status</td>
 					<td>
-						<select la:property="memberStatus" th:class="${errors.exists('memberStatus')} ? 'valid-error'">
+						<select th:field="*{memberStatus}">
 							<option value="" th:text="#{labels.listbox.caption.tell}"></option>
-							<option la:optionCls="MemberStatus"></option>
+							<option th:text="${status.alias()}"
+									th:value="${status.code()}"
+									th:each="status : ${memberStatusList}"></option>
 						</select>
 						<span la:errors="memberStatus"></span>
 					</td>

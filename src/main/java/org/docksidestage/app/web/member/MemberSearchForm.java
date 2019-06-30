@@ -18,6 +18,8 @@ package org.docksidestage.app.web.member;
 import java.time.LocalDate;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author jflute
@@ -31,11 +33,20 @@ public class MemberSearchForm {
     // -----------------------------------------------------
     //                                             Condition
     //                                             ---------
+    @Length(max = 5)
     private String memberName;
+
     private String memberStatus;
+
+    @Length(max = 10)
     private String purchaseProductName;
+
     private boolean unpaid;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate formalizedDateFrom;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate formalizedDateTo;
 
     // -----------------------------------------------------

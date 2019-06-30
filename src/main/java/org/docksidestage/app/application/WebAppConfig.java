@@ -37,7 +37,7 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("harbor_label");
+        messageSource.addBasenames("harbor_label", "harbor_message");
         return messageSource;
     }
 

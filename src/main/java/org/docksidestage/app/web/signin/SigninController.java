@@ -1,10 +1,8 @@
 package org.docksidestage.app.web.signin;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -14,12 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/signin")
 public class SigninController {
 
-    private static final Logger logger = LoggerFactory.getLogger(SigninController.class);
-
     @GetMapping
-    public String index(Model model, SigninForm signinForm) {
-        logger.debug("#form: {}", signinForm);
-        model.addAttribute("loginForm", signinForm);
+    public String index(@ModelAttribute SigninForm signinForm) {
         return "signin/signin";
     }
 }

@@ -36,17 +36,17 @@
 <div class="contents">
 	<h2 class="content-title" th:text="#{labels.signin.title}">labels.signin.title</h2>
 	<section class="sign-in-box">
-		<form class="signin-form" th:action="@{/signin}" action="#" method="post">
+		<form class="signin-form" th:action="@{/signin}" action="#" th:object="${signinForm}" method="post">
 			<ul>
 				<li>
 					<span th:text="#{labels.account}">labels.account</span>
-					<input type="text" name="account" th:value="${account}" th:placeholder="#{labels.signin.input.account}"/>
-					<span la:errors="account"></span>
+					<input type="text" name="account" th:value="*{account}" th:placeholder="#{labels.signin.input.account}"/>
+					<span th:if="${#fields.hasErrors('account')}" th:errors="*{account}">Incorrect account</span>
 				</li>
 				<li>
 					<span th:text="#{labels.password}">labels.password</span>
-					<input type="password" name="password" th:value="${password}" th:placeholder="#{labels.signin.input.password}"/>
-					<span la:errors="password"></span>
+					<input type="password" name="password" th:value="*{password}" th:placeholder="#{labels.signin.input.password}"/>
+					<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</span>
 				</li>
 				<li>
 					<label><input type="checkbox" name="rememberMe" th:text="#{labels.signin.rememberMe}"/></label>
