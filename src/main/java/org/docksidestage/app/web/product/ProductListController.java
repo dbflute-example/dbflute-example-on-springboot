@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.dbflute.cbean.result.PagingResultBean;
 import org.docksidestage.app.bean.HeaderBean;
+import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.ProductBhv;
 import org.docksidestage.dbflute.exentity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,13 +31,18 @@ public class ProductListController {
     @Autowired
     private ProductBhv productBhv;
 
+    @ModelAttribute
+    public List<CDef.ProductStatus> productStatusList() {
+        return CDef.ProductStatus.listAll();
+    }
+
     @GetMapping({ "/", "/{pageNumber}" })
-    public String index(Model model, @PathVariable("pageNumber") Optional<Integer> pageNumber, @Validated ProductSearchForm form,
-            BindingResult br) {
+    public String index(Model model, @PathVariable("pageNumber") Optional<Integer> pageNumber,
+            @ModelAttribute(name = "searchForm") @Validated ProductSearchForm searchForm, BindingResult br) {
         if (br.hasErrors()) {
             return "product/product_list";
         }
-        PagingResultBean<Product> page = selectProductPage(pageNumber.orElse(1), form);
+        PagingResultBean<Product> page = selectProductPage(pageNumber.orElse(1), searchForm);
         List<ProductSearchRowBean> beans = page.stream().map(product -> {
             return mappingToBean(product);
         }).collect(Collectors.toList());
@@ -55,16 +62,16 @@ public class ProductListController {
             cb.specify().derivedPurchase().max(purchaseCB -> {
                 purchaseCB.specify().columnPurchaseDatetime();
             }, Product.ALIAS_latestPurchaseDate);
-            if (form.getProductName() != null) {
+            if (existsField(form.getProductName())) {
                 cb.query().setProductName_LikeSearch(form.getProductName(), op -> op.likeContain());
             }
-            if (form.getPurchaseMemberName() != null) {
+            if (existsField(form.getPurchaseMemberName())) {
                 cb.query().existsPurchase(purchaseCB -> {
                     purchaseCB.query().queryMember().setMemberName_LikeSearch(form.getPurchaseMemberName(), op -> op.likeContain());
                 });
             }
-            if (form.getProductStatus() != null) {
-                cb.query().setProductStatusCode_Equal_AsProductStatus(form.getProductStatus());
+            if (existsField(form.getProductStatus())) {
+                cb.query().setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.codeOf(form.getProductStatus()));
             }
             cb.query().addOrderBy_ProductName_Asc();
             cb.query().addOrderBy_ProductId_Asc();
@@ -88,5 +95,9 @@ public class ProductListController {
         bean.setRegularPrice(product.getRegularPrice());
         bean.setLatestPurchaseDate(product.getLatestPurchaseDate());
         return bean;
+    }
+
+    private boolean existsField(String str) {
+        return str != null && str.length() > 0;
     }
 }

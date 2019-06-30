@@ -16,7 +16,6 @@
 package org.docksidestage.app.web.product;
 
 import lombok.Data;
-import org.docksidestage.dbflute.allcommon.CDef;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -25,11 +24,12 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class ProductSearchForm {
 
-    @Length(max = 10) // #simple_for_example just for validtion example
+    @Length(max = 10) // #simple_for_example just for validation example
     private String productName;
 
-    private CDef.ProductStatus productStatus;
+    @Length(max = 3) // #simple_for_example just for validation example
+    private String productStatus;
 
-    @Length(max = 5) // #simple_for_example just for validtion example
+    @Length(max = 5) // #simple_for_example just for validation example
     private String purchaseMemberName;
 }
