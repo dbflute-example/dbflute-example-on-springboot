@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:la="http://dbflute.org/lastaflute" xmlns:df="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:ex="http://www.w3.org/1999/xhtml">
 <head>
 <!--/*/ <th:block th:include="/common/layout.html :: head (title=#{labels.product.list.title})"> /*/-->
 	<meta charset="utf-8"/>
@@ -42,7 +43,7 @@
 				<li>
 					<span th:text="#{labels.productName}">labels.productName</span>
 					<input type="text" th:field="*{productName}"/>
-					<span la:errors="productName"></span>
+					<span ex:ferrorss="*{productName}"></span>
 				</li>
 				<li>
 					<span th:text="#{labels.productStatus}">labels.productStatus</span>
@@ -52,12 +53,12 @@
 								th:value="${status.code()}"
 								th:each="status : ${productStatusList}"></option>
 					</select>
-					<span la:errors="productStatus"></span>
+					<span ex:ferrors="*{productStatus}"></span>
 				</li>
 				<li>
 					<span th:text="#{labels.purchase} + ' ' + #{labels.member}">labels.purchase labels.member</span>
 					<input type="text" th:field="*{purchaseMemberName}"/>
-					<span la:errors="purchaseMemberName"></span>
+					<span ex:ferrors="*{purchaseMemberName}"></span>
 				</li>
 			</ul>
 			<input type="submit" th:value="#{labels.search}" value="search"/>

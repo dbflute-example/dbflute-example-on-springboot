@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:la="http://dbflute.org/lastaflute">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:la="http://dbflute.org/lastaflute" xmlns:ex="http://www.w3.org/1999/xhtml">
 <head>
 <!--/*/ <th:block th:include="/common/layout.html :: head (title='Member Add')"> /*/-->
 	<meta charset="utf-8"/>
@@ -44,21 +44,21 @@
 					<td>Member Name</td>
 					<td>
 						<input type="text" th:field="*{memberName}"/>
-						<span la:errors="memberName"></span>
+                        <span ex:ferrors="*{memberName}"></span>
 					</td>
 				</tr>
 				<tr>
 					<td>Member Account</td>
 					<td>
 						<input type="text" th:field="*{memberAccount}"/>
-						<span la:errors="memberAccount"></span>
+                        <span ex:ferrors="*{memberAccount}"></span>
 					</td>
 				</tr>
 				<tr>
 					<td>Birthdate</td>
 					<td>
 						<input type="date" th:field="*{birthdate}"/>
-						<span la:errors="birthdate"></span>
+                        <span ex:ferrors="*{birthdate}"></span>
 					</td>
 				</tr>
 				<tr>
@@ -70,7 +70,7 @@
 									th:value="${status.code()}"
 									th:each="status : ${memberStatusList}"></option>
 						</select>
-						<span la:errors="memberStatus"></span>
+                        <span ex:ferrors="*{memberStatus}"></span>
 					</td>
 				</tr>
 			</table>

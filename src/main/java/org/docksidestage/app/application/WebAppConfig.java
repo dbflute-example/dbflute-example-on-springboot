@@ -13,6 +13,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.dialect.IProcessorDialect;
 
 /**
  * @author jflute
@@ -44,5 +45,10 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new UserBeanArgumentResolver());
+    }
+
+    @Bean
+    public IProcessorDialect exampleDialect() {
+        return new ExampleDialect("exampleDialect", "ex", 1000);
     }
 }

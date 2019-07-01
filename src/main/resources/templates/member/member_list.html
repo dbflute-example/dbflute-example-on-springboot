@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:la="http://dbflute.org/lastaflute">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:ex="http://www.w3.org/1999/xhtml">
 <head>
 <!--/*/ <th:block th:include="/common/layout.html :: head (title='Members')"> /*/-->
 	<meta charset="utf-8"/>
@@ -42,12 +42,12 @@
 				<li>
 					<span>Member Name</span>
 					<input type="text" th:field="*{memberName}"/>
-					<span th:if="${#fields.hasErrors('memberName')}" th:errors="*{memberName}" class="errors">Incorrect memberName</span>
+					<span ex:ferrors="*{memberName}"></span>
 				</li>
 				<li>
 					<span>Purchase Product</span>
 					<input type="text" th:field="*{purchaseProductName}"/>
-					<span th:if="${#fields.hasErrors('purchaseProductName')}" th:errors="*{purchaseProductName}" class="errors">Incorrect purchaseProductName</span>
+					<span ex:ferrors="*{purchaseProductName}"></span>
 				</li>
 				<li>
 					<span>Member Status</span>
@@ -58,6 +58,7 @@
 								th:each="status : ${memberStatusList}"></option>
 					</select>
 					<span th:if="${#fields.hasErrors('memberStatus')}" th:errors="*{memberStatus}" class="errors">Incorrect memberStatus</span>
+                    <span ex:ferrors="*{memberStatus}"></span>
 				</li>
 				<li>
 					<span>has unpaid?</span><input type="checkbox" th:field="*{unpaid}"/>
@@ -66,8 +67,8 @@
 					<span>Formalized Date</span>
 					<input type="date" th:field="*{formalizedDateFrom}" size="10"/>
 					- <input type="date" th:field="*{formalizedDateTo}" size="10"/>
-					<span th:if="${#fields.hasErrors('formalizedDateFrom')}" th:errors="*{formalizedDateFrom}" class="errors">Incorrect formalizedDateFrom</span>
-					<span th:if="${#fields.hasErrors('formalizedDateTo')}" th:errors="*{formalizedDateTo}" class="errors">Incorrect formalizedDateTo</span>
+					<span ex:ferrors="*{formalizedDateFrom}"></p>
+					<span ex:ferrors="*{formalizedDateTo}"></p>
 				</li>
 				<li>
 					<input type="submit" th:value="#{labels.search}" value="search"/>

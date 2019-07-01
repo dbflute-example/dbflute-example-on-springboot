@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:la="http://dbflute.org/lastaflute">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:la="http://dbflute.org/lastaflute" xmlns:ex="http://www.w3.org/1999/xhtml">
 <head>
 <!--/*/ <th:block th:include="/common/layout.html :: head (title=#{labels.signup.title})"> /*/-->
 	<meta charset="utf-8"/>
@@ -42,27 +42,27 @@
 				<li>
 					<span th:text="#{labels.memberName}">labels.memberName</span>
 					<input type="text" name="memberName" th:field="*{memberName}"/>
-					<span la:errors="memberName"></span>
+					<span ex:ferrors="*{memberName}"></span>
 				</li>
 				<li>
 					<span th:text="#{labels.memberAccount}">labels.memberAccount</span>
 					<input type="text" th:field="*{memberAccount}"/>
-					<span la:errors="memberAccount"></span>
+					<span ex:ferrors="*{memberAccount}"></span>
 				</li>
 				<li>
 					<span th:text="#{labels.password}">labels.password</span>
 					<input type="password" th:field="*{password}"/>
-					<span la:errors="password"></span>
+					<span ex:ferrors="*{password"></span>
 				</li>
 				<li>
 					<span th:text="#{labels.reminderQuestion}">labels.reminderQuestion</span>
 					<input type="text" th:field="*{reminderQuestion}"/>
-					<span la:errors="reminderQuestion"></span>
+					<span ex:ferrors="*{reminderQuestion}"></span>
 				</li>
 				<li>
 					<span th:text="#{labels.reminderAnswer}">labels.reminderAnswer</span>
 					<input type="text" th:field="*{reminderAnswer}"/>
-					<span la:errors="reminderAnswer"></span>
+					<span ex:ferrors="*{reminderAnswer}"></span>
 				</li>
 				<li>
 					<input type="submit" name="signup" th:value="#{labels.signup.button}" value="labels.signup.button"/>

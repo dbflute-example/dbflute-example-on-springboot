@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:la="http://dbflute.org/lastaflute">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:ex="http://www.w3.org/1999/xhtml">
 <head>
 <!--/*/ <th:block th:include="/common/layout.html :: head (title=#{labels.signin.title})"> /*/-->
 	<meta charset="utf-8"/>
@@ -41,12 +41,12 @@
 				<li>
 					<span th:text="#{labels.account}">labels.account</span>
 					<input type="text" name="account" th:value="*{account}" th:placeholder="#{labels.signin.input.account}"/>
-					<span th:if="${#fields.hasErrors('account')}" th:errors="*{account}">Incorrect account</span>
+					<span ex:ferrors="*{account}"></span>
 				</li>
 				<li>
 					<span th:text="#{labels.password}">labels.password</span>
 					<input type="password" name="password" th:value="*{password}" th:placeholder="#{labels.signin.input.password}"/>
-					<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</span>
+					<span ex:ferrors="*{password}"></span>
 				</li>
 				<li>
 					<label><input type="checkbox" name="rememberMe" th:text="#{labels.signin.rememberMe}"/></label>
