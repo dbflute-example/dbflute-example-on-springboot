@@ -1,7 +1,7 @@
 package org.docksidestage.app.web.signin;
 
 import org.dbflute.optional.OptionalEntity;
-import org.docksidestage.app.util.ExampleStringUtils;
+import org.docksidestage.app.utils.ExampleStringUtils;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dbflute.exentity.Member;
 import org.docksidestage.dbflute.exentity.MemberSecurity;
