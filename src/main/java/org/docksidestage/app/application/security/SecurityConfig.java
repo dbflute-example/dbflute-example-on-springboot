@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.ForwardAuthenticationFailureHandler;
 
 /**
  * @author inoue on 2016/12/18.
@@ -35,8 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginProcessingUrl("/signin")
-                .defaultSuccessUrl("/member")
+                .defaultSuccessUrl("/member/list")
                 .failureUrl("/signin")
+                .failureHandler(new ForwardAuthenticationFailureHandler("/signin"))
                 .usernameParameter("account")
                 .passwordParameter("password")
                 .permitAll()

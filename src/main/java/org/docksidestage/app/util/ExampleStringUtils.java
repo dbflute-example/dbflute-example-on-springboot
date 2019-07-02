@@ -1,4 +1,4 @@
-package org.docksidestage.app.aop.util;
+package org.docksidestage.app.util;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
