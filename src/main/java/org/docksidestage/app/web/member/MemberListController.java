@@ -40,10 +40,8 @@ public class MemberListController {
     }
 
     // ===================================================================================
-    //                                                                           Show List
-    //                                                                           =========
-    // http://localhost:8080/member/list?pageNumber=1
-    // http://localhost:8080/member/list?pageNumber=sea
+    //                                                                             Routing
+    //                                                                             =======
     @GetMapping
     public String list(Model model, @ModelAttribute(name = "searchForm") @Valid MemberSearchForm searchForm, BindingResult br) {
         if (br.hasErrors()) {
@@ -61,7 +59,7 @@ public class MemberListController {
         return "member/member_list";
     }
 
-    protected PagingResultBean<Member> selectMemberPage(MemberSearchForm form) { // #dbflute: you can select like this
+    private PagingResultBean<Member> selectMemberPage(MemberSearchForm form) { // #dbflute: you can select like this
         return memberBhv.selectPage(cb -> {
             cb.setupSelect_MemberStatus();
             cb.specify().derivedPurchase().count(purchaseCB -> {
@@ -94,7 +92,7 @@ public class MemberListController {
         });
     }
 
-    protected List<MemberSearchRowBean> convertToResultBeans(PagingResultBean<Member> page) {
+    private List<MemberSearchRowBean> convertToResultBeans(PagingResultBean<Member> page) {
         List<MemberSearchRowBean> beanList = page.stream().map(member -> {
             MemberSearchRowBean bean = new MemberSearchRowBean();
             bean.setMemberId(member.getMemberId());

@@ -32,6 +32,9 @@ public class MemberAddController {
         return CDef.MemberStatus.listAll();
     }
 
+    // ===================================================================================
+    //                                                                             Routing
+    //                                                                             =======
     @GetMapping
     public String addGet(@ModelAttribute(name = "addForm") MemberAddForm addForm) {
         return "member/member_add";

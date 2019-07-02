@@ -17,14 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/signin")
 public class SigninController {
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     @Autowired
     private SigninValidator signinValidator;
 
+    // ===================================================================================
+    //                                                                          Initialize
+    //                                                                          ==========
     @InitBinder("signinForm")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(signinValidator);
     }
 
+    // ===================================================================================
+    //                                                                             Routing
+    //                                                                             =======
     @GetMapping
     public String index(@ModelAttribute SigninForm signinForm) {
         return "signin/signin";

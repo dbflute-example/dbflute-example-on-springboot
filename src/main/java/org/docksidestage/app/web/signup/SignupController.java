@@ -38,11 +38,17 @@ public class SignupController {
     @Autowired
     private SignupValidator signupValidator;
 
+    // ===================================================================================
+    //                                                                          Initialize
+    //                                                                          ==========
     @InitBinder("signupForm")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(signupValidator);
     }
 
+    // ===================================================================================
+    //                                                                             Routing
+    //                                                                             =======
     @GetMapping
     public String indexGet(Model model) {
         model.addAttribute("signupForm", new SignupForm());

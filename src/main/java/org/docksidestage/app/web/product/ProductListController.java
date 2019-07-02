@@ -37,6 +37,9 @@ public class ProductListController {
         return CDef.ProductStatus.listAll();
     }
 
+    // ===================================================================================
+    //                                                                             Routing
+    //                                                                             =======
     @GetMapping({ "/", "/{pageNumber}" })
     public String index(Model model, @PathVariable("pageNumber") Optional<Integer> pageNumber,
             @ModelAttribute(name = "searchForm") @Validated ProductSearchForm searchForm, BindingResult br) {
@@ -53,9 +56,6 @@ public class ProductListController {
         return "product/product_list";
     }
 
-    // ===================================================================================
-    //                                                                              Select
-    //                                                                              ======
     private PagingResultBean<Product> selectProductPage(int pageNumber, ProductSearchForm form) {
         return productBhv.selectPage(cb -> {
             cb.setupSelect_ProductStatus();
@@ -80,9 +80,6 @@ public class ProductListController {
         });
     }
 
-    // ===================================================================================
-    //                                                                             Mapping
-    //                                                                             =======
     private ProductSearchRowBean mappingToBean(Product product) {
         ProductSearchRowBean bean = new ProductSearchRowBean();
         bean.setProductId(product.getProductId());
