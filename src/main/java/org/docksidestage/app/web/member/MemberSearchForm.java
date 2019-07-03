@@ -15,17 +15,17 @@
  */
 package org.docksidestage.app.web.member;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author jflute
  */
-public class MemberSearchForm implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Data
+public class MemberSearchForm {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -33,66 +33,24 @@ public class MemberSearchForm implements Serializable {
     // -----------------------------------------------------
     //                                             Condition
     //                                             ---------
-    @NotEmpty
+    @Length(max = 5)
     private String memberName;
-    public String memberStatus;
-    public String purchaseProductName;
-    public boolean unpaid;
+
+    private String memberStatus;
+
+    @Length(max = 10)
+    private String purchaseProductName;
+
+    private boolean unpaid;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate formalizedDateFrom;
-    public LocalDate formalizedDateTo;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate formalizedDateTo;
 
     // -----------------------------------------------------
     //                                                Paging
     //                                                ------
     private Integer pageNumber = 1;
-
-    // ===================================================================================
-    //                                                                               Reset
-    //                                                                               =====
-    public void reset() {
-        unpaid = false;
-    }
-
-    // ===================================================================================
-    //                                                                      Basic Override
-    //                                                                      ==============
-    @Override
-    public String toString() {
-        return "{" + memberName + ", " + memberStatus + ", " + pageNumber + "}";
-    }
-
-    // ===================================================================================
-    //                                                                            Accessor
-    //                                                                            ========
-    public String getMemberName() {
-        return memberName;
-    }
-
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
-    }
-
-    public String getMemberStatus() {
-        return memberStatus;
-    }
-
-    public void setMemberStatus(String memberStatus) {
-        this.memberStatus = memberStatus;
-    }
-
-    public LocalDate getFormalizedDateFrom() {
-        return formalizedDateFrom;
-    }
-
-    public void setFormalizedDateFrom(LocalDate formalizedDateFrom) {
-        this.formalizedDateFrom = formalizedDateFrom;
-    }
-
-    public Integer getPageNumber() {
-        return pageNumber;
-    }
-
-    public void setPageNumber(Integer pageNumber) {
-        this.pageNumber = pageNumber;
-    }
 }

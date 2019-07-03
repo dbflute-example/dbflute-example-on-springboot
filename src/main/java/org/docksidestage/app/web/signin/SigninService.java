@@ -1,4 +1,4 @@
-package org.docksidestage.app.web.login;
+package org.docksidestage.app.web.signin;
 
 import org.docksidestage.app.application.security.MemberUserDetail;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @author jflute
  */
 @Service
-public class LoginService implements UserDetailsService {
+public class SigninService implements UserDetailsService {
 
     @Autowired
     private MemberBhv memberBhv;

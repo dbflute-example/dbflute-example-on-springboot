@@ -16,10 +16,12 @@
 package org.docksidestage.bizfw;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.dbflute.hook.AccessContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
@@ -35,10 +37,13 @@ public class GodHandableInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        final HandlerMethod handlerMethod = (HandlerMethod) handler;
-        if (logger.isDebugEnabled()) {
-            logger.debug("#flow ...Beginning #controller " + buildActionDisp(handlerMethod));
+        if (handler instanceof HandlerMethod) {
+            final HandlerMethod handlerMethod = (HandlerMethod) handler;
+            if (logger.isDebugEnabled()) {
+                logger.debug("#flow ...Beginning #controller " + buildActionDisp(handlerMethod));
+            }
         }
+        prepareAccessContext();
         return super.preHandle(request, response, handler);
     }
 
@@ -46,10 +51,12 @@ public class GodHandableInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
             throws Exception {
         super.postHandle(request, response, handler, modelAndView);
-        if (logger.isDebugEnabled()) {
-            logger.debug("modelAndView: {}", modelAndView != null ? modelAndView.toString() : null);
-            final HandlerMethod handlerMethod = (HandlerMethod) handler;
-            logger.debug("#flow ...Calling back #finally for " + buildActionDisp(handlerMethod));
+        if (handler instanceof HandlerMethod) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("modelAndView: {}", modelAndView != null ? modelAndView.toString() : null);
+                final HandlerMethod handlerMethod = (HandlerMethod) handler;
+                logger.debug("#flow ...Calling back #finally for " + buildActionDisp(handlerMethod));
+            }
         }
     }
 
@@ -57,5 +64,12 @@ public class GodHandableInterceptor extends HandlerInterceptorAdapter {
         final Method method = handlerMethod.getMethod();
         final Class<?> declaringClass = method.getDeclaringClass();
         return declaringClass.getSimpleName() + "." + method.getName() + "()";
+    }
+
+    protected void prepareAccessContext() {
+        AccessContext context = new AccessContext();
+        context.setAccessLocalDateTime(LocalDateTime.now());
+        context.setAccessUser("example user");
+        AccessContext.setAccessContextOnThread(context);
     }
 }

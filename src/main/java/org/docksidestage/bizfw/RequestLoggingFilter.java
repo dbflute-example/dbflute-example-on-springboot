@@ -51,11 +51,11 @@ import org.slf4j.LoggerFactory;
 /**
  * The filter for logging of request. <br>
  * Seasar's RequestDumpFilter is used as reference.
- * 
+ *
  * <p>This filter outputs request info as debug level in development
  * and outputs exception info as error level in development and production.
  * The error message contains request info, so you can see it.</p>
- * 
+ *
  * <p>The requests for resource files, e.g. JavaScript(.js) and CSS(.css), is out of target.
  * You can customize it by {@link FilterConfig}.</p>
  *
@@ -456,14 +456,14 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected void buildRequestHeaders(StringBuilder sb, HttpServletRequest request) {
-        for (Iterator<?> it = toSortedSet(request.getHeaderNames()).iterator(); it.hasNext();) {
+        for (Iterator<?> it = toSortedSet(request.getHeaderNames()).iterator(); it.hasNext(); ) {
             final String name = (String) it.next();
             doBuildHeaderLine(sb, name, request.getHeader(name));
         }
     }
 
     protected void buildResponseHeaders(StringBuilder sb, HttpServletResponse response) {
-        for (Iterator<?> it = toSortedSet(response.getHeaderNames()).iterator(); it.hasNext();) {
+        for (Iterator<?> it = toSortedSet(response.getHeaderNames()).iterator(); it.hasNext(); ) {
             final String name = (String) it.next();
             doBuildHeaderLine(sb, name, response.getHeader(name));
         }
@@ -490,7 +490,7 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected void buildRequestParameters(StringBuilder sb, HttpServletRequest request) {
-        for (final Iterator<?> it = toSortedSet(request.getParameterNames()).iterator(); it.hasNext();) {
+        for (final Iterator<?> it = toSortedSet(request.getParameterNames()).iterator(); it.hasNext(); ) {
             final String name = (String) it.next();
             sb.append(IND);
             sb.append("[param] ").append(name).append("=");
@@ -514,7 +514,7 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected void buildRequestAttributes(StringBuilder sb, HttpServletRequest request, boolean showErrorFlush) {
-        for (Iterator<?> it = toSortedSet(request.getAttributeNames()).iterator(); it.hasNext();) {
+        for (Iterator<?> it = toSortedSet(request.getAttributeNames()).iterator(); it.hasNext(); ) {
             final String name = (String) it.next();
             if (isIgnoreRequestAttributeShow(name)) {
                 continue;
@@ -542,7 +542,7 @@ public class RequestLoggingFilter implements Filter {
         if (session == null) {
             return;
         }
-        for (Iterator<?> it = toSortedSet(session.getAttributeNames()).iterator(); it.hasNext();) {
+        for (Iterator<?> it = toSortedSet(session.getAttributeNames()).iterator(); it.hasNext(); ) {
             final String name = (String) it.next();
             final Object attr = session.getAttribute(name);
             if (attr instanceof NonShowAttribute) {
@@ -857,6 +857,7 @@ public class RequestLoggingFilter implements Filter {
     // -----------------------------------------------------
     //                                Client Error Exception
     //                                ----------------------
+
     /**
      * The exception that means specified client error for the current request. <br>
      * You can send specified status e.g. 400, 404 by throwing this exception in your program.
