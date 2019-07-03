@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:la="http://dbflute.org/lastaflute">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <!--/*/ <th:block th:fragment="head (title)"> /*/-->
 	<meta charset="utf-8"/>
@@ -13,7 +13,7 @@
 <header th:fragment="header">
 	<section class="nav-main cf">
 		<div class="wrap">
-			<h1 class="main-title"><a th:href="@{/}" href="#">Harbor<span> (LastaFlute Example)</span></a></h1>
+			<h1 class="main-title"><a th:href="@{/}" href="#">Harbor<span> (Spring Example)</span></a></h1>
 			<ul class="nav-home">
 				<li><a th:href="@{/product/list/}" href="../product/product_list.html"><span class="link-block">Products</span></a></li>
 				<li><a th:href="@{/member/list/}" href="../member/member_list.html"><span class="link-block">Members</span></a></li>
@@ -52,9 +52,7 @@
 	<div class="wrap">
 		<ul class="footer-link">
 			<li><a href="http://dbflute.seasar.org/">DBFlute Top</a></li>
-			<li><a href="http://dbflute.seasar.org/lastaflute">LastaFlute Top</a></li>
 		</ul>
-		<p class="copyright">&copy; LastaFlute project</p>
 	</div>
 </footer>
 <!--/*/ <th:block th:fragment="afterScript"> /*/-->
