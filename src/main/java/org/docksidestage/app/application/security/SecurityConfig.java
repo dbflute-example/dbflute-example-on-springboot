@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/signin", "/signin/", "/signup", "/signup/", "/product/list", "/product/list/")
                 .permitAll()
                 .antMatchers("/css/**", "/js/**", "/images/**")
-                .permitAll()
+                .permitAll().antMatchers("/lido/product/list").permitAll()
                 .anyRequest()
                 .authenticated();
 
