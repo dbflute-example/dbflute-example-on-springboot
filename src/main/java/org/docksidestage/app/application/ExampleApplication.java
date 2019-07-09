@@ -17,18 +17,14 @@ package org.docksidestage.app.application;
 
 import org.docksidestage.dbflute.allcommon.DBFluteBeansJavaConfig;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * @author jflute
  */
-@Configuration
-@EnableWebMvc
-@EnableAutoConfiguration
+@SpringBootApplication
 @ComponentScan("org.docksidestage.app")
 @Import(DBFluteBeansJavaConfig.class)
 public class ExampleApplication { // #dbflute: import JavaConfig of DBFlute

@@ -1,83 +1,132 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:ex="http://www.w3.org/1999/xhtml">
+<head>
+<!--/*/ <th:block th:include="/common/layout.html :: head (title='Members')"> /*/-->
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="../../../css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../../css/common.css" />
+	<link rel="stylesheet" type="text/css" href="../../../css/individual.css" />
+	<title>Preview Title</title>
+<!--/*/ </th:block> /*/-->
+<!--/* individual Css write to after */-->
+</head>
 <body>
+<header th:replace="/common/layout.html :: header">
+	<section class="nav-main cf">
+		<div class="wrap">
+			<h1 class="main-title"><a href="#">Harbor<span> (Spring Example)</span></a></h1>
+			<ul class="nav-home">
+				<li><a href="../product/product_list.html"><span class="link-block">Products</span></a></li>
+				<li><a href="../member/member_list.html"><span class="link-block">Members</span></a></li>
+				<li><a href="../withdrawal/withdrawal.html"><span class="link-block">Withdrawal</span></a></li>
+			</ul>
+			<ul class="nav-user">
+				<li>
+					<p class="nameHeader">Welcome, Mr.Guest</p>
+					<ul class="child">
+						<li><a href="#">Profile</a></li>
+						<li><a href="#">Sign out</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</section>
+</header>
+<main>
 <div class="contents">
-	<h2>Member List</h2>
-	<div class="condition">
-		<form action="#" th:action="@{/member/list/}" th:object="${memberSearchForm}" method="get">
-			<!-- show error per 'p' tag -->
-			<div th:if="${#fields.hasErrors('*')}">
-			    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
-			</div>
-			<table>
+	<h2 class="content-title">List of Member</h2>
+	<section class="member-search-box">
+		<h3 class="content-title-second">Search Condition</h3>
+		<form class="member-search-form" action="#" th:action="@{/member/list/}" th:object="${searchForm}" method="get">
+			<ul class="member-search-condition-list">
+				<li>
+					<span>Member Name</span>
+					<input type="text" th:field="*{memberName}"/>
+					<span ex:ferrors="*{memberName}"></span>
+				</li>
+				<li>
+					<span>Purchase Product</span>
+					<input type="text" th:field="*{purchaseProductName}"/>
+					<span ex:ferrors="*{purchaseProductName}"></span>
+				</li>
+				<li>
+					<span>Member Status</span>
+					<select th:field="*{memberStatus}">
+						<option value="" th:text="#{labels.listbox.caption.tell}"></option>
+						<option th:text="${status.alias()}"
+								th:value="${status.code()}"
+								th:each="status : ${memberStatusList}"></option>
+					</select>
+					<span th:if="${#fields.hasErrors('memberStatus')}" th:errors="*{memberStatus}" class="errors">Incorrect memberStatus</span>
+                    <span ex:ferrors="*{memberStatus}"></span>
+				</li>
+				<li>
+					<span>has unpaid?</span><input type="checkbox" th:field="*{unpaid}"/>
+				</li>
+				<li>
+					<span>Formalized Date</span>
+					<input type="date" th:field="*{formalizedDateFrom}" size="10"/>
+					- <input type="date" th:field="*{formalizedDateTo}" size="10"/>
+					<span ex:ferrors="*{formalizedDateFrom}"></p>
+					<span ex:ferrors="*{formalizedDateTo}"></p>
+				</li>
+				<li>
+					<input type="submit" th:value="#{labels.search}" value="search"/>
+				</li>
+			</ul>
+		</form>
+	</section>
+	<section class="member-result-box">
+		<h3 class="content-title-second">Search Result</h3>
+		<a th:href="@{/member/add/}" href="member_add.html">add Member</a>
+		<table class="list-tbl">
+			<thead>
 				<tr>
-					<td><label>Member Name</label></td>
-					<td><input type="text" name="memberName" th:value="*{memberName}" /></td>
+					<th>Member Id</th>
+					<th>Member Name</th>
+					<th>Member Status</th>
+					<th>Formalized Date</th>
+					<th>Update Datetime</th>
+					<th>Editable</th>
+					<th>Purchase</th>
 				</tr>
-				<tr>
-					<td><label>Purchased Product</label></td>
-					<td><input type="text" name="purchaseProductName" th:value="*{purchaseProductName}" /></td>
-				</tr>
-				<!-- 
-				<tr>
-					<td><label>Member Status</label></td>
+			</thead>
+			<tbody>
+				<tr th:each="bean : ${beans}">
+					<td th:text="${bean.memberId}">bean.memberId</td>
+					<td th:text="${bean.memberName}">bean.memberName</td>
+					<td th:text="${bean.memberStatusName}">bean.memberStatusName</td>
+					<td th:text="${bean.formalizedDate}">bean.formalizedDate</td>
+					<td th:text="${bean.updateDatetime}">bean.updateDatetime</td>
 					<td>
-						<html:select property="memberStatus">
-							<c:forEach var="status" items="${memberStatusMap}">
-								<html:option value="${f:h(status.key)}">${f:h(status.value)}</html:option>
-							</c:forEach>
-						</html:select>
+						<span th:if="${!bean.withdrawalMember}"><a th:href="@{'/member/edit/' + ${bean.memberId}}">Edit</a></span>
+						<span th:if="${bean.withdrawalMember}">Cannot</span>
+					</td>
+					<td th:if="${bean.purchaseCount &gt; 0}">
+						<a href="member_detail.html" th:href="@{'/member/purchase/list/' + ${bean.memberId}}">has Purchases</a>
 					</td>
 				</tr>
-				 -->
-				<tr>
-					<td><label>Has Unpaid</label></td>
-					<td><input type="checkbox" name="unpaid" th:value="*{unpaid}" /></td>
-				</tr>
-				<tr>
-					<td><label>Formalized Date</label></td>
-					<td><input type="text" name="formalizedDateFrom" th:value="*{formalizedDateFrom}" size="10" />～
-					<input type="text" name="formalizedDateTo" th:value="*{formalizedDateTo}" size="10" /></td>
-				</tr>
-			</table>
-			<input type="submit" value="Search" />
-		</form>
-	</div>
-	<hr />
-	<a href="@{/member/add/}">新規登録</a>
-	<table>
-		<thead>
-			<tr>
-				<th>Member ID</th>
-				<th>Member Name</th>
-				<th>Member Status</th>
-				<th>Formalized Date</th>
-				<th>Update Date</th>
-				<th>Edit</th>
-				<th>Purchase History</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="bean : ${beans}">
-				<td th:text="${bean.memberId}">99</td>
-				<td th:text="${bean.memberName}">jflute</td>
-				<td th:text="${bean.memberStatusName}">Formalized</td>
-				<td th:text="${bean.formalizedDate}">2014/11/07</td>
-				<td th:text="${bean.updateDatetime}">2014/11/07</td>
-				<td>
-					<a href="@{/member/edit/${bean.memberId}/}" th:if="not ${bean.withdrawalMember}">Edit</a>
-					<span th:if="${bean.withdrawalMember}">Fixed</span>
-				</td>
-				<!-- 
-				<td>
-					<c:if test="${bean.purchaseCount > 0}">
-						<s:link href="/member/purchase/list/${f:h(bean.memberId)}/1/">購入履歴</s:link>
-					</c:if>
-				</td>
-				 -->
-			</tr>
-		</tbody>
-	</table>
+			</tbody>
+		</table>
+		<section class="product-list-paging-box">
+			<div th:replace="/common/layout.html :: paging-navi (pagingNavi=${pagingNavi})">
+			</div>
+		</section>
+	</section>
 </div>
+</main>
+<footer th:replace="/common/layout.html :: footer">
+	<div class="wrap">
+		<ul class="footer-link">
+			<li><a href="http://dbflute.seasar.org/">DBFlute Top</a></li>
+		</ul>
+	</div>
+</footer>
+<!--/*/ <th:block th:include="/common/layout.html :: afterScript"> /*/-->
+<!-- script contents -->
+<script src="../../../js/jquery-2.1.3.min.js" ></script>
+<script src="../../../js/common.js" ></script>
+<!--/*/ </th:block> /*/-->
+<!--/* individual Script write to after */-->
 </body>
 </html>
