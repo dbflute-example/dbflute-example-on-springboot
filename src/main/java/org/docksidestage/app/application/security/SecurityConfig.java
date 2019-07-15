@@ -28,9 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // #for_now for test, enable later by jflute
         http.authorizeRequests()
                 .antMatchers("/signin", "/signin/", "/signup", "/signup/", "/product/list", "/product/list/")
-                .permitAll()
-                .antMatchers("/css/**", "/js/**", "/images/**")
-                .permitAll().antMatchers("/lido/product/list").permitAll()
+                .permitAll().antMatchers("/css/**", "/js/**", "/images/**").permitAll().antMatchers("/lido/product/list").permitAll()
                 .anyRequest()
                 .authenticated();
 
