@@ -20,16 +20,15 @@ import org.hibernate.validator.constraints.Length;
 /**
  * @author s.tadokoro
  * @author jflute
+ * @author y.shimizu
  */
 public class ProductSearchBody {
 
-    @Length(max = 10) // #simple_for_example just for validtion example
-    public String productName;
-
-    public String productStatus;
-
-    @Length(max = 5) // #simple_for_example just for validtion example
+    @Length(max = 5) // #simple_for_example just for validation example
     public String purchaseMemberName;
+    @Length(max = 10) // #simple_for_example just for validation example
+    private String productName;
+    private String productStatus;
 
     public String getProductName() {
         return productName;

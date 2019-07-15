@@ -56,16 +56,16 @@ public class ProductController {
             cb.specify().derivedPurchase().count(purchaseCB -> {
                 purchaseCB.specify().columnPurchaseId();
             }, Product.ALIAS_purchaseCount);
-            if (!StringUtils.isEmpty(body.productName)) {
-                cb.query().setProductName_LikeSearch(body.productName, op -> op.likeContain());
+            if (!StringUtils.isEmpty(body.getProductName())) {
+                cb.query().setProductName_LikeSearch(body.getProductName(), op -> op.likeContain());
             }
             if (!StringUtils.isEmpty(body.purchaseMemberName)) {
                 cb.query().existsPurchase(purchaseCB -> {
                     purchaseCB.query().queryMember().setMemberName_LikeSearch(body.purchaseMemberName, op -> op.likeContain());
                 });
             }
-            if (body.productStatus != null) {
-                cb.query().setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.codeOf(body.productStatus));
+            if (body.getProductStatus() != null) {
+                cb.query().setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.codeOf(body.getProductStatus()));
             }
             cb.query().addOrderBy_ProductName_Asc();
             cb.query().addOrderBy_ProductId_Asc();
