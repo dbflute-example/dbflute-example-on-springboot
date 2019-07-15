@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.dbflute.cbean.result.PagingResultBean;
 import org.docksidestage.app.web.base.paging.PagingAssist;
 import org.docksidestage.app.web.base.paging.SearchPagingResult;
@@ -32,8 +34,7 @@ public class ProductController {
     private PagingAssist pagingAssist;
 
     @GetMapping("/list")
-    public SearchPagingResult<ProductRowResult> list(Optional<Integer> pageNumber, ProductSearchBody body) {
-
+    public SearchPagingResult<ProductRowResult> list(Optional<Integer> pageNumber, @Valid ProductSearchBody body) {
         // TODO validateApi(body, messages -> {});
 
         PagingResultBean<Product> page = selectProductPage(pageNumber.orElse(1), body);
@@ -41,8 +42,7 @@ public class ProductController {
             return mappingToBean(product);
         }).collect(Collectors.toList());
 
-        SearchPagingResult<ProductRowResult> result = pagingAssist.createPagingResult(page, items);
-        return result;
+        return pagingAssist.createPagingResult(page, items);
     }
 
     // ===================================================================================
