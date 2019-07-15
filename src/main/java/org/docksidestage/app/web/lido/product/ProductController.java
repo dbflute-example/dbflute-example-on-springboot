@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.dbflute.cbean.result.PagingResultBean;
 import org.docksidestage.app.web.base.paging.PagingAssist;
 import org.docksidestage.app.web.base.paging.SearchPagingResult;
+import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.ProductBhv;
 import org.docksidestage.dbflute.exentity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class ProductController {
                 });
             }
             if (body.productStatus != null) {
-                cb.query().setProductStatusCode_Equal_AsProductStatus(body.productStatus);
+                cb.query().setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.codeOf(body.productStatus));
             }
             cb.query().addOrderBy_ProductName_Asc();
             cb.query().addOrderBy_ProductId_Asc();

@@ -15,7 +15,6 @@
  */
 package org.docksidestage.app.web.lido.product;
 
-import org.docksidestage.dbflute.allcommon.CDef;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -27,7 +26,7 @@ public class ProductSearchBody {
     @Length(max = 10) // #simple_for_example just for validtion example
     public String productName;
 
-    public CDef.ProductStatus productStatus;
+    public String productStatus;
 
     @Length(max = 5) // #simple_for_example just for validtion example
     public String purchaseMemberName;
@@ -38,10 +37,10 @@ public class ProductSearchBody {
     public void setProductName(String productName) {
         this.productName = productName;
     }
-    public CDef.ProductStatus getProductStatus() {
+    public String getProductStatus() {
         return productStatus;
     }
-    public void setProductStatus(CDef.ProductStatus productStatus) {
+    public void setProductStatus(String productStatus) {
         this.productStatus = productStatus;
     }
     public String getPurchaseMemberName() {
