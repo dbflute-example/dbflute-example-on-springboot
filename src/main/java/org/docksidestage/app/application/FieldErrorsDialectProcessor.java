@@ -4,11 +4,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.thymeleaf.context.ITemplateContext;
+import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.model.IModel;
 import org.thymeleaf.model.IModelFactory;
 import org.thymeleaf.model.IOpenElementTag;
 import org.thymeleaf.model.IProcessableElementTag;
-import org.thymeleaf.processor.element.AbstractElementTagProcessor;
+import org.thymeleaf.processor.element.AbstractAttributeTagProcessor;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
 import org.thymeleaf.templatemode.TemplateMode;
 
@@ -28,27 +29,27 @@ import org.thymeleaf.templatemode.TemplateMode;
  *
  * @author subaru
  */
-public class FieldErrorsDialectProcessor extends AbstractElementTagProcessor {
+public class FieldErrorsDialectProcessor extends AbstractAttributeTagProcessor {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    private static Pattern pattern = Pattern.compile("\\*\\{(.*)\\}");
+    private static Pattern pattern = Pattern.compile("\\*\\{(.*)}");
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
     protected FieldErrorsDialectProcessor() {
-        super(TemplateMode.HTML, "ex", null, false, "ferrors", true, 100000);
+        super(TemplateMode.HTML, "ex", null, false, "ferrors", true, 100000, true);
     }
 
     // ===================================================================================
     //                                                                             Process
     //                                                                             =======
     @Override
-    protected void doProcess(ITemplateContext context, IProcessableElementTag tag, IElementTagStructureHandler structureHandler) {
-        String attrValue = tag.getAttribute("ex:ferrors").getValue();
-        Matcher matcher = pattern.matcher(attrValue);
+    protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName, String attributeValue,
+            IElementTagStructureHandler structureHandler) {
+        Matcher matcher = pattern.matcher(attributeValue);
         if (!matcher.find()) {
             return;
         }
