@@ -15,6 +15,8 @@
  */
 package org.docksidestage.app.web.lido.product;
 
+import org.docksidestage.app.web.base.validator.EnumType;
+import org.docksidestage.dbflute.allcommon.CDef;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -28,6 +30,7 @@ public class ProductSearchBody {
     private String purchaseMemberName;
     @Length(max = 10) // #simple_for_example just for validation example
     private String productName;
+    @EnumType(enumClass = CDef.ProductStatus.class)
     private String productStatus;
 
     public String getProductName() {
