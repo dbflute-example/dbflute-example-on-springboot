@@ -16,6 +16,7 @@ import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.ProductBhv;
 import org.docksidestage.dbflute.exentity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +36,6 @@ public class ProductController {
 
     @GetMapping("/list")
     public SearchPagingResult<ProductRowResult> list(Optional<Integer> pageNumber, @Valid ProductSearchBody body) {
-        // TODO validateApi(body, messages -> {});
-
         PagingResultBean<Product> page = selectProductPage(pageNumber.orElse(1), body);
         List<ProductRowResult> items = page.stream().map(product -> {
             return mappingToBean(product);
@@ -49,7 +48,8 @@ public class ProductController {
     //                                                                              Select
     //                                                                              ======
     private PagingResultBean<Product> selectProductPage(int pageNumber, ProductSearchBody body) {
-        // TODO verifyOrClientError("The pageNumber should be positive number: " + pageNumber, pageNumber > 0);
+        Assert.isTrue(pageNumber > 0, "The pageNumber should be positive number: " + pageNumber);
+
         return productBhv.selectPage(cb -> {
             cb.setupSelect_ProductStatus();
             cb.setupSelect_ProductCategory();
@@ -59,9 +59,9 @@ public class ProductController {
             if (!StringUtils.isEmpty(body.getProductName())) {
                 cb.query().setProductName_LikeSearch(body.getProductName(), op -> op.likeContain());
             }
-            if (!StringUtils.isEmpty(body.purchaseMemberName)) {
+            if (!StringUtils.isEmpty(body.getPurchaseMemberName())) {
                 cb.query().existsPurchase(purchaseCB -> {
-                    purchaseCB.query().queryMember().setMemberName_LikeSearch(body.purchaseMemberName, op -> op.likeContain());
+                    purchaseCB.query().queryMember().setMemberName_LikeSearch(body.getPurchaseMemberName(), op -> op.likeContain());
                 });
             }
             if (body.getProductStatus() != null) {

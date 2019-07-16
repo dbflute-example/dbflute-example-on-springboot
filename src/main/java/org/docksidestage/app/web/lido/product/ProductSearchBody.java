@@ -25,7 +25,7 @@ import org.hibernate.validator.constraints.Length;
 public class ProductSearchBody {
 
     @Length(max = 5) // #simple_for_example just for validation example
-    public String purchaseMemberName;
+    private String purchaseMemberName;
     @Length(max = 10) // #simple_for_example just for validation example
     private String productName;
     private String productStatus;
