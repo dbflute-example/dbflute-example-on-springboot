@@ -15,13 +15,11 @@
  */
 package org.docksidestage.app.web.product;
 
-import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 /**
  * @author jflute
  */
-@Data
 public class ProductSearchForm {
 
     @Length(max = 10) // #simple_for_example just for validation example
@@ -32,4 +30,28 @@ public class ProductSearchForm {
 
     @Length(max = 5) // #simple_for_example just for validation example
     private String purchaseMemberName;
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(String productStatus) {
+        this.productStatus = productStatus;
+    }
+
+    public String getPurchaseMemberName() {
+        return purchaseMemberName;
+    }
+
+    public void setPurchaseMemberName(String purchaseMemberName) {
+        this.purchaseMemberName = purchaseMemberName;
+    }
 }

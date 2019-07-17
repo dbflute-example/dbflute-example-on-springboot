@@ -2,14 +2,12 @@ package org.docksidestage.app.web.signin;
 
 import javax.validation.constraints.NotEmpty;
 
-import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 /**
  * @author jflute
  * @author inoue
  */
-@Data
 public class SigninForm {
 
     @NotEmpty
@@ -19,4 +17,20 @@ public class SigninForm {
     @NotEmpty
     @Length(max = 20)
     private String password;
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

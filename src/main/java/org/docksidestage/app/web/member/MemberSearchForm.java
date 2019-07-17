@@ -17,14 +17,12 @@ package org.docksidestage.app.web.member;
 
 import java.time.LocalDate;
 
-import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author jflute
  */
-@Data
 public class MemberSearchForm {
 
     // ===================================================================================
@@ -49,8 +47,63 @@ public class MemberSearchForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate formalizedDateTo;
 
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    public String getMemberStatus() {
+        return memberStatus;
+    }
+
+    public void setMemberStatus(String memberStatus) {
+        this.memberStatus = memberStatus;
+    }
+
+    public String getPurchaseProductName() {
+        return purchaseProductName;
+    }
+
+    public void setPurchaseProductName(String purchaseProductName) {
+        this.purchaseProductName = purchaseProductName;
+    }
+
+    public boolean isUnpaid() {
+        return unpaid;
+    }
+
+    public void setUnpaid(boolean unpaid) {
+        this.unpaid = unpaid;
+    }
+
+    public LocalDate getFormalizedDateFrom() {
+        return formalizedDateFrom;
+    }
+
+    public void setFormalizedDateFrom(LocalDate formalizedDateFrom) {
+        this.formalizedDateFrom = formalizedDateFrom;
+    }
+
+    public LocalDate getFormalizedDateTo() {
+        return formalizedDateTo;
+    }
+
+    public void setFormalizedDateTo(LocalDate formalizedDateTo) {
+        this.formalizedDateTo = formalizedDateTo;
+    }
+
     // -----------------------------------------------------
     //                                                Paging
     //                                                ------
     private Integer pageNumber = 1;
+
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 }

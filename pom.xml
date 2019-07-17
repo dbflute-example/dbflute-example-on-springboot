@@ -17,7 +17,6 @@
 		<mysql.jdbc.version>5.1.46</mysql.jdbc.version>
 		<!-- Spring Bootのバージョンはparentでまとめて指定する -->
 		<utflute.version>0.8.9</utflute.version>
-		<commons.lombok.version>1.16.16</commons.lombok.version>
 	</properties>
 
 	<licenses>
@@ -206,13 +205,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${commons.lombok.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
