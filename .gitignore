@@ -5,14 +5,14 @@
 .DS_Store
 
 # IntelliJ IDEA
-/.idea/artifacts
-/.idea/libraries
-/.idea/modules
-/.idea/compiler.xml
-/.idea/modules.xml
-/.idea/vcs.xml
-/.idea/workspace.xml
-/*.iml
+**/.idea/*
+!**/.idea/codeStyles
+!**/.idea/inspectionProfiles
+!**/.idea/codeStyleSettings.xml
+!**/.idea/encodings.xml
+!**/.idea/misc.xml
+!**/.idea/saveactions_settings.xml
+**/*.iml
 /out
 
 # Gradle
