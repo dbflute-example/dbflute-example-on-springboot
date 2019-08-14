@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/signin", "/signin/", "/signup", "/signup/", "/product/list", "/product/list/")
                 .permitAll()
-                .antMatchers("/css/**", "/js/**", "/images/**")
+                .antMatchers("/css/**", "/js/**", "/images/**").permitAll().antMatchers("/lido/product/list", "/lido/product/list/")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
