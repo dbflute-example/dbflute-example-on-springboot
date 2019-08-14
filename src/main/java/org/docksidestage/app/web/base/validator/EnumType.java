@@ -20,6 +20,6 @@ public @interface EnumType {
 
     Class<? extends java.lang.Enum<?>> enumClass();
 
-    // lastaflute-example-harborでは
+    // lastaflute-example-harborでは大文字と小文字を区別していないのでデフォルトtrueとする
     boolean ignoreCase() default true;
 }
