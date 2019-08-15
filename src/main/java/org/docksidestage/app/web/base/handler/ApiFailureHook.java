@@ -36,7 +36,9 @@ public class ApiFailureHook {
         ApiErrorResponse errors = new ApiErrorResponse();
 
         errors.setCause("SERVER_ERROR");
-        errors.addError(null, "Internal Server Error (500)");
+        // HTTP Statusが500なので、メッセージを利用したハンドリングはされない思想の元空にしている
+        // メッセージが設定されていても問題ないだろう
+        errors.addError(null, "");
 
         return errors;
     }
