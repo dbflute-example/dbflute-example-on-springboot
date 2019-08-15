@@ -25,7 +25,6 @@ import org.dbflute.cbean.result.PagingResultBean;
 
 /**
  * @param <BEAN> The type of row bean
- * @author iwamatsu0430
  * @author jflute
  */
 public class SearchPagingResult<BEAN> { // #app_customize
