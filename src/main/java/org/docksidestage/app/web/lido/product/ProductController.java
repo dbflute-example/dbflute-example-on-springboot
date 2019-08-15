@@ -65,7 +65,7 @@ public class ProductController {
                 });
             }
             if (body.getProductStatus() != null) {
-                cb.query().setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.codeOf(body.getProductStatus()));
+                cb.query().setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus.of(body.getProductStatus()).get());
             }
             cb.query().addOrderBy_ProductName_Asc();
             cb.query().addOrderBy_ProductId_Asc();
