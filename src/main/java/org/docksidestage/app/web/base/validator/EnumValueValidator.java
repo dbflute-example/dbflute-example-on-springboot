@@ -5,6 +5,11 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.docksidestage.app.utils.ExampleStringUtils;
 
+/**
+ * @EnumType アノテーションが付与されたプロパティ値のバリデータ.
+ *
+ * @author y.shimizu
+ */
 public class EnumValueValidator implements ConstraintValidator<EnumType, String> {
     private EnumType annotation;
 

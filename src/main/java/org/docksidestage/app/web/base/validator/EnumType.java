@@ -8,6 +8,18 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * Stringの値が指定されたEnum型で取り得る値かどうかチェックしたい場合に付与するアノテーション.
+ *
+ * <pre>
+ * 利用方法例：StringプロパティproductStatusがCDef.ProductStatusで取り得る値かチェックする
+ *
+ * @EnumType(enumClass = CDef.ProductStatus.class)
+ * private String productStatus;
+ * </pre>
+ *
+ * @author y.shimizu
+ */
 @Constraint(validatedBy = { EnumValueValidator.class })
 @Target({ ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)

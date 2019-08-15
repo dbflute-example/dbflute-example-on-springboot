@@ -3,6 +3,9 @@ package org.docksidestage.app.web.base.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author y.shimizu
+ */
 public class ApiErrorResponse {
 
     private String cause;
