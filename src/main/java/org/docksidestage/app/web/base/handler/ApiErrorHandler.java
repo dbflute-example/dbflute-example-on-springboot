@@ -9,15 +9,24 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * APIのエラーハンドラ.
- * SpringのControllerAdviceで実装しているが内容はLastaFluteのApiFailureHookを参考にしているので、クラス名はLastaFluteに合わせた.
+ * 返却するレスポンス内容はLastaFluteのApiFailureHookを元にしている.
  *
  * @author y.shimizu
  */
 @RestControllerAdvice
-public class ApiFailureHook {
+public class ApiErrorHandler {
+    /**
+     * Rest APIのGETリクエストで指定されたパラメータにエラーが発生した場合、SpringでBindExceptionが発生し、Controllerは呼ばれず処理は継続されない.
+     * このメソッドでハンドリングされるケースはLastaFluteのクライアントエラーに相当する.
+     *
+     * なお、@RestControllerを用いたSpringでのRest APIではControllerまで処理を続行できないため、LastaFluteのバリデーションエラーに相当するケースはないと考える.
+     *
+     * Springで発生する例外の参考：
+     * http://terasolunaorg.github.io/guideline/5.5.1.RELEASE/ja/ArchitectureInDetail/WebServiceDetail/REST.html#resthowtouseexceptionhandlingforvalidationerror
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
-    public ApiErrorResponse handleValidationExceptions(BindException ex) {
+    public ApiErrorResponse handleClientErrorExceptions(BindException ex) {
         ApiErrorResponse errors = new ApiErrorResponse();
 
         errors.setCause("VALIDATION_ERROR");
@@ -30,6 +39,10 @@ public class ApiFailureHook {
         return errors;
     }
 
+    /**
+     * プログラムで継続不可能な例外が発生した場合、RuntimeExceptionがthrowされ処理が中断している.
+     * このメソッドでハンドリングされるケースはLastaFluteのサーバーエラーに相当する.
+     */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
     public ApiErrorResponse handleServerErrorExceptions(RuntimeException e) {
