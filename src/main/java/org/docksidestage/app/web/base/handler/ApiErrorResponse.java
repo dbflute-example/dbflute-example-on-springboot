@@ -23,6 +23,9 @@ public class ApiErrorResponse {
     }
 
     public void addError(String field, String message) {
-        this.errors.add(new ApiError(field, message));
+        ApiError error = new ApiError(field);
+        error.addMessage(message);
+
+        this.errors.add(error);
     }
 }

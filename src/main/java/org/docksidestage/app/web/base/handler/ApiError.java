@@ -10,11 +10,10 @@ public class ApiError {
 
     private String field;
 
-    private List<String> messages = new ArrayList<>();
+    private final List<String> messages = new ArrayList<>();
 
-    public ApiError(String field, String message) {
+    public ApiError(String field) {
         this.field = field;
-        messages.add(message);
     }
     public String getField() {
         return field;
@@ -25,8 +24,6 @@ public class ApiError {
     public List<String> getMessages() {
         return messages;
     }
-    public void setMessages(List<String> messages) {
-        this.messages = messages;
-    }
+    public void addMessage(String message) { messages.add(message); }
 
 }
