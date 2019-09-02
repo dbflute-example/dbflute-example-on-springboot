@@ -10,14 +10,17 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.dbflute.cbean.result.PagingResultBean;
+import org.docksidestage.app.utils.ExampleStringUtils;
+import org.docksidestage.app.web.base.ApiBaseController;
 import org.docksidestage.app.web.base.paging.PagingAssist;
-import org.docksidestage.app.web.base.paging.SearchPagingResult;
 import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.ProductBhv;
 import org.docksidestage.dbflute.exentity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/lido/product")
-public class ProductController {
+public class ProductController extends ApiBaseController {
 
     @Autowired
     private ProductBhv productBhv;
@@ -35,13 +38,26 @@ public class ProductController {
     private PagingAssist pagingAssist;
 
     @GetMapping("/list")
-    public SearchPagingResult<ProductRowResult> list(Optional<Integer> pageNumber, @Valid ProductSearchBody body) {
+    public ResponseEntity list(Optional<Integer> pageNumber, @Valid ProductSearchBody body, BindingResult result) {
+
+        if (pageNumber.isPresent() && pageNumber.get() <= 0) {
+            return clientError();
+        }
+
+        if (ExampleStringUtils.isNotEmpty(body.getProductStatus()) && !CDef.ProductStatus.of(body.getProductStatus()).isPresent()) {
+            return clientError();
+        }
+
+        if (result.hasErrors()) {
+            return validationError(result);
+        }
+
         PagingResultBean<Product> page = selectProductPage(pageNumber.orElse(1), body);
         List<ProductRowResult> items = page.stream().map(product -> {
             return mappingToBean(product);
         }).collect(Collectors.toList());
 
-        return pagingAssist.createPagingResult(page, items);
+        return ResponseEntity.ok(pagingAssist.createPagingResult(page, items));
     }
 
     // ===================================================================================
