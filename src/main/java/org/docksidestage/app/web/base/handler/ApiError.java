@@ -18,9 +18,6 @@ public class ApiError {
     public String getField() {
         return field;
     }
-    public void setField(String field) {
-        this.field = field;
-    }
     public List<String> getMessages() {
         return messages;
     }
