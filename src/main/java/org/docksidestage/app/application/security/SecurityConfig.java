@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/css/**", "/js/**", "/images/**")
                 .permitAll()
+                .antMatchers("/lido/product/list", "/lido/product/list/")
+                .permitAll()
                 .anyRequest()
                 .authenticated();
 
