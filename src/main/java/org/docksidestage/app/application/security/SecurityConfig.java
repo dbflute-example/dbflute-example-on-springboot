@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // #for_now for test, enable later by jflute
+        // @formatter:off
         http.authorizeRequests()
                 .antMatchers("/signin", "/signin/", "/signup", "/signup/", "/product/list", "/product/list/")
                 .permitAll()
@@ -36,7 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated();
 
-        http.formLogin().loginPage("/signin")
+        http.formLogin()
+                .loginPage("/signin")
                 .loginProcessingUrl("/signin")
                 .defaultSuccessUrl("/member/list")
                 .failureUrl("/signin")
@@ -44,8 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("account")
                 .passwordParameter("password")
                 .permitAll()
-                .and().logout().logoutUrl("/signout/").logoutSuccessUrl("/signin/")
+                .and()
+             .logout()
+                .logoutUrl("/signout/")
+                .logoutSuccessUrl("/signin/")
                 .permitAll();
+        // @formatter:on
     }
 
     @Autowired
