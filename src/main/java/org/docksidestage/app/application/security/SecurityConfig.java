@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated();
 
-        http.formLogin()
+        http.formLogin().loginPage("/signin")
                 .loginProcessingUrl("/signin")
                 .defaultSuccessUrl("/member/list")
                 .failureUrl("/signin")
@@ -44,10 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("account")
                 .passwordParameter("password")
                 .permitAll()
-                .loginPage("/signin")
-                .and()
-                .logout()
-                .logoutSuccessUrl("/login")
+                .and().logout().logoutUrl("/signout/").logoutSuccessUrl("/signin/")
                 .permitAll();
     }
 
