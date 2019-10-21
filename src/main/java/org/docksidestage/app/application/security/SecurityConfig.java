@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.ForwardAuthenticationFailureHandler;
 
@@ -26,15 +26,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // #for_now for test, enable later by jflute
+        // @formatter:off
         http.authorizeRequests()
                 .antMatchers("/signin", "/signin/", "/signup", "/signup/", "/product/list", "/product/list/")
                 .permitAll()
                 .antMatchers("/css/**", "/js/**", "/images/**")
                 .permitAll()
+                .antMatchers("/lido/product/list", "/lido/product/list/")
+                .permitAll()
                 .anyRequest()
                 .authenticated();
 
         http.formLogin()
+                .loginPage("/signin")
                 .loginProcessingUrl("/signin")
                 .defaultSuccessUrl("/member/list")
                 .failureUrl("/signin")
@@ -42,11 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("account")
                 .passwordParameter("password")
                 .permitAll()
-                .loginPage("/signin")
                 .and()
-                .logout()
-                .logoutSuccessUrl("/login")
+             .logout()
+                .logoutUrl("/signout/")
+                .logoutSuccessUrl("/signin/")
                 .permitAll();
+        // @formatter:on
     }
 
     @Autowired
@@ -54,8 +59,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder()); // 既存のsampleプロジェクトに合わせる
     }
 
+    /**
+     * パスワードエンコーダを生成する.
+     * 最近のSpringだとBCryptを推奨しているがセキュリティ要件に合わせること.
+     * harborに合わせてSHA-256を利用する.
+     * 非推奨だが削除予定はないのでSpring Security標準付属のエンコーダを利用した.
+     *
+     * https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#other-passwordencoders
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new MessageDigestPasswordEncoder("SHA-256");
     }
 }

@@ -25,7 +25,9 @@
 					<p th:unless="${headerBean.isLogin}" class="nameHeader">Welcome, Mr.Guest</p>
 					<ul class="child">
 						<li><a th:href="@{/profile/}" href="#">Profile</a></li>
-						<li><a th:href="@{/signout/}" href="#">Sign out</a></li>
+                        <li>
+                            <form method="POST" name="logout" th:action="@{/signout/}"><a href="javascript:logout.submit()">Sign out</a></form>
+                        </li>
 					</ul>
 				</li>
 			</ul>
