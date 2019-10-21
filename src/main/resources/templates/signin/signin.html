@@ -40,12 +40,12 @@
 			<ul>
 				<li>
 					<span th:text="#{labels.account}">labels.account</span>
-					<input type="text" name="account" th:value="*{account}" th:placeholder="#{labels.signin.input.account}"/>
+					<input type="text" th:field="*{account}" th:placeholder="#{labels.signin.input.account}"/>
 					<span ex:ferrors="*{account}"></span>
 				</li>
 				<li>
 					<span th:text="#{labels.password}">labels.password</span>
-					<input type="password" name="password" th:value="*{password}" th:placeholder="#{labels.signin.input.password}"/>
+					<input type="password" th:field="*{password}" th:placeholder="#{labels.signin.input.password}"/>
 					<span ex:ferrors="*{password}"></span>
 				</li>
 				<li>

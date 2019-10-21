@@ -8,6 +8,7 @@ import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dbflute.exentity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,7 @@ public class MemberAddController {
     }
 
     @PostMapping
+    @Transactional
     public String addPost(@ModelAttribute(name = "addForm") @Validated MemberAddForm addForm, BindingResult br) {
         if (br.hasErrors()) {
             return "member/member_add";

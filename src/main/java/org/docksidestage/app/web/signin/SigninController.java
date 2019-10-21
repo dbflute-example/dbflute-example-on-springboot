@@ -2,6 +2,7 @@ package org.docksidestage.app.web.signin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -40,6 +41,7 @@ public class SigninController {
     }
 
     @PostMapping
+    @Transactional
     public String indexPost(@Validated @ModelAttribute SigninForm signinForm, BindingResult br) {
         return "signin/signin";
     }
