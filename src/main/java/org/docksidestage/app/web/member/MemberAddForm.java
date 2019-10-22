@@ -11,6 +11,10 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author jflute
  */
 public class MemberAddForm {
+
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     @NotEmpty
     private String memberName;
 
@@ -24,6 +28,9 @@ public class MemberAddForm {
     @NotEmpty
     private String memberStatus;
 
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
     public String getMemberName() {
         return memberName;
     }

@@ -22,15 +22,21 @@ import org.hibernate.validator.constraints.Length;
  */
 public class ProductSearchForm {
 
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     @Length(max = 10) // #simple_for_example just for validation example
     private String productName;
 
-    @Length(max = 3) // #simple_for_example just for validation example
+    @Length(max = 3) // #simple_for_example me too
     private String productStatus;
 
-    @Length(max = 5) // #simple_for_example just for validation example
+    @Length(max = 5) // #simple_for_example me too
     private String purchaseMemberName;
 
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
     public String getProductName() {
         return productName;
     }

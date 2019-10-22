@@ -47,6 +47,17 @@ public class MemberSearchForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate formalizedDateTo;
 
+    // -----------------------------------------------------
+    //                                                Paging
+    //                                                ------
+    private Integer pageNumber = 1;
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    // -----------------------------------------------------
+    //                                             Condition
+    //                                             ---------
     public String getMemberName() {
         return memberName;
     }
@@ -98,11 +109,10 @@ public class MemberSearchForm {
     // -----------------------------------------------------
     //                                                Paging
     //                                                ------
-    private Integer pageNumber = 1;
-
     public Integer getPageNumber() {
         return pageNumber;
     }
+
     public void setPageNumber(Integer pageNumber) {
         this.pageNumber = pageNumber;
     }

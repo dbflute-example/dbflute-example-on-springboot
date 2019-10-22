@@ -28,5 +28,4 @@ public class ProductRowResult {
     public String productStatusName;
 
     public Integer regularPrice;
-
 }

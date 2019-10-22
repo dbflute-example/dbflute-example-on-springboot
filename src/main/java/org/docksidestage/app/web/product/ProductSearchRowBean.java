@@ -22,6 +22,9 @@ import java.time.LocalDate;
  */
 public class ProductSearchRowBean {
 
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     private Integer productId;
     private String productName;
     private String productStatus;
@@ -30,6 +33,9 @@ public class ProductSearchRowBean {
     /** null if no purchase */
     private LocalDate latestPurchaseDate;
 
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
     public Integer getProductId() {
         return productId;
     }

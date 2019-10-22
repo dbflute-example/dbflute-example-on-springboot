@@ -13,9 +13,11 @@ import org.springframework.validation.Validator;
 
 /**
  * @author subaru
+ * @author jflute
  */
 @Component
 public class SigninValidator implements Validator {
+
     @Autowired
     private MemberBhv memberBhv;
     @Autowired
@@ -25,6 +27,7 @@ public class SigninValidator implements Validator {
     public boolean supports(Class<?> clazz) {
         return SigninForm.class.isAssignableFrom(clazz);
     }
+
     @Override
     public void validate(Object target, Errors errors) {
         SigninForm form = (SigninForm) target;

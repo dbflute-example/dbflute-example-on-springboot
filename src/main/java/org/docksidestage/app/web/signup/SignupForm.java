@@ -4,9 +4,13 @@ import javax.validation.constraints.NotEmpty;
 
 /**
  * @author subaru
+ * @author jflute
  */
 public class SignupForm {
 
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     // member
     @NotEmpty
     private String memberName;
@@ -21,6 +25,9 @@ public class SignupForm {
     @NotEmpty
     private String reminderAnswer;
 
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
     public String getMemberName() {
         return memberName;
     }
@@ -61,4 +68,3 @@ public class SignupForm {
         this.reminderAnswer = reminderAnswer;
     }
 }
-

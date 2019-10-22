@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author subaru
+ * @author jflute
  */
 @Controller
 @RequestMapping("/signup")
 public class SignupController {
+
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
@@ -48,8 +50,8 @@ public class SignupController {
     }
 
     // ===================================================================================
-    //                                                                             Routing
-    //                                                                             =======
+    //                                                                     Request Mapping
+    //                                                                     ===============
     @GetMapping
     public String indexGet(Model model) {
         model.addAttribute("signupForm", new SignupForm());
@@ -67,6 +69,9 @@ public class SignupController {
         return "redirect:/member/list";
     }
 
+    // ===================================================================================
+    //                                                                              Update
+    //                                                                              ======
     private void insertMember(SignupForm form) {
         Member member = new Member();
         member.setMemberName(form.getMemberName());

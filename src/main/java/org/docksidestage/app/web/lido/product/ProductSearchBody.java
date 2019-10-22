@@ -24,28 +24,39 @@ import org.hibernate.validator.constraints.Length;
  */
 public class ProductSearchBody {
 
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     @Length(max = 5) // #simple_for_example just for validation example
     private String purchaseMemberName;
-    @Length(max = 10) // #simple_for_example just for validation example
+    @Length(max = 10) // #simple_for_example me too
     private String productName;
 
     private String productStatus;
 
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
     public String getProductName() {
         return productName;
     }
+
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
     public String getProductStatus() {
         return productStatus;
     }
+
     public void setProductStatus(String productStatus) {
         this.productStatus = productStatus;
     }
+
     public String getPurchaseMemberName() {
         return purchaseMemberName;
     }
+
     public void setPurchaseMemberName(String purchaseMemberName) {
         this.purchaseMemberName = purchaseMemberName;
     }

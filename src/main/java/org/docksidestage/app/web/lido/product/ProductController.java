@@ -27,19 +27,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author y.shimizu
+ * @author jflute
  */
 @RestController
 @RequestMapping("/lido/product")
 public class ProductController extends ApiBaseController {
 
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     @Autowired
     private ProductBhv productBhv;
     @Autowired
     private PagingAssist pagingAssist;
 
+    // ===================================================================================
+    //                                                                     Request Mapping
+    //                                                                     ===============
     @GetMapping("/list")
     public ResponseEntity list(Optional<Integer> pageNumber, @Valid ProductSearchBody body, BindingResult result) {
-
         if (pageNumber.isPresent() && pageNumber.get() <= 0) {
             return clientError();
         }
