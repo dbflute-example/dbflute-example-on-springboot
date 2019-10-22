@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.ForwardAuthenticationFailureHandler;
 
@@ -66,9 +65,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 非推奨だが削除予定はないのでSpring Security標準付属のエンコーダを利用した.
      *
      * https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#other-passwordencoders
+     * @return The password encoder for security handling, which is used by framework. (NotNull)
      */
+    @SuppressWarnings("deprecation")
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new MessageDigestPasswordEncoder("SHA-256");
+        // #thinking jflute fitting with harbor example but deprecated in Spring framework (2019/10/22)
+        return new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-256");
     }
 }
