@@ -44,8 +44,9 @@ public class ProductController extends ApiBaseController {
     // ===================================================================================
     //                                                                     Request Mapping
     //                                                                     ===============
+    // #thinking jflute generic cannot be business type because of error response... (2019/10/22)
     @GetMapping("/list")
-    public ResponseEntity list(Optional<Integer> pageNumber, @Valid ProductSearchBody body, BindingResult result) {
+    public ResponseEntity<? extends Object> list(Optional<Integer> pageNumber, @Valid ProductSearchBody body, BindingResult result) {
         if (pageNumber.isPresent() && pageNumber.get() <= 0) {
             return clientError();
         }

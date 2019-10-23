@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * APIのエラーハンドラ.
  *
  * @author y.shimizu
+ * @author jflute
  */
 @RestControllerAdvice
 public class ApiErrorHandler {
@@ -16,6 +17,8 @@ public class ApiErrorHandler {
     /**
      * プログラムで継続不可能な例外が発生した場合、RuntimeExceptionがthrowされ処理が中断している.
      * このメソッドでハンドリングされるケースはLastaFluteのサーバーエラーに相当する.
+     * @param e The exception from API application. (NotNull)
+     * @return The response of API error, containing cause and errors information. (NotNull)
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
