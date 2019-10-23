@@ -84,6 +84,9 @@ public class RequestLoggingFilter implements Filter {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    // -----------------------------------------------------
+    //                                         Configuration
+    //                                         -------------
     protected FilterConfig config;
     protected boolean errorLogging;
     protected Set<String> exceptExtSet;
@@ -93,6 +96,12 @@ public class RequestLoggingFilter implements Filter {
     protected String requestCharacterEncoding;
     protected Set<String> maskParamSet;
     protected String maskedString;
+
+    // -----------------------------------------------------
+    //                                            Customizer
+    //                                            ----------
+    protected RequestRoutingTargetDeterminer routingTargetDeterminer;
+    protected RequestServerErrorLoggingSuppressor serverErrorLoggingSuppressor;
 
     // ===================================================================================
     //                                                                          Initialize
@@ -285,6 +294,14 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected boolean isTargetPath(HttpServletRequest request) {
+        if (routingTargetDeterminer != null) {
+            return routingTargetDeterminer.isRoutingTarget(request, req -> isEmbeddedTargetPath(req));
+        } else {
+            return isEmbeddedTargetPath(request);
+        }
+    }
+
+    protected boolean isEmbeddedTargetPath(HttpServletRequest request) {
         if (exceptUrlPattern != null) {
             final String uri = getRequestURI(request);
             if (exceptUrlPattern.matcher(uri).find()) {
@@ -302,7 +319,43 @@ public class RequestLoggingFilter implements Filter {
                 }
             }
         }
-        return true;
+        return true; // target as default
+    }
+
+    /**
+     * The determiner of target path as dynamic resource, e.g. Action.
+     */
+    @FunctionalInterface
+    public interface RequestRoutingTargetDeterminer {
+
+        /**
+         * Is the routing target request?
+         * @param request The request of servlet. (NotNull)
+         * @param embeddedDeterminer The determiner of target path as embedded logic. (NotNull)
+         * @return The determination, true or false.
+         */
+        boolean isRoutingTarget(HttpServletRequest request, RequestTargetPathEmbeddedDeterminer embeddedDeterminer);
+    }
+
+    /**
+     * The determiner of target path as embedded logic.
+     */
+    @FunctionalInterface
+    public interface RequestTargetPathEmbeddedDeterminer {
+
+        /**
+         * Determine whether the request is the target as embedded logic?
+         * @param request The request of servlet. (NotNull)
+         * @return The determination, true or false.
+         */
+        boolean determineEmbedded(HttpServletRequest request);
+    }
+
+    public void determineRoutingTarget(RequestRoutingTargetDeterminer routingTargetDeterminer) {
+        if (routingTargetDeterminer == null) {
+            throw new IllegalArgumentException("The argument 'routingTargetDeterminer' should not be null.");
+        }
+        this.routingTargetDeterminer = routingTargetDeterminer;
     }
 
     public boolean isAlreadyBegun() { // for e.g. enabling access log
@@ -456,14 +509,14 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected void buildRequestHeaders(StringBuilder sb, HttpServletRequest request) {
-        for (Iterator<?> it = toSortedSet(request.getHeaderNames()).iterator(); it.hasNext(); ) {
+        for (Iterator<?> it = toSortedSet(request.getHeaderNames()).iterator(); it.hasNext();) {
             final String name = (String) it.next();
             doBuildHeaderLine(sb, name, request.getHeader(name));
         }
     }
 
     protected void buildResponseHeaders(StringBuilder sb, HttpServletResponse response) {
-        for (Iterator<?> it = toSortedSet(response.getHeaderNames()).iterator(); it.hasNext(); ) {
+        for (Iterator<?> it = toSortedSet(response.getHeaderNames()).iterator(); it.hasNext();) {
             final String name = (String) it.next();
             doBuildHeaderLine(sb, name, response.getHeader(name));
         }
@@ -490,7 +543,7 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected void buildRequestParameters(StringBuilder sb, HttpServletRequest request) {
-        for (final Iterator<?> it = toSortedSet(request.getParameterNames()).iterator(); it.hasNext(); ) {
+        for (final Iterator<?> it = toSortedSet(request.getParameterNames()).iterator(); it.hasNext();) {
             final String name = (String) it.next();
             sb.append(IND);
             sb.append("[param] ").append(name).append("=");
@@ -514,7 +567,7 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected void buildRequestAttributes(StringBuilder sb, HttpServletRequest request, boolean showErrorFlush) {
-        for (Iterator<?> it = toSortedSet(request.getAttributeNames()).iterator(); it.hasNext(); ) {
+        for (Iterator<?> it = toSortedSet(request.getAttributeNames()).iterator(); it.hasNext();) {
             final String name = (String) it.next();
             if (isIgnoreRequestAttributeShow(name)) {
                 continue;
@@ -542,7 +595,7 @@ public class RequestLoggingFilter implements Filter {
         if (session == null) {
             return;
         }
-        for (Iterator<?> it = toSortedSet(session.getAttributeNames()).iterator(); it.hasNext(); ) {
+        for (Iterator<?> it = toSortedSet(session.getAttributeNames()).iterator(); it.hasNext();) {
             final String name = (String) it.next();
             final Object attr = session.getAttribute(name);
             if (attr instanceof NonShowAttribute) {
@@ -857,7 +910,6 @@ public class RequestLoggingFilter implements Filter {
     // -----------------------------------------------------
     //                                Client Error Exception
     //                                ----------------------
-
     /**
      * The exception that means specified client error for the current request. <br>
      * You can send specified status e.g. 400, 404 by throwing this exception in your program.
@@ -970,6 +1022,9 @@ public class RequestLoggingFilter implements Filter {
     // ===================================================================================
     //                                                                      Error Handling
     //                                                                      ==============
+    // -----------------------------------------------------
+    //                                         Error Logging
+    //                                         -------------
     protected void logError(HttpServletRequest request, HttpServletResponse response, String comment, Long before, Throwable cause) {
         final StringBuilder sb = new StringBuilder();
         sb.append(comment);
@@ -987,7 +1042,7 @@ public class RequestLoggingFilter implements Filter {
         sb.append("= = = = = = = = = =/ [").append(performanceView).append("] #").append(Integer.toHexString(cause.hashCode()));
         buildExceptionStackTrace(cause, sb); // extract stack trace manually
         final String msg = sb.toString().trim();
-        if (errorLogging) {
+        if (isErrorLoggingReally(cause)) {
             // not use second argument here
             // because Logback loads classes in stack trace destroying hot deploy
             // so show stack trace added to the logging message
@@ -1000,17 +1055,16 @@ public class RequestLoggingFilter implements Filter {
     protected void buildExceptionStackTrace(Throwable cause, StringBuilder sb) {
         sb.append(LF);
         final ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
+        final String encoding = "UTF-8"; // for on-memory closed-scope I/O
         PrintStream ps = null;
         try {
-            ps = new PrintStream(out);
+            final boolean autoFlush = false; // the output stream does not need flush
+            ps = new PrintStream(out, autoFlush, encoding);
             cause.printStackTrace(ps);
-            final String encoding = "UTF-8";
-            try {
-                sb.append(out.toString(encoding));
-            } catch (UnsupportedEncodingException continued) {
-                logger.warn("Unknown encoding: " + encoding, continued);
-                sb.append(out.toString()); // retry without encoding
-            }
+            sb.append(out.toString(encoding));
+        } catch (UnsupportedEncodingException continued) { // basically no way
+            logger.warn("Unknown encoding: " + encoding, continued);
+            sb.append(out.toString()); // retry without encoding
         } finally {
             if (ps != null) {
                 ps.close();
@@ -1018,13 +1072,46 @@ public class RequestLoggingFilter implements Filter {
         }
     }
 
+    protected boolean isErrorLoggingReally(Throwable cause) {
+        return errorLogging && !isSuppressServerErrorLogging(cause);
+    }
+
+    protected boolean isSuppressServerErrorLogging(Throwable cause) {
+        return serverErrorLoggingSuppressor != null && serverErrorLoggingSuppressor.isSuppressed(cause);
+    }
+
+    /**
+     * The suppressor of logging as 'Server Error' in the request.
+     */
+    @FunctionalInterface
+    public interface RequestServerErrorLoggingSuppressor {
+
+        /**
+         * Should the logging of the exception suppressed? <br>
+         * For example, suppress if an exception message contains "Broken pipe". 
+         * @param cause The cause of this 'Server Error'. (NotNull)
+         * @return The determination, true or false.
+         */
+        boolean isSuppressed(Throwable cause);
+    }
+
+    public void suppressServerErrorLogging(RequestServerErrorLoggingSuppressor serverErrorLoggingSuppressor) {
+        if (serverErrorLoggingSuppressor == null) {
+            throw new IllegalArgumentException("The argument 'serverErrorLoggingSuppressor' should not be null.");
+        }
+        this.serverErrorLoggingSuppressor = serverErrorLoggingSuppressor;
+    }
+
+    // -----------------------------------------------------
+    //                                              Read !!!
+    //                                              --------
     protected void attention(HttpServletRequest request, HttpServletResponse response) {
         final StringBuilder sb = new StringBuilder();
         sb.append("{FAILURE}: ").append(getTitlePath(request));
         sb.append(LF);
         sb.append(" *Read the exception message!");
         sb.append(LF);
-        logger.debug(sb.toString());
+        logger.debug(sb.toString()); // to notice to developer
     }
 
     // ===================================================================================

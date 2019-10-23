@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author subaru
+ * @author jflute
  */
 @Controller
 @RequestMapping("/product/list")
 public class ProductListController {
+
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
@@ -38,8 +40,8 @@ public class ProductListController {
     }
 
     // ===================================================================================
-    //                                                                             Routing
-    //                                                                             =======
+    //                                                                     Request Mapping
+    //                                                                     ===============
     @GetMapping({ "/", "/{pageNumber}" })
     public String index(Model model, @PathVariable("pageNumber") Optional<Integer> pageNumber,
             @ModelAttribute(name = "searchForm") @Validated ProductSearchForm searchForm, BindingResult br) {

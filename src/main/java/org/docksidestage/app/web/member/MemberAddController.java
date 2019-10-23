@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author subaru
+ * @author jflute
  */
 @Controller
 @RequestMapping("/member/add")
 public class MemberAddController {
+
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
@@ -34,8 +36,8 @@ public class MemberAddController {
     }
 
     // ===================================================================================
-    //                                                                             Routing
-    //                                                                             =======
+    //                                                                     Request Mapping
+    //                                                                     ===============
     @GetMapping
     public String addGet(@ModelAttribute(name = "addForm") MemberAddForm addForm) {
         return "member/member_add";

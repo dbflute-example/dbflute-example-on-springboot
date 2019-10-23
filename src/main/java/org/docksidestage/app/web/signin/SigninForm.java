@@ -10,6 +10,9 @@ import org.hibernate.validator.constraints.Length;
  */
 public class SigninForm {
 
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     @NotEmpty
     @Length(max = 50)
     private String account;
@@ -18,6 +21,9 @@ public class SigninForm {
     @Length(max = 20)
     private String password;
 
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
     public String getAccount() {
         return account;
     }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/signin")
 public class SigninController {
+
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
@@ -33,8 +34,8 @@ public class SigninController {
     }
 
     // ===================================================================================
-    //                                                                             Routing
-    //                                                                             =======
+    //                                                                     Request Mapping
+    //                                                                     ===============
     @GetMapping
     public String index(@ModelAttribute SigninForm signinForm) {
         return "signin/signin";
