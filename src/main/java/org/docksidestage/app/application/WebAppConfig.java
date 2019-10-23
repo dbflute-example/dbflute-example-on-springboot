@@ -22,8 +22,8 @@ import org.thymeleaf.dialect.IProcessorDialect;
 public class WebAppConfig implements WebMvcConfigurer {
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() { // for logging
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+    public FilterRegistrationBean<RequestLoggingFilter> filterRegistrationBean() { // for logging
+        FilterRegistrationBean<RequestLoggingFilter> registrationBean = new FilterRegistrationBean<>();
         RequestLoggingFilter loggingFilter = new RequestLoggingFilter();
         registrationBean.setFilter(loggingFilter);
         registrationBean.setOrder(1);

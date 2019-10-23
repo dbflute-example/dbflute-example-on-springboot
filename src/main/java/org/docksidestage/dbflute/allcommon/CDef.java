@@ -23,7 +23,6 @@ import org.dbflute.jdbc.ClassificationCodeType;
 import org.dbflute.jdbc.ClassificationMeta;
 import org.dbflute.jdbc.ClassificationUndefinedHandlingType;
 import org.dbflute.optional.OptionalThing;
-import org.springframework.stereotype.Component;
 
 import static org.dbflute.util.DfTypeUtil.emptyStrings;
 
