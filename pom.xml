@@ -5,7 +5,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.1.RELEASE</version>
+		<!-- Spring Bootのバージョンはここのparentで、それ以外のバージョンはpropertiesでまとめて指定する -->
+		<version>2.3.2.RELEASE</version>
 	</parent>
 
 	<groupId>org.dbflute.example</groupId>
@@ -19,7 +20,7 @@
 	<inceptionYear>2014</inceptionYear>
 
 	<properties>
-		<dbflute.version>1.2.0</dbflute.version>
+		<dbflute.version>1.2.3</dbflute.version>
 		<!-- Spring Bootのバージョンはparentでまとめて指定する -->
 		<utflute.version>0.8.9</utflute.version>
 	</properties>
