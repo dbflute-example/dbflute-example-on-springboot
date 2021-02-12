@@ -12,10 +12,10 @@ import org.docksidestage.dbflute.exentity.Purchase;
  */
 public class ProfileBean {
 
-    private String memberName;
-    private String memberStatusName;
-    private Integer servicePointCount;
-    private String serviceRankName;
+    final private String memberName;
+    final private String memberStatusName;
+    final private Integer servicePointCount;
+    final private String serviceRankName;
 
     private List<PurchasedProductBean> purchaseList;
 
@@ -30,27 +30,19 @@ public class ProfileBean {
     public String getMemberName() {
         return memberName;
     }
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
-    }
+
     public String getMemberStatusName() {
         return memberStatusName;
     }
-    public void setMemberStatusName(String memberStatusName) {
-        this.memberStatusName = memberStatusName;
-    }
+
     public Integer getServicePointCount() {
         return servicePointCount;
     }
-    public void setServicePointCount(Integer servicePointCount) {
-        this.servicePointCount = servicePointCount;
-    }
+
     public String getServiceRankName() {
         return serviceRankName;
     }
-    public void setServiceRankName(String serviceRankName) {
-        this.serviceRankName = serviceRankName;
-    }
+
     public List<PurchasedProductBean> getPurchaseList() {
         return purchaseList;
     }
