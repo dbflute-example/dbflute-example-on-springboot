@@ -1,8 +1,5 @@
 package org.docksidestage.app.web.profile;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.docksidestage.app.application.security.MemberUserDetail;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dbflute.exentity.Member;
@@ -26,7 +23,7 @@ public class ProfileController {
     @GetMapping({"", "/"})
     public String show(Model model) {
 
-        model.addAttribute("bean", mappingToBean(selectMember()));
+        model.addAttribute("bean", new ProfileBean(selectMember()));
 
         return "profile/profile.html";
     }
@@ -51,14 +48,5 @@ public class ProfileController {
         return user.getMember();
     }
 
-    private ProfileBean mappingToBean(Member member) {
-        ProfileBean bean = new ProfileBean(member);
-        List<ProfileBean.PurchasedProductBean> purchaseList = member.getPurchaseList().stream().map(purchase -> {
-            return new ProfileBean.PurchasedProductBean(purchase);
-        }).collect(Collectors.toList());
-
-        bean.setPurchaseList(purchaseList);
-        return bean;
-    }
 }
 

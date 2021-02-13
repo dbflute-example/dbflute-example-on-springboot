@@ -2,6 +2,7 @@ package org.docksidestage.app.web.profile;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.docksidestage.dbflute.exentity.Member;
 import org.docksidestage.dbflute.exentity.MemberService;
@@ -17,7 +18,7 @@ public class ProfileBean {
     final private Integer servicePointCount;
     final private String serviceRankName;
 
-    private List<PurchasedProductBean> purchaseList;
+    final private List<PurchasedProductBean> purchaseList;
 
     public ProfileBean(Member member) {
         this.memberName = member.getMemberName();
@@ -25,6 +26,10 @@ public class ProfileBean {
         MemberService memberService = member.getMemberServiceAsOne().get();
         this.servicePointCount = memberService.getServicePointCount();
         this.serviceRankName = memberService.getServiceRank().get().getServiceRankName();
+
+        this. purchaseList = member.getPurchaseList().stream().map(purchase -> {
+            return new ProfileBean.PurchasedProductBean(purchase);
+        }).collect(Collectors.toList());
     }
 
     public String getMemberName() {
@@ -46,13 +51,11 @@ public class ProfileBean {
     public List<PurchasedProductBean> getPurchaseList() {
         return purchaseList;
     }
-    public void setPurchaseList(List<PurchasedProductBean> purchaseList) {
-        this.purchaseList = purchaseList;
-    }
+
     public static class PurchasedProductBean {
-        private String productName;
-        private Integer regularPrice;
-        private LocalDateTime purchaseDateTime;
+        final private String productName;
+        final private Integer regularPrice;
+        final private LocalDateTime purchaseDateTime;
 
         public PurchasedProductBean(Purchase purchase) {
             this.productName = purchase.getProduct().get().getProductName();
@@ -63,20 +66,14 @@ public class ProfileBean {
         public String getProductName() {
             return productName;
         }
-        public void setProductName(String productName) {
-            this.productName = productName;
-        }
+
         public Integer getRegularPrice() {
             return regularPrice;
         }
-        public void setRegularPrice(Integer regularPrice) {
-            this.regularPrice = regularPrice;
-        }
+
         public LocalDateTime getPurchaseDateTime() {
             return purchaseDateTime;
         }
-        public void setPurchaseDateTime(LocalDateTime purchaseDateTime) {
-            this.purchaseDateTime = purchaseDateTime;
-        }
+
     }
 }
