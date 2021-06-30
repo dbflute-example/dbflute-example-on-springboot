@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<!-- Spring Bootのバージョンはここのparentで、それ以外のバージョンはpropertiesでまとめて指定する -->
-		<version>2.5.0</version>
+		<version>2.5.2</version>
 	</parent>
 
 	<groupId>org.dbflute.example</groupId>
