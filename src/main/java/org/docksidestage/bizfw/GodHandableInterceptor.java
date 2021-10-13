@@ -25,13 +25,13 @@ import org.dbflute.hook.AccessContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  * @author jflute
  */
-public class GodHandableInterceptor extends HandlerInterceptorAdapter {
+public class GodHandableInterceptor implements AsyncHandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(GodHandableInterceptor.class);
 
@@ -44,13 +44,12 @@ public class GodHandableInterceptor extends HandlerInterceptorAdapter {
             }
         }
         prepareAccessContext();
-        return super.preHandle(request, response, handler);
+        return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
             throws Exception {
-        super.postHandle(request, response, handler, modelAndView);
         if (handler instanceof HandlerMethod) {
             if (logger.isDebugEnabled()) {
                 logger.debug("modelAndView: {}", modelAndView != null ? modelAndView.toString() : null);
