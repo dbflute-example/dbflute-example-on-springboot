@@ -5,8 +5,8 @@ import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
 
-// ExampleStringUtilsはPOJOなので、JUnitテストの起動のためのアノテーションは必要ない
-public class ExampleStringUtilsTest {
+// POJOのテストなので、JUnitテストの起動のためのアノテーションや継承は必要ない
+public class ExampleStringUtilsIsNotEmptyTest {
 
     @Test
     public void test_whenTargetStringIsNull_returnsFalse() {
