@@ -19,7 +19,6 @@ import org.docksidestage.dbflute.exentity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,10 +78,10 @@ public class ProductController extends ApiBaseController {
             cb.specify().derivedPurchase().count(purchaseCB -> {
                 purchaseCB.specify().columnPurchaseId();
             }, Product.ALIAS_purchaseCount);
-            if (!StringUtils.isEmpty(body.getProductName())) {
+            if (ExampleStringUtils.isNotEmpty(body.getProductName())) {
                 cb.query().setProductName_LikeSearch(body.getProductName(), op -> op.likeContain());
             }
-            if (!StringUtils.isEmpty(body.getPurchaseMemberName())) {
+            if (ExampleStringUtils.isNotEmpty(body.getPurchaseMemberName())) {
                 cb.query().existsPurchase(purchaseCB -> {
                     purchaseCB.query().queryMember().setMemberName_LikeSearch(body.getPurchaseMemberName(), op -> op.likeContain());
                 });

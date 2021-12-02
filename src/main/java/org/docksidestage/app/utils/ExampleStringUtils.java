@@ -1,13 +1,17 @@
 package org.docksidestage.app.utils;
 
 import org.springframework.lang.Nullable;
-import org.springframework.util.StringUtils;
 
 /**
  * @author subaru
+ * @author y.shimizu
  */
-public class ExampleStringUtils extends StringUtils {
-    public static boolean isNotEmpty(@Nullable Object str) {
-        return !isEmpty(str);
+public class ExampleStringUtils {
+    public static boolean isNotEmpty(@Nullable String str) {
+        return str != null && !str.isEmpty();
+    }
+
+    public static boolean isEmpty(@Nullable String str) {
+        return str == null || str.isEmpty();
     }
 }
