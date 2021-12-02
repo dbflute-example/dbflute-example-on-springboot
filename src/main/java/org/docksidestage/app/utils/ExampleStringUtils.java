@@ -4,6 +4,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * @author subaru
+ * @author y.shimizu
  */
 public class ExampleStringUtils {
     public static boolean isNotEmpty(@Nullable String str) {

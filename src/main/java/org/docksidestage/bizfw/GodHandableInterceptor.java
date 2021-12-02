@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author jflute
+ * @author y.shimizu
  */
 public class GodHandableInterceptor implements AsyncHandlerInterceptor {
 
