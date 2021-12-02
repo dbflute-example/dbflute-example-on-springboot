@@ -5,6 +5,9 @@ import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
 
+/**
+ * @author y.shimizu
+ */
 // POJOのテストなので、JUnitテストの起動のためのアノテーションや継承は必要ない
 public class ExampleStringUtilsIsEmptyTest {
 
