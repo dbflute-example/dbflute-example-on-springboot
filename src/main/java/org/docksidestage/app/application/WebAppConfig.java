@@ -5,6 +5,7 @@ import java.util.List;
 import org.docksidestage.app.application.security.UserBeanArgumentResolver;
 import org.docksidestage.bizfw.GodHandableInterceptor;
 import org.docksidestage.bizfw.RequestLoggingFilter;
+import org.docksidestage.bizfw.thymeleaf.ExampleDialect;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

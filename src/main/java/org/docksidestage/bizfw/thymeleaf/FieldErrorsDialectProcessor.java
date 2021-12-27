@@ -1,4 +1,4 @@
-package org.docksidestage.app.application;
+package org.docksidestage.bizfw.thymeleaf;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +28,7 @@ import org.thymeleaf.templatemode.TemplateMode;
  * type of element you specify be ignored, this processor just focuses on attribute, 'ex:error'
  *
  * @author subaru
+ * @author jflute
  */
 public class FieldErrorsDialectProcessor extends AbstractAttributeTagProcessor {
 
