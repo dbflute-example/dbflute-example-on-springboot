@@ -5,7 +5,7 @@ import java.util.List;
 import org.docksidestage.app.application.security.UserBeanArgumentResolver;
 import org.docksidestage.bizfw.GodHandableInterceptor;
 import org.docksidestage.bizfw.RequestLoggingFilter;
-import org.docksidestage.bizfw.thymeleaf.ExampleDialect;
+import org.docksidestage.bizfw.thymeleaf.AppProcessorDialect;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -49,7 +49,7 @@ public class WebAppConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public IProcessorDialect exampleDialect() {
-        return new ExampleDialect("exampleDialect", "ex", 1000);
+    public IProcessorDialect appProcessorDialect() { // for thymeleaf
+        return new AppProcessorDialect("appProcessorDialect", "ex", 1000);
     }
 }

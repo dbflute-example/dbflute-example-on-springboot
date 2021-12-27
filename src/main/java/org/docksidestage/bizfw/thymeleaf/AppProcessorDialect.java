@@ -7,18 +7,19 @@ import org.thymeleaf.dialect.AbstractProcessorDialect;
 import org.thymeleaf.processor.IProcessor;
 
 /**
+ * The thymeleaf dialect providing original processors from this example application.
  * @author subaru
  * @author jflute
  */
-public class ExampleDialect extends AbstractProcessorDialect {
+public class AppProcessorDialect extends AbstractProcessorDialect {
 
-    public ExampleDialect(String name, String prefix, int processorPrecedence) {
+    public AppProcessorDialect(String name, String prefix, int processorPrecedence) {
         super(name, prefix, processorPrecedence);
     }
 
     @Override
     public Set<IProcessor> getProcessors(String dialectPrefix) {
-        HashSet<IProcessor> processors = new HashSet<>();
+        Set<IProcessor> processors = new HashSet<>();
         processors.add(new FieldErrorsDialectProcessor());
         return processors;
     }
