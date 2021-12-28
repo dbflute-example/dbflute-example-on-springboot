@@ -48,6 +48,21 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+// [補足] LastaFluteのRequestLoggingFilterをそのままコピーして使っている。
+//
+// 以下の機能をSpring Frameworkでも利用するために
+// o リクエスト情報を含んだリッチなデバッグログを統一的に
+// o 例外(Exception)はリクエスト情報を追加してエラーログに
+// o その他、クライアントエラーなどの処理も少々
+//
+// つまり、Controllerでthrowされた例外のエラーロギングは、このFilterで処理されるので他では不要。
+// 例外情報はリクエスト情報も一緒にエラーログに残したいので。
+//
+// コピーしてパッケージを変えればそのまま使えるので、時々手動でアップグレードしている。
+// (この補足コメントは本家には入ってないので、コピー時にコピペすると消えそっ)
+// _/_/_/_/_/_/_/_/_/_/
+
 /**
  * The filter for logging of request. <br>
  * Seasar's RequestDumpFilter is used as reference.
