@@ -50,6 +50,7 @@ import org.slf4j.LoggerFactory;
 
 // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 // [補足] LastaFluteのRequestLoggingFilterをそのままコピーして使っている。
+// https://github.com/lastaflute/lastaflute/blob/develop/src/main/java/org/lastaflute/web/servlet/filter/RequestLoggingFilter.java
 //
 // 以下の機能をSpring Frameworkでも利用するために
 // o リクエスト情報を含んだリッチなデバッグログを統一的に

@@ -34,7 +34,8 @@ import org.springframework.web.servlet.ModelAndView;
  * <p>例えば、「どのControllerのメソッドが実行されたのか？」がわかりやすいように統一的なデバッグログを入れたりなど。
  * DBFluteの共通カラムの自動設定を有効にするためのAccessContextの初期化も含まれる。</p>
  * 
- * <p>GodHandableという名前は、LastaFluteのGodHandableActionになぞらえて付けただけ。</p>
+ * <p>補足: GodHandableという名前は、LastaFluteのGodHandableActionになぞらえて付けただけ。<br>
+ * https://github.com/lastaflute/lastaflute/blob/develop/src/main/java/org/lastaflute/web/ruts/GodHandableAction.java</p>
  * 
  * @author jflute
  * @author y.shimizu
