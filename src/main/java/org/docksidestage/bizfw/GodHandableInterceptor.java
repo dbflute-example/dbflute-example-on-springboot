@@ -29,6 +29,13 @@ import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * Controllerの前後処理などを挟み込むInterceptor。<br>
+ * 
+ * <p>例えば、「どのControllerのメソッドが実行されたのか？」がわかりやすいように統一的なデバッグログを入れたりなど。
+ * DBFluteの共通カラムの自動設定を有効にするためのAccessContextの初期化も含まれる。</p>
+ * 
+ * <p>GodHandableという名前は、LastaFluteのGodHandableActionになぞらえて付けただけ。</p>
+ * 
  * @author jflute
  * @author y.shimizu
  */
@@ -36,6 +43,9 @@ public class GodHandableInterceptor implements AsyncHandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(GodHandableInterceptor.class);
 
+    // ===================================================================================
+    //                                                                              Handle
+    //                                                                              ======
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
@@ -60,16 +70,22 @@ public class GodHandableInterceptor implements AsyncHandlerInterceptor {
         }
     }
 
+    // ===================================================================================
+    //                                                                             Logging
+    //                                                                             =======
     protected String buildActionDisp(HandlerMethod handlerMethod) {
         final Method method = handlerMethod.getMethod();
         final Class<?> declaringClass = method.getDeclaringClass();
         return declaringClass.getSimpleName() + "." + method.getName() + "()";
     }
 
-    protected void prepareAccessContext() {
-        AccessContext context = new AccessContext();
-        context.setAccessLocalDateTime(LocalDateTime.now());
-        context.setAccessUser("example user");
+    // ===================================================================================
+    //                                                                      Access Context
+    //                                                                      ==============
+    protected void prepareAccessContext() { // #dbflute: for CommonColumn auto setup
+        final AccessContext context = new AccessContext();
+        context.setAccessLocalDateTime(LocalDateTime.now()); // #hope jflute get it from e.g. time manager (2021/12/28)
+        context.setAccessUser("example user"); // #hope jflute use login user from Spring Security (2021/12/28)
         AccessContext.setAccessContextOnThread(context);
     }
 }
