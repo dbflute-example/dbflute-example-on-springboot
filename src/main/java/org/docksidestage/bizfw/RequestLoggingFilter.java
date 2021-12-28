@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 the original author or authors.
+ * Copyright 2015-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,11 +51,11 @@ import org.slf4j.LoggerFactory;
 /**
  * The filter for logging of request. <br>
  * Seasar's RequestDumpFilter is used as reference.
- *
+ * 
  * <p>This filter outputs request info as debug level in development
  * and outputs exception info as error level in development and production.
  * The error message contains request info, so you can see it.</p>
- *
+ * 
  * <p>The requests for resource files, e.g. JavaScript(.js) and CSS(.css), is out of target.
  * You can customize it by {@link FilterConfig}.</p>
  *
@@ -764,15 +764,8 @@ public class RequestLoggingFilter implements Filter {
             sb.append(LF).append("_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/");
             sb.append(LF).append("...Sending error as '").append(title).append("' manually");
             sb.append(" #").append(Integer.toHexString(cause.hashCode()));
-            sb.append(LF).append(" Request: ").append(request.getRequestURI());
-            final String queryString = request.getQueryString();
-            if (queryString != null && !queryString.isEmpty()) {
-                sb.append("?").append(queryString);
-            }
-            sb.append(LF);
-            buildRequestHeaders(sb, request);
-            buildRequestAttributes(sb, request, /*showErrorFlush*/true);
-            buildSessionAttributes(sb, request, /*showErrorFlush*/true);
+            sb.append(LF).append(IND);
+            buildRequestInfo(sb, request, response, /*showResponse*/false, /*showErrorFlush*/true);
             sb.append(" Exception: ").append(cause.getClass().getName());
             sb.append(LF).append(" Message: ");
             final String causeMsg = cause.getMessage();
