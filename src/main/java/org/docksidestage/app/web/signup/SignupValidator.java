@@ -1,6 +1,6 @@
 package org.docksidestage.app.web.signup;
 
-import org.docksidestage.app.utils.ExampleStringUtils;
+import org.docksidestage.bizfw.utils.ExampleStringUtils;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
