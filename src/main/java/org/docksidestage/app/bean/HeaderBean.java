@@ -2,6 +2,7 @@ package org.docksidestage.app.bean;
 
 /**
  * @author jflute
+ * @author subaru
  */
 public class HeaderBean { // #change_it #delete_ifapi
 
