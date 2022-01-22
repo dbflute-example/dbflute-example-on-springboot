@@ -22,14 +22,24 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 /**
+ * The entry point class to boot this example application by SpringBoot.
  * @author jflute
  */
 @SpringBootApplication
 @ComponentScan("org.docksidestage.app")
 @Import(DBFluteBeansJavaConfig.class)
-public class ExampleApplication { // #dbflute: import JavaConfig of DBFlute
+public class ExampleApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ExampleApplication.class, args);
     }
+
+    // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+    // [補足] DBFluteの自動生成クラスや業務フレームワーク(bizfw)をComponentScanの対象から外している。
+    // スキャンスピードを少しでも早くするため必要ないことが確定しているパッケージは対象外に。
+    // (このExampleでは、appパッケージ配下だけスキャン対象にするようにしている)
+    //
+    // DBFluteの自動生成クラスにはスキャン対象のコンポーネントはなく、
+    // 代わりに自動生成されたJavaConfigをアプリケーションにてImportすること。
+    // _/_/_/_/_/_/_/_/_/_/
 }

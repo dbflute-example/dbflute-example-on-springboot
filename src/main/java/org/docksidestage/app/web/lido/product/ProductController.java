@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.dbflute.cbean.result.PagingResultBean;
-import org.docksidestage.app.utils.ExampleStringUtils;
 import org.docksidestage.app.web.base.ApiBaseController;
 import org.docksidestage.app.web.base.paging.PagingAssist;
+import org.docksidestage.bizfw.utils.ExampleStringUtils;
 import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.ProductBhv;
 import org.docksidestage.dbflute.exentity.Product;

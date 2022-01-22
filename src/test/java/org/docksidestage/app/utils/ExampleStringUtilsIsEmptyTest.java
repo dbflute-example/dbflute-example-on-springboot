@@ -3,6 +3,7 @@ package org.docksidestage.app.utils;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import org.docksidestage.bizfw.utils.ExampleStringUtils;
 import org.junit.Test;
 
 /**

@@ -9,7 +9,7 @@ import javax.validation.Valid;
 
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.util.DfTypeUtil;
-import org.docksidestage.app.utils.ExampleStringUtils;
+import org.docksidestage.bizfw.utils.ExampleStringUtils;
 import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dbflute.exentity.Member;

@@ -3,12 +3,23 @@ package org.docksidestage.app.bean;
 import org.docksidestage.dbflute.exentity.Member;
 
 /**
+ * ログインしているユーザーの情報を保持するクラス。<br>
+ * ログインセッション中はインスタンスが維持される。(セッション実現方法は問わず)
+ * 
+ * <p>Spring の UserDetails を直接は使わず、アプリケーションではフレームワーク非依存のこのクラスを使う。
+ * そうする必要性はあまりないかもだが、ひとまずLastaFluteのやり方と似せてこのようにしている。</p>
+ * 
  * @author subaru
+ * @author jflute
  */
 public class UserBean {
-    private Integer memberId;
-    private String memberName;
-    private String memberAccount;
+
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    private final Integer memberId;
+    private final String memberName;
+    private final String memberAccount;
 
     // ===================================================================================
     //                                                                         Constructor

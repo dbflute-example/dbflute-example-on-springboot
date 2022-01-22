@@ -1,4 +1,4 @@
-package org.docksidestage.app.application;
+package org.docksidestage.bizfw.thymeleaf;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,33 +14,46 @@ import org.thymeleaf.processor.element.IElementTagStructureHandler;
 import org.thymeleaf.templatemode.TemplateMode;
 
 /**
- * Example:
- * if you put below element,
- * # <p ex:ferrors="*{xxx}"></p>
+ * errors tag of field, which can show user messages. <br>
+ * 
+ * For example, if you put below element...
+ * <pre>
+ * &lt;p ex:ferrors="*{xxx}"&gt;&lt;/p&gt;
+ * </pre>
  *
  * next elements be rendered.
- * # <ul>
- * #     <li th:each="e : ${#fields.detailedErrors('xxx')}" th:class="errors">
- * #         <span th:text="${e.message}"></span>
- * #     </li>
- * # </ul>
+ * <pre>
+ * &lt;ul&gt;
+ *     &lt;li th:each="e : ${#fields.detailedErrors('xxx')}" th:class="errors"&gt;
+ *         &lt;span th:text="${e.message}">&lt;/span&gt;
+ *     &lt;/li&gt;
+ * &lt;/ul&gt;
+ * </pre>
  *
- * type of element you specify be ignored, this processor just focuses on attribute, 'ex:error'
- *
+ * <p>type of element you specify be ignored, this processor just focuses on attribute, 'ex:error'</p>
+ * 
+ * <p>[補足] LastaFluteの la:errors に近い機能。DBFluteとは無関係。</p>
  * @author subaru
+ * @author jflute
  */
 public class FieldErrorsDialectProcessor extends AbstractAttributeTagProcessor {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    private static Pattern pattern = Pattern.compile("\\*\\{(.*)}");
+    // ex:ferrors
+    private static final String DIALECT_PREFIX = "ex";
+    private static final String ATTRIBUTE_NAME = "ferrors";
+
+    // parsing e.g. "*{xxx}"
+    private static final Pattern valueVariablePattern = Pattern.compile("\\*\\{(.*)}");
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
     protected FieldErrorsDialectProcessor() {
-        super(TemplateMode.HTML, "ex", null, false, "ferrors", true, 100000, true);
+        super(TemplateMode.HTML, DIALECT_PREFIX, /*elementName*/null, /*prefixElementName*/false, ATTRIBUTE_NAME,
+                /*prefixAttributeName*/true, /*precedence*/100000, /*removeAttribute*/true);
     }
 
     // ===================================================================================
@@ -49,7 +62,7 @@ public class FieldErrorsDialectProcessor extends AbstractAttributeTagProcessor {
     @Override
     protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName, String attributeValue,
             IElementTagStructureHandler structureHandler) {
-        Matcher matcher = pattern.matcher(attributeValue);
+        Matcher matcher = valueVariablePattern.matcher(attributeValue);
         if (!matcher.find()) {
             return;
         }
@@ -64,7 +77,7 @@ public class FieldErrorsDialectProcessor extends AbstractAttributeTagProcessor {
         model.add(modelFactory.createCloseElementTag("li"));
         model.add(modelFactory.createCloseElementTag("ul"));
 
-        structureHandler.replaceWith(model, true);
+        structureHandler.replaceWith(model, /*processable*/true);
     }
 
     private IOpenElementTag createLiTag(IModelFactory modelFactory, String fieldValue) {

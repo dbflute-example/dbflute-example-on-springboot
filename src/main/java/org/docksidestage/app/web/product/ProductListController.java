@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.dbflute.cbean.result.PagingResultBean;
-import org.docksidestage.app.utils.ExampleStringUtils;
+import org.docksidestage.bizfw.utils.ExampleStringUtils;
 import org.docksidestage.dbflute.allcommon.CDef;
 import org.docksidestage.dbflute.exbhv.ProductBhv;
 import org.docksidestage.dbflute.exentity.Product;

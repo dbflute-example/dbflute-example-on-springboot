@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 the original author or authors.
+ * Copyright 2015-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,14 +48,30 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+// [補足] LastaFluteのRequestLoggingFilterをそのままコピーして使っている。
+// https://github.com/lastaflute/lastaflute/blob/develop/src/main/java/org/lastaflute/web/servlet/filter/RequestLoggingFilter.java
+//
+// 以下の機能をSpring Frameworkでも利用するために
+// o リクエスト情報を含んだリッチなデバッグログを統一的に
+// o 例外(Exception)はリクエスト情報を追加してエラーログに
+// o その他、クライアントエラーなどの処理も少々
+//
+// つまり、Controllerでthrowされた例外のエラーロギングは、このFilterで処理されるので他では不要。
+// 例外情報はリクエスト情報も一緒にエラーログに残したいので。
+//
+// コピーしてパッケージを変えればそのまま使えるので、時々手動でアップグレードしている。
+// (この補足コメントは本家には入ってないので、コピー時にコピペすると消えそっ)
+// _/_/_/_/_/_/_/_/_/_/
+
 /**
  * The filter for logging of request. <br>
  * Seasar's RequestDumpFilter is used as reference.
- *
+ * 
  * <p>This filter outputs request info as debug level in development
  * and outputs exception info as error level in development and production.
  * The error message contains request info, so you can see it.</p>
- *
+ * 
  * <p>The requests for resource files, e.g. JavaScript(.js) and CSS(.css), is out of target.
  * You can customize it by {@link FilterConfig}.</p>
  *
@@ -764,15 +780,8 @@ public class RequestLoggingFilter implements Filter {
             sb.append(LF).append("_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/");
             sb.append(LF).append("...Sending error as '").append(title).append("' manually");
             sb.append(" #").append(Integer.toHexString(cause.hashCode()));
-            sb.append(LF).append(" Request: ").append(request.getRequestURI());
-            final String queryString = request.getQueryString();
-            if (queryString != null && !queryString.isEmpty()) {
-                sb.append("?").append(queryString);
-            }
-            sb.append(LF);
-            buildRequestHeaders(sb, request);
-            buildRequestAttributes(sb, request, /*showErrorFlush*/true);
-            buildSessionAttributes(sb, request, /*showErrorFlush*/true);
+            sb.append(LF).append(IND);
+            buildRequestInfo(sb, request, response, /*showResponse*/false, /*showErrorFlush*/true);
             sb.append(" Exception: ").append(cause.getClass().getName());
             sb.append(LF).append(" Message: ");
             final String causeMsg = cause.getMessage();
