@@ -1,5 +1,6 @@
 package org.docksidestage.app.application.security;
 
+import org.docksidestage.app.web.signin.SigninService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.web.authentication.ForwardAuthenticationFail
 /**
  * @author inoue on 2016/12/18.
  * @author jflute
+ * @author y.shimizu
  */
 @Configuration
 @EnableWebSecurity
@@ -53,10 +55,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:on
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder()); // 既存のsampleプロジェクトに合わせる
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
+
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        return new SigninService();
+    }
+
 
     /**
      * パスワードエンコーダを生成する.
@@ -64,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * harborに合わせてSHA-256を利用する.
      * 非推奨だが削除予定はないのでSpring Security標準付属のエンコーダを利用した.
      *
-     * https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#other-passwordencoders
+     * https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/password/MessageDigestPasswordEncoder.html
      * @return The password encoder for security handling, which is used by framework. (NotNull)
      */
     @SuppressWarnings("deprecation")
