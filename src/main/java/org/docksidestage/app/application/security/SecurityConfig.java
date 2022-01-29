@@ -21,9 +21,6 @@ import org.springframework.security.web.authentication.ForwardAuthenticationFail
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailService;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // #for_now for test, enable later by jflute
