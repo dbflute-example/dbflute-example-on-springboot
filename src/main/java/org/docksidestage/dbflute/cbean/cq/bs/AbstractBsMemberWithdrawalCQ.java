@@ -208,7 +208,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     /**
      * Equal(=). As Sit (SIT). And OnlyOnceRegistered. <br>
-     * SIT: site is not kindness
+     * site is not kindness: site is not kindness
      */
     public void setWithdrawalReasonCode_Equal_Sit() {
         setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason.Sit);
@@ -216,7 +216,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     /**
      * Equal(=). As Prd (PRD). And OnlyOnceRegistered. <br>
-     * PRD: no attractive product
+     * no attractive product: no attractive product
      */
     public void setWithdrawalReasonCode_Equal_Prd() {
         setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason.Prd);
@@ -224,7 +224,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     /**
      * Equal(=). As Frt (FRT). And OnlyOnceRegistered. <br>
-     * FRT: because of furiten
+     * because of furiten: because of furiten
      */
     public void setWithdrawalReasonCode_Equal_Frt() {
         setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason.Frt);
@@ -232,7 +232,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     /**
      * Equal(=). As Oth (OTH). And OnlyOnceRegistered. <br>
-     * OTH: other reasons
+     * other reasons: other reasons
      */
     public void setWithdrawalReasonCode_Equal_Oth() {
         setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason.Oth);
@@ -263,7 +263,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     /**
      * NotEqual(&lt;&gt;). As Sit (SIT). And OnlyOnceRegistered. <br>
-     * SIT: site is not kindness
+     * site is not kindness: site is not kindness
      */
     public void setWithdrawalReasonCode_NotEqual_Sit() {
         setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason.Sit);
@@ -271,7 +271,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     /**
      * NotEqual(&lt;&gt;). As Prd (PRD). And OnlyOnceRegistered. <br>
-     * PRD: no attractive product
+     * no attractive product: no attractive product
      */
     public void setWithdrawalReasonCode_NotEqual_Prd() {
         setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason.Prd);
@@ -279,7 +279,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     /**
      * NotEqual(&lt;&gt;). As Frt (FRT). And OnlyOnceRegistered. <br>
-     * FRT: because of furiten
+     * because of furiten: because of furiten
      */
     public void setWithdrawalReasonCode_NotEqual_Frt() {
         setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason.Frt);
@@ -287,7 +287,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     /**
      * NotEqual(&lt;&gt;). As Oth (OTH). And OnlyOnceRegistered. <br>
-     * OTH: other reasons
+     * other reasons: other reasons
      */
     public void setWithdrawalReasonCode_NotEqual_Oth() {
         setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason.Oth);
