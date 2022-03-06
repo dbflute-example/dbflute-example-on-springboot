@@ -19,7 +19,7 @@ public class WithdrawalController {
     @GetMapping("/")
     public String showEntry(Model model, WithdrawalForm form) {
         model.addAttribute("withdrawalReasons", CDef.WithdrawalReason.values());
-        model.addAttribute("errors");
+        model.addAttribute("errors"); // TODO
 
         return "withdrawal/entry";
     }

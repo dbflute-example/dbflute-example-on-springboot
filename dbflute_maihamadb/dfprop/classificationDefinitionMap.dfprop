@@ -91,6 +91,7 @@ map:{
             ; table=WITHDRAWAL_REASON
             ; code=WITHDRAWAL_REASON_CODE; name=WITHDRAWAL_REASON_CODE
             ; comment=WITHDRAWAL_REASON_TEXT; orderBy=DISPLAY_ORDER
+            ; alias=WITHDRAWAL_REASON_TEXT
         }
     }
 

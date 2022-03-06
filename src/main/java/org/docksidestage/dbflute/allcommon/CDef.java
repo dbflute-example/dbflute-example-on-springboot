@@ -23,7 +23,6 @@ import org.dbflute.jdbc.ClassificationCodeType;
 import org.dbflute.jdbc.ClassificationMeta;
 import org.dbflute.jdbc.ClassificationUndefinedHandlingType;
 import org.dbflute.optional.OptionalThing;
-
 import static org.dbflute.util.DfTypeUtil.emptyStrings;
 
 /**
@@ -588,17 +587,17 @@ public interface CDef extends Classification {
      * 会員の退会理由。なのでちょっとねがてぃぶ
      */
     public enum WithdrawalReason implements CDef {
-        /** SIT: site is not kindness */
-        Sit("SIT", "SIT", emptyStrings())
+        /** site is not kindness: site is not kindness */
+        Sit("SIT", "site is not kindness", emptyStrings())
         ,
-        /** PRD: no attractive product */
-        Prd("PRD", "PRD", emptyStrings())
+        /** no attractive product: no attractive product */
+        Prd("PRD", "no attractive product", emptyStrings())
         ,
-        /** FRT: because of furiten */
-        Frt("FRT", "FRT", emptyStrings())
+        /** because of furiten: because of furiten */
+        Frt("FRT", "because of furiten", emptyStrings())
         ,
-        /** OTH: other reasons */
-        Oth("OTH", "OTH", emptyStrings())
+        /** other reasons: other reasons */
+        Oth("OTH", "other reasons", emptyStrings())
         ;
         private static final Map<String, WithdrawalReason> _codeClsMap = new HashMap<String, WithdrawalReason>();
         private static final Map<String, WithdrawalReason> _nameClsMap = new HashMap<String, WithdrawalReason>();
@@ -716,20 +715,20 @@ public interface CDef extends Classification {
      * 商品のカテゴリ。階層構造である
      */
     public enum ProductCategory implements CDef {
-        /** Music */
-        Music("MSC", "Music", emptyStrings())
-        ,
         /** Food */
         Food("FOD", "Food", emptyStrings())
+        ,
+        /** Music */
+        Music("MSC", "Music", emptyStrings())
         ,
         /** Herb: of Food */
         Herb("HEB", "Herb", emptyStrings())
         ,
-        /** MusicCD: of Music */
-        MusicCD("MCD", "MusicCD", emptyStrings())
-        ,
         /** Instruments: of Music */
         Instruments("INS", "Instruments", emptyStrings())
+        ,
+        /** MusicCD: of Music */
+        MusicCD("MCD", "MusicCD", emptyStrings())
         ;
         private static final Map<String, ProductCategory> _codeClsMap = new HashMap<String, ProductCategory>();
         private static final Map<String, ProductCategory> _nameClsMap = new HashMap<String, ProductCategory>();

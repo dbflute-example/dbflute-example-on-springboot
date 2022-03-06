@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/individual.css" />
+    <title>Withdrawal</title>
+</head>
+<body>
+<header th:replace="/common/layout.html :: header">
+    <section class="nav-main cf">
+        <div class="wrap">
+            <h1 class="main-title"><a href="#">Harbor<span> (Spring Example)</span></a></h1>
+            <ul class="nav-home">
+                <li><a href="../product/product_list.html"><span class="link-block">Products</span></a></li>
+                <li><a href="../member/member_list.html"><span class="link-block">Members</span></a></li>
+                <li><a href="../withdrawal/withdrawal.html"><span class="link-block">Withdrawal</span></a></li>
+            </ul>
+            <ul class="nav-user">
+                <li>
+                    <p class="nameHeader">Welcome, Mr.Guest</p>
+                    <ul class="child">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Sign out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+</header>
+<main>
+    <div class="contents">
+        <h2 class="content-title" th:text="#{labels.withdrawal.title}">labels.withdrawal.title</h2>
+        <section class="withdrawal-box">
+            <h3 class="content-title-second">Withdraw Account</h3>
+            <form class="withdrawal-form" action="#" th:action="@{/withdrawal/confirm/}" method="post">
+                <ul class="withdrawal-reason-list">
+                    <li class="withdrawal-reason-element">
+                        <select>
+                        <!--<select th:property="selectedReason">-->
+                        <!-- <select th:property="selectedReason" th:class="${errors.exists('selectedReason')} ? 'valid-error'"> -->
+                            <option th:each="reason : ${withdrawalReasons}" th:value="${reason.code()}" th:text="${reason.alias()}"></option>
+                            <!-- <option th:optionCls="WithdrawalReason"></option> -->
+                        </select>
+                        <!-- <span th:errors="selectedReason"></span> -->
+                    </li>
+                    <li class="withdrawal-reason-element">
+                        <div>Withdrawal Reason</div>
+                        <textarea rows="3" cols="30" class="withdrawal-write-reason" name="reasonInput"></textarea>
+                        <!-- <span th:errors="reasonInput"></span> -->
+                    </li>
+                </ul>
+                <input type="submit" th:value="#{labels.confirm}" value="confirm"/>
+            </form>
+        </section>
+    </div>
+</main>
+<footer th:replace="/common/layout.html :: footer">
+    <div class="wrap">
+        <ul class="footer-link">
+            <li><a href="http://dbflute.seasar.org/">DBFlute Top</a></li>
+            <li>Spring Example Top</li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

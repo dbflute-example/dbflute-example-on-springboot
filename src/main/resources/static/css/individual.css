@@ -187,10 +187,10 @@
                                                                                 Withdrawal
                                                                                 ------- */
 .withdrawal-box {
-	width: 420px;
-	margin: 32px auto;
+	width: 944px;
+	margin: 20px auto;
+	padding: 4px;
 	border: solid 4px #E5E5E5;
-	padding: 24px 64px;
 }
 .select-withdrawal-reason {
 	margin: 32px auto 0;
