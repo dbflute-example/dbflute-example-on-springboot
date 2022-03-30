@@ -37,9 +37,8 @@
             <form class="withdrawal-form" action="#" th:action="@{/withdrawal/confirm/}" method="post">
                 <ul class="withdrawal-reason-list">
                     <li class="withdrawal-reason-element">
-                        <select>
-                        <!--<select th:property="selectedReason">-->
-                        <!-- <select th:property="selectedReason" th:class="${errors.exists('selectedReason')} ? 'valid-error'"> -->
+                        <select name="reasonCode">
+                        <!-- <select  th:class="${errors.exists('selectedReason')} ? 'valid-error'"> -->
                             <option th:each="reason : ${withdrawalReasons}" th:value="${reason.code()}" th:text="${reason.alias()}"></option>
                             <!-- <option th:optionCls="WithdrawalReason"></option> -->
                         </select>
@@ -64,5 +63,11 @@
         </ul>
     </div>
 </footer>
+<!--/*/ <th:block th:include="/common/layout.html :: afterScript"> /*/-->
+<!-- script contents -->
+<script src="../../../js/jquery-2.1.3.min.js" ></script>
+<script src="../../../js/common.js" ></script>
+<!--/*/ </th:block> /*/-->
+<!--/* individual Script write to after */-->
 </body>
 </html>
