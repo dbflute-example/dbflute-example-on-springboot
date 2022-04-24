@@ -4,14 +4,17 @@ package org.docksidestage.app.web.withdrawal;
  * @author y.shimizu
  */
 public class WithdrawalForm {
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     /** 退会理由コード */
     private String reasonCode;
     /** 退会理由 */
     private String reasonInput;
 
     // ===================================================================================
-    //                                                                           Attribute
-    //                                                                           =========
+    //                                                                            Accessor
+    //                                                                            ========
     public String getReasonCode() {
         return reasonCode;
     }
