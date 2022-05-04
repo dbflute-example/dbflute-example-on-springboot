@@ -32,6 +32,7 @@ public class WithdrawalController {
     @PostMapping("/confirm")
     public String showConfirm(Model model, WithdrawalForm form) {
         model.addAttribute("selectedReason", form.getReasonCode());
+        // TODO WithdrawalForm#getReasonCodeが不正な場合はクライアントエラー
         model.addAttribute("selectedReasonText", CDef.WithdrawalReason.of(form.getReasonCode()).orElseThrow().alias());
         model.addAttribute("reasonInput", form.getReasonInput());
 
@@ -41,6 +42,7 @@ public class WithdrawalController {
 
     @PostMapping("/done")
     public String done(WithdrawalForm form) {
+        // TODO TODO WithdrawalForm#getReasonInputの長さエラーなど、クライアントエラーがありそう
         // TODO 退会処理
         return "redirect:/signin";
     }
