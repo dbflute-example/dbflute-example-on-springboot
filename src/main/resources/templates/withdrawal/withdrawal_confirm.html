@@ -40,7 +40,7 @@
                     <li class="withdrawal-reason-element"><span th:text="${reasonInput}">reasonInput</span></li>
                 </ul>
 
-                <input type="hidden" name="selectedReason" th:value="${selectedReason}" />
+                <input type="hidden" name="reasonCode" th:value="${selectedReason}" />
                 <input type="hidden" name="reasonInput" th:value="${reasonInput}" />
                 <input type="submit" name="done" th:value="#{labels.finish}" />
             </form>

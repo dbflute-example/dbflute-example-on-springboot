@@ -1,9 +1,15 @@
 package org.docksidestage.app.web.withdrawal;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
 
-import org.dbflute.optional.OptionalThing;
+import org.docksidestage.app.application.security.MemberUserDetail;
 import org.docksidestage.dbflute.allcommon.CDef;
+import org.docksidestage.dbflute.exbhv.MemberBhv;
+import org.docksidestage.dbflute.exbhv.MemberWithdrawalBhv;
+import org.docksidestage.dbflute.exentity.Member;
+import org.docksidestage.dbflute.exentity.MemberWithdrawal;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/withdrawal")
 public class WithdrawalController {
+
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    @Autowired
+    private MemberBhv memberBhv;
+    @Autowired
+    private MemberWithdrawalBhv memberWithdrawalBhv;
 
     // ===================================================================================
     //                                                                     Request Mapping
@@ -41,9 +55,31 @@ public class WithdrawalController {
     }
 
     @PostMapping("/done")
-    public String done(WithdrawalForm form) {
-        // TODO TODO WithdrawalForm#getReasonInputの長さエラーなど、クライアントエラーがありそう
-        // TODO 退会処理
+    public String done(WithdrawalForm form, @AuthenticationPrincipal MemberUserDetail memberUserDetail) {
+        // TODO WithdrawalForm#getReasonInputの長さエラーなど、クライアントエラーがありそう
+
+        Integer memberId = memberUserDetail.getMember().getMemberId();
+        insertWithdrawal(form, memberId);
+        updateStatusWithdrawal(memberId);
+
         return "redirect:/signin";
     }
+
+    private void insertWithdrawal(WithdrawalForm form, Integer memberId) {
+        MemberWithdrawal withdrawal = new MemberWithdrawal();
+        withdrawal.setMemberId(memberId);
+        withdrawal.setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.of(form.getReasonCode()).get());
+        withdrawal.setWithdrawalReasonInputText(form.getReasonInput());
+        // TODO 時間の操作を統一したり、テストをするために、LastaFluteのTimeManagerに当たるものがあった方がいいかも
+        withdrawal.setWithdrawalDatetime(LocalDateTime.now());
+        memberWithdrawalBhv.insert(withdrawal);
+    }
+
+    private void updateStatusWithdrawal(Integer memberId) {
+        Member member = new Member();
+        member.setMemberId(memberId);
+        member.setMemberStatusCode_Withdrawal();
+        memberBhv.updateNonstrict(member);
+    }
+
 }
