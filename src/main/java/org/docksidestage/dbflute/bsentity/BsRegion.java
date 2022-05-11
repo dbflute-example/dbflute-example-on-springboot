@@ -117,7 +117,7 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
     public CDef.Region getRegionIdAsRegion() {
-        return CDef.Region.codeOf(getRegionId());
+        return CDef.Region.of(getRegionId()).orElse(null);
     }
 
     /**

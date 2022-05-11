@@ -140,7 +140,7 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
     public CDef.MemberStatus getMemberStatusCodeAsMemberStatus() {
-        return CDef.MemberStatus.codeOf(getMemberStatusCode());
+        return CDef.MemberStatus.of(getMemberStatusCode()).orElse(null);
     }
 
     /**
