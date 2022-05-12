@@ -2,7 +2,7 @@
 
 set ANT_OPTS=-Xmx512m
 
-set DBFLUTE_HOME=..\mydbflute\dbflute-1.2.5
+set DBFLUTE_HOME=..\mydbflute\dbflute-1.2.6
 
 set MY_PROPERTIES_PATH=build.properties
 

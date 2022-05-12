@@ -132,7 +132,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
     public CDef.WithdrawalReason getWithdrawalReasonCodeAsWithdrawalReason() {
-        return CDef.WithdrawalReason.codeOf(getWithdrawalReasonCode());
+        return CDef.WithdrawalReason.of(getWithdrawalReasonCode()).orElse(null);
     }
 
     /**

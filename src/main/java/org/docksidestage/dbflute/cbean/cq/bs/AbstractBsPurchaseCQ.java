@@ -829,7 +829,7 @@ public abstract class AbstractBsPurchaseCQ extends AbstractConditionQuery {
      * @param determination The determination, true or false. (basically NotNull: error as default, or no condition as option)
      */
     public void setPaymentCompleteFlg_Equal_AsBoolean(Boolean determination) {
-        setPaymentCompleteFlg_Equal_AsFlg(CDef.Flg.codeOf(determination));
+        setPaymentCompleteFlg_Equal_AsFlg(CDef.Flg.of(determination).get());
     }
 
     /**

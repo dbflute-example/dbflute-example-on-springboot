@@ -1,0 +1,149 @@
+##
+## Copyright 2014-2022 the original author or authors.
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+## either express or implied. See the License for the specific language
+## governing permissions and limitations under the License.
+##
+${database.allClassCopyright}package ${glPackageBaseCommon};
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+#if ($database.needsDBFluteBeansHybritScanConfig())
+import org.springframework.context.annotation.ComponentScan;
+#end
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
+#if ($database.isDBFluteBeansJavaConfigLazy())
+import org.springframework.context.annotation.Lazy;
+#end
+import org.dbflute.bhv.core.BehaviorCommandInvoker;
+import org.dbflute.bhv.core.InvokerAssistant;
+#if (!$database.needsDBFluteBeansHybritScanConfig())
+import ${glPackageExtendedBhv}.*;
+#end
+
+/**
+ * The Java configuration of DBFlute beans for Spring Framework. <br>
+ * You can inject them by importing this class in your auto configuration class.
+ * @author ${database.classAuthor}
+ */
+@Configuration
+#if ($database.needsDBFluteBeansHybritScanConfig())
+#if ($database.isDBFluteBeansJavaConfigLazy())
+@ComponentScan(value="${glPackageExtendedBhv}", lazyInit=true)
+#else
+@ComponentScan("${glPackageExtendedBhv}")
+#end
+#end
+public class ${glDBFluteBeansJavaConfig} {
+
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    @Autowired
+    protected ApplicationContext _container;
+
+    @Autowired
+    @Qualifier("${database.DBFluteBeansDataSourceName}")
+    protected DataSource _dataSource; // name basis here for multiple DB
+
+    // ===================================================================================
+    //                                                                   Runtime Component
+    //                                                                   =================
+    @Bean(name="${database.DBFluteInitializerComponentName}")
+    public ${glDBFluteInitializer} createDBFluteInitializer() { // no lazy for initialize-only component
+        return new ${database.DBFluteInitializerClass}(_dataSource);
+    }
+
+    @Bean(name="${database.invokerAssistantComponentName}")
+#if ($database.isDBFluteBeansJavaConfigLazy())
+    @Lazy
+#end
+    public InvokerAssistant createImplementedInvokerAssistant() {
+        ${glImplementedInvokerAssistant} assistant = newImplementedInvokerAssistant();
+        assistant.setDataSource(_dataSource);
+        return assistant;
+    }
+
+    protected ${glImplementedInvokerAssistant} newImplementedInvokerAssistant() {
+        return new ${database.implementedInvokerAssistantClass}();
+    }
+
+    @Bean(name="${database.behaviorCommandInvokerComponentName}")
+#if ($database.isDBFluteBeansJavaConfigLazy())
+    @Lazy
+#end
+    public BehaviorCommandInvoker createBehaviorCommandInvoker() {
+        BehaviorCommandInvoker invoker = newBehaviorCommandInvoker();
+        invoker.setInvokerAssistant(createImplementedInvokerAssistant());
+        return invoker;
+    }
+
+    protected BehaviorCommandInvoker newBehaviorCommandInvoker() {
+        return new ${database.behaviorCommandInvokerSimpleIfPlainClass}();
+    }
+
+    @Bean(name="${database.behaviorSelectorComponentName}")
+#if ($database.isDBFluteBeansJavaConfigLazy())
+    @Lazy
+#end
+    public ${glImplementedBehaviorSelector} createImplementedBehaviorSelector() {
+        ${glImplementedBehaviorSelector} selector = newImplementedBehaviorSelector();
+        selector.setContainer(_container);
+        return selector;
+    }
+
+    protected ${glImplementedBehaviorSelector} newImplementedBehaviorSelector() {
+        return new ${glImplementedBehaviorSelector}();
+    }
+
+    @Bean(name="${database.commonColumnAutoSetupperComponentName}")
+#if ($database.isDBFluteBeansJavaConfigLazy())
+    @Lazy
+#end
+    public ${glImplementedCommonColumnAutoSetupper} createImplementedCommonColumnAutoSetupper() {
+        return newImplementedCommonColumnAutoSetupper();
+    }
+
+    protected ${glImplementedCommonColumnAutoSetupper} newImplementedCommonColumnAutoSetupper() {
+        return new ${glImplementedCommonColumnAutoSetupper}();
+    }
+#if (!$database.needsDBFluteBeansHybritScanConfig())
+
+#set ($behaviorLoopIndex = 0)
+#foreach ($table in $database.behaviorTableList)
+#if ($behaviorLoopIndex == 0)
+    // ===================================================================================
+    //                                                                            Behavior
+    //                                                                            ========
+#else
+
+#end
+    @Bean(name="${table.behaviorComponentName}")
+#if ($database.isDBFluteBeansJavaConfigLazy())
+    @Lazy
+#end
+    public ${table.extendedBehaviorClassName} create${table.extendedBehaviorClassName}() {
+        ${table.extendedBehaviorClassName} bhv = new ${table.extendedBehaviorClassName}();
+        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
+#if ($table.isWritable())
+        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
+#end
+        return bhv;
+    }
+#set ($behaviorLoopIndex = $behaviorLoopIndex + 1)
+#end
+#end
+}
