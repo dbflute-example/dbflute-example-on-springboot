@@ -5,10 +5,14 @@
 CREATE TABLE MEMBER
 (
 	MEMBER_ID INT NOT NULL AUTO_INCREMENT COMMENT '会員ID : 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。',
-	MEMBER_NAME VARCHAR(100) NOT NULL COMMENT '会員名称 : 会員のフルネームの名称。苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。',
-	MEMBER_ACCOUNT VARCHAR(50) NOT NULL UNIQUE COMMENT '会員アカウント : ログインIDとして利用する。昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?',
-	MEMBER_STATUS_CODE CHAR(3) NOT NULL COMMENT '会員ステータスコード : 会員ステータスを参照するコード。ステータスが変わるたびに、このカラムが更新される。',
-	FORMALIZED_DATETIME DATETIME COMMENT '正式会員日時 : 会員が正式に確定した(正式会員になった)日時。一度確定したらもう二度と更新されないはずだ！',
+	MEMBER_NAME VARCHAR(100) NOT NULL COMMENT '会員名称 : 会員のフルネームの名称。
+苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。',
+	MEMBER_ACCOUNT VARCHAR(50) NOT NULL UNIQUE COMMENT '会員アカウント : ログインIDとして利用する。
+昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?',
+	MEMBER_STATUS_CODE CHAR(3) NOT NULL COMMENT '会員ステータスコード : 会員ステータスを参照するコード。
+ステータスが変わるたびに、このカラムが更新される。',
+	FORMALIZED_DATETIME DATETIME COMMENT '正式会員日時 : 会員が正式に確定した(正式会員になった)日時。
+一度確定したらもう二度と更新されないはずだ！',
 	BIRTHDATE DATE COMMENT '生年月日 : 必須項目ではないので、このデータがない会員もいる。',
 	REGISTER_DATETIME DATETIME NOT NULL COMMENT '登録日時 : レコードが登録された日時',
 	REGISTER_USER VARCHAR(200) NOT NULL COMMENT '登録ユーザー : レコードを登録したユーザー',
@@ -16,15 +20,21 @@ CREATE TABLE MEMBER
 	UPDATE_USER VARCHAR(200) NOT NULL COMMENT '更新ユーザー : レコードを(最後に)更新したユーザー',
 	VERSION_NO BIGINT NOT NULL COMMENT 'バージョン番号 : 排他制御用、更新されるごとにインクリメントされる',
 	PRIMARY KEY (MEMBER_ID)
-) COMMENT = '会員 : 会員のプロフィールやアカウントなどの基本情報を保持する。基本的に物理削除はなく、退会したらステータスが退会会員になる。ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。';
+) COMMENT = '会員 : 会員のプロフィールやアカウントなどの基本情報を保持する。
+基本的に物理削除はなく、退会したらステータスが退会会員になる。
+ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。';
 
 
 CREATE TABLE MEMBER_ADDRESS
 (
-	MEMBER_ADDRESS_ID INT NOT NULL AUTO_INCREMENT COMMENT '会員住所ID : 会員住所を識別するID。期間ごとに同じ会員のデータを保持することがあるため、これは単なるPKであってFKではない。',
-	MEMBER_ID INT NOT NULL COMMENT '会員ID : 会員を参照するID。期間ごとのデータがあるので、これだけではユニークにはならない。有効開始日と合わせて複合ユニーク制約となるが、厳密には完全な制約にはなっていない。有効期間の概念はRDBでは表現しきれないのである。',
-	VALID_BEGIN_DATE DATE NOT NULL COMMENT '有効開始日 : 一つの有効期間の開始を示す日付。前の有効終了日の次の日の値が格納される。',
-	VALID_END_DATE DATE NOT NULL COMMENT '有効終了日 : 有効期間の終了日。期間の最後の日が格納される。基本的に、次の有効開始日の一日前の値となるが、次の有効期間がない場合は 9999/12/31 となる。',
+	MEMBER_ADDRESS_ID INT NOT NULL AUTO_INCREMENT COMMENT '会員住所ID : 会員住所を識別するID。
+期間ごとに同じ会員のデータを保持することがあるため、これは単なるPKであってFKではない。',
+	MEMBER_ID INT NOT NULL COMMENT '会員ID : 会員を参照するID。
+期間ごとのデータがあるので、これだけではユニークにはならない。有効開始日と合わせて複合ユニーク制約となるが、厳密には完全な制約にはなっていない。有効期間の概念はRDBでは表現しきれないのである。',
+	VALID_BEGIN_DATE DATE NOT NULL COMMENT '有効開始日 : 一つの有効期間の開始を示す日付。
+前の有効終了日の次の日の値が格納される。',
+	VALID_END_DATE DATE NOT NULL COMMENT '有効終了日 : 有効期間の終了日。
+期間の最後の日が格納される。基本的に、次の有効開始日の一日前の値となるが、次の有効期間がない場合は 9999/12/31 となる。',
 	ADDRESS VARCHAR(200) NOT NULL COMMENT '住所 : まるごと住所',
 	REGION_ID INT NOT NULL COMMENT '地域ID : 地域を参照するID。かなり漠然とした地域。',
 	REGISTER_DATETIME DATETIME NOT NULL COMMENT '登録日時 : レコードが登録された日時',
@@ -34,7 +44,9 @@ CREATE TABLE MEMBER_ADDRESS
 	VERSION_NO BIGINT NOT NULL COMMENT 'バージョン番号 : 排他制御用、更新されるごとにインクリメントされる',
 	PRIMARY KEY (MEMBER_ADDRESS_ID),
 	CONSTRAINT UQ_MEMBER_ADDRESS UNIQUE (MEMBER_ID, VALID_BEGIN_DATE)
-) COMMENT = '会員住所情報 : 会員の住所に関する情報で、同時に有効期間ごとに履歴管理されている。会員を基点に考えた場合、構造的には one-to-many だが、業務的な定型条件で one-to-one になる。このような構造を「業務的one-to-one」と呼ぶ！有効期間は隙間なく埋められるが、ここでは住所情報のない会員も存在し、厳密には(業務的な) "1 : 0..1" である。';
+) COMMENT = '会員住所情報 : 会員の住所に関する情報で、同時に有効期間ごとに履歴管理されている。
+会員を基点に考えた場合、構造的には one-to-many だが、業務的な定型条件で one-to-one になる。このような構造を「業務的one-to-one」と呼ぶ！
+有効期間は隙間なく埋められるが、ここでは住所情報のない会員も存在し、厳密には(業務的な) "1 : 0..1" である。';
 
 
 CREATE TABLE MEMBER_FOLLOWING
@@ -52,21 +64,25 @@ CREATE TABLE MEMBER_LOGIN
 (
 	MEMBER_LOGIN_ID BIGINT NOT NULL AUTO_INCREMENT COMMENT '会員ログインID',
 	MEMBER_ID INT NOT NULL COMMENT '会員ID : 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。',
-	LOGIN_DATETIME DATETIME NOT NULL COMMENT 'ログイン日時 : ログインした瞬間の日時。同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)',
+	LOGIN_DATETIME DATETIME NOT NULL COMMENT 'ログイン日時 : ログインした瞬間の日時。
+同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)',
 	MOBILE_LOGIN_FLG INT NOT NULL COMMENT 'モバイルログインフラグ : モバイル機器からのログインか否か。',
 	LOGIN_MEMBER_STATUS_CODE CHAR(3) NOT NULL COMMENT 'ログイン会員ステータスコード : ログイン時の会員ステータス',
 	PRIMARY KEY (MEMBER_LOGIN_ID),
 	CONSTRAINT UQ_MEMBER_LOGIN UNIQUE (MEMBER_ID, LOGIN_DATETIME)
-) COMMENT = '会員ログイン : ログインするたびに登録されるログイン履歴。登録されたら更新されるも削除されることもない。さらには、登録する人もプログラムもはっきりしているので、(紙面の都合上もあって)ここでは共通カラムは省略している。';
+) COMMENT = '会員ログイン : ログインするたびに登録されるログイン履歴。
+登録されたら更新されるも削除されることもない。さらには、登録する人もプログラムもはっきりしているので、(紙面の都合上もあって)ここでは共通カラムは省略している。';
 
 
 CREATE TABLE MEMBER_SECURITY
 (
 	MEMBER_ID INT NOT NULL COMMENT '会員ID : そのまま one-to-one を構成するためのFKとなる。',
-	LOGIN_PASSWORD VARCHAR(100) NOT NULL COMMENT 'ログインパスワード : ログイン時に利用するパスワード。本当は良くないが、Exampleなのでひとまず暗号化していない。',
+	LOGIN_PASSWORD VARCHAR(100) NOT NULL COMMENT 'ログインパスワード : ログイン時に利用するパスワード。
+本当は良くないが、Exampleなのでひとまず暗号化していない。',
 	REMINDER_QUESTION VARCHAR(50) NOT NULL COMMENT 'リマインダ質問 : パスワードを忘れた際のリマインダ機能における質問の内容。',
 	REMINDER_ANSWER VARCHAR(50) NOT NULL COMMENT 'リマインダ回答 : パスワードを忘れた際のリマインダ機能における質問の答え。',
-	REMINDER_USE_COUNT INT NOT NULL COMMENT 'リマインダ利用回数 : リマインダを利用した回数。これが多いと忘れっぽい会員と言えるが、そんなことを知ってもしょうがない。',
+	REMINDER_USE_COUNT INT NOT NULL COMMENT 'リマインダ利用回数 : リマインダを利用した回数。
+これが多いと忘れっぽい会員と言えるが、そんなことを知ってもしょうがない。',
 	REGISTER_DATETIME DATETIME NOT NULL COMMENT '登録日時 : レコードが登録された日時',
 	REGISTER_USER VARCHAR(200) NOT NULL COMMENT '登録ユーザー : レコードを登録したユーザー',
 	UPDATE_DATETIME DATETIME NOT NULL COMMENT '更新日時 : レコードが(最後に)更新された日時',
@@ -88,37 +104,53 @@ CREATE TABLE MEMBER_SERVICE
 	UPDATE_USER VARCHAR(200) NOT NULL COMMENT '更新ユーザー : レコードを(最後に)更新したユーザー',
 	VERSION_NO BIGINT NOT NULL COMMENT 'バージョン番号 : 排他制御用、更新されるごとにインクリメントされる',
 	PRIMARY KEY (MEMBER_SERVICE_ID)
-) COMMENT = '会員サービス : 会員のサービス情報（ポイントサービスなど）。テストケースのために、あえて統一性を崩してユニーク制約経由の one-to-one を表現している。';
+) COMMENT = '会員サービス : 会員のサービス情報（ポイントサービスなど）。
+テストケースのために、あえて統一性を崩してユニーク制約経由の one-to-one を表現している。';
 
 
 CREATE TABLE MEMBER_STATUS
 (
-	MEMBER_STATUS_CODE CHAR(3) NOT NULL COMMENT '会員ステータスコード : 会員ステータスを識別するコード。固定的なデータなので連番とか番号にはせず、データを直接見たときも人が直感的にわかるように、例えば "FML" とかの３桁のコード形式にしている。(3って何会員だっけ？とかの問答をやりたくないので)',
-	MEMBER_STATUS_NAME VARCHAR(50) NOT NULL COMMENT '会員ステータス名称 : 表示用の名称。国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。',
-	DESCRIPTION VARCHAR(200) NOT NULL COMMENT '説明 : 会員ステータスそれぞれの説明。区分値の一つ一つの要素に気の利いた説明があるとディベロッパーがとても助かるので絶対に欲しい。',
-	DISPLAY_ORDER INT NOT NULL UNIQUE COMMENT '表示順 : UI上のステータスの表示順を示すNO。並べるときは、このカラムに対して昇順のソート条件にする。',
+	MEMBER_STATUS_CODE CHAR(3) NOT NULL COMMENT '会員ステータスコード : 会員ステータスを識別するコード。
+固定的なデータなので連番とか番号にはせず、データを直接見たときも人が直感的にわかるように、例えば "FML" とかの３桁のコード形式にしている。(3って何会員だっけ？とかの問答をやりたくないので)
+',
+	MEMBER_STATUS_NAME VARCHAR(50) NOT NULL COMMENT '会員ステータス名称 : 表示用の名称。
+国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。',
+	DESCRIPTION VARCHAR(200) NOT NULL COMMENT '説明 : 会員ステータスそれぞれの説明。
+区分値の一つ一つの要素に気の利いた説明があるとディベロッパーがとても助かるので絶対に欲しい。',
+	DISPLAY_ORDER INT NOT NULL UNIQUE COMMENT '表示順 : UI上のステータスの表示順を示すNO。
+並べるときは、このカラムに対して昇順のソート条件にする。',
 	PRIMARY KEY (MEMBER_STATUS_CODE)
-) COMMENT = '会員ステータス : 会員のステータスを示す固定的なマスタテーブル。いわゆるテーブル区分値！業務運用上で増えることはなく、増減するときはプログラム修正ともなうレベルの業務変更と考えられる。こういった固定的なマスタテーブルには、更新日時などの共通カラムは定義していないが、業務上そういった情報を管理する必要性が低いという理由に加え、ExampleDBとして共通カラムでER図が埋め尽くされてしまい見づらくなるというところで割り切っている。実業務では統一的に定義することもある。';
+) COMMENT = '会員ステータス : 会員のステータスを示す固定的なマスタテーブル。いわゆるテーブル区分値！
+業務運用上で増えることはなく、増減するときはプログラム修正ともなうレベルの業務変更と考えられる。
+
+こういった固定的なマスタテーブルには、更新日時などの共通カラムは定義していないが、業務上そういった情報を管理する必要性が低いという理由に加え、ExampleDBとして共通カラムでER図が埋め尽くされてしまい見づらくなるというところで割り切っている。実業務では統一的に定義することもある。';
 
 
 CREATE TABLE MEMBER_WITHDRAWAL
 (
 	MEMBER_ID INT NOT NULL COMMENT '会員ID : 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。',
-	WITHDRAWAL_REASON_CODE CHAR(3) COMMENT '退会理由コード : 定型的な退会した理由を参照するコード。何も言わずに退会する会員もいるので必須項目ではない。',
-	WITHDRAWAL_REASON_INPUT_TEXT TEXT COMMENT '退会理由入力テキスト : 会員がフリーテキストで入力できる退会理由。もう言いたいこと言ってもらう感じ。サイト運営側としてはこういうのは真摯に受け止めて改善していきたいところ。',
-	WITHDRAWAL_DATETIME DATETIME NOT NULL COMMENT '退会日時 : 退会した瞬間の日時。正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。',
+	WITHDRAWAL_REASON_CODE CHAR(3) COMMENT '退会理由コード : 定型的な退会した理由を参照するコード。
+何も言わずに退会する会員もいるので必須項目ではない。',
+	WITHDRAWAL_REASON_INPUT_TEXT TEXT COMMENT '退会理由入力テキスト : 会員がフリーテキストで入力できる退会理由。
+もう言いたいこと言ってもらう感じ。サイト運営側としてはこういうのは真摯に受け止めて改善していきたいところ。',
+	WITHDRAWAL_DATETIME DATETIME NOT NULL COMMENT '退会日時 : 退会した瞬間の日時。
+正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。',
 	REGISTER_DATETIME DATETIME NOT NULL COMMENT '登録日時 : レコードが登録された日時',
 	REGISTER_USER VARCHAR(200) NOT NULL COMMENT '登録ユーザー : レコードを登録したユーザー',
 	UPDATE_DATETIME DATETIME NOT NULL COMMENT '更新日時 : レコードが(最後に)更新された日時',
 	UPDATE_USER VARCHAR(200) NOT NULL COMMENT '更新ユーザー : レコードを(最後に)更新したユーザー',
 	PRIMARY KEY (MEMBER_ID)
-) COMMENT = '会員退会情報 : 退会会員の退会に関する詳細な情報。退会会員のみデータが存在し、"1 : 0..1" のパターンの one-to-one である。共通カラムがあってバージョンNOがないパターン。基本的に更新は入らないが、重要なデータなので万が一のために更新系の共通カラムも。';
+) COMMENT = '会員退会情報 : 退会会員の退会に関する詳細な情報。
+退会会員のみデータが存在し、"1 : 0..1" のパターンの one-to-one である。
+共通カラムがあってバージョンNOがないパターン。
+基本的に更新は入らないが、重要なデータなので万が一のために更新系の共通カラムも。';
 
 
 CREATE TABLE PRODUCT
 (
 	PRODUCT_ID INT NOT NULL AUTO_INCREMENT COMMENT '商品ID',
-	PRODUCT_NAME VARCHAR(50) NOT NULL COMMENT '商品名称 : ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜',
+	PRODUCT_NAME VARCHAR(50) NOT NULL COMMENT '商品名称 : ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。
+実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜',
 	PRODUCT_HANDLE_CODE VARCHAR(100) NOT NULL UNIQUE COMMENT '商品ハンドルコード : これだけは書いておこう、商品を識別する業務上のコード。よく品番とか言うかもしれませんねぇ...',
 	PRODUCT_CATEGORY_CODE CHAR(3) NOT NULL COMMENT '商品カテゴリコード : 自分のテーブルの別のレコードからも参照される。',
 	PRODUCT_STATUS_CODE CHAR(3) NOT NULL COMMENT '商品ステータスコード : 商品ステータスを識別するコード。',
@@ -129,7 +161,7 @@ CREATE TABLE PRODUCT
 	UPDATE_USER VARCHAR(200) NOT NULL COMMENT '更新ユーザー : レコードを(最後に)更新したユーザー',
 	VERSION_NO BIGINT NOT NULL COMMENT 'バージョン番号 : 排他制御用、更新されるごとにインクリメントされる',
 	PRIMARY KEY (PRODUCT_ID)
-) COMMENT = '商品';
+) COMMENT = '商品 : 相当偏ったラインナップ';
 
 
 CREATE TABLE PRODUCT_CATEGORY
@@ -153,11 +185,13 @@ CREATE TABLE PRODUCT_STATUS
 CREATE TABLE PURCHASE
 (
 	PURCHASE_ID BIGINT NOT NULL AUTO_INCREMENT COMMENT '購入ID :  連番',
-	MEMBER_ID INT NOT NULL COMMENT '会員ID : 会員を参照するID。購入を識別する自然キー(複合ユニーク制約)の筆頭要素。',
+	MEMBER_ID INT NOT NULL COMMENT '会員ID : 会員を参照するID。
+購入を識別する自然キー(複合ユニーク制約)の筆頭要素。',
 	PRODUCT_ID INT NOT NULL COMMENT '商品ID : あなたは何を買ったのか？',
 	PURCHASE_DATETIME DATETIME NOT NULL COMMENT '購入日時 : 購入した瞬間の日時。',
 	PURCHASE_COUNT INT NOT NULL COMMENT '購入数量 : 購入した商品の一回の購入における数量。',
-	PURCHASE_PRICE INT NOT NULL COMMENT '購入価格 : 購入によって実際に会員が支払った（支払う予定の）価格。基本は商品の定価に購入数量を掛けたものになるが、ポイント利用や割引があったりと必ずしもそうはならない。',
+	PURCHASE_PRICE INT NOT NULL COMMENT '購入価格 : 購入によって実際に会員が支払った（支払う予定の）価格。
+基本は商品の定価に購入数量を掛けたものになるが、ポイント利用や割引があったりと必ずしもそうはならない。',
 	PAYMENT_COMPLETE_FLG INT NOT NULL COMMENT '支払完了フラグ : この購入に関しての支払いが完了しているか否か。',
 	REGISTER_DATETIME DATETIME NOT NULL COMMENT '登録日時 : レコードが登録された日時',
 	REGISTER_USER VARCHAR(200) NOT NULL COMMENT '登録ユーザー : レコードを登録したユーザー',
@@ -166,7 +200,8 @@ CREATE TABLE PURCHASE
 	VERSION_NO BIGINT NOT NULL COMMENT 'バージョン番号 : 排他制御用、更新されるごとにインクリメントされる',
 	PRIMARY KEY (PURCHASE_ID),
 	CONSTRAINT UQ_PURCHASE UNIQUE (MEMBER_ID, PRODUCT_ID, PURCHASE_DATETIME)
-) COMMENT = '購入 : 一つの商品に対する購入を表現する(購入履歴とも言える)。実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。';
+) COMMENT = '購入 : 一つの商品に対する購入を表現する(購入履歴とも言える)。
+実業務であれば購入詳細というテーブルを作り、「購入という行為」と「その中身（詳細）」を違う粒度のデータとしてそれぞれ管理するのが一般的と言えるでしょう。というか、注文とか請求とかそういうことを考え始めたらもっと複雑になるはずですが、ExampleDBということで割り切っています。';
 
 
 CREATE TABLE PURCHASE_PAYMENT
@@ -187,17 +222,21 @@ CREATE TABLE PURCHASE_PAYMENT
 
 CREATE TABLE REGION
 (
-	REGION_ID INT NOT NULL COMMENT '地域ID : 地域をしっかりと識別するID。珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。',
+	REGION_ID INT NOT NULL COMMENT '地域ID : 地域をしっかりと識別するID。
+珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。',
 	REGION_NAME VARCHAR(50) NOT NULL COMMENT '地域名称 : 地域を漠然と表す名称。',
 	PRIMARY KEY (REGION_ID)
-) COMMENT = '地域 : 主に会員の住所に対応する漠然とした地域。かなりざっくりした感じではある。唯一の業務的one-to-oneの親テーブルのケース。';
+) COMMENT = '地域 : 主に会員の住所に対応する漠然とした地域。
+かなりざっくりした感じではある。唯一の業務的one-to-oneの親テーブルのケース。';
 
 
 CREATE TABLE SERVICE_RANK
 (
 	SERVICE_RANK_CODE CHAR(3) NOT NULL COMMENT 'サービスランクコード : サービスランクを識別するコード。',
-	SERVICE_RANK_NAME VARCHAR(50) NOT NULL COMMENT 'サービスランク名称 : サービスランクの名称。ゴールドとかプラチナとか基本的には威厳のある名前',
-	SERVICE_POINT_INCIDENCE DECIMAL(5,3) NOT NULL COMMENT 'サービスポイント発生率 : 購入ごとのサービスポイントの発生率。購入価格にこの値をかけた数が発生ポイント。ExampleDBとして数少ない貴重な小数点ありのカラム。',
+	SERVICE_RANK_NAME VARCHAR(50) NOT NULL COMMENT 'サービスランク名称 : サービスランクの名称。
+ゴールドとかプラチナとか基本的には威厳のある名前',
+	SERVICE_POINT_INCIDENCE DECIMAL(5,3) NOT NULL COMMENT 'サービスポイント発生率 : 購入ごとのサービスポイントの発生率。
+購入価格にこの値をかけた数が発生ポイント。ExampleDBとして数少ない貴重な小数点ありのカラム。',
 	NEW_ACCEPTABLE_FLG INT NOT NULL COMMENT '新規受け入れ可能フラグ : このランクへの新規受け入れができるかどうか。',
 	DESCRIPTION VARCHAR(200) NOT NULL COMMENT '説明 : ランクに関する業務的な説明。',
 	DISPLAY_ORDER INT NOT NULL UNIQUE COMMENT '表示順 : UI上の表示順を表現する番号。',
@@ -208,7 +247,8 @@ CREATE TABLE SERVICE_RANK
 CREATE TABLE WITHDRAWAL_REASON
 (
 	WITHDRAWAL_REASON_CODE CHAR(3) NOT NULL COMMENT '退会理由コード',
-	WITHDRAWAL_REASON_TEXT TEXT NOT NULL COMMENT '退会理由テキスト : 退会理由の内容。テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。',
+	WITHDRAWAL_REASON_TEXT TEXT NOT NULL COMMENT '退会理由テキスト : 退会理由の内容。
+テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。',
 	DISPLAY_ORDER INT NOT NULL UNIQUE COMMENT '表示順 : もう、ご想像の通りです。',
 	PRIMARY KEY (WITHDRAWAL_REASON_CODE)
 ) COMMENT = '退会理由 : 会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...';
@@ -245,7 +285,7 @@ ALTER TABLE MEMBER_ADDRESS
 
 
 ALTER TABLE MEMBER_FOLLOWING
-	ADD CONSTRAINT FK_MEMBER_FOLLOWING_YOUR_MEMBER_ID FOREIGN KEY (YOUR_MEMBER_ID)
+	ADD CONSTRAINT FK_MEMBER_FOLLOWING_MY_MEMBER_ID FOREIGN KEY (MY_MEMBER_ID)
 	REFERENCES MEMBER (MEMBER_ID)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
@@ -253,7 +293,7 @@ ALTER TABLE MEMBER_FOLLOWING
 
 
 ALTER TABLE MEMBER_FOLLOWING
-	ADD CONSTRAINT FK_MEMBER_FOLLOWING_MY_MEMBER_ID FOREIGN KEY (MY_MEMBER_ID)
+	ADD CONSTRAINT FK_MEMBER_FOLLOWING_YOUR_MEMBER_ID FOREIGN KEY (YOUR_MEMBER_ID)
 	REFERENCES MEMBER (MEMBER_ID)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT

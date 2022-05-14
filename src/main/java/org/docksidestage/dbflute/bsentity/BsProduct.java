@@ -30,6 +30,7 @@ import org.docksidestage.dbflute.exentity.*;
 
 /**
  * The entity of (商品)PRODUCT as TABLE. <br>
+ * 相当偏ったラインナップ
  * <pre>
  * [primary-key]
  *     PRODUCT_ID

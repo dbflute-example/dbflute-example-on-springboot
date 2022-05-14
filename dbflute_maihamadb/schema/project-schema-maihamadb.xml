@@ -347,7 +347,7 @@
             <index-column name="WITHDRAWAL_REASON_CODE" position="1"/>
         </index>
     </table>
-    <table comment="商品" name="product"
+    <table comment="商品 : 相当偏ったラインナップ" name="product"
         schema="maihamadb.$$NoNameSchema$$" type="TABLE">
         <column autoIncrement="true" comment="商品ID" dbType="INT"
             javaType="Integer" name="PRODUCT_ID" pkName="PRIMARY"
