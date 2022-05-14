@@ -1,7 +1,6 @@
 package org.docksidestage.app.application.security;
 
 import org.docksidestage.app.web.signin.SigninService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -62,7 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         return new SigninService();
     }
-
 
     /**
      * パスワードエンコーダを生成する.
