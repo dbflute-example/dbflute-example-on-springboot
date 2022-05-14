@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -142,7 +142,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     /**
      * Get the value of mobileLoginFlg as the classification of Flg. <br>
      * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
@@ -153,7 +153,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     /**
      * Set the value of mobileLoginFlg as the classification of Flg. <br>
      * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setMobileLoginFlgAsFlg(CDef.Flg cdef) {
@@ -163,7 +163,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     /**
      * Set the value of mobileLoginFlg as boolean. <br>
      * (モバイルログインフラグ)MOBILE_LOGIN_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param determination The determination, true or false. (NullAllowed: if null, null value is set to the column)
      */
     public void setMobileLoginFlgAsBoolean(Boolean determination) {
@@ -173,7 +173,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     /**
      * Get the value of loginMemberStatusCode as the classification of MemberStatus. <br>
      * (ログイン会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to member_status, classification=MemberStatus} <br>
-     * 入会から退会までの会員のステータスを示す
+     * status of member from entry to withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
@@ -184,7 +184,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     /**
      * Set the value of loginMemberStatusCode as the classification of MemberStatus. <br>
      * (ログイン会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to member_status, classification=MemberStatus} <br>
-     * 入会から退会までの会員のステータスを示す
+     * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setLoginMemberStatusCodeAsMemberStatus(CDef.MemberStatus cdef) {
@@ -196,7 +196,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     //                                                              ======================
     /**
      * Set the value of mobileLoginFlg as True (1). <br>
-     * Yes: means valid
+     * Checked: means yes
      */
     public void setMobileLoginFlg_True() {
         setMobileLoginFlgAsFlg(CDef.Flg.True);
@@ -204,7 +204,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * Set the value of mobileLoginFlg as False (0). <br>
-     * No: means invalid
+     * Unchecked: means no
      */
     public void setMobileLoginFlg_False() {
         setMobileLoginFlgAsFlg(CDef.Flg.False);
@@ -239,7 +239,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     //                                                        ============================
     /**
      * Is the value of mobileLoginFlg True? <br>
-     * Yes: means valid
+     * Checked: means yes
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */
@@ -250,7 +250,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * Is the value of mobileLoginFlg False? <br>
-     * No: means invalid
+     * Unchecked: means no
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */
@@ -293,7 +293,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     }
 
     /**
-     * members that can use service (loginable) <br>
+     * means member that can use services <br>
      * The group elements:[Formalized, Provisional]
      * @return The determination, true or false.
      */
@@ -303,7 +303,7 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     }
 
     /**
-     * members not formalized yet <br>
+     * Members are not formalized yet <br>
      * The group elements:[Provisional]
      * @return The determination, true or false.
      */

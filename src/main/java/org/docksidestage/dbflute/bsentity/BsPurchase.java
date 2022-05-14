@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -180,7 +180,7 @@ public abstract class BsPurchase extends AbstractEntity implements DomainEntity,
     /**
      * Get the value of paymentCompleteFlg as the classification of Flg. <br>
      * (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
@@ -191,7 +191,7 @@ public abstract class BsPurchase extends AbstractEntity implements DomainEntity,
     /**
      * Set the value of paymentCompleteFlg as the classification of Flg. <br>
      * (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setPaymentCompleteFlgAsFlg(CDef.Flg cdef) {
@@ -201,7 +201,7 @@ public abstract class BsPurchase extends AbstractEntity implements DomainEntity,
     /**
      * Set the value of paymentCompleteFlg as boolean. <br>
      * (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param determination The determination, true or false. (NullAllowed: if null, null value is set to the column)
      */
     public void setPaymentCompleteFlgAsBoolean(Boolean determination) {
@@ -213,7 +213,7 @@ public abstract class BsPurchase extends AbstractEntity implements DomainEntity,
     //                                                              ======================
     /**
      * Set the value of paymentCompleteFlg as True (1). <br>
-     * Yes: means valid
+     * Checked: means yes
      */
     public void setPaymentCompleteFlg_True() {
         setPaymentCompleteFlgAsFlg(CDef.Flg.True);
@@ -221,7 +221,7 @@ public abstract class BsPurchase extends AbstractEntity implements DomainEntity,
 
     /**
      * Set the value of paymentCompleteFlg as False (0). <br>
-     * No: means invalid
+     * Unchecked: means no
      */
     public void setPaymentCompleteFlg_False() {
         setPaymentCompleteFlgAsFlg(CDef.Flg.False);
@@ -232,7 +232,7 @@ public abstract class BsPurchase extends AbstractEntity implements DomainEntity,
     //                                                        ============================
     /**
      * Is the value of paymentCompleteFlg True? <br>
-     * Yes: means valid
+     * Checked: means yes
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */
@@ -243,7 +243,7 @@ public abstract class BsPurchase extends AbstractEntity implements DomainEntity,
 
     /**
      * Is the value of paymentCompleteFlg False? <br>
-     * No: means invalid
+     * Unchecked: means no
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */

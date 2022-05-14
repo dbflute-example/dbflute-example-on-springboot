@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -199,7 +199,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     /**
      * Equal(=). As WithdrawalReason. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to withdrawal_reason, classification=WithdrawalReason} <br>
-     * 会員の退会理由。なのでちょっとねがてぃぶ
+     * reason for member withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason cdef) {
@@ -254,7 +254,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     /**
      * NotEqual(&lt;&gt;). As WithdrawalReason. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to withdrawal_reason, classification=WithdrawalReason} <br>
-     * 会員の退会理由。なのでちょっとねがてぃぶ
+     * reason for member withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason cdef) {
@@ -309,7 +309,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     /**
      * InScope {in ('a', 'b')}. As WithdrawalReason. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to withdrawal_reason, classification=WithdrawalReason} <br>
-     * 会員の退会理由。なのでちょっとねがてぃぶ
+     * reason for member withdrawal
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_InScope_AsWithdrawalReason(Collection<CDef.WithdrawalReason> cdefList) {
@@ -332,7 +332,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     /**
      * NotInScope {not in ('a', 'b')}. As WithdrawalReason. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to withdrawal_reason, classification=WithdrawalReason} <br>
-     * 会員の退会理由。なのでちょっとねがてぃぶ
+     * reason for member withdrawal
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_NotInScope_AsWithdrawalReason(Collection<CDef.WithdrawalReason> cdefList) {

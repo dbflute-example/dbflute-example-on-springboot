@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,7 +127,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     /**
      * Get the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
      * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
-     * 会員の退会理由。なのでちょっとねがてぃぶ
+     * reason for member withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
@@ -138,7 +138,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     /**
      * Set the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
      * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
-     * 会員の退会理由。なのでちょっとねがてぃぶ
+     * reason for member withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason cdef) {

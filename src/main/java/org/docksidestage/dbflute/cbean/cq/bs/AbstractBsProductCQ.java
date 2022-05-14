@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -530,7 +530,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * Equal(=). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to product_status, classification=ProductStatus} <br>
-     * 商品ステータス。あんまり面白みのないステータス
+     * status for product
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setProductStatusCode_Equal_AsProductStatus(CDef.ProductStatus cdef) {
@@ -577,7 +577,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). As ProductStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to product_status, classification=ProductStatus} <br>
-     * 商品ステータス。あんまり面白みのないステータス
+     * status for product
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setProductStatusCode_NotEqual_AsProductStatus(CDef.ProductStatus cdef) {
@@ -624,7 +624,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * InScope {in ('a', 'b')}. As ProductStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to product_status, classification=ProductStatus} <br>
-     * 商品ステータス。あんまり面白みのないステータス
+     * status for product
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusCode_InScope_AsProductStatus(Collection<CDef.ProductStatus> cdefList) {
@@ -647,7 +647,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in ('a', 'b')}. As ProductStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {IX, NotNull, CHAR(3), FK to product_status, classification=ProductStatus} <br>
-     * 商品ステータス。あんまり面白みのないステータス
+     * status for product
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusCode_NotInScope_AsProductStatus(Collection<CDef.ProductStatus> cdefList) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -142,7 +142,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
     /**
      * Get the value of serviceRankCode as the classification of ServiceRank. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
-     * 会員が受けられるサービスのランクを示す
+     * rank of service member gets
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
@@ -153,7 +153,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
     /**
      * Set the value of serviceRankCode as the classification of ServiceRank. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
-     * 会員が受けられるサービスのランクを示す
+     * rank of service member gets
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setServiceRankCodeAsServiceRank(CDef.ServiceRank cdef) {
@@ -163,7 +163,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
     /**
      * Get the value of newAcceptableFlg as the classification of Flg. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
@@ -174,7 +174,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
     /**
      * Set the value of newAcceptableFlg as the classification of Flg. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setNewAcceptableFlgAsFlg(CDef.Flg cdef) {
@@ -184,7 +184,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
     /**
      * Set the value of newAcceptableFlg as boolean. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param determination The determination, true or false. (NullAllowed: if null, null value is set to the column)
      */
     public void setNewAcceptableFlgAsBoolean(Boolean determination) {
@@ -236,7 +236,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
 
     /**
      * Set the value of newAcceptableFlg as True (1). <br>
-     * Yes: means valid
+     * Checked: means yes
      */
     public void setNewAcceptableFlg_True() {
         setNewAcceptableFlgAsFlg(CDef.Flg.True);
@@ -244,7 +244,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
 
     /**
      * Set the value of newAcceptableFlg as False (0). <br>
-     * No: means invalid
+     * Unchecked: means no
      */
     public void setNewAcceptableFlg_False() {
         setNewAcceptableFlgAsFlg(CDef.Flg.False);
@@ -310,7 +310,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
 
     /**
      * Is the value of newAcceptableFlg True? <br>
-     * Yes: means valid
+     * Checked: means yes
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */
@@ -321,7 +321,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
 
     /**
      * Is the value of newAcceptableFlg False? <br>
-     * No: means invalid
+     * Unchecked: means no
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * Equal(=). As MemberStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
-     * 入会から退会までの会員のステータスを示す
+     * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberStatusCode_Equal_AsMemberStatus(CDef.MemberStatus cdef) {
@@ -117,7 +117,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). As MemberStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
-     * 入会から退会までの会員のステータスを示す
+     * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberStatusCode_NotEqual_AsMemberStatus(CDef.MemberStatus cdef) {
@@ -164,7 +164,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * InScope {in ('a', 'b')}. As MemberStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
-     * 入会から退会までの会員のステータスを示す
+     * status of member from entry to withdrawal
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_InScope_AsMemberStatus(Collection<CDef.MemberStatus> cdefList) {
@@ -173,8 +173,8 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. As MemberStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * 入会から退会までの会員のステータスを示す <br>
-     * members that can use service (loginable) <br>
+     * status of member from entry to withdrawal <br>
+     * means member that can use services <br>
      * The group elements:[Formalized, Provisional]
      */
     public void setMemberStatusCode_InScope_ServiceAvailable() {
@@ -183,8 +183,8 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. As MemberStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * 入会から退会までの会員のステータスを示す <br>
-     * members not formalized yet <br>
+     * status of member from entry to withdrawal <br>
+     * Members are not formalized yet <br>
      * The group elements:[Provisional]
      */
     public void setMemberStatusCode_InScope_ShortOfFormalized() {
@@ -207,7 +207,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in ('a', 'b')}. As MemberStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
-     * 入会から退会までの会員のステータスを示す
+     * status of member from entry to withdrawal
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_NotInScope_AsMemberStatus(Collection<CDef.MemberStatus> cdefList) {

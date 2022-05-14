@@ -443,6 +443,7 @@ pre.spolicyviodisp {
 <p class="sublink">
  <a href="#cdef">Classification Definition</a>
 | <a href="#procedure">Procedure List</a>
+| <a href="#diagram">Schema Diagram</a>
 </p>
 <p class="sisterlink"><a href="./history-maihamadb.html">to HistoryHTML</a></p>
 </div>
@@ -3388,7 +3389,7 @@ pre.spolicyviodisp {
 	<tr>
 		<td>Flg</td>
 		<td class="clstypecell"> implicit</td>
-		<td>flag,&nbsp;true&nbsp;or&nbsp;false</td>
+		<td>general&nbsp;boolean&nbsp;classification&nbsp;for&nbsp;every&nbsp;flg-column</td>
 		<td>
 			<table class="child">
 			<tr>
@@ -3401,15 +3402,15 @@ pre.spolicyviodisp {
 			<tr>
 				<td>1</td>
 				<td>True</td>
-				<td>Yes</td>
-				<td class="commentcell">means&nbsp;valid</td>
+				<td>Checked</td>
+				<td class="commentcell">means&nbsp;yes</td>
 				<td>true</td>
 			</tr>
 			<tr>
 				<td>0</td>
 				<td>False</td>
-				<td>No</td>
-				<td class="commentcell">means&nbsp;invalid</td>
+				<td>Unchecked</td>
+				<td class="commentcell">means&nbsp;no</td>
 				<td>false</td>
 			</tr>
 			</table>
@@ -3418,15 +3419,15 @@ pre.spolicyviodisp {
 	<tr>
 		<td>MemberStatus</td>
 		<td class="clstypecell">table</td>
-		<td>入会から退会までの会員のステータスを示す</td>
+		<td>status&nbsp;of&nbsp;member&nbsp;from&nbsp;entry&nbsp;to&nbsp;withdrawal</td>
 		<td>
 			<table class="child">
 			<tr>
 				<th id="MemberStatusCls">Code</th>
 				<th>Name</th>
 				<th>Comment</th>
-				<th><span class="clsgroup" title="members that can use service (loginable) :: [Formalized, Provisional]">serviceAvailable</span></th>
-				<th><span class="clsgroup" title="members not formalized yet :: [Provisional]">shortOfFormalized</span></th>
+				<th><span class="clsgroup" title="means member that can use services :: [Formalized, Provisional]">serviceAvailable</span></th>
+				<th><span class="clsgroup" title="Members are not formalized yet :: [Provisional]">shortOfFormalized</span></th>
 			</tr>
 			<tr>
 				<td>FML</td>
@@ -3455,7 +3456,7 @@ pre.spolicyviodisp {
 	<tr>
 		<td>ServiceRank</td>
 		<td class="clstypecell">table</td>
-		<td>会員が受けられるサービスのランクを示す</td>
+		<td>rank&nbsp;of&nbsp;service&nbsp;member&nbsp;gets</td>
 		<td>
 			<table class="child">
 			<tr>
@@ -3494,7 +3495,7 @@ pre.spolicyviodisp {
 	<tr>
 		<td>Region</td>
 		<td class="clstypecell">table</td>
-		<td>主に会員の住んでいる地域を示す</td>
+		<td>mainly&nbsp;region&nbsp;of&nbsp;member&nbsp;address</td>
 		<td>
 			<table class="child">
 			<tr>
@@ -3528,7 +3529,7 @@ pre.spolicyviodisp {
 	<tr>
 		<td>WithdrawalReason</td>
 		<td class="clstypecell">table</td>
-		<td>会員の退会理由。なのでちょっとねがてぃぶ</td>
+		<td>reason&nbsp;for&nbsp;member&nbsp;withdrawal</td>
 		<td>
 			<table class="child">
 			<tr>
@@ -3562,7 +3563,7 @@ pre.spolicyviodisp {
 	<tr>
 		<td>ProductCategory</td>
 		<td class="clstypecell">table</td>
-		<td>商品のカテゴリ。階層構造である</td>
+		<td>category&nbsp;of&nbsp;product.&nbsp;self&nbsp;reference</td>
 		<td>
 			<table class="child">
 			<tr>
@@ -3571,29 +3572,29 @@ pre.spolicyviodisp {
 				<th>Comment</th>
 			</tr>
 			<tr>
-				<td>FOD</td>
-				<td>Food</td>
-				<td class="commentcell">&nbsp;</td>
-			</tr>
-			<tr>
 				<td>MSC</td>
 				<td>Music</td>
 				<td class="commentcell">&nbsp;</td>
 			</tr>
 			<tr>
+				<td>FOD</td>
+				<td>Food</td>
+				<td class="commentcell">&nbsp;</td>
+			</tr>
+			<tr>
 				<td>HEB</td>
 				<td>Herb</td>
-				<td class="commentcell">of&nbsp;Food</td>
+				<td class="commentcell">0</td>
 			</tr>
 			<tr>
 				<td>INS</td>
 				<td>Instruments</td>
-				<td class="commentcell">of&nbsp;Music</td>
+				<td class="commentcell">0</td>
 			</tr>
 			<tr>
 				<td>MCD</td>
 				<td>MusicCD</td>
-				<td class="commentcell">of&nbsp;Music</td>
+				<td class="commentcell">0</td>
 			</tr>
 			</table>
 		</td>
@@ -3601,7 +3602,7 @@ pre.spolicyviodisp {
 	<tr>
 		<td>ProductStatus</td>
 		<td class="clstypecell">table</td>
-		<td>商品ステータス。あんまり面白みのないステータス</td>
+		<td>status&nbsp;for&nbsp;product</td>
 		<td>
 			<table class="child">
 			<tr>
@@ -3627,10 +3628,57 @@ pre.spolicyviodisp {
 			</table>
 		</td>
 	</tr>
+	<tr>
+		<td>PaymentMethod</td>
+		<td class="clstypecell"> implicit</td>
+		<td>method&nbsp;of&nbsp;payment&nbsp;for&nbsp;purchase</td>
+		<td>
+			<table class="child">
+			<tr>
+				<th id="PaymentMethodCls">Code</th>
+				<th>Name</th>
+				<th>Alias</th>
+				<th>Comment</th>
+				<th><span class="clsgroup" title="the most recommended method :: [ByHand]">recommended</span></th>
+			</tr>
+			<tr>
+				<td>HAN</td>
+				<td>ByHand</td>
+				<td>by hand</td>
+				<td class="commentcell">payment&nbsp;by&nbsp;hand,&nbsp;face-to-face</td>
+				<td class="flgcell">o</td>
+			</tr>
+			<tr>
+				<td>BAK</td>
+				<td>BankTransfer</td>
+				<td>bank transfer</td>
+				<td class="commentcell">bank&nbsp;transfer&nbsp;payment</td>
+				<td class="flgcell"> &nbsp;</td>
+			</tr>
+			<tr>
+				<td>CRC</td>
+				<td>CreditCard</td>
+				<td>credit card</td>
+				<td class="commentcell">credit&nbsp;card&nbsp;payment</td>
+				<td class="flgcell"> &nbsp;</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
 	</tbody>
 </table>
 
 <h2 id="procedure">Procedure</h2>
+
+<h2 id="diagram">Schema Diagram</h2>
+<h3>maihamadb_erd</h3>
+<p>
+	<a href="../../../modeling/maihamadb.png">
+		<img src="../../../modeling/maihamadb.png"
+			alt="ER Diagram"
+		/>
+	</a>
+</p>
 
 <h2 id="thanks">Thanks</h2>
 <p>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -172,7 +172,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     /**
      * Get the value of memberStatusCode as the classification of MemberStatus. <br>
      * (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to member_status, classification=MemberStatus} <br>
-     * 入会から退会までの会員のステータスを示す
+     * status of member from entry to withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
@@ -183,7 +183,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     /**
      * Set the value of memberStatusCode as the classification of MemberStatus. <br>
      * (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to member_status, classification=MemberStatus} <br>
-     * 入会から退会までの会員のステータスを示す
+     * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setMemberStatusCodeAsMemberStatus(CDef.MemberStatus cdef) {
@@ -254,7 +254,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * members that can use service (loginable) <br>
+     * means member that can use services <br>
      * The group elements:[Formalized, Provisional]
      * @return The determination, true or false.
      */
@@ -264,7 +264,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * members not formalized yet <br>
+     * Members are not formalized yet <br>
      * The group elements:[Provisional]
      * @return The determination, true or false.
      */

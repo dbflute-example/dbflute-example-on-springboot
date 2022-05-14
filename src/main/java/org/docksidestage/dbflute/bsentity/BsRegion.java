@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,7 +112,7 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     /**
      * Get the value of regionId as the classification of Region. <br>
      * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
-     * 主に会員の住んでいる地域を示す
+     * mainly region of member address
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
      */
@@ -123,7 +123,7 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     /**
      * Set the value of regionId as the classification of Region. <br>
      * (地域ID)REGION_ID: {PK, NotNull, INT(10), classification=Region} <br>
-     * 主に会員の住んでいる地域を示す
+     * mainly region of member address
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
     public void setRegionIdAsRegion(CDef.Region cdef) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * Equal(=). As ServiceRank. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
-     * 会員が受けられるサービスのランクを示す
+     * rank of service member gets
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setServiceRankCode_Equal_AsServiceRank(CDef.ServiceRank cdef) {
@@ -133,7 +133,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). As ServiceRank. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
-     * 会員が受けられるサービスのランクを示す
+     * rank of service member gets
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setServiceRankCode_NotEqual_AsServiceRank(CDef.ServiceRank cdef) {
@@ -196,7 +196,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * InScope {in ('a', 'b')}. As ServiceRank. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
-     * 会員が受けられるサービスのランクを示す
+     * rank of service member gets
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankCode_InScope_AsServiceRank(Collection<CDef.ServiceRank> cdefList) {
@@ -219,7 +219,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in ('a', 'b')}. As ServiceRank. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
-     * 会員が受けられるサービスのランクを示す
+     * rank of service member gets
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankCode_NotInScope_AsServiceRank(Collection<CDef.ServiceRank> cdefList) {
@@ -507,7 +507,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * Equal(=). As Flg. And NullIgnored, OnlyOnceRegistered. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setNewAcceptableFlg_Equal_AsFlg(CDef.Flg cdef) {
@@ -517,7 +517,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * Equal(=). As boolean for Flg. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param determination The determination, true or false. (basically NotNull: error as default, or no condition as option)
      */
     public void setNewAcceptableFlg_Equal_AsBoolean(Boolean determination) {
@@ -526,7 +526,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). As True (1). And NullIgnored, OnlyOnceRegistered. <br>
-     * Yes: means valid
+     * Checked: means yes
      */
     public void setNewAcceptableFlg_Equal_True() {
         setNewAcceptableFlg_Equal_AsFlg(CDef.Flg.True);
@@ -534,7 +534,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). As False (0). And NullIgnored, OnlyOnceRegistered. <br>
-     * No: means invalid
+     * Unchecked: means no
      */
     public void setNewAcceptableFlg_Equal_False() {
         setNewAcceptableFlg_Equal_AsFlg(CDef.Flg.False);
@@ -556,7 +556,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). As Flg. And NullIgnored, OnlyOnceRegistered. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
     public void setNewAcceptableFlg_NotEqual_AsFlg(CDef.Flg cdef) {
@@ -565,7 +565,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). As True (1). And NullIgnored, OnlyOnceRegistered. <br>
-     * Yes: means valid
+     * Checked: means yes
      */
     public void setNewAcceptableFlg_NotEqual_True() {
         setNewAcceptableFlg_NotEqual_AsFlg(CDef.Flg.True);
@@ -573,7 +573,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). As False (0). And NullIgnored, OnlyOnceRegistered. <br>
-     * No: means invalid
+     * Unchecked: means no
      */
     public void setNewAcceptableFlg_NotEqual_False() {
         setNewAcceptableFlg_NotEqual_AsFlg(CDef.Flg.False);
@@ -595,7 +595,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * InScope {in (1, 2)}. As Flg. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setNewAcceptableFlg_InScope_AsFlg(Collection<CDef.Flg> cdefList) {
@@ -618,7 +618,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in (1, 2)}. As Flg. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INT(10), classification=Flg} <br>
-     * flag, true or false
+     * general boolean classification for every flg-column
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setNewAcceptableFlg_NotInScope_AsFlg(Collection<CDef.Flg> cdefList) {

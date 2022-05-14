@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,13 +33,13 @@ import org.dbflute.optional.OptionalThing;
 public interface CDef extends Classification {
 
     /**
-     * flag, true or false
+     * general boolean classification for every flg-column
      */
     public enum Flg implements CDef {
-        /** Yes: means valid */
-        True("1", "Yes", new String[] {"true"}),
-        /** No: means invalid */
-        False("0", "No", new String[] {"false"});
+        /** Checked: means yes */
+        True("1", "Checked", new String[] {"true"}),
+        /** Unchecked: means no */
+        False("0", "Unchecked", new String[] {"false"});
         private static ZzzoneSlimmer<Flg> _slimmer = new ZzzoneSlimmer<>(Flg.class, values());
         private String _code; private String _alias; private Set<String> _sisterSet;
         private Flg(String code, String alias, String[] sisters)
@@ -107,7 +107,7 @@ public interface CDef extends Classification {
     }
 
     /**
-     * 入会から退会までの会員のステータスを示す
+     * status of member from entry to withdrawal
      */
     public enum MemberStatus implements CDef {
         /** Formalized: as formal member, allowed to use all service */
@@ -125,14 +125,14 @@ public interface CDef extends Classification {
         public ClassificationMeta meta() { return CDef.DefMeta.MemberStatus; }
         /**
          * Is the classification in the group? <br>
-         * members that can use service (loginable) <br>
+         * means member that can use services <br>
          * The group elements:[Formalized, Provisional]
          * @return The determination, true or false.
          */
         public boolean isServiceAvailable() { return Formalized.equals(this) || Provisional.equals(this); }
         /**
          * Is the classification in the group? <br>
-         * members not formalized yet <br>
+         * Members are not formalized yet <br>
          * The group elements:[Provisional]
          * @return The determination, true or false.
          */
@@ -193,7 +193,7 @@ public interface CDef extends Classification {
         public static List<MemberStatus> listOf(Collection<String> codeList) { return _slimmer.listOf(codeList); }
         /**
          * Get the list of group classification elements. (returns new copied list) <br>
-         * members that can use service (loginable) <br>
+         * means member that can use services <br>
          * The group elements:[Formalized, Provisional]
          * @return The snapshot list of classification elements in the group. (NotNull)
          */
@@ -202,7 +202,7 @@ public interface CDef extends Classification {
         }
         /**
          * Get the list of group classification elements. (returns new copied list) <br>
-         * members not formalized yet <br>
+         * Members are not formalized yet <br>
          * The group elements:[Provisional]
          * @return The snapshot list of classification elements in the group. (NotNull)
          */
@@ -224,7 +224,7 @@ public interface CDef extends Classification {
     }
 
     /**
-     * 会員が受けられるサービスのランクを示す
+     * rank of service member gets
      */
     public enum ServiceRank implements CDef {
         /** PLATINUM: platinum rank */
@@ -303,7 +303,7 @@ public interface CDef extends Classification {
     }
 
     /**
-     * 主に会員の住んでいる地域を示す
+     * mainly region of member address
      */
     public enum Region implements CDef {
         /** AMERICA */
@@ -380,7 +380,7 @@ public interface CDef extends Classification {
     }
 
     /**
-     * 会員の退会理由。なのでちょっとねがてぃぶ
+     * reason for member withdrawal
      */
     public enum WithdrawalReason implements CDef {
         /** SIT: site is not kindness */
@@ -457,18 +457,18 @@ public interface CDef extends Classification {
     }
 
     /**
-     * 商品のカテゴリ。階層構造である
+     * category of product. self reference
      */
     public enum ProductCategory implements CDef {
-        /** Food */
-        Food("FOD", "Food"),
         /** Music */
         Music("MSC", "Music"),
-        /** Herb: of Food */
+        /** Food */
+        Food("FOD", "Food"),
+        /** Herb: 0 */
         Herb("HEB", "Herb"),
-        /** Instruments: of Music */
+        /** Instruments: 0 */
         Instruments("INS", "Instruments"),
-        /** MusicCD: of Music */
+        /** MusicCD: 0 */
         MusicCD("MCD", "MusicCD");
         private static ZzzoneSlimmer<ProductCategory> _slimmer = new ZzzoneSlimmer<>(ProductCategory.class, values());
         private String _code; private String _alias;
@@ -536,7 +536,7 @@ public interface CDef extends Classification {
     }
 
     /**
-     * 商品ステータス。あんまり面白みのないステータス
+     * status for product
      */
     public enum ProductStatus implements CDef {
         /** OnSaleProduction */
@@ -610,40 +610,143 @@ public interface CDef extends Classification {
         @Override public String toString() { return code(); }
     }
 
+    /**
+     * method of payment for purchase
+     */
+    public enum PaymentMethod implements CDef {
+        /** by hand: payment by hand, face-to-face */
+        ByHand("HAN", "by hand"),
+        /** bank transfer: bank transfer payment */
+        BankTransfer("BAK", "bank transfer"),
+        /** credit card: credit card payment */
+        CreditCard("CRC", "credit card");
+        private static ZzzoneSlimmer<PaymentMethod> _slimmer = new ZzzoneSlimmer<>(PaymentMethod.class, values());
+        private String _code; private String _alias;
+        private PaymentMethod(String code, String alias) { _code = code; _alias = alias; }
+        public String code() { return _code; } public String alias() { return _alias; }
+        public Set<String> sisterSet() { return Collections.emptySet(); }
+        public Map<String, Object> subItemMap() { return Collections.emptyMap(); }
+        public ClassificationMeta meta() { return CDef.DefMeta.PaymentMethod; }
+        /**
+         * Is the classification in the group? <br>
+         * the most recommended method <br>
+         * The group elements:[ByHand]
+         * @return The determination, true or false.
+         */
+        public boolean isRecommended() { return ByHand.equals(this); }
+        public boolean inGroup(String groupName) {
+            if ("recommended".equalsIgnoreCase(groupName)) { return isRecommended(); }
+            return false;
+        }
+        /**
+         * Get the classification of the code. (CaseInsensitive)
+         * @param code The value of code, which is case-insensitive. (NullAllowed: if null, returns empty)
+         * @return The optional classification corresponding to the code. (NotNull, EmptyAllowed: if not found, returns empty)
+         */
+        public static OptionalThing<PaymentMethod> of(Object code) { return _slimmer.of(code); }
+        /**
+         * Find the classification by the name. (CaseInsensitive)
+         * @param name The string of name, which is case-insensitive. (NotNull)
+         * @return The optional classification corresponding to the name. (NotNull, EmptyAllowed: if not found, returns empty)
+         */
+        public static OptionalThing<PaymentMethod> byName(String name) { return _slimmer.byName(name); }
+        /**
+         * <span style="color: #AD4747; font-size: 120%">Old style so use of(code).</span>
+         * @param code The value of code, which is case-insensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the code. (NullAllowed: if not found, returns null)
+         */
+        public static PaymentMethod codeOf(Object code) { return _slimmer.codeOf(code); }
+        /**
+         * <span style="color: #AD4747; font-size: 120%">Old style so use byName(name).</span>
+         * @param name The string of name, which is case-sensitive. (NullAllowed: if null, returns null)
+         * @return The instance of the corresponding classification to the name. (NullAllowed: if not found, returns null)
+         * @deprecated use byName(name) instead.
+         */
+        public static PaymentMethod nameOf(String name) { return _slimmer.nameOf(name, nm -> valueOf(nm)); }
+        /**
+         * Get the list of all classification elements. (returns new copied list)
+         * @return The snapshot list of all classification elements. (NotNull)
+         */
+        public static List<PaymentMethod> listAll() { return _slimmer.listAll(values()); }
+        /**
+         * Get the list of classification elements in the specified group. (returns new copied list)
+         * @param groupName The string of group name, which is case-insensitive. (NotNull)
+         * @return The snapshot list of classification elements in the group. (NotNull)
+         * @throws ClassificationNotFoundException When the group is not found.
+         */
+        public static List<PaymentMethod> listByGroup(String groupName) {
+            if (groupName == null) { throw new IllegalArgumentException("The argument 'groupName' should not be null."); }
+            if ("recommended".equalsIgnoreCase(groupName)) { return listOfRecommended(); }
+            throw new ClassificationNotFoundException("Unknown classification group: PaymentMethod." + groupName);
+        }
+        /**
+         * <span style="color: #AD4747; font-size: 120%">Old style so use e.g. Stream API with of().</span>
+         * @param codeList The list of plain code, which is case-insensitive. (NotNull)
+         * @return The snapshot list of classification elements in the code list. (NotNull, EmptyAllowed: when empty specified)
+         * @deprecated use e.g. Stream API with of() instead.
+         */
+        public static List<PaymentMethod> listOf(Collection<String> codeList) { return _slimmer.listOf(codeList); }
+        /**
+         * Get the list of group classification elements. (returns new copied list) <br>
+         * the most recommended method <br>
+         * The group elements:[ByHand]
+         * @return The snapshot list of classification elements in the group. (NotNull)
+         */
+        public static List<PaymentMethod> listOfRecommended() {
+            return new ArrayList<>(Arrays.asList(ByHand));
+        }
+        /**
+         * <span style="color: #AD4747; font-size: 120%">Old style so use listByGroup(groupName).</span>
+         * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
+         * @return The snapshot list of classification elements in the group. (NotNull, EmptyAllowed: if the group is not found)
+         * @deprecated use listByGroup(groupName) instead.
+         */
+        public static List<PaymentMethod> groupOf(String groupName) {
+            if ("recommended".equalsIgnoreCase(groupName)) { return listOfRecommended(); }
+            return new ArrayList<>();
+        }
+        @Override public String toString() { return code(); }
+    }
+
     public enum DefMeta implements ClassificationMeta {
-        /** flag, true or false */
+        /** general boolean classification for every flg-column */
         Flg(cd -> CDef.Flg.of(cd), nm -> CDef.Flg.byName(nm)
         , () -> CDef.Flg.listAll(), gp -> CDef.Flg.listByGroup(gp)
         , ClassificationCodeType.Number, ClassificationUndefinedHandlingType.EXCEPTION),
 
-        /** 入会から退会までの会員のステータスを示す */
+        /** status of member from entry to withdrawal */
         MemberStatus(cd -> CDef.MemberStatus.of(cd), nm -> CDef.MemberStatus.byName(nm)
         , () -> CDef.MemberStatus.listAll(), gp -> CDef.MemberStatus.listByGroup(gp)
         , ClassificationCodeType.String, ClassificationUndefinedHandlingType.EXCEPTION),
 
-        /** 会員が受けられるサービスのランクを示す */
+        /** rank of service member gets */
         ServiceRank(cd -> CDef.ServiceRank.of(cd), nm -> CDef.ServiceRank.byName(nm)
         , () -> CDef.ServiceRank.listAll(), gp -> CDef.ServiceRank.listByGroup(gp)
-        , ClassificationCodeType.Number, ClassificationUndefinedHandlingType.EXCEPTION),
+        , ClassificationCodeType.String, ClassificationUndefinedHandlingType.EXCEPTION),
 
-        /** 主に会員の住んでいる地域を示す */
+        /** mainly region of member address */
         Region(cd -> CDef.Region.of(cd), nm -> CDef.Region.byName(nm)
         , () -> CDef.Region.listAll(), gp -> CDef.Region.listByGroup(gp)
         , ClassificationCodeType.Number, ClassificationUndefinedHandlingType.EXCEPTION),
 
-        /** 会員の退会理由。なのでちょっとねがてぃぶ */
+        /** reason for member withdrawal */
         WithdrawalReason(cd -> CDef.WithdrawalReason.of(cd), nm -> CDef.WithdrawalReason.byName(nm)
         , () -> CDef.WithdrawalReason.listAll(), gp -> CDef.WithdrawalReason.listByGroup(gp)
         , ClassificationCodeType.String, ClassificationUndefinedHandlingType.EXCEPTION),
 
-        /** 商品のカテゴリ。階層構造である */
+        /** category of product. self reference */
         ProductCategory(cd -> CDef.ProductCategory.of(cd), nm -> CDef.ProductCategory.byName(nm)
         , () -> CDef.ProductCategory.listAll(), gp -> CDef.ProductCategory.listByGroup(gp)
         , ClassificationCodeType.String, ClassificationUndefinedHandlingType.EXCEPTION),
 
-        /** 商品ステータス。あんまり面白みのないステータス */
+        /** status for product */
         ProductStatus(cd -> CDef.ProductStatus.of(cd), nm -> CDef.ProductStatus.byName(nm)
         , () -> CDef.ProductStatus.listAll(), gp -> CDef.ProductStatus.listByGroup(gp)
+        , ClassificationCodeType.String, ClassificationUndefinedHandlingType.EXCEPTION),
+
+        /** method of payment for purchase */
+        PaymentMethod(cd -> CDef.PaymentMethod.of(cd), nm -> CDef.PaymentMethod.byName(nm)
+        , () -> CDef.PaymentMethod.listAll(), gp -> CDef.PaymentMethod.listByGroup(gp)
         , ClassificationCodeType.String, ClassificationUndefinedHandlingType.EXCEPTION);
 
         private static final Map<String, DefMeta> _nameMetaMap = new HashMap<>();
