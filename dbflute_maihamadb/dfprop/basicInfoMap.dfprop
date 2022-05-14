@@ -56,7 +56,7 @@ map:{
     # 
     #       spring, guice, cdi, seasar, lasta_di
     # 
-    ; targetContainer = lasta_di
+    ; targetContainer = spring
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
