@@ -1,20 +1,20 @@
 # /---------------------------------------------------------------------------
-# documentDefinitionMap: (NotRequired - Default map:{})
+# documentMap: (NotRequired - Default map:{})
 #
-# o documentOutputDirectory (NotRequired - Default './output/doc')
-# o aliasDelimiterInDbComment (NotRequired - Default '')
-# o isDbCommentOnAliasBasis (NotRequired - Default false)
-# o isEntityJavaDocDbCommentValid (NotRequired - Default false)
-# o isEntityDBMetaDbCommentValid (NotRequired - Default false)
-# o schemaHtmlFileName (NotRequired - Default 'schema-[project-name].html')
-# o isSuppressSchemaHtmlOutsideSql (NotRequired - Default false)
-# o isSuppressSchemaHtmlProcedure (NotRequired - Default false)
-# o historyHtmlFileName (NotRequired - Default 'history-[project-name].html')
-# o isCheckColumnDefOrderDiff (NotRequired - Default false)
-# o isCheckDbCommentDiff (NotRequired - Default false)
-# o isCheckProcedureDiff (NotRequired - Default false)
-# o loadDataReverseMap (NotRequired - Default map:{})
-# o schemaSyncCheckMap (NotRequired - Default map:{})
+# o documentOutputDirectory: (NotRequired - Default './output/doc')
+# o aliasDelimiterInDbComment: (NotRequired - Default '')
+# o isDbCommentOnAliasBasis: (NotRequired - Default false)
+# o isEntityJavaDocDbCommentValid: (NotRequired - Default true)
+# o isEntityDBMetaDbCommentValid: (NotRequired - Default false)
+# o schemaHtmlFileName: (NotRequired - Default 'schema-[project-name].html')
+# o isSuppressSchemaHtmlOutsideSql: (NotRequired - Default false)
+# o isSuppressSchemaHtmlProcedure: (NotRequired - Default false)
+# o historyHtmlFileName: (NotRequired - Default 'history-[project-name].html')
+# o isCheckColumnDefOrderDiff: (NotRequired - Default false)
+# o isCheckDbCommentDiff: (NotRequired - Default false)
+# o isCheckProcedureDiff: (NotRequired - Default false)
+# o loadDataReverseMap: (NotRequired - Default map:{})
+# o schemaSyncCheckMap: (NotRequired - Default map:{})
 # o propertiesHtmlMap: (NotRequired - Default map:{})
 #
 # Example:
@@ -53,8 +53,13 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
+    # to show Diagram on SchemaHTML
+    ; schemaDiagramMap = map:{
+        ; maihamadb_erd = map:{ path = ../../../modeling/maihamadb.png }
+    }
+
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o documentOutputDirectory (NotRequired - Default './output/doc')
+    # o documentOutputDirectory: (NotRequired - Default './output/doc')
     #  The output directory mainly for SchemaHtml and DataXlsTemplate.
     #  Basically you don't need this.
     #  It is considered of value that it always exists at same plain.
@@ -63,7 +68,7 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o aliasDelimiterInDbComment (NotRequired - Default '')
+    # o aliasDelimiterInDbComment: (NotRequired - Default '')
     #  If the alias exists in its DB comment like as follows:
     #    member name : The name of member's full name
     #  you can use the alias in DBFlute world, java-doc, SchemaHTML...
@@ -75,7 +80,7 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isDbCommentOnAliasBasis (NotRequired - Default false)
+    # o isDbCommentOnAliasBasis: (NotRequired - Default false)
     #  Is DB comment on alias basis?
     #  (Is DB comment alias name when it has no alias delimiter?)
     #  This property works with 'aliasDelimiterInDbComment'.
@@ -84,21 +89,21 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isEntityJavaDocDbCommentValid (NotRequired - Default true)
+    # o isEntityJavaDocDbCommentValid: (NotRequired - Default true)
     #  Does it allow DB comment to be on java-doc?
     #
     #; isEntityJavaDocDbCommentValid = true
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isEntityDBMetaDbCommentValid (NotRequired - Default false)
+    # o isEntityDBMetaDbCommentValid: (NotRequired - Default false)
     #  Does it allow DB comment to be on DB meta of entity?
     #
     #; isEntityDBMetaDbCommentValid = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o schemaHtmlFileName (NotRequired - Default 'schema-[project-name].html')
+    # o schemaHtmlFileName: (NotRequired - Default 'schema-[project-name].html')
     #  The file name (not contain path) of SchemaHtml.
     #  Basically you don't need this.
     #  (For example, when you use Application Behavior, you need this)
@@ -107,7 +112,7 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isSuppressSchemaHtmlOutsideSql (NotRequired - Default false)
+    # o isSuppressSchemaHtmlOutsideSql: (NotRequired - Default false)
     #  Does it remove outsideSql information from SchemaHtml?
     #  Basically you don't need this.
     #  OutsideSql information (related to tables) is very useful.
@@ -116,7 +121,7 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isSuppressSchemaHtmlProcedure (NotRequired - Default false)
+    # o isSuppressSchemaHtmlProcedure: (NotRequired - Default false)
     #  Does it remove procedure information from SchemaHtml?
     #  Basically you don't need this.
     #  Procedure information is very useful.
@@ -125,7 +130,7 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o historyHtmlFileName (NotRequired - Default 'history-[project-name].html')
+    # o historyHtmlFileName: (NotRequired - Default 'history-[project-name].html')
     #  The file name (not contain path) of HistoryHtml.
     #  Basically you don't need this.
     #  (For example, when you use Application Behavior, you need this)
@@ -134,7 +139,7 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isCheckColumnDefOrderDiff (NotRequired - Default false)
+    # o isCheckColumnDefOrderDiff: (NotRequired - Default false)
     #  Does it check differences of column-def order?
     #  (except added or deleted columns)
     #
@@ -142,14 +147,14 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isCheckDbCommentDiff (NotRequired - Default false)
+    # o isCheckDbCommentDiff: (NotRequired - Default false)
     #  Does it check differences of table or column or others comment?
     #
     #; isCheckDbCommentDiff = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isCheckProcedureDiff (NotRequired - Default false)
+    # o isCheckProcedureDiff: (NotRequired - Default false)
     #  Does it check differences of procedures?
     #
     ; isCheckProcedureDiff = true
@@ -184,7 +189,7 @@ map:{
     #   o password: The database password. (NotRequired - Default '')
     #
     ; schemaSyncCheckMap = map:{
-        ; url = jdbc:h2:file:../src/main/resources/database/maihamasyncdb
+        ; url = jdbc:mysql://localhost:3306/maihamasyncdb?allowPublicKeyRetrieval=true&useSSL=false
         ; schema = 
         ; user = root
         ; password = df:dfprop/system-password.txt|
@@ -209,16 +214,14 @@ map:{
     #   o isCheckImplicitOverride: does it check implicit override? (NotRequired)
     #
     #; propertiesHtmlMap = map:{
-    #    ; ApplicationProperties = map:{
+    #    ; MaihamaEnv = map:{
     #        ; baseDir = ../src
-    #        ; rootFile = $$baseDir$$/main/resources/application_ja.properties
+    #        ; rootFile = $$baseDir$$/main/resources/maihama_env.properties
     #        ; environmentMap = map:{
     #            ; integration = $$baseDir$$/integration/resources
     #            ; production = $$baseDir$$/production/resources
     #        }
-    #        ; diffIgnoredKeyList = list:{}
-    #        ; maskedKeyList = list:{}
-    #        ; isEnvOnlyFloatLeft = false
+    #        ; diffIgnoredKeyList = list:{} ; maskedKeyList = list:{} ; isEnvOnlyFloatLeft = false
     #        ; extendsPropRequest = null
     #        ; isCheckImplicitOverride = false
     #    }

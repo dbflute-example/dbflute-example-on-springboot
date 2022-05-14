@@ -7,7 +7,7 @@
 # map: {
 #     [classification-name] = list:{
 #         ; map:{
-#             ; topComment=[comment]; codeType=[String(default) or Number or Boolean]}
+#             ; topComment=[comment]; codeType=[String(default) or Number or Boolean]
 #             ; undefinedHandlingType=[EXCEPTION or LOGGING(default) or ALLOWED]
 #             ; isUseDocumentOnly=[true or false(default)]
 #             ; isSuppressAutoDeploy=[true or false(default)]
@@ -41,9 +41,11 @@ map:{
     #                                                                               Common
     #                                                                               ======
     ; Flg = list:{
-        ; map:{topComment=flag, true or false; codeType=Number; undefinedHandlingType=EXCEPTION}
-        ; map:{code=1; name=True ; alias=Yes  ; comment=means valid; sisterCode=true}
-        ; map:{code=0; name=False; alias=No; comment=means invalid; sisterCode=false}
+        ; map:{
+            ; topComment=general boolean classification for every flg-column; codeType=Number
+        }
+        ; map:{code=1; name=True ; alias=Checked  ; comment=means yes; sisterCode=true }
+        ; map:{code=0; name=False; alias=Unchecked; comment=means no ; sisterCode=false}
     }
 
     # ====================================================================================
@@ -51,17 +53,17 @@ map:{
     #                                                                               ======
     ; MemberStatus = list:{
         ; map:{
-        	; topComment=入会から退会までの会員のステータスを示す ; codeType=String
-        	; groupingMap = map:{
+            ; topComment=status of member from entry to withdrawal; codeType=String
+            ; groupingMap = map:{
                 ; serviceAvailable = map:{
-                    ; groupComment = members that can use service (loginable)
+                    ; groupComment = means member that can use services
                     ; elementList = list:{Formalized;Provisional}
                 }
                 ; shortOfFormalized = map:{
-                    ; groupComment = members not formalized yet
+                    ; groupComment = Members are not formalized yet
                     ; elementList = list:{Provisional}
                 }
-        	}
+            }
         }
         ; map:{
             ; table=MEMBER_STATUS
@@ -70,7 +72,7 @@ map:{
         }
     }
     ; ServiceRank = list:{
-        ; map:{topComment=会員が受けられるサービスのランクを示す; codeType=Number}
+        ; map:{topComment=rank of service member gets; codeType=String}
         ; map:{
             ; table=SERVICE_RANK
             ; code=SERVICE_RANK_CODE; name=SERVICE_RANK_NAME
@@ -78,7 +80,7 @@ map:{
         }
     }
     ; Region = list:{
-        ; map:{topComment=主に会員の住んでいる地域を示す; codeType=Number}
+        ; map:{topComment=mainly region of member address; codeType=Number}
         ; map:{
             ; table=REGION
             ; code=REGION_ID; name=REGION_NAME
@@ -86,7 +88,7 @@ map:{
         }
     }
     ; WithdrawalReason = list:{
-        ; map:{topComment=会員の退会理由。なのでちょっとねがてぃぶ; codeType=String}
+        ; map:{topComment=reason for member withdrawal; codeType=String}
         ; map:{
             ; table=WITHDRAWAL_REASON
             ; code=WITHDRAWAL_REASON_CODE; name=WITHDRAWAL_REASON_CODE
@@ -98,22 +100,37 @@ map:{
     #                                                                              Product
     #                                                                              =======
     ; ProductCategory = list:{
-        ; map:{topComment=商品のカテゴリ。階層構造である; codeType=String}
+        ; map:{topComment=category of product. self reference; codeType=String}
         ; map:{
             ; table=$sql:
  PRODUCT_CATEGORY loc left outer join PRODUCT_CATEGORY rel on loc.PARENT_CATEGORY_CODE = rel.PRODUCT_CATEGORY_CODE
             ; code=$sql: loc.PRODUCT_CATEGORY_CODE
             ; name=$sql: loc.PRODUCT_CATEGORY_NAME
-            ; comment=$sql: concat('of ', rel.PRODUCT_CATEGORY_NAME)
+            ; comment=$sql: 'of ' || rel.PRODUCT_CATEGORY_NAME
             ; orderBy=loc.PARENT_CATEGORY_CODE is not null, loc.PARENT_CATEGORY_CODE
         }
     }
     ; ProductStatus = list:{
-        ; map:{topComment=商品ステータス。あんまり面白みのないステータス; codeType=String}
+        ; map:{topComment=status for product; codeType=String}
         ; map:{
             ; table=PRODUCT_STATUS
             ; code=PRODUCT_STATUS_CODE; name=PRODUCT_STATUS_NAME
         }
+    }
+    ; PaymentMethod = list:{
+        ; map:{
+            ; topComment=method of payment for purchase; codeType=String
+            ; undefinedHandlingType=EXCEPTION
+            ; groupingMap = map:{
+                ; recommended = map:{
+                    ; groupComment = the most recommended method
+                    ; elementList = list:{ByHand}
+                }
+            }
+        }
+        ; map:{code=HAN; name=ByHand; alias=by hand; comment=payment by hand, face-to-face}
+        ; map:{code=BAK; name=BankTransfer; alias=bank transfer; comment=bank transfer payment}
+        ; map:{code=CRC; name=CreditCard; alias=credit card; comment=credit card payment}
     }
 }
 # ----------------/
