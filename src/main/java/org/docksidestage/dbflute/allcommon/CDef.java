@@ -383,14 +383,14 @@ public interface CDef extends Classification {
      * reason for member withdrawal
      */
     public enum WithdrawalReason implements CDef {
-        /** SIT: site is not kindness */
-        Sit("SIT", "SIT"),
-        /** PRD: no attractive product */
-        Prd("PRD", "PRD"),
-        /** FRT: because of furiten */
-        Frt("FRT", "FRT"),
-        /** OTH: other reasons */
-        Oth("OTH", "OTH");
+        /** site is not kindness: site is not kindness */
+        Sit("SIT", "site is not kindness"),
+        /** no attractive product: no attractive product */
+        Prd("PRD", "no attractive product"),
+        /** because of furiten: because of furiten */
+        Frt("FRT", "because of furiten"),
+        /** other reasons: other reasons */
+        Oth("OTH", "other reasons");
         private static ZzzoneSlimmer<WithdrawalReason> _slimmer = new ZzzoneSlimmer<>(WithdrawalReason.class, values());
         private String _code; private String _alias;
         private WithdrawalReason(String code, String alias) { _code = code; _alias = alias; }
@@ -460,10 +460,10 @@ public interface CDef extends Classification {
      * category of product. self reference
      */
     public enum ProductCategory implements CDef {
-        /** Music */
-        Music("MSC", "Music"),
         /** Food */
         Food("FOD", "Food"),
+        /** Music */
+        Music("MSC", "Music"),
         /** Herb: 0 */
         Herb("HEB", "Herb"),
         /** Instruments: 0 */

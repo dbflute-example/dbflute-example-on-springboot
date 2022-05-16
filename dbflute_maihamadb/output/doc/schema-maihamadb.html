@@ -626,7 +626,7 @@ pre.spolicyviodisp {
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#product_category" title="FK_PRODUCT_PRODUCT_CATEGORY">PRODUCT_CATEGORY</a>, <a href="#product_status" title="FK_PRODUCT_PRODUCT_STATUS">PRODUCT_STATUS</a></td>
 		<td class="relcell"><a href="#purchase" title="FK_PURCHASE_PRODUCT">PURCHASE</a></td>
-		<td class="commentcell product_comment"><pre>相当偏ったラインナップ</pre></td>
+		<td class="commentcell product_comment"><pre>&nbsp;</pre></td>
 		<td class="subcell">Product</td>
 		<td class="subcell">2014/11/07</td>
 	</tr>
@@ -2181,7 +2181,7 @@ pre.spolicyviodisp {
 (商品)PRODUCT
 &nbsp;<span class="tablefirstdatetitle">since 2014/11/07</span>
 </h2>
-<div class="tablecomment product_comment" data-name="product"><pre>相当偏ったラインナップ</pre></div>
+<div class="tablecomment product_comment" data-name="product"><pre></pre></div>
 <input type="hidden" value="product">
 <table class="tablecontent">
 	<thead>
@@ -3535,26 +3535,31 @@ pre.spolicyviodisp {
 			<tr>
 				<th id="WithdrawalReasonCls">Code</th>
 				<th>Name</th>
+				<th>Alias</th>
 				<th>Comment</th>
 			</tr>
 			<tr>
 				<td>SIT</td>
 				<td>Sit</td>
+				<td>site is not kindness</td>
 				<td class="commentcell">site&nbsp;is&nbsp;not&nbsp;kindness</td>
 			</tr>
 			<tr>
 				<td>PRD</td>
 				<td>Prd</td>
+				<td>no attractive product</td>
 				<td class="commentcell">no&nbsp;attractive&nbsp;product</td>
 			</tr>
 			<tr>
 				<td>FRT</td>
 				<td>Frt</td>
+				<td>because of furiten</td>
 				<td class="commentcell">because&nbsp;of&nbsp;furiten</td>
 			</tr>
 			<tr>
 				<td>OTH</td>
 				<td>Oth</td>
+				<td>other reasons</td>
 				<td class="commentcell">other&nbsp;reasons</td>
 			</tr>
 			</table>
@@ -3572,13 +3577,13 @@ pre.spolicyviodisp {
 				<th>Comment</th>
 			</tr>
 			<tr>
-				<td>MSC</td>
-				<td>Music</td>
+				<td>FOD</td>
+				<td>Food</td>
 				<td class="commentcell">&nbsp;</td>
 			</tr>
 			<tr>
-				<td>FOD</td>
-				<td>Food</td>
+				<td>MSC</td>
+				<td>Music</td>
 				<td class="commentcell">&nbsp;</td>
 			</tr>
 			<tr>
@@ -4435,7 +4440,7 @@ function StoreClient() {
 			}
 		}
 		, 'product': {
-			'databaseComment': '相当偏ったラインナップ'
+			'databaseComment': ''
 			, 'columns': {
 				'PRODUCT_ID': {
 					'databaseComment': ''
