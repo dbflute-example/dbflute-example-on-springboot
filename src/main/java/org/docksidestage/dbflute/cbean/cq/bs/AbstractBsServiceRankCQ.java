@@ -521,7 +521,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param determination The determination, true or false. (basically NotNull: error as default, or no condition as option)
      */
     public void setNewAcceptableFlg_Equal_AsBoolean(Boolean determination) {
-        setNewAcceptableFlg_Equal_AsFlg(CDef.Flg.of(determination).get());
+        setNewAcceptableFlg_Equal_AsFlg(CDef.Flg.of(determination).orElse(null));
     }
 
     /**

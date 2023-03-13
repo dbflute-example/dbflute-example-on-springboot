@@ -31,48 +31,6 @@ import org.docksidestage.dbflute.exentity.*;
  * The entity of (会員ログイン)MEMBER_LOGIN as TABLE. <br>
  * ログインするたびに登録されるログイン履歴。<br>
  * 登録されたら更新されるも削除されることもない。さらには、登録する人もプログラムもはっきりしているので、(紙面の都合上もあって)ここでは共通カラムは省略している。
- * <pre>
- * [primary-key]
- *     MEMBER_LOGIN_ID
- *
- * [column]
- *     MEMBER_LOGIN_ID, MEMBER_ID, LOGIN_DATETIME, MOBILE_LOGIN_FLG, LOGIN_MEMBER_STATUS_CODE
- *
- * [sequence]
- *     
- *
- * [identity]
- *     MEMBER_LOGIN_ID
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     MEMBER_STATUS, MEMBER
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     memberStatus, member
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Long memberLoginId = entity.getMemberLoginId();
- * Integer memberId = entity.getMemberId();
- * java.time.LocalDateTime loginDatetime = entity.getLoginDatetime();
- * Integer mobileLoginFlg = entity.getMobileLoginFlg();
- * String loginMemberStatusCode = entity.getLoginMemberStatusCode();
- * entity.setMemberLoginId(memberLoginId);
- * entity.setMemberId(memberId);
- * entity.setLoginDatetime(loginDatetime);
- * entity.setMobileLoginFlg(mobileLoginFlg);
- * entity.setLoginMemberStatusCode(loginMemberStatusCode);
- * = = = = = = = = = =/
- * </pre>
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsMemberLogin extends AbstractEntity implements DomainEntity {

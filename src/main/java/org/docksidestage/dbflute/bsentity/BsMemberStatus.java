@@ -31,46 +31,6 @@ import org.docksidestage.dbflute.exentity.*;
  * 業務運用上で増えることはなく、増減するときはプログラム修正ともなうレベルの業務変更と考えられる。<br>
  * <br>
  * こういった固定的なマスタテーブルには、更新日時などの共通カラムは定義していないが、業務上そういった情報を管理する必要性が低いという理由に加え、ExampleDBとして共通カラムでER図が埋め尽くされてしまい見づらくなるというところで割り切っている。実業務では統一的に定義することもある。
- * <pre>
- * [primary-key]
- *     MEMBER_STATUS_CODE
- *
- * [column]
- *     MEMBER_STATUS_CODE, MEMBER_STATUS_NAME, DESCRIPTION, DISPLAY_ORDER
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     MEMBER, MEMBER_LOGIN
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     memberList, memberLoginList
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * String memberStatusCode = entity.getMemberStatusCode();
- * String memberStatusName = entity.getMemberStatusName();
- * String description = entity.getDescription();
- * Integer displayOrder = entity.getDisplayOrder();
- * entity.setMemberStatusCode(memberStatusCode);
- * entity.setMemberStatusName(memberStatusName);
- * entity.setDescription(description);
- * entity.setDisplayOrder(displayOrder);
- * = = = = = = = = = =/
- * </pre>
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsMemberStatus extends AbstractEntity implements DomainEntity {

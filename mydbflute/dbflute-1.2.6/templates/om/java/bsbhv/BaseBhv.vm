@@ -62,35 +62,7 @@ import ${myDBMetaPackageName}.*;
 import ${glPackageCB}.*;
 
 /**
- * The behavior of ${table.basicInfoDispString}. <br>
- * <pre>
- * [primary key]
- *     ${table.primaryKeyNameCommaString}
- *
- * [column]
- *     ${table.columnNameCommaString}
- *
- * [sequence]
- *     ${table.definedSequenceName}
- *
- * [identity]
- *     ${table.identityColumnName}
- *
- * [version-no]
- *     ${table.versionNoColumnName}
- *
- * [foreign table]
- *     ${table.foreignTableNameCommaString}
- *
- * [referrer table]
- *     ${table.referrerTableNameCommaString}
- *
- * [foreign property]
- *     ${table.foreignPropertyNameCommaString}
- *
- * [referrer property]
- *     ${table.referrerPropertyNameCommaString}
- * </pre>
+ * The behavior of ${table.basicInfoDispString}.
  * @author ${database.classAuthor}
  */
 public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassName}<${myExtendedObjectClassName}, ${myConditionBeanClassName}> {
@@ -1433,7 +1405,7 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
-     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryDelete</span>(${myEntityVariableName}, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryDelete</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * });
      * </pre>
@@ -2007,20 +1979,23 @@ public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassNam
     //                                                                            Accessor
     //                                                                            ========
     @Override
-    @javax.annotation.Resource(name="${database.behaviorCommandInvokerComponentName}")
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("${database.behaviorCommandInvokerComponentName}")
     public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
         super.setBehaviorCommandInvoker(behaviorCommandInvoker);
     }
 
     @Override
-    @javax.annotation.Resource(name="${database.behaviorSelectorComponentName}")
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("${database.behaviorSelectorComponentName}")
     public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
         super.setBehaviorSelector(behaviorSelector);
     }
 #if ($table.isWritable())
 
     @Override
-    @javax.annotation.Resource(name="${database.commonColumnAutoSetupperComponentName}")
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("${database.commonColumnAutoSetupperComponentName}")
     public void setCommonColumnAutoSetupper(CommonColumnAutoSetupper commonColumnAutoSetupper) {
         super.setCommonColumnAutoSetupper(commonColumnAutoSetupper);
     }

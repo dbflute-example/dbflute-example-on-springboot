@@ -37,35 +37,7 @@ import org.docksidestage.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dbflute.cbean.*;
 
 /**
- * The behavior of (購入支払)PURCHASE_PAYMENT as TABLE. <br>
- * <pre>
- * [primary key]
- *     PURCHASE_PAYMENT_ID
- *
- * [column]
- *     PURCHASE_PAYMENT_ID, PURCHASE_ID, PAYMENT_AMOUNT, PAYMENT_DATETIME, PAYMENT_METHOD_CODE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER
- *
- * [sequence]
- *     
- *
- * [identity]
- *     PURCHASE_PAYMENT_ID
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     PURCHASE
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     purchase
- *
- * [referrer property]
- *     
- * </pre>
+ * The behavior of (購入支払)PURCHASE_PAYMENT as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<PurchasePayment, PurchasePaymentCB> {
@@ -612,7 +584,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
-     * <span style="color: #0000C0">purchasePaymentBhv</span>.<span style="color: #CC4747">queryDelete</span>(purchasePayment, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">purchasePaymentBhv</span>.<span style="color: #CC4747">queryDelete</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * });
      * </pre>
@@ -861,19 +833,22 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
     //                                                                            Accessor
     //                                                                            ========
     @Override
-    @javax.annotation.Resource(name="behaviorCommandInvoker")
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("behaviorCommandInvoker")
     public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
         super.setBehaviorCommandInvoker(behaviorCommandInvoker);
     }
 
     @Override
-    @javax.annotation.Resource(name="behaviorSelector")
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("behaviorSelector")
     public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
         super.setBehaviorSelector(behaviorSelector);
     }
 
     @Override
-    @javax.annotation.Resource(name="commonColumnAutoSetupper")
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("commonColumnAutoSetupper")
     public void setCommonColumnAutoSetupper(CommonColumnAutoSetupper commonColumnAutoSetupper) {
         super.setCommonColumnAutoSetupper(commonColumnAutoSetupper);
     }

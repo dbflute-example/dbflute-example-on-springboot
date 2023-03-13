@@ -31,60 +31,6 @@ import org.docksidestage.dbflute.exentity.*;
 /**
  * The entity of (商品)PRODUCT as TABLE. <br>
  * 相当偏ったラインナップ
- * <pre>
- * [primary-key]
- *     PRODUCT_ID
- *
- * [column]
- *     PRODUCT_ID, PRODUCT_NAME, PRODUCT_HANDLE_CODE, PRODUCT_CATEGORY_CODE, PRODUCT_STATUS_CODE, REGULAR_PRICE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
- *
- * [sequence]
- *     
- *
- * [identity]
- *     PRODUCT_ID
- *
- * [version-no]
- *     VERSION_NO
- *
- * [foreign table]
- *     PRODUCT_CATEGORY, PRODUCT_STATUS
- *
- * [referrer table]
- *     PURCHASE
- *
- * [foreign property]
- *     productCategory, productStatus
- *
- * [referrer property]
- *     purchaseList
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer productId = entity.getProductId();
- * String productName = entity.getProductName();
- * String productHandleCode = entity.getProductHandleCode();
- * String productCategoryCode = entity.getProductCategoryCode();
- * String productStatusCode = entity.getProductStatusCode();
- * Integer regularPrice = entity.getRegularPrice();
- * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
- * String registerUser = entity.getRegisterUser();
- * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
- * String updateUser = entity.getUpdateUser();
- * Long versionNo = entity.getVersionNo();
- * entity.setProductId(productId);
- * entity.setProductName(productName);
- * entity.setProductHandleCode(productHandleCode);
- * entity.setProductCategoryCode(productCategoryCode);
- * entity.setProductStatusCode(productStatusCode);
- * entity.setRegularPrice(regularPrice);
- * entity.setRegisterDatetime(registerDatetime);
- * entity.setRegisterUser(registerUser);
- * entity.setUpdateDatetime(updateDatetime);
- * entity.setUpdateUser(updateUser);
- * entity.setVersionNo(versionNo);
- * = = = = = = = = = =/
- * </pre>
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsProduct extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {

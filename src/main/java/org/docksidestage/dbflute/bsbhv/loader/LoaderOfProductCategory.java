@@ -24,35 +24,7 @@ import org.docksidestage.dbflute.exentity.*;
 import org.docksidestage.dbflute.cbean.*;
 
 /**
- * The referrer loader of (商品カテゴリ)PRODUCT_CATEGORY as TABLE. <br>
- * <pre>
- * [primary key]
- *     PRODUCT_CATEGORY_CODE
- *
- * [column]
- *     PRODUCT_CATEGORY_CODE, PRODUCT_CATEGORY_NAME, PARENT_CATEGORY_CODE
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     PRODUCT_CATEGORY
- *
- * [referrer table]
- *     PRODUCT, PRODUCT_CATEGORY
- *
- * [foreign property]
- *     productCategorySelf
- *
- * [referrer property]
- *     productList, productCategorySelfList
- * </pre>
+ * The referrer loader of (商品カテゴリ)PRODUCT_CATEGORY as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfProductCategory {
