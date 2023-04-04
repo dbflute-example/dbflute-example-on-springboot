@@ -1,6 +1,6 @@
 package org.docksidestage.app.web.signin;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 

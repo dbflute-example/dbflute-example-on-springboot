@@ -18,8 +18,8 @@ package org.docksidestage.bizfw;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.dbflute.hook.AccessContext;
 import org.slf4j.Logger;
