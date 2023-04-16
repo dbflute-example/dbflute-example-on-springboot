@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.dialect.IProcessorDialect;
 
@@ -81,5 +82,15 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Bean
     public IProcessorDialect appProcessorDialect() { // for thymeleaf
         return new AppProcessorDialect("appProcessorDialect", "ex", 1000);
+    }
+
+    /**
+     * スラッシュが最後につく(trailing slash)場合もURLが一致していると判断する
+     * @see https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide#spring-mvc-and-webflux-url-matching-changes
+     * @param configurer
+     */
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.setUseTrailingSlashMatch(true);
     }
 }
