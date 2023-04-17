@@ -3,12 +3,13 @@ package org.docksidestage.app.application.security;
 import org.docksidestage.app.web.signin.SigninService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.ForwardAuthenticationFailureHandler;
 
 /**
@@ -18,18 +19,18 @@ import org.springframework.security.web.authentication.ForwardAuthenticationFail
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // #for_now for test, enable later by jflute
         // @formatter:off
-        http.authorizeRequests()
-                .antMatchers("/signin", "/signin/", "/signup", "/signup/", "/product/list", "/product/list/")
+        http.authorizeHttpRequests()
+                .requestMatchers("/signin", "/signin/", "/signup", "/signup/", "/product/list", "/product/list/")
                 .permitAll()
-                .antMatchers("/css/**", "/js/**", "/images/**")
+                .requestMatchers("/css/**", "/js/**", "/images/**")
                 .permitAll()
-                .antMatchers("/lido/product/list", "/lido/product/list/")
+                .requestMatchers("/lido/product/list", "/lido/product/list/")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
@@ -48,18 +49,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/signout/")
                 .logoutSuccessUrl("/signin/")
                 .permitAll();
+
+        return http.build();
         // @formatter:on
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+
+    public UserDetailsService userDetailsService() {
+        return new SigninService();
     }
 
     @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        return new SigninService();
+    public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder encoder, UserDetailsService userDetailService)
+            throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService())
+                .passwordEncoder(encoder)
+                .and()
+                .build();
     }
 
     /**

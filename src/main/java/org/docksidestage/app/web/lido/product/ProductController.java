@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.dbflute.cbean.result.PagingResultBean;
 import org.docksidestage.app.web.base.ApiBaseController;

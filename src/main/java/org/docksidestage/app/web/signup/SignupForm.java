@@ -1,6 +1,6 @@
 package org.docksidestage.app.web.signup;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * @author subaru

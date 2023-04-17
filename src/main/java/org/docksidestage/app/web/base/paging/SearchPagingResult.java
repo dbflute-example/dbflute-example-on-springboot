@@ -17,8 +17,8 @@ package org.docksidestage.app.web.base.paging;
 
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import org.dbflute.Entity;
 import org.dbflute.cbean.result.PagingResultBean;
