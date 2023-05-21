@@ -224,5 +224,12 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+		<!-- utfluteがJakarta EEに対応できるまで、テストスコープにJ2EEを残しておく -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>8.0.1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>
