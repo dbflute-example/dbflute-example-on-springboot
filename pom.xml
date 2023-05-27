@@ -224,5 +224,11 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+		<!-- utfluteがJakarta EEに対応できるまで、テストスコープにJ2EEを残しておく -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.3.2</version>
+		</dependency>
 	</dependencies>
 </project>
