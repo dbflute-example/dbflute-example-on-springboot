@@ -1,0 +1,2044 @@
+##
+## Copyright 2014-2023 the original author or authors.
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+## either express or implied. See the License for the specific language
+## governing permissions and limitations under the License.
+##
+${database.allClassCopyright}package ${myBaseBhvPackageName};
+#set ($myClassName = "${myBaseBhvClassName}")
+
+import java.util.List;
+
+import org.dbflute.*;
+#if ($table.needsBehaviorDirectPackageImport())
+import org.dbflute.bhv.*;
+#end
+#if ($database.needsBehaviorSpringAutowired())
+import org.dbflute.bhv.core.BehaviorCommandInvoker;
+#end
+import org.dbflute.bhv.readable.*;
+#if ($table.isWritable() || $table.hasBehaviorFilterBeforeColumn() || $table.isDatetimePrecisionTruncationOfUpdatedEntity())
+import org.dbflute.bhv.writable.*;
+#end
+#if ($table.isDatetimePrecisionTruncationOfUpdatedEntity())
+import org.dbflute.bhv.writable.coins.DateUpdateAdjuster;
+#end
+import org.dbflute.bhv.referrer.*;
+import org.dbflute.cbean.*;
+import org.dbflute.cbean.chelper.HpSLSFunction;
+import org.dbflute.cbean.result.*;
+#if ($table.needsBehaviorCBeanScopingCallbackImport())
+import org.dbflute.cbean.scoping.SpecifyQuery;
+#end
+import org.dbflute.exception.*;
+#if ($table.isWritable() && $database.needsBehaviorSpringAutowired())
+import org.dbflute.hook.CommonColumnAutoSetupper;
+#end
+#if ($table.needsBasicOptionalEntityImport())
+import ${database.basicOptionalEntityClassName};
+#end
+#if ($table.needsRelationOptionalEntityNextImport())
+import ${database.relationOptionalEntityClassName};
+#end
+import org.dbflute.outsidesql.executor.*;
+#if ($table.hasPrimaryKeyForcedClassificationSetting())
+import ${glPackageBaseCommon}.${glCDef};
+#end
+import ${glPackageExtendedBhv}.*;
+#if ($table.hasReferrerLoader())
+import ${myReferrerLoaderPackageName}.*;
+#end
+import ${glPackageExtendedEntity}.*;
+import ${myDBMetaPackageName}.*;
+import ${glPackageCB}.*;
+
+/**
+ * The behavior of ${table.basicInfoDispString}.
+#if ($table.isGenerateTableDetailJavaDoc())
+ * <pre>
+ * [primary-key]
+ *     ${table.primaryKeyNameCommaString}
+ *
+ * [column]
+ *     ${table.columnNameCommaString}
+ *
+ * [sequence]
+ *     ${table.definedSequenceName}
+ *
+ * [identity]
+ *     ${table.identityColumnName}
+ *
+ * [version-no]
+ *     ${table.versionNoColumnName}
+ *
+ * [foreign table]
+ *     ${table.foreignTableNameCommaString}
+ *
+ * [referrer table]
+ *     ${table.referrerTableNameCommaString}
+ *
+ * [foreign property]
+ *     ${table.foreignPropertyNameCommaString}
+ *
+ * [referrer property]
+ *     ${table.referrerPropertyNameCommaString}
+ *
+ * [get/set template]
+ * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+#foreach ($col in $table.columns)
+ * ${col.javaNative} ${col.uncapitalisedJavaName} = entity.get${col.javaName}();
+#end
+#foreach ($col in $table.columns)
+ * entity.set${col.javaName}(${col.uncapitalisedJavaName});
+#end
+ * = = = = = = = = = =/
+ * </pre>
+#end
+ * @author ${database.classAuthor}
+ */
+public abstract class ${myClassName} extends ${table.baseBehaviorExtendsClassName}<${myExtendedObjectClassName}, ${myConditionBeanClassName}> {
+
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
+    ${database.behaviorQueryPathBeginMark}
+    ${database.behaviorQueryPathEndMark}
+
+    // ===================================================================================
+    //                                                                             DB Meta
+    //                                                                             =======
+    /** {@inheritDoc} */
+    public ${myDBMetaClassName} asDBMeta() { return ${myDBMetaClassName}.getInstance(); }
+    /** {@inheritDoc} */
+    public String asTableDbName() { return "${table.tableDbName}"; }
+#if ($table.isCompatibleNewMyEntityConditionBean())
+
+    /** @return The instance of DBMeta as my table type. (NotNull) */
+    public ${myDBMetaClassName} getMyDBMeta() { return ${myDBMetaClassName}.getInstance(); }
+#end
+
+    // ===================================================================================
+    //                                                                        New Instance
+    //                                                                        ============
+    /** {@inheritDoc} */
+    public ${myConditionBeanClassName} newConditionBean() { return new ${myConditionBeanClassName}(); }
+#if ($table.isCompatibleNewMyEntityConditionBean())
+
+    /** @return The instance of new entity as my table type. (NotNull) */
+    public ${myExtendedObjectClassName} newMyEntity() { return new ${myExtendedObjectClassName}(); }
+
+    /** @return The instance of new condition-bean as my table type. (NotNull) */
+    public ${myConditionBeanClassName} newMyConditionBean() { return new ${myConditionBeanClassName}(); }
+#end
+
+    // ===================================================================================
+    //                                                                        Count Select
+    //                                                                        ============
+#if ($table.isMakeCallbackConditionBeanSetup())
+    /**
+     * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br>
+     * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
+     * <pre>
+     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * </pre>
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The count for the condition. (NotMinus)
+     */
+    public int selectCount(CBCall<${myConditionBeanClassName}> cbLambda) {
+        return facadeSelectCount(createCB(cbLambda));
+    }
+
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+    /**
+     * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br>
+     * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
+     * <pre>
+     * ${myConditionBeanClassName} cb = <span style="color: #70226C">new</span> ${myConditionBeanClassName}();
+     * cb.query().setFoo...(value);
+     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectCount</span>(cb);
+     * </pre>
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The count for the condition. (NotMinus)
+     */
+    public int selectCount(${myConditionBeanClassName} cb) {
+        return facadeSelectCount(cb);
+    }
+
+#end
+    // ===================================================================================
+    //                                                                       Entity Select
+    //                                                                       =============
+#if ($table.isMakeCallbackConditionBeanSetup())
+    /**
+#if ($table.isAvailableSelectEntityPlainReturn())
+     * Select the entity by the condition-bean. #beforejava8 <br>
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br>
+     * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, use selectEntityWithDeletedCheck().</span>
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * <span style="color: #70226C">if</span> (${myEntityVariableName} != <span style="color: #70226C">null</span>) { <span style="color: #3F7E5E">// null check</span>
+     *     ... = ${myEntityVariableName}.get...();
+     * } <span style="color: #70226C">else</span> {
+     *     ...
+     * }
+     * </pre>
+#else
+     * Select the entity by the condition-bean. <br>
+     * It returns not-null optional entity, so you should ... <br>
+     * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, alwaysPresent().</span> <br>
+     * <span style="color: #AD4747; font-size: 120%">If it might be no data, isPresent() and orElse(), ...</span>
+     * <pre>
+     * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).<span style="color: #CC4747">alwaysPresent</span>(<span style="color: #553000">${myEntityVariableName}</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// called if present, or exception</span>
+     *     ... = <span style="color: #553000">${myEntityVariableName}</span>.get...
+     * });
+     *
+     * <span style="color: #3F7E5E">// if it might be no data, ...</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).<span style="color: #CC4747">ifPresent</span>(<span style="color: #553000">${myEntityVariableName}</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// called if present</span>
+     *     ... = <span style="color: #553000">${myEntityVariableName}</span>.get...
+     * }).<span style="color: #994747">orElse</span>(() <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// called if not present</span>
+     * });
+     * </pre>
+#end
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+#if ($table.isAvailableSelectEntityPlainReturn())
+     * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
+#else
+     * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+#end
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public ${table.filterLambdaSelectEntityOptionalReturnIfNeeds($myExtendedObjectClassName)} selectEntity(CBCall<${myConditionBeanClassName}> cbLambda) {
+#if ($table.needsLambdaSelectEntityForcedlyOptional())
+        return doSelectOptionalEntity(createCB(cbLambda), typeOfSelectedEntity());
+#else
+        return facadeSelectEntity(createCB(cbLambda));
+#end
+    }
+
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+    /**
+#if ($table.isAvailableSelectEntityPlainReturn())
+     * Select the entity by the condition-bean. #beforejava8 <br>
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br>
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
+     * <pre>
+     * ${myConditionBeanClassName} cb = <span style="color: #70226C">new</span> ${myConditionBeanClassName}();
+     * cb.query().setFoo...(value);
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #DD4747">selectEntity</span>(cb);
+     * <span style="color: #70226C">if</span> (${myEntityVariableName} != <span style="color: #70226C">null</span>) { <span style="color: #3F7E5E">// null check</span>
+     *     ... = ${myEntityVariableName}.get...();
+     * } <span style="color: #70226C">else</span> {
+     *     ...
+     * }
+     * </pre>
+#else
+     * Select the entity by the condition-bean. <br>
+     * It returns not-null optional entity, so you should ... <br>
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, alwaysPresent().</span> <br>
+     * <span style="color: #AD4747; font-size: 120%">If it might be no data, get() after check by isPresent() or orElse(), ...</span>
+     * <pre>
+     * ${myConditionBeanClassName} cb = <span style="color: #70226C">new</span> ${myConditionBeanClassName}();
+     * cb.query().set...
+     *
+     * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #DD4747">selectEntity</span>(cb)}).<span style="color: #CC4747">alwaysPresent</span>(${myEntityVariableName} <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// called if present, or exception</span>
+     *     ... = ${myEntityVariableName}.get...
+     * });
+     *
+     * <span style="color: #3F7E5E">// if it might be no data, ...</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectEntity</span>(cb).<span style="color: #CC4747">ifPresent</span>(${myEntityVariableName} <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// called if present</span>
+     *     ... = ${myEntityVariableName}.get...
+     * }).<span style="color: #994747">orElse</span>(() <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// called if not present</span>
+     * });
+     * </pre>
+#end
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+#if ($table.isAvailableSelectEntityPlainReturn())
+     * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
+#else
+     * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+#end
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public ${table.filterSelectEntityOptionalReturnIfNeeds($myExtendedObjectClassName)} selectEntity(${myConditionBeanClassName} cb) {
+        return facadeSelectEntity(cb);
+    }
+
+#end
+    protected ${table.filterSelectEntityOptionalReturnIfNeeds($myExtendedObjectClassName)} facadeSelectEntity(${myConditionBeanClassName} cb) {
+#if ($table.isAvailableSelectEntityPlainReturn())
+        return doSelectEntity(cb, typeOfSelectedEntity());
+#else
+        return doSelectOptionalEntity(cb, typeOfSelectedEntity());
+#end
+    }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> ${table.filterSelectEntityOptionalReturn("ENTITY")} doSelectOptionalEntity(${myConditionBeanClassName} cb, Class<? extends ENTITY> tp) {
+#if ($table.isBasicOptionalEntityDBFluteEmbeddedClass())
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+#else
+        return ${table.selectEntityOptionalSimpleName}.of(doSelectEntity(cb, tp));
+#end
+    }
+
+#if ($table.isAvailableSelectEntityPlainReturn())
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)); }
+#else
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)).orElse(null); }
+#end
+#if ($table.isMakeCallbackConditionBeanSetup())
+
+    /**
+     * Select the entity by the condition-bean with deleted check. <br>
+     * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
+     * <pre>
+     * ${myExtendedObjectClassName} <span style="color: #553000">${myEntityVariableName}</span> = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
+     * ... = <span style="color: #553000">${myEntityVariableName}</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * </pre>
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The entity selected by the condition. (NotNull: if no data, throws exception)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    ${table.selectEntityWithDeletedCheckModifier} ${myExtendedObjectClassName} selectEntityWithDeletedCheck(CBCall<${myConditionBeanClassName}> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
+    }
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+
+    /**
+     * Select the entity by the condition-bean with deleted check. <br>
+     * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
+     * <pre>
+     * ${myConditionBeanClassName} cb = <span style="color: #70226C">new</span> ${myConditionBeanClassName}();
+     * cb.query().set...;
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb);
+     * ... = ${myEntityVariableName}.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * </pre>
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The entity selected by the condition. (NotNull: if no data, throws exception)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    ${table.selectEntityWithDeletedCheckModifier} ${myExtendedObjectClassName} selectEntityWithDeletedCheck(${myConditionBeanClassName} cb) {
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+#end
+#if ($table.hasPrimaryKey())
+
+    /**
+     * Select the entity by the primary-key value.
+     * ${table.primaryKeyArgsJavaDocString}
+#if ($table.isCompatibleSelectByPKPlainReturn())
+     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+#else
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+#end
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+#if ($table.isDeprecatedSelectByPKUQ())
+     * @deprecated ${table.deprecatedSelectByPKUQComment}
+#end
+     */
+    public ${table.filterSelectByPKOptionalReturnIfNeeds($myExtendedObjectClassName)} selectByPK${table.selectByPKSuffix}(${table.primaryKeyArgsString}) {
+        return facadeSelectByPK${table.selectByPKSuffix}(${table.primaryKeyArgsCallingString});
+    }
+
+    protected ${table.filterSelectByPKOptionalReturnIfNeeds($myExtendedObjectClassName)} facadeSelectByPK${table.selectByPKSuffix}(${table.primaryKeyArgsString}) {
+#if ($table.isCompatibleSelectByPKPlainReturn())
+        return doSelectByPK(${table.primaryKeyArgsCallingString}, typeOfSelectedEntity());
+#else
+        return doSelectOptionalByPK(${table.primaryKeyArgsCallingString}, typeOfSelectedEntity());
+#end
+    }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPK(${table.primaryKeyArgsString}, Class<? extends ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), tp);
+    }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> ${table.filterSelectEntityOptionalReturn("ENTITY")} doSelectOptionalByPK(${table.primaryKeyArgsString}, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(${table.primaryKeyArgsCallingString}, tp), ${table.primaryKeyArgsCallingString});
+    }
+#if ($table.isCompatibleSelectByPKWithDeletedCheck())
+
+    /**
+     * Select the entity by the primary-key value with deleted check.
+     * ${table.primaryKeyArgsJavaDocString}
+     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+#if ($table.isDeprecatedSelectByPKUQ())
+     * @deprecated ${table.deprecatedSelectByPKUQComment}
+#end
+     */
+    public ${myExtendedObjectClassName} selectByPK${table.selectByPKSuffix}WithDeletedCheck(${table.primaryKeyArgsString}) {
+        return doSelectByPKWithDeletedCheck(${table.primaryKeyArgsCallingString}, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> ENTITY doSelectByPKWithDeletedCheck(${table.primaryKeyArgsString}, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(${table.primaryKeyArgsCallingString}), tp);
+    }
+#end
+
+    protected ${myConditionBeanClassName} xprepareCBAsPK(${table.primaryKeyArgsString}) {
+        ${table.primaryKeyArgsAssertString}
+        return newConditionBean().acceptPK(${table.primaryKeyArgsCallingString});
+    }
+#end
+#foreach ($uq in $table.keyableUniqueList)
+
+    /**
+     * Select the entity by the unique-key value.
+     * ${uq.argsJavaDocString}
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+#if ($table.isDeprecatedSelectByPKUQ())
+     * @deprecated ${table.deprecatedSelectByPKUQComment}
+#end
+     */
+    public ${table.filterSelectEntityOptionalReturn(${myExtendedObjectClassName})} selectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        return facadeSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString});
+    }
+
+    protected ${table.filterSelectEntityOptionalReturn(${myExtendedObjectClassName})} facadeSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        return doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends ${myExtendedObjectClassName}> ${table.filterSelectEntityOptionalReturn("ENTITY")} doSelectByUniqueOf${uq.javaNameKeyword}(${uq.argsString}, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString}), tp), ${uq.argsCallingString});
+    }
+
+    protected ${myConditionBeanClassName} xprepareCBAsUniqueOf${uq.javaNameKeyword}(${uq.argsString}) {
+        ${uq.argsAssertString}
+        return newConditionBean().acceptUniqueOf${uq.javaNameKeyword}(${uq.argsCallingString});
+    }
+#end
+
+    // ===================================================================================
+    //                                                                         List Select
+    //                                                                         ===========
+#if ($table.isMakeCallbackConditionBeanSetup())
+    /**
+     * Select the list as result bean.
+     * <pre>
+     * ListResultBean&lt;${myExtendedObjectClassName}&gt; <span style="color: #553000">${myEntityListVariableName}</span> = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...;
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...;
+     * });
+     * <span style="color: #70226C">for</span> (${myExtendedObjectClassName} <span style="color: #553000">${myEntityVariableName}</span> : <span style="color: #553000">${myEntityListVariableName}</span>) {
+     *     ... = <span style="color: #553000">${myEntityVariableName}</span>.get...;
+     * }
+     * </pre>
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The result bean of selected list. (NotNull: if no data, returns empty list)
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
+     */
+    public ListResultBean<${myExtendedObjectClassName}> selectList(CBCall<${myConditionBeanClassName}> cbLambda) {
+        return facadeSelectList(createCB(cbLambda));
+    }
+
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+    /**
+     * Select the list as result bean.
+     * <pre>
+     * ${myConditionBeanClassName} cb = <span style="color: #70226C">new</span> ${myConditionBeanClassName}();
+     * cb.query().set...;
+     * cb.query().addOrderBy...;
+     * ListResultBean&lt;${myExtendedObjectClassName}&gt; <span style="color: #553000">${myEntityListVariableName}</span> = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectList</span>(cb);
+     * <span style="color: #70226C">for</span> (${myExtendedObjectClassName} ${myEntityVariableName} : <span style="color: #553000">${myEntityListVariableName}</span>) {
+     *     ... = ${myEntityVariableName}.get...;
+     * }
+     * </pre>
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The result bean of selected list. (NotNull: if no data, returns empty list)
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
+     */
+    public ListResultBean<${myExtendedObjectClassName}> selectList(${myConditionBeanClassName} cb) {
+        return facadeSelectList(cb);
+    }
+
+#end
+#if ($table.isEntityDerivedMappable())
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
+#end
+    // ===================================================================================
+    //                                                                         Page Select
+    //                                                                         ===========
+#if ($table.isMakeCallbackConditionBeanSetup())
+    /**
+     * Select the page as result bean. <br>
+     * (both count-select and paging-select are executed)
+     * <pre>
+     * PagingResultBean&lt;${myExtendedObjectClassName}&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * });
+     * <span style="color: #70226C">int</span> allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * <span style="color: #70226C">int</span> allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * <span style="color: #70226C">boolean</span> isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * <span style="color: #70226C">boolean</span> isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
+     * ...
+     * <span style="color: #70226C">for</span> (${myExtendedObjectClassName} ${myEntityVariableName} : <span style="color: #553000">page</span>) {
+     *     ... = ${myEntityVariableName}.get...;
+     * }
+     * </pre>
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
+     */
+    public PagingResultBean<${myExtendedObjectClassName}> selectPage(CBCall<${myConditionBeanClassName}> cbLambda) {
+        return facadeSelectPage(createCB(cbLambda));
+    }
+
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+    /**
+     * Select the page as result bean. <br>
+     * (both count-select and paging-select are executed)
+     * <pre>
+     * ${myConditionBeanClassName} cb = <span style="color: #70226C">new</span> ${myConditionBeanClassName}();
+     * cb.query().setFoo...(value);
+     * cb.query().addOrderBy_Bar...();
+     * cb.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;${myExtendedObjectClassName}&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectPage</span>(cb);
+     * <span style="color: #70226C">int</span> allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * <span style="color: #70226C">int</span> allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * <span style="color: #70226C">boolean</span> isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * <span style="color: #70226C">boolean</span> isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
+     * ...
+     * <span style="color: #70226C">for</span> (${myExtendedObjectClassName} ${myEntityVariableName} : <span style="color: #553000">page</span>) {
+     *     ... = ${myEntityVariableName}.get...();
+     * }
+     * </pre>
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
+     */
+    public PagingResultBean<${myExtendedObjectClassName}> selectPage(${myConditionBeanClassName} cb) {
+        return facadeSelectPage(cb);
+    }
+
+#end
+    // ===================================================================================
+    //                                                                       Cursor Select
+    //                                                                       =============
+#if ($table.isMakeCallbackConditionBeanSetup())
+    /**
+     * Select the cursor by the condition-bean.
+     * <pre>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">member</span>.getMemberName();
+     * });
+     * </pre>
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @param entityLambda The handler of entity row of ${myExtendedObjectClassName}. (NotNull)
+     */
+    public void selectCursor(CBCall<${myConditionBeanClassName}> cbLambda, EntityRowHandler<${myExtendedObjectClassName}> entityLambda) {
+        facadeSelectCursor(createCB(cbLambda), entityLambda);
+    }
+
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+    /**
+     * Select the cursor by the condition-bean.
+     * <pre>
+     * ${myConditionBeanClassName} cb = <span style="color: #70226C">new</span> ${myConditionBeanClassName}();
+     * cb.query().set...
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectCursor</span>(cb, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">member</span>.getMemberName();
+     * });
+     * </pre>
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @param entityRowHandler The handler of entity row of ${myExtendedObjectClassName}. (NotNull)
+     */
+    public void selectCursor(${myConditionBeanClassName} cb, EntityRowHandler<${myExtendedObjectClassName}> entityRowHandler) {
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+#end
+    // ===================================================================================
+    //                                                                       Scalar Select
+    //                                                                       =============
+    /**
+     * Select the scalar value derived by a function from uniquely-selected records. <br>
+     * You should call a function method after this method called like as follows:
+     * <pre>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">selectScalar</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * </pre>
+     * @param <RESULT> The type of result.
+     * @param resultType The type of result. (NotNull)
+     * @return The scalar function object to specify function for scalar value. (NotNull)
+     */
+    public <RESULT> HpSLSFunction<${myConditionBeanClassName}, RESULT> selectScalar(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
+    }
+#if ($table.isCompatibleSelectScalarOldName())
+
+    /**
+     * Select the scalar value derived by a function from uniquely-selected records. <br>
+     * You should call a function method after this method called like as follows:
+     * <pre>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * </pre>
+     * @param <RESULT> The type of result.
+     * @param resultType The type of result. (NotNull)
+     * @return The scalar function object to specify function for scalar value. (NotNull)
+     */
+    public <RESULT> HpSLSFunction<${myConditionBeanClassName}, RESULT> scalarSelect(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
+    }
+#end
+
+    // ===================================================================================
+    //                                                                            Sequence
+    //                                                                            ========
+#if ($table.isUseSequence())
+    /**
+     * Select the next value as sequence. <br>
+     * This method is called when insert() and set to primary-key automatically.
+     * So you don't need to call this as long as you need to get next value before insert().
+     * @return The next value. (NotNull)
+     */
+    public ${table.sequenceReturnType} selectNextVal() {
+        return facadeSelectNextVal();
+    }
+
+    protected ${table.sequenceReturnType} facadeSelectNextVal() {
+        return doSelectNextVal(${table.sequenceReturnType}.class);
+    }
+
+    protected <RESULT> RESULT doSelectNextVal(Class<RESULT> tp) {
+        return delegateSelectNextVal(tp);
+    }
+
+#end
+    @Override
+    protected Number doReadNextVal() {
+#if ($table.isUseSequence())
+        return facadeSelectNextVal();
+#else
+        String msg = "This table is NOT related to sequence: " + asTableDbName();
+        throw new UnsupportedOperationException(msg);
+#end
+    }
+#foreach ($col in $table.subColumnSequenceColumnList)
+
+    public ${col.javaNative} selectNextValFor${col.javaName}() {
+        return facadeSelectNextValFor${col.javaName}();
+    }
+
+    protected ${col.javaNative} facadeSelectNextValFor${col.javaName}() {
+        return doSelectNextValFor${col.javaName}(null, null); // sequence cache is unsupported by default
+    }
+
+    protected ${col.javaNative} doSelectNextValFor${col.javaName}(Integer incrementSize, Integer cacheSize) {
+        return delegateSelectNextValSub(${col.javaNative}.class, "${col.name}", "${col.subColumnSequenceName}", incrementSize, cacheSize);
+    }
+#end
+
+    // ===================================================================================
+    //                                                                       Load Referrer
+    //                                                                       =============
+## needs referrer loader when no referrer-as-many for pull-out
+#if ($table.hasReferrerLoader())
+    /**
+     * Load referrer for the list by the referrer loader.
+     * <pre>
+     * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * memberBhv.<span style="color: #CC4747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt; {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * <span style="color: #70226C">for</span> (Member member : <span style="color: #553000">memberList</span>) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
+     *     <span style="color: #70226C">for</span> (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param ${myEntityListVariableName} The entity list of ${table.javaBeansRulePropertyName}. (NotNull)
+     * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, ReferrerLoaderHandler<${myReferrerLoaderClassName}> loaderLambda) {
+        xassLRArg(${myEntityListVariableName}, loaderLambda);
+        loaderLambda.handle(new ${myReferrerLoaderClassName}().ready(${myEntityListVariableName}, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer for the entity by the referrer loader.
+     * <pre>
+     * Member <span style="color: #553000">member</span> = <span style="color: #0000C0">memberBhv</span>.selectEntityWithDeletedCheck(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> <span style="color: #553000">cb</span>.acceptPK(1));
+     * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">load</span>(<span style="color: #553000">member</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt; {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * List&lt;Purchase&gt; purchaseList = <span style="color: #553000">member</span>.<span style="color: #CC4747">getPurchaseList()</span>;
+     * <span style="color: #70226C">for</span> (Purchase purchase : purchaseList) {
+     *     ...
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param ${myEntityVariableName} The entity of ${table.javaBeansRulePropertyName}. (NotNull)
+     * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(${myExtendedObjectClassName} ${myEntityVariableName}, ReferrerLoaderHandler<${myReferrerLoaderClassName}> loaderLambda) {
+        xassLRArg(${myEntityVariableName}, loaderLambda);
+        loaderLambda.handle(new ${myReferrerLoaderClassName}().ready(xnewLRAryLs(${myEntityVariableName}), _behaviorSelector));
+    }
+
+#end
+#if ($table.hasLoadReferrer())
+#foreach ($referrer in $table.referrerAsManyList)
+#set ($referrerEntityClassName = "${referrer.referrerTableExtendedEntityClassName}")
+#set ($referrerBhvClassName = "${referrer.referrerTableExtendedBehaviorClassName}")
+#set ($referrerCBClassName = "${referrer.referrerTableExtendedConditionBeanClassName}")
+#set ($referrerEntityLongClassName = "${glPackageExtendedEntity}.${referrerEntityClassName}")
+#set ($referrerMethodIdentityName = "${referrer.referrerConditionMethodIdentityName}")
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the set-upper of referrer. <br>
+     * ${referrer.referrerDispForJavaDoc}
+     * <pre>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">load${referrerMethodIdentityName}</span>(<span style="color: #553000">${myEntityListVariableName}</span>, <span style="color: #553000">${referrer.referrerLambdaExampleCBName}</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">${referrer.referrerLambdaExampleCBName}</span>.setupSelect...
+     *     <span style="color: #553000">${referrer.referrerLambdaExampleCBName}</span>.query().set...
+     *     <span style="color: #553000">${referrer.referrerLambdaExampleCBName}</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (${myExtendedObjectClassName} ${myEntityVariableName} : <span style="color: #553000">${myEntityListVariableName}</span>) {
+     *     ... = ${myEntityVariableName}.<span style="color: #CC4747">get${referrer.referrerJavaBeansRulePropertyNameInitCap}()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+#if ($referrer.isSimpleKeyFK())
+     * cb.query().set${referrer.getLocalColumnJavaNameAsOne()}_InScope(pkList);
+     * cb.query().addOrderBy_${referrer.getLocalColumnJavaNameAsOne()}_Asc();
+#else
+     * cb.query().set[ForeignKey]_InScope(pkList);
+     * cb.query().addOrderBy_[ForeignKey]_Asc();
+#end
+     * </pre>
+     * @param ${myEntityListVariableName} The entity list of ${table.javaBeansRulePropertyName}. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<${referrerEntityClassName}> load${referrerMethodIdentityName}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, ${table.loadReferrerConditionSetupperName}<${referrerCBClassName}> refCBLambda) {
+        xassLRArg(${myEntityListVariableName}, refCBLambda);
+        return doLoad${referrerMethodIdentityName}(${myEntityListVariableName}, new LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the set-upper of referrer. <br>
+     * ${referrer.referrerDispForJavaDoc}
+     * <pre>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">load${referrerMethodIdentityName}</span>(<span style="color: #553000">${myEntityVariableName}</span>, <span style="color: #553000">${referrer.referrerLambdaExampleCBName}</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">${referrer.referrerLambdaExampleCBName}</span>.setupSelect...
+     *     <span style="color: #553000">${referrer.referrerLambdaExampleCBName}</span>.query().set...
+     *     <span style="color: #553000">${referrer.referrerLambdaExampleCBName}</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">${myEntityVariableName}</span>.<span style="color: #CC4747">get${referrer.referrerJavaBeansRulePropertyNameInitCap}()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+#if ($referrer.isSimpleKeyFK())
+     * cb.query().set${referrer.getLocalColumnJavaNameAsOne()}_InScope(pkList);
+     * cb.query().addOrderBy_${referrer.getLocalColumnJavaNameAsOne()}_Asc();
+#else
+     * cb.query().set[ForeignKey]_InScope(pkList);
+     * cb.query().addOrderBy_[ForeignKey]_Asc();
+#end
+     * </pre>
+     * @param ${myEntityVariableName} The entity of ${table.javaBeansRulePropertyName}. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<${referrerEntityClassName}> load${referrerMethodIdentityName}(${myExtendedObjectClassName} ${myEntityVariableName}, ${table.loadReferrerConditionSetupperName}<${referrerCBClassName}> refCBLambda) {
+        xassLRArg(${myEntityVariableName}, refCBLambda);
+        return doLoad${referrerMethodIdentityName}(xnewLRLs(${myEntityVariableName}), new LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}>().xinit(refCBLambda));
+    }
+
+#if ($table.isAvailableLoadReferrerByOldOption())
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
+     * @param ${myEntityVariableName} The entity of ${table.javaBeansRulePropertyName}. (NotNull)
+     * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<${referrerEntityClassName}> load${referrerMethodIdentityName}(${myExtendedObjectClassName} ${myEntityVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
+        xassLRArg(${myEntityVariableName}, loadReferrerOption);
+        return load${referrerMethodIdentityName}(xnewLRLs(${myEntityVariableName}), loadReferrerOption);
+    }
+
+    /**
+     * {Refer to overload method that has an argument of condition-bean set-upper} #beforejava8
+     * @param ${myEntityListVariableName} The entity list of ${table.javaBeansRulePropertyName}. (NotNull)
+     * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    @SuppressWarnings("unchecked")
+    public NestedReferrerListGateway<${referrerEntityClassName}> load${referrerMethodIdentityName}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> loadReferrerOption) {
+        xassLRArg(${myEntityListVariableName}, loadReferrerOption);
+        if (${myEntityListVariableName}.isEmpty()) { return (NestedReferrerListGateway<${referrerEntityClassName}>)EMPTY_NREF_LGWAY; }
+        return doLoad${referrerMethodIdentityName}(${myEntityListVariableName}, loadReferrerOption);
+    }
+
+#end
+    protected NestedReferrerListGateway<${referrerEntityClassName}> doLoad${referrerMethodIdentityName}(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, LoadReferrerOption<${referrerCBClassName}, ${referrerEntityClassName}> option) {
+        return helpLoadReferrerInternally(${myEntityListVariableName}, option, "${referrer.referrerPropertyName}");
+    }
+
+#end
+#end
+    // ===================================================================================
+    //                                                                   Pull out Relation
+    //                                                                   =================
+#foreach ($fk in $table.foreignKeys)
+#set ($foreignEntityClassName = "${fk.foreignTableExtendedEntityClassName}")
+    /**
+     * Pull out the list of foreign table '${foreignEntityClassName}'.
+     * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<${foreignEntityClassName}> pullout${fk.foreignPropertyNameInitCap}(List<${myExtendedObjectClassName}> ${myEntityListVariableName})
+    { return helpPulloutInternally(${myEntityListVariableName}, "${fk.foreignPropertyName}"); }
+
+#end
+#foreach ($referrer in $table.referrerAsOneList)
+#set ($referrerEntityClassName = $referrer.referrerTableExtendedEntityClassName)
+    /**
+     * Pull out the list of referrer-as-one table '${referrerEntityClassName}'.
+     * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
+     * @return The list of referrer-as-one table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<${referrerEntityClassName}> pullout${referrer.referrerPropertyNameInitCapAsOne}(List<${myExtendedObjectClassName}> ${myEntityListVariableName})
+    { return helpPulloutInternally(${myEntityListVariableName}, "${referrer.referrerPropertyNameAsOne}"); }
+
+#end
+    // ===================================================================================
+    //                                                                      Extract Column
+    //                                                                      ==============
+#if ($table.hasSinglePrimaryKey())
+#set ($pkCol = $table.primaryKeyAsOne)
+    /**
+     * Extract the value list of (single) primary key ${pkCol.uncapitalisedJavaName}.
+     * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
+     * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<${pkCol.javaNative}> extract${pkCol.javaName}List(List<${myExtendedObjectClassName}> ${myEntityListVariableName})
+    { return helpExtractListInternally(${myEntityListVariableName}, "${pkCol.javaBeansRulePropertyName}"); }
+
+#end
+#foreach ($uqCol in $table.singleUniqueUQColumnList)
+    /**
+     * Extract the value list of (single) unique key ${uqCol.uncapitalisedJavaName}.
+     * @param ${myEntityListVariableName} The list of ${table.uncapitalisedJavaName}. (NotNull, EmptyAllowed)
+     * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<${uqCol.javaNative}> extract${uqCol.javaName}List(List<${myExtendedObjectClassName}> ${myEntityListVariableName})
+    { return helpExtractListInternally(${myEntityListVariableName}, "${uqCol.javaBeansRulePropertyName}"); }
+
+#end
+#if ($table.isWritable())
+    // ===================================================================================
+    //                                                                       Entity Update
+    //                                                                       =============
+    /**
+     * Insert the entity modified-only. (DefaultConstraintsEnabled)
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
+     * ${myEntityVariableName}.setFoo...(value);
+     * ${myEntityVariableName}.setBar...(value);
+     * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">insert</span>(${myEntityVariableName});
+     * ... = ${myEntityVariableName}.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
+     * </pre>
+     * <p>While, when the entity is created by select, all columns are registered.</p>
+     * @param ${myEntityVariableName} The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void insert(${myExtendedObjectClassName} ${myEntityVariableName}) {
+#if ($database.isCompatibleInsertColumnNotNullOnly())
+        InsertOption<${myConditionBeanClassName}> op = new InsertOption<${myConditionBeanClassName}>();
+        op.xtoBeCompatibleInsertColumnNotNullOnly();
+        doInsert(${myEntityVariableName}, op);
+#else
+        doInsert(${myEntityVariableName}, null);
+#end
+    }
+
+    /**
+#if ($table.hasOptimisticLock())
+     * Update the entity modified-only. (ZeroUpdateException, ExclusiveControl) <br>
+#else
+     * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl) <br>
+#end
+     * By PK as default, and also you can update by unique keys using entity's uniqueOf().
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * ${myEntityVariableName}.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
+     * ${myEntityVariableName}.<span style="color: #CC4747">setVersionNo</span>(value);
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">update</span>(${myEntityVariableName});
+     * </pre>
+#if ($table.hasOptimisticLock())
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+#else
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+#end
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void update(${myExtendedObjectClassName} ${myEntityVariableName}) {
+        doUpdate(${myEntityVariableName}, null);
+    }
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Update the entity non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl) <br>
+     * By PK as default, and also you can update by unique keys using entity's uniqueOf().
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * ${myEntityVariableName}.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
+     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">updateNonstrict</span>(${myEntityVariableName});
+     * </pre>
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void updateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}) {
+        doUpdateNonstrict(${myEntityVariableName}, null);
+    }
+#end
+
+    /**
+#if ($table.hasOptimisticLock())
+     * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br>
+#else
+     * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br>
+#end
+     * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br>
+     * <p><span style="color: #994747; font-size: 120%">Also you can update by unique keys using entity's uniqueOf().</span></p>
+     * @param ${myEntityVariableName} The entity of insert or update. (NotNull, ...depends on insert or update)
+#if ($table.hasOptimisticLock())
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+#else
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+#end
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void insertOrUpdate(${myExtendedObjectClassName} ${myEntityVariableName}) {
+        doInsertOrUpdate(${myEntityVariableName}, null, null);
+    }
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br>
+     * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
+     * <p><span style="color: #994747; font-size: 120%">Also you can update by unique keys using entity's uniqueOf().</span></p>
+     * @param ${myEntityVariableName} The entity of insert or update. (NotNull, ...depends on insert or update)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void insertOrUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}) {
+        doInsertOrUpdateNonstrict(${myEntityVariableName}, null, null);
+    }
+#end
+#if ($database.isInsertOrUpdateCountPreCheck())
+
+    @Override
+    protected boolean isInsertOrUpdateCountPreCheck() { return true; }
+#end
+
+    /**
+#if ($table.hasOptimisticLock())
+     * Delete the entity. (ZeroUpdateException, ExclusiveControl) <br>
+#else
+     * Delete the entity. (ZeroUpdateException, NonExclusiveControl) <br>
+#end
+     * By PK as default, and also you can delete by unique keys using entity's uniqueOf().
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
+     * ${myEntityVariableName}.<span style="color: #CC4747">setVersionNo</span>(value);
+     * <span style="color: #70226C">try</span> {
+     *     <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">delete</span>(${myEntityVariableName});
+     * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
+     *     ...
+     * }
+     * </pre>
+#if ($table.hasOptimisticLock())
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+#else
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+#end
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     */
+    public void delete(${myExtendedObjectClassName} ${myEntityVariableName}) {
+        doDelete(${myEntityVariableName}, null);
+    }
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Delete the entity non-strictly. {ZeroUpdateException, NonExclusiveControl} <br>
+     * By PK as default, and also you can delete by unique keys using entity's uniqueOf().
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
+     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">deleteNonstrict</span>(${myEntityVariableName});
+     * </pre>
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     */
+    public void deleteNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}) {
+        doDeleteNonstrict(${myEntityVariableName}, null);
+    }
+#if ($table.isCompatibleDeleteNonstrictIgnoreDeleted())
+
+    /**
+     * Delete the entity non-strictly ignoring deleted. {ZeroUpdateException, NonExclusiveControl}
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
+     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">deleteNonstrictIgnoreDeleted</span>(${myEntityVariableName});
+     * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
+     * </pre>
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     */
+    public void deleteNonstrictIgnoreDeleted(${myExtendedObjectClassName} ${myEntityVariableName}) {
+        doDeleteNonstrictIgnoreDeleted(${myEntityVariableName}, null);
+    }
+
+    protected void doDeleteNonstrictIgnoreDeleted(${myExtendedObjectClassName} et, final DeleteOption<${myConditionBeanClassName}> op) {
+        assertObjectNotNull("${myEntityVariableName}", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
+    }
+#end
+#end
+
+    // ===================================================================================
+    //                                                                        Batch Update
+    //                                                                        ============
+    /**
+     * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br>
+     * This method uses executeBatch() of java.sql.PreparedStatement. <br>
+     * <p><span style="color: #CC4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <pre>
+     * <span style="color: #70226C">for</span> (... : ...) {
+     *     ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     *     ${myEntityVariableName}.setFooName("foo");
+     *     <span style="color: #70226C">if</span> (...) {
+     *         ${myEntityVariableName}.setFooPrice(123);
+     *     }
+     *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are registered</span>
+     *     <span style="color: #3F7E5E">// FOO_PRICE not-called in any entities are registered as null without default value</span>
+     *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
+     *     ${myEntityListVariableName}.add(${myEntityVariableName});
+     * }
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">batchInsert</span>(${myEntityListVariableName});
+     * </pre>
+     * <p>While, when the entities are created by select, all columns are registered.</p>
+     * <p>And if the table has an identity, entities after the process don't have incremented values.
+     * (When you use the (normal) insert(), you can get the incremented value from your entity)</p>
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNullAllowed: when auto-increment)
+     * @return The array of inserted count. (NotNull, EmptyAllowed)
+     */
+    public int[] batchInsert(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
+        return doBatchInsert(${myEntityListVariableName}, null);
+    }
+#if ($database.isBatchInsertColumnModifiedPropertiesFragmentedDisallowed())
+
+    @Override
+    protected boolean isBatchInsertColumnModifiedPropertiesFragmentedDisallowed() { return true; }
+#end
+#if ($database.isCompatibleBatchInsertDefaultEveryColumn())
+
+    @Override
+    protected boolean isCompatibleBatchInsertDefaultEveryColumn() { return true; }
+#end
+
+    /**
+#if ($table.hasOptimisticLock())
+     * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br>
+#else
+     * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br>
+#end
+     * This method uses executeBatch() of java.sql.PreparedStatement. <br>
+     * <span style="color: #CC4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <pre>
+     * for (... : ...) {
+     *     ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     *     ${myEntityVariableName}.setFooName("foo");
+     *     <span style="color: #70226C">if</span> (...) {
+     *         ${myEntityVariableName}.setFooPrice(123);
+     *     } <span style="color: #70226C">else</span> {
+     *         ${myEntityVariableName}.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
+     *         <span style="color: #3F7E5E">//${myEntityVariableName}.setFooDate(...); // *not allowed, fragmented</span>
+     *     }
+     *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are updated</span>
+     *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
+     *     ${myEntityListVariableName}.add(${myEntityVariableName});
+     * }
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">batchUpdate</span>(${myEntityListVariableName});
+     * </pre>
+#if ($table.hasOptimisticLock())
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+#else
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+#end
+     * @return The array of updated count. (NotNull, EmptyAllowed)
+#if ($table.hasOptimisticLock())
+     * @throws BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+#else
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+#end
+     */
+    public int[] batchUpdate(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
+        return doBatchUpdate(${myEntityListVariableName}, null);
+    }
+#if ($database.isBatchUpdateColumnModifiedPropertiesFragmentedAllowed())
+
+    @Override
+    protected boolean isBatchUpdateColumnModifiedPropertiesFragmentedAllowed() { return true; }
+#end
+#if ($database.isCompatibleBatchUpdateDefaultEveryColumn())
+
+    @Override
+    protected boolean isCompatibleBatchUpdateDefaultEveryColumn() { return true; }
+#end
+#if ($table.isMakeBatchUpdateSpecifyColumn())
+
+    /**
+#if ($table.hasOptimisticLock())
+     * Batch-update the entity list specified-only. (ExclusiveControl) <br>
+#else
+     * Batch-update the entity list specified-only. (NonExclusiveControl) <br>
+#end
+     * This method uses executeBatch() of java.sql.PreparedStatement.
+     * <pre>
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
+     * ${myEntityVariableName}Bhv.<span style="color: #CC4747">batchUpdate</span>(${myEntityListVariableName}, <span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// the two only updated</span>
+     *     <span style="color: #553000">colCB</span>.specify().<span style="color: #CC4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *     <span style="color: #553000">colCB</span>.specify().<span style="color: #CC4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     * });
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">batchUpdate</span>(${myEntityListVariableName}, <span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// all columns are updated</span>
+     *     <span style="color: #553000">colCB</span>.specify().<span style="color: #CC4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     * });
+     * </pre>
+     * <p>You can specify update columns used on set clause of update statement.
+     * However you do not need to specify common columns for update
+     * and an optimistic lock column because they are specified implicitly.</p>
+     * <p>And you should specify columns that are modified in any entities (at least one entity).
+     * But if you specify every column, it has no check.</p>
+#if ($table.hasOptimisticLock())
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+#else
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+#end
+     * @param colCBLambda The callback for specification of update columns. (NotNull)
+     * @return The array of updated count. (NotNull, EmptyAllowed)
+#if ($table.hasOptimisticLock())
+     * @throws BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+#else
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+#end
+     */
+    public int[] batchUpdate(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, SpecifyQuery<${myConditionBeanClassName}> colCBLambda) {
+        return doBatchUpdate(${myEntityListVariableName}, createSpecifiedUpdateOption(colCBLambda));
+    }
+#end
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br>
+     * This method uses executeBatch() of java.sql.PreparedStatement. <br>
+     * <span style="color: #CC4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
+     * <pre>
+     * <span style="color: #70226C">for</span> (... : ...) {
+     *     ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     *     ${myEntityVariableName}.setFooName("foo");
+     *     <span style="color: #70226C">if</span> (...) {
+     *         ${myEntityVariableName}.setFooPrice(123);
+     *     } <span style="color: #70226C">else</span> {
+     *         ${myEntityVariableName}.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
+     *         <span style="color: #3F7E5E">//${myEntityVariableName}.setFooDate(...); // *not allowed, fragmented</span>
+     *     }
+     *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are updated</span>
+     *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
+     *     ${myEntityListVariableName}.add(${myEntityVariableName});
+     * }
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">batchUpdate</span>(${myEntityListVariableName});
+     * </pre>
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @return The array of updated count. (NotNull, EmptyAllowed)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     */
+    public int[] batchUpdateNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
+        return doBatchUpdateNonstrict(${myEntityListVariableName}, null);
+    }
+#if ($table.isMakeBatchUpdateSpecifyColumn())
+
+    /**
+     * Batch-update the entity list non-strictly specified-only. (NonExclusiveControl) <br>
+     * This method uses executeBatch() of java.sql.PreparedStatement.
+     * <pre>
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">batchUpdateNonstrict</span>(${myEntityListVariableName}, <span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// the two only updated</span>
+     *     <span style="color: #553000">colCB</span>.specify().<span style="color: #CC4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *     <span style="color: #553000">colCB</span>.specify().<span style="color: #CC4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     * });
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">batchUpdateNonstrict</span>(${myEntityListVariableName}, <span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// all columns are updated</span>
+     *     <span style="color: #553000">colCB</span>.specify().<span style="color: #CC4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     * });
+     * </pre>
+     * <p>You can specify update columns used on set clause of update statement.
+     * However you do not need to specify common columns for update
+     * and an optimistic lock column because they are specified implicitly.</p>
+     * <p>And you should specify columns that are modified in any entities (at least one entity).</p>
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param colCBLambda The callback for specification of update columns. (NotNull)
+     * @return The array of updated count. (NotNull, EmptyAllowed)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     */
+    public int[] batchUpdateNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, SpecifyQuery<${myConditionBeanClassName}> colCBLambda) {
+        return doBatchUpdateNonstrict(${myEntityListVariableName}, createSpecifiedUpdateOption(colCBLambda));
+    }
+#end
+#end
+
+    /**
+#if ($table.hasOptimisticLock())
+     * Batch-delete the entity list. (ExclusiveControl) <br>
+#else
+     * Batch-delete the entity list. (NonExclusiveControl) <br>
+#end
+     * This method uses executeBatch() of java.sql.PreparedStatement.
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @return The array of deleted count. (NotNull, EmptyAllowed)
+#if ($table.hasOptimisticLock())
+     * @throws BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+#else
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+#end
+     */
+    public int[] batchDelete(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
+        return doBatchDelete(${myEntityListVariableName}, null);
+    }
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Batch-delete the entity list non-strictly. {NonExclusiveControl} <br>
+     * This method uses executeBatch() of java.sql.PreparedStatement.
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @return The array of deleted count. (NotNull, EmptyAllowed)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     */
+    public int[] batchDeleteNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}) {
+        return doBatchDeleteNonstrict(${myEntityListVariableName}, null);
+    }
+#end
+
+    // ===================================================================================
+    //                                                                        Query Update
+    //                                                                        ============
+    /**
+     * Insert the several entities by query (modified-only for fixed value).
+     * <pre>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;${myExtendedObjectClassName}, ${myConditionBeanClassName}&gt;() {
+     *     public ConditionBean setup(${myExtendedObjectClassName} entity, ${myConditionBeanClassName} intoCB) {
+     *         FooCB cb = FooCB();
+     *         cb.setupSelect_Bar();
+     *
+     *         <span style="color: #3F7E5E">// mapping</span>
+     *         intoCB.specify().columnMyName().mappedFrom(cb.specify().columnFooName());
+     *         intoCB.specify().columnMyCount().mappedFrom(cb.specify().columnFooCount());
+     *         intoCB.specify().columnMyDate().mappedFrom(cb.specify().specifyBar().columnBarDate());
+     *         entity.setMyFixedValue("foo"); <span style="color: #3F7E5E">// fixed value</span>
+     *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
+     *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
+     *         <span style="color: #3F7E5E">//entity.set...;</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
+     *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
+     *
+     *         return cb;
+     *     }
+     * });
+     * </pre>
+     * @param manyArgLambda The callback to set up query-insert. (NotNull)
+     * @return The inserted count.
+     */
+    public int queryInsert(QueryInsertSetupper<${myExtendedObjectClassName}, ${myConditionBeanClassName}> manyArgLambda) {
+        return doQueryInsert(manyArgLambda, null);
+    }
+#if ($table.isMakeCallbackConditionBeanSetup())
+
+    /**
+     * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * <span style="color: #3F7E5E">// you don't need to set PK value</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setPK...(value);</span>
+     * ${myEntityVariableName}.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
+     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryUpdate</span>(${myEntityVariableName}, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().setFoo...
+     * });
+     * </pre>
+     * @param ${myEntityVariableName} The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The updated count.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
+     */
+    public int queryUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, CBCall<${myConditionBeanClassName}> cbLambda) {
+        return doQueryUpdate(${myEntityVariableName}, createCB(cbLambda), null);
+    }
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+
+    /**
+     * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * <span style="color: #3F7E5E">// you don't need to set PK value</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setPK...(value);</span>
+     * ${myEntityVariableName}.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.set...;</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
+     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
+     * ${myConditionBeanClassName} cb = <span style="color: #70226C">new</span> ${myConditionBeanClassName}();
+     * cb.query().setFoo...(value);
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryUpdate</span>(${myEntityVariableName}, cb);
+     * </pre>
+     * @param ${myEntityVariableName} The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The updated count.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
+     */
+    public int queryUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, ${myConditionBeanClassName} cb) {
+        return doQueryUpdate(${myEntityVariableName}, cb, null);
+    }
+#end
+#if ($table.isMakeCallbackConditionBeanSetup())
+
+    /**
+     * Delete the several entities by query. (NonExclusiveControl)
+     * <pre>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryDelete</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().setFoo...
+     * });
+     * </pre>
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The deleted count.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
+     */
+    public int queryDelete(CBCall<${myConditionBeanClassName}> cbLambda) {
+        return doQueryDelete(createCB(cbLambda), null);
+    }
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+
+    /**
+     * Delete the several entities by query. (NonExclusiveControl)
+     * <pre>
+     * ${myConditionBeanClassName} cb = new ${myConditionBeanClassName}();
+     * cb.query().setFoo...(value);
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryDelete</span>(${myEntityVariableName}, cb);
+     * </pre>
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @return The deleted count.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
+     */
+    public int queryDelete(${myConditionBeanClassName} cb) {
+        return doQueryDelete(cb, null);
+    }
+#end
+
+    // ===================================================================================
+    //                                                                      Varying Update
+    //                                                                      ==============
+    // -----------------------------------------------------
+    //                                         Entity Update
+    //                                         -------------
+    /**
+     * Insert the entity with varying requests. <br>
+     * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br>
+     * Other specifications are same as insert(entity).
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
+     * ${myEntityVariableName}.setFoo...(value);
+     * ${myEntityVariableName}.setBar...(value);
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">varyingInsert</span>(${myEntityVariableName}, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
+     *     <span style="color: #553000">op</span>.disableCommonColumnAutoSetup();
+     * });
+     * ... = ${myEntityVariableName}.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
+     * </pre>
+     * @param ${myEntityVariableName} The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param opLambda The callback for option of insert for varying requests. (NotNull)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void varyingInsert(${myExtendedObjectClassName} ${myEntityVariableName}, WritableOptionCall<${myConditionBeanClassName}, InsertOption<${myConditionBeanClassName}>> opLambda) {
+        doInsert(${myEntityVariableName}, createInsertOption(opLambda));
+    }
+
+    /**
+#if ($table.hasOptimisticLock())
+     * Update the entity with varying requests modified-only. (ZeroUpdateException, ExclusiveControl) <br>
+#else
+     * Update the entity with varying requests modified-only. (ZeroUpdateException, NonExclusiveControl) <br>
+#end
+     * For example, self(selfCalculationSpecification), specify(updateColumnSpecification), disableCommonColumnAutoSetup(). <br>
+     * Other specifications are same as update(entity).
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * ${myEntityVariableName}.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
+     * ${myEntityVariableName}.<span style="color: #CC4747">setVersionNo</span>(value);
+     * <span style="color: #3F7E5E">// you can update by self calculation values</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">varyingUpdate</span>(${myEntityVariableName}, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">op</span>.self(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">columnXxxCount()</span>;
+     *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
+     * });
+     * </pre>
+#if ($table.hasOptimisticLock())
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+#else
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull)
+#end
+     * @param opLambda The callback for option of update for varying requests. (NotNull)
+#if ($table.hasOptimisticLock())
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+#else
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+#end
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void varyingUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, WritableOptionCall<${myConditionBeanClassName}, UpdateOption<${myConditionBeanClassName}>> opLambda) {
+        doUpdate(${myEntityVariableName}, createUpdateOption(opLambda));
+    }
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Update the entity with varying requests non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl) <br>
+     * For example, self(selfCalculationSpecification), specify(updateColumnSpecification), disableCommonColumnAutoSetup(). <br>
+     * Other specifications are same as updateNonstrict(entity).
+     * <pre>
+     * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * ${myEntityVariableName}.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * ${myEntityVariableName}.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
+     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">varyingUpdateNonstrict</span>(${myEntityVariableName}, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">op</span>.self(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">columnXxxCount()</span>;
+     *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
+     * });
+     * </pre>
+     * @param ${myEntityVariableName} The entity of update. (NotNull, PrimaryKeyNotNull)
+     * @param opLambda The callback for option of update for varying requests. (NotNull)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void varyingUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, WritableOptionCall<${myConditionBeanClassName}, UpdateOption<${myConditionBeanClassName}>> opLambda) {
+        doUpdateNonstrict(${myEntityVariableName}, createUpdateOption(opLambda));
+    }
+#end
+
+    /**
+     * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br>
+     * Other specifications are same as insertOrUpdate(entity).
+     * @param ${myEntityVariableName} The entity of insert or update. (NotNull)
+     * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
+     * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
+#if ($table.hasOptimisticLock())
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+#else
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+#end
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void varyingInsertOrUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, WritableOptionCall<${myConditionBeanClassName}, InsertOption<${myConditionBeanClassName}>> insertOpLambda, WritableOptionCall<${myConditionBeanClassName}, UpdateOption<${myConditionBeanClassName}>> updateOpLambda) {
+        doInsertOrUpdate(${myEntityVariableName}, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
+    }
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Insert or update the entity with varying requests non-strictly. (NonExclusiveControl: when update) <br>
+     * Other specifications are same as insertOrUpdateNonstrict(entity).
+     * @param ${myEntityVariableName} The entity of insert or update. (NotNull)
+     * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
+     * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     */
+    public void varyingInsertOrUpdateNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, WritableOptionCall<${myConditionBeanClassName}, InsertOption<${myConditionBeanClassName}>> insertOpLambda, WritableOptionCall<${myConditionBeanClassName}, UpdateOption<${myConditionBeanClassName}>> updateOpLambda) {
+        doInsertOrUpdateNonstrict(${myEntityVariableName}, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
+    }
+#end
+
+    /**
+#if ($table.hasOptimisticLock())
+     * Delete the entity with varying requests. (ZeroUpdateException, ExclusiveControl) <br>
+#else
+     * Delete the entity with varying requests. (ZeroUpdateException, NonExclusiveControl) <br>
+#end
+     * Now a valid option does not exist. <br>
+     * Other specifications are same as delete(entity).
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+     * @param opLambda The callback for option of delete for varying requests. (NotNull)
+#if ($table.hasOptimisticLock())
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+#else
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+#end
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     */
+    public void varyingDelete(${myExtendedObjectClassName} ${myEntityVariableName}, WritableOptionCall<${myConditionBeanClassName}, DeleteOption<${myConditionBeanClassName}>> opLambda) {
+        doDelete(${myEntityVariableName}, createDeleteOption(opLambda));
+    }
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Delete the entity with varying requests non-strictly. (ZeroUpdateException, NonExclusiveControl) <br>
+     * Now a valid option does not exist. <br>
+     * Other specifications are same as deleteNonstrict(entity).
+     * @param ${myEntityVariableName} The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+     * @param opLambda The callback for option of delete for varying requests. (NotNull)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     */
+    public void varyingDeleteNonstrict(${myExtendedObjectClassName} ${myEntityVariableName}, WritableOptionCall<${myConditionBeanClassName}, DeleteOption<${myConditionBeanClassName}>> opLambda) {
+        doDeleteNonstrict(${myEntityVariableName}, createDeleteOption(opLambda));
+    }
+#end
+
+    // -----------------------------------------------------
+    //                                          Batch Update
+    //                                          ------------
+    /**
+     * Batch-insert the list with varying requests. <br>
+     * For example, disableCommonColumnAutoSetup()
+     * , disablePrimaryKeyIdentity(), limitBatchInsertLogging(). <br>
+     * Other specifications are same as batchInsert(entityList).
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param opLambda The callback for option of insert for varying requests. (NotNull)
+     * @return The array of updated count. (NotNull, EmptyAllowed)
+     */
+    public int[] varyingBatchInsert(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, WritableOptionCall<${myConditionBeanClassName}, InsertOption<${myConditionBeanClassName}>> opLambda) {
+        return doBatchInsert(${myEntityListVariableName}, createInsertOption(opLambda));
+    }
+
+    /**
+     * Batch-update the list with varying requests. <br>
+     * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
+     * , disableCommonColumnAutoSetup(), limitBatchUpdateLogging(). <br>
+     * Other specifications are same as batchUpdate(entityList).
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param opLambda The callback for option of update for varying requests. (NotNull)
+     * @return The array of updated count. (NotNull, EmptyAllowed)
+     */
+    public int[] varyingBatchUpdate(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, WritableOptionCall<${myConditionBeanClassName}, UpdateOption<${myConditionBeanClassName}>> opLambda) {
+        return doBatchUpdate(${myEntityListVariableName}, createUpdateOption(opLambda));
+    }
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Batch-update the list with varying requests non-strictly. <br>
+     * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
+     * , disableCommonColumnAutoSetup(), limitBatchUpdateLogging(). <br>
+     * Other specifications are same as batchUpdateNonstrict(entityList).
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param opLambda The callback for option of update for varying requests. (NotNull)
+     * @return The array of updated count. (NotNull, EmptyAllowed)
+     */
+    public int[] varyingBatchUpdateNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, WritableOptionCall<${myConditionBeanClassName}, UpdateOption<${myConditionBeanClassName}>> opLambda) {
+        return doBatchUpdateNonstrict(${myEntityListVariableName}, createUpdateOption(opLambda));
+    }
+#end
+
+    /**
+     * Batch-delete the list with varying requests. <br>
+     * For example, limitBatchDeleteLogging(). <br>
+     * Other specifications are same as batchDelete(entityList).
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param opLambda The callback for option of delete for varying requests. (NotNull)
+     * @return The array of deleted count. (NotNull, EmptyAllowed)
+     */
+    public int[] varyingBatchDelete(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, WritableOptionCall<${myConditionBeanClassName}, DeleteOption<${myConditionBeanClassName}>> opLambda) {
+        return doBatchDelete(${myEntityListVariableName}, createDeleteOption(opLambda));
+    }
+#if ($table.hasOptimisticLock())
+
+    /**
+     * Batch-delete the list with varying requests non-strictly. <br>
+     * For example, limitBatchDeleteLogging(). <br>
+     * Other specifications are same as batchDeleteNonstrict(entityList).
+     * @param ${myEntityListVariableName} The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param opLambda The callback for option of delete for varying requests. (NotNull)
+     * @return The array of deleted count. (NotNull, EmptyAllowed)
+     */
+    public int[] varyingBatchDeleteNonstrict(List<${myExtendedObjectClassName}> ${myEntityListVariableName}, WritableOptionCall<${myConditionBeanClassName}, DeleteOption<${myConditionBeanClassName}>> opLambda) {
+        return doBatchDeleteNonstrict(${myEntityListVariableName}, createDeleteOption(opLambda));
+    }
+#end
+
+    // -----------------------------------------------------
+    //                                          Query Update
+    //                                          ------------
+    /**
+     * Insert the several entities by query with varying requests (modified-only for fixed value). <br>
+     * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br>
+     * Other specifications are same as queryInsert(entity, setupper).
+     * @param manyArgLambda The set-upper of query-insert. (NotNull)
+     * @param opLambda The callback for option of insert for varying requests. (NotNull)
+     * @return The inserted count.
+     */
+    public int varyingQueryInsert(QueryInsertSetupper<${myExtendedObjectClassName}, ${myConditionBeanClassName}> manyArgLambda, WritableOptionCall<${myConditionBeanClassName}, InsertOption<${myConditionBeanClassName}>> opLambda) {
+        return doQueryInsert(manyArgLambda, createInsertOption(opLambda));
+    }
+#if ($table.isMakeCallbackConditionBeanSetup())
+
+    /**
+     * Update the several entities by query with varying requests non-strictly modified-only. {NonExclusiveControl} <br>
+     * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
+     * , disableCommonColumnAutoSetup(), allowNonQueryUpdate(). <br>
+     * Other specifications are same as queryUpdate(entity, cb).
+     * <pre>
+     * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * <span style="color: #3F7E5E">// you don't need to set PK value</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setPK...(value);</span>
+     * ${myEntityVariableName}.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
+     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(${myEntityVariableName}, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().setFoo...
+     * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">op</span>.self(<span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">colCB</span>.specify().<span style="color: #CC4747">columnFooCount()</span>;
+     *     }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
+     * });
+     * </pre>
+     * @param ${myEntityVariableName} The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @param opLambda The callback for option of update for varying requests. (NotNull)
+     * @return The updated count.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     */
+    public int varyingQueryUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, CBCall<${myConditionBeanClassName}> cbLambda, WritableOptionCall<${myConditionBeanClassName}, UpdateOption<${myConditionBeanClassName}>> opLambda) {
+        return doQueryUpdate(${myEntityVariableName}, createCB(cbLambda), createUpdateOption(opLambda));
+    }
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+
+    /**
+     * Update the several entities by query with varying requests non-strictly modified-only. {NonExclusiveControl} <br>
+     * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
+     * , disableCommonColumnAutoSetup(), allowNonQueryUpdate(). <br>
+     * Other specifications are same as queryUpdate(entity, cb).
+     * <pre>
+     * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = <span style="color: #70226C">new</span> ${myExtendedObjectClassName}();
+     * <span style="color: #3F7E5E">// you don't need to set PK value</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setPK...(value);</span>
+     * ${myEntityVariableName}.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
+     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
+     * <span style="color: #3F7E5E">//${myEntityVariableName}.setVersionNo(value);</span>
+     * ${myConditionBeanClassName} cb = <span style="color: #70226C">new</span> ${myConditionBeanClassName}();
+     * cb.query().setFoo...(value);
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(${myEntityVariableName}, cb, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">op</span>.self(<span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">colCB</span>.specify().<span style="color: #CC4747">columnFooCount()</span>;
+     *     }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
+     * });
+     * </pre>
+     * @param ${myEntityVariableName} The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @param opLambda The callback for option of update for varying requests. (NotNull)
+     * @return The updated count.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     */
+    public int varyingQueryUpdate(${myExtendedObjectClassName} ${myEntityVariableName}, ${myConditionBeanClassName} cb, WritableOptionCall<${myConditionBeanClassName}, UpdateOption<${myConditionBeanClassName}>> opLambda) {
+        return doQueryUpdate(${myEntityVariableName}, cb, createUpdateOption(opLambda));
+    }
+#end
+#if ($table.isMakeCallbackConditionBeanSetup())
+
+    /**
+     * Delete the several entities by query with varying requests non-strictly. <br>
+     * For example, allowNonQueryDelete(). <br>
+     * Other specifications are same as queryDelete(cb).
+     * <pre>
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">queryDelete</span>(${myEntityVariableName}, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().setFoo...
+     * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">op</span>...
+     * });
+     * </pre>
+     * @param cbLambda The callback for condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @param opLambda The callback for option of delete for varying requests. (NotNull)
+     * @return The deleted count.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     */
+    public int varyingQueryDelete(CBCall<${myConditionBeanClassName}> cbLambda, WritableOptionCall<${myConditionBeanClassName}, DeleteOption<${myConditionBeanClassName}>> opLambda) {
+        return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));
+    }
+#end
+#if ($table.isMakeDirectConditionBeanSetup())
+
+    /**
+     * Delete the several entities by query with varying requests non-strictly. <br>
+     * For example, allowNonQueryDelete(). <br>
+     * Other specifications are same as queryDelete(cb).
+     * @param cb The condition-bean of ${myExtendedObjectClassName}. (NotNull)
+     * @param opLambda The callback for option of delete for varying requests. (NotNull)
+     * @return The deleted count.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     */
+    public int varyingQueryDelete(${myConditionBeanClassName} cb, WritableOptionCall<${myConditionBeanClassName}, DeleteOption<${myConditionBeanClassName}>> opLambda) {
+        return doQueryDelete(cb, createDeleteOption(opLambda));
+    }
+#end
+#if ($database.isZeroUpdateCheckExistenceForPassing())
+
+    // ===================================================================================
+    //                                                                 Delegate to Command
+    //                                                                 ===================
+    // -----------------------------------------------------
+    //                                         Entity Update
+    //                                         -------------
+    @Override
+    protected int delegateUpdate(Entity entity, UpdateOption<? extends ConditionBean> option) {
+        // ignore optimistic lock failure because optimistic lock column is
+        // always updated so 'changed' count cannot be zero, means no problem
+        // and possible twice check but ignore it because of very rare case
+        int result = super.delegateUpdate(entity, option);
+        return checkZeroUpdateExistence(entity, result);
+    }
+
+    @Override
+    protected int delegateUpdateNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
+        int result = super.delegateUpdateNonstrict(entity, option);
+        return checkZeroUpdateExistence(entity, result);
+    }
+
+    protected int checkZeroUpdateExistence(Entity entity, int result) {
+        if (result == 0) {
+            boolean hasPK = entity.hasPrimaryKeyValue();
+            java.util.Set<String> uniqueProps = entity.myuniqueDrivenProperties();
+            if (hasPK || !uniqueProps.isEmpty()) { // basically true (but no check)
+                int count = countZeroUpdateExistence(entity, hasPK, uniqueProps);
+                return count > 0 ? 1 : 0; // success(1) means that the update has zero changed
+            }
+        }
+        return result;
+    }
+
+    protected int countZeroUpdateExistence(Entity entity, boolean hasPK, java.util.Set<String> uniqueProps) {
+        return selectCount(cb -> {
+            if (hasPK) {
+                cb.acceptPrimaryKeyMap(asDBMeta().extractPrimaryKeyMap(entity));
+            } else {
+                for (String uq : uniqueProps) {
+                    cb.query().invokeQueryEqual(uq, asDBMeta().findColumnInfo(uq).read(entity));
+                }
+            }
+        });
+    }
+#end
+#else
+#if ($table.isAvailableNonPrimaryKeyWritable())
+
+    // ===================================================================================
+    //                                                                       Entity Update
+    //                                                                       =============
+    /**
+     * Insert the entity for a table not defined primary key. <br>
+     * The auto-setup for common columns is unsupported.
+     * <pre>
+     * ${myExtendedObjectClassName} ${myEntityVariableName} = new ${myExtendedObjectClassName}();
+     * ${myEntityVariableName}.setFoo...(value);
+     * ${myEntityVariableName}.setBar...(value);
+     * <span style="color: #0000C0">${myEntityVariableName}Bhv</span>.<span style="color: #CC4747">insert</span>(${myEntityVariableName});
+     * </pre>
+     * @param ${myEntityVariableName} The entity for insert. (NotNull)
+     */
+    public void insert(${myExtendedObjectClassName} ${myEntityVariableName}) {
+        assertObjectNotNull("${myEntityVariableName}", ${myEntityVariableName});
+        delegateInsertNoPK(${myEntityVariableName}, null);
+    }
+#end
+#end
+
+    // ===================================================================================
+    //                                                                          OutsideSql
+    //                                                                          ==========
+    /**
+     * Prepare the all facade executor of outside-SQL to execute it.
+     * <pre>
+     * <span style="color: #3F7E5E">// main style</span>
+     * ${myEntityVariableName}Bhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span>
+     * ${myEntityVariableName}Bhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * ${myEntityVariableName}Bhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
+     * ${myEntityVariableName}Bhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * ${myEntityVariableName}Bhv.outideSql().selectCursor(pmb, handler); <span style="color: #3F7E5E">// (by handler)</span>
+     * ${myEntityVariableName}Bhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
+     * ${myEntityVariableName}Bhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
+     *
+     * <span style="color: #3F7E5E">// traditional style</span>
+     * ${myEntityVariableName}Bhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
+     * ${myEntityVariableName}Bhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
+     * ${myEntityVariableName}Bhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
+     * ${myEntityVariableName}Bhv.outideSql().traditionalStyle().selectPagedListOnly(path, pmb, entityType);
+     * ${myEntityVariableName}Bhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
+     * ${myEntityVariableName}Bhv.outideSql().traditionalStyle().execute(path, pmb);
+     *
+     * <span style="color: #3F7E5E">// options</span>
+     * ${myEntityVariableName}Bhv.outideSql().removeBlockComment().selectList()
+     * ${myEntityVariableName}Bhv.outideSql().removeLineComment().selectList()
+     * ${myEntityVariableName}Bhv.outideSql().formatSql().selectList()
+     * </pre>
+     * <p>The invoker of behavior command should be not null when you call this method.</p>
+     * @return The new-created all facade executor of outside-SQL. (NotNull)
+     */
+#if ($table.isCompatibleOutsideSqlFacadeChainOldStyle())
+    public OutsideSqlBasicExecutor<${myExtendedBhvClassName}> outsideSql() {
+        OutsideSqlAllFacadeExecutor<${myExtendedBhvClassName}> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
+    }
+#else
+    public OutsideSqlAllFacadeExecutor<${myExtendedBhvClassName}> outsideSql() {
+        return doOutsideSql();
+    }
+#end
+#if ($table.isDatetimePrecisionTruncationOfUpdatedEntity())
+
+    // ===================================================================================
+    //                                                           Framework Filter Override
+    //                                                           =========================
+    @Override
+    protected void frameworkFilterEntityOfInsert(Entity entity, org.dbflute.optional.OptionalThing<InsertOption<? extends ConditionBean>> option) {
+        super.frameworkFilterEntityOfInsert(entity, option);
+        new DateUpdateAdjuster().truncatePrecisionOfEntityProperty(entity);
+    }
+#if ($table.isWritable())
+
+    @Override
+    protected void frameworkFilterEntityOfUpdate(Entity entity, org.dbflute.optional.OptionalThing<UpdateOption<? extends ConditionBean>> option) {
+        super.frameworkFilterEntityOfUpdate(entity, option);
+        new DateUpdateAdjuster().truncatePrecisionOfEntityProperty(entity);
+    }
+#end
+#end
+#if ($table.hasBehaviorFilterBeforeColumn())
+
+    // ===================================================================================
+    //                                                                     Filter Override
+    //                                                                     ===============
+#if ($table.hasBehaviorFilterBeforeInsertColumn())
+    @Override
+    protected void filterEntityOfInsert(Entity tgt, org.dbflute.optional.OptionalThing<InsertOption<? extends ConditionBean>> op) {
+        super.filterEntityOfInsert(tgt, op);
+        ${myExtendedObjectClassName} et = downcast(tgt);
+#foreach ($column in $table.behaviorFilterBeforeInsertColumnList)
+        et.set${column.javaName}(${column.behaviorFilterBeforeInsertColumnExpression});
+#end
+    }
+#end
+#if ($table.isWritable())
+#if ($table.hasBehaviorFilterBeforeUpdateColumn())
+    @Override
+    protected void filterEntityOfUpdate(Entity tgt, org.dbflute.optional.OptionalThing<UpdateOption<? extends ConditionBean>> op) {
+        super.filterEntityOfUpdate(tgt, op);
+        ${myExtendedObjectClassName} et = downcast(tgt);
+#foreach ($column in $table.behaviorFilterBeforeUpdateColumnList)
+        et.set${column.javaName}(${column.behaviorFilterBeforeUpdateColumnExpression});
+#end
+    }
+#end
+#end
+#end
+
+#if ($table.hasOptimisticLock())
+    // ===================================================================================
+    //                                                                Optimistic Lock Info
+    //                                                                ====================
+#if ($table.isUseVersionNo() && $table.isVersionNoHasValueMethodValid())
+    @Override
+    protected boolean hasVersionNoValue(Entity et) { return downcast(et).get${table.versionNoJavaName}() != null; }
+
+#end
+#if ($table.isUseUpdateDate())
+    @Override
+    protected boolean hasUpdateDateValue(Entity et) { return downcast(et).get${table.updateDateJavaName}() != null; }
+
+#end
+#end
+    // ===================================================================================
+    //                                                                         Type Helper
+    //                                                                         ===========
+    protected Class<? extends ${myExtendedObjectClassName}> typeOfSelectedEntity() { return ${myExtendedObjectClassName}.class; }
+    protected Class<${myExtendedObjectClassName}> typeOfHandlingEntity() { return ${myExtendedObjectClassName}.class; }
+    protected Class<${myConditionBeanClassName}> typeOfHandlingConditionBean() { return ${myConditionBeanClassName}.class; }
+#if ($database.needsBehaviorSpringAutowired())
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    @Override
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("${database.behaviorCommandInvokerComponentName}")
+    public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
+        super.setBehaviorCommandInvoker(behaviorCommandInvoker);
+    }
+
+    @Override
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("${database.behaviorSelectorComponentName}")
+    public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
+        super.setBehaviorSelector(behaviorSelector);
+    }
+#if ($table.isWritable())
+
+    @Override
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("${database.commonColumnAutoSetupperComponentName}")
+    public void setCommonColumnAutoSetupper(CommonColumnAutoSetupper commonColumnAutoSetupper) {
+        super.setCommonColumnAutoSetupper(commonColumnAutoSetupper);
+    }
+#end
+#end
+}
