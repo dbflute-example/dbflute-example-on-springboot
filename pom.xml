@@ -20,7 +20,7 @@
 	<inceptionYear>2014</inceptionYear>
 
 	<properties>
-		<dbflute.version>1.2.7</dbflute.version>
+		<dbflute.version>1.2.8</dbflute.version>
 		<!-- Spring Bootのバージョンはparentでまとめて指定する -->
 		<utflute.version>0.9.6</utflute.version>
 	</properties>
