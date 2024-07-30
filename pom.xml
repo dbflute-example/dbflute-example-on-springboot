@@ -22,7 +22,7 @@
 	<properties>
 		<dbflute.version>1.2.7</dbflute.version>
 		<!-- Spring Bootのバージョンはparentでまとめて指定する -->
-		<utflute.version>0.9.6</utflute.version>
+		<utflute.version>0.9.8</utflute.version>
 	</properties>
 
 	<licenses>
